@@ -35,10 +35,13 @@ iff, setAttr, ? can also come from observations.
         "lhs": {"observe": "[-lhs]", "on":"value-changed", "value-from-target": "value"},
         "?": "===",
         "rhs": {"observe": "[-rhs]", "on":"value-changed", "value-from-target": "value"},
-        "andIff":{
-            "isViewable": ["header", "footer"],
-            "mediaMatches": ["screen and (min-width: 1975px)"]
-        }
+        "andMediaMatches": "screen and (min-width: 1975px)",
+        "beginSelector": ">header",
+        "endSelector": ">footer",
+        "lazyLoad": true,
+        "lazyDelay": 50,
+        "toggleDisabled": true,
+        "templateSelector": "template"
     }'>
         <header>
             <template>
@@ -46,24 +49,31 @@ iff, setAttr, ? can also come from observations.
             </template>
         </header>
 
-        <template>
-            <nav>
-                <!-- Navigation -->
-            </nav>
+        
+        <nav>
+            <template>
+            <!-- Navigation -->
+            <template>
+        </nav>
 
-            <main>
-                <!-- Main content -->
-            </main>
+        <main>
+            <template>
+            <!-- Main content -->
+            </template>
+        </main>
 
-            <aside>
-                <!-- Sidebar / Ads -->
-            </aside>        
-        </template>
+        <aside>
+            <template>
+            <!-- Sidebar / Ads -->
+            </template>
+        </aside>        
 
 
 
         <footer>
-            <!-- Footer content -->
+            <template>
+                <!-- Footer content -->
+            </template>
         </footer>
     </div>
 </ways-of-science>
