@@ -1,8 +1,28 @@
 {
   "name": "be-switched",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "custom-element",
+    "custom-elements",
+    "template",
+    "bind",
+    "observe",
+    "conditional"
+  ],
+  "description": "be-switched is a template behavior that lazy loads content when conditions are met.",
+  "main": "be-switched.js",
+  "module": "be-switched.js",
+  "exports": {
+    ".": "./be-switched.js",
+    "./be-switched.js": "./be-switched.js"
+  },
+  "files": [
+    "be*.*",
+    "types.d.ts"
+  ],
+  "types": "types.d.ts",
   "dependencies": {
     "be-observant": "0.0.15",
     "xtal-decor": "0.0.52",
@@ -23,7 +43,7 @@
     "type": "git",
     "url": "git+https://github.com/bahrus/be-switched.git"
   },
-  "author": "",
+  "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bahrus/be-switched/issues"

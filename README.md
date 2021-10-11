@@ -1,5 +1,7 @@
 # be-switched 
 
+*be-switched* is a template behavior that lazy loads content when conditions are met.
+
 ```html
 <ways-of-science>
     <largest-scale -lhs>
@@ -16,7 +18,16 @@
     }'><div>A witch!</div></template>
 </ways-of-science>
 ```
-iff, op can also come from observations [TODO]
+
+If the be-switched attribute is applied to a DOM node outside any ShadowDOM, then the template will lazy load when the conditions are satisfied.
+
+To use inside a ShadowDOM realm, an instance of the be-switched web component must be placed somewhere inside.
+
+To use fully compliant HTML5 syntax, use data-be-switched instead of be-switched.
+
+The syntax for binding the lhs and rhs of the expressions to other DOM nodes within the ShadowRealm, or to the host container, follows the same pattern / syntax used by [be-observant](https://github.com/bahrus/be-observant).
+
+iff can also come from observing other elements.
 
 ## Compatibility with server-side-rendering
 

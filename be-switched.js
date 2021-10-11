@@ -9,7 +9,7 @@ const ce = new CE({
             upgrade: 'template',
             ifWantsToBe: 'switched',
             forceVisible: true,
-            virtualProps: ['eventHandlers', 'iff', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 'val', 'echoVal', 'hiddenStyle']
+            virtualProps: ['eventHandlers', 'iff', 'iffVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 'val', 'echoVal', 'hiddenStyle']
         }
     },
     complexPropDefaults: {
@@ -44,8 +44,23 @@ const ce = new CE({
                         self.rhsVal = rhs;
                 }
             },
-            ({ iff, lhsVal, rhsVal, op, self }) => {
-                if (!iff) {
+            ({ iff, self }) => {
+                switch (typeof iff) {
+                    case 'object':
+                        const observeParams = iff;
+                        const elementToObserve = getElementToObserve(self, observeParams);
+                        if (elementToObserve === null) {
+                            console.warn({ msg: '404', observeParams });
+                            return;
+                        }
+                        addListener(elementToObserve, observeParams, 'iffVal', self);
+                        break;
+                    default:
+                        self.iffVal = iff;
+                }
+            },
+            ({ iffVal, lhsVal, rhsVal, op, self }) => {
+                if (!iffVal) {
                     self.val = false;
                     return;
                 }
@@ -104,6 +119,10 @@ const ce = new CE({
         init: (self, decor) => {
         },
         finale: (self, target) => {
+            const eventHandlers = self.eventHandlers;
+            for (const eh of eventHandlers) {
+                eh.elementToObserve.removeEventListener(eh.onz, eh.fn);
+            }
         }
     },
     superclass: XtalDecor
