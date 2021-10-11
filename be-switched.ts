@@ -14,17 +14,35 @@ const ce = new CE<XtalDecorCore<Element>>({
         propDefaults:{
             upgrade: '*',
             ifWantsToBe: 'switched',
-            noParse: true,
             forceVisible: true,
-            virtualProps: ['eventHandlers']
+            virtualProps: ['eventHandlers', 'iff', 'lhs', '?', 'rhs', 'lhsVal', 'rhsVal', 'val', 'echoVal']
         }
     },
     complexPropDefaults: {
-        actions:[],
+        actions:[
+            ({lhs, self}) => {
+                console.log(self.lhs);
+            },
+            ({iff, self}) => {
+                self.val = iff;
+            },
+            ({val, self}) => {
+                setTimeout(() => {
+                    self.echoVal = val;
+                }, 5000)
+            },
+            ({val, echoVal, self}) => {
+                if(val !== echoVal) return;
+                if(val){
+                    const docFrag = self.content.cloneNode(true);
+                    document.body.appendChild(docFrag);
+                }
+            }
+        ],
         on:{},
-        init: (self: Element, decor: XtalDecorProps<Element>) => {
-            const params = JSON.parse(self.getAttribute('is-' + decor.ifWantsToBe!)!);
-            console.log(params);
+        init: (self: any, decor: XtalDecorProps<Element>) => {
+            //const params = JSON.parse(self.getAttribute('is-' + decor.ifWantsToBe!)!);
+            console.log(self.iff);
         },
         finale: (self: Element, target: Element) => {
 
@@ -33,3 +51,5 @@ const ce = new CE<XtalDecorCore<Element>>({
     superclass: XtalDecor
 });
 document.head.appendChild(document.createElement('be-switched'));
+
+

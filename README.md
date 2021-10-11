@@ -11,7 +11,7 @@
     <div hidden be-switched='{
         "iff": true,
         "lhs": {"observe": "[-lhs]", "vft": true},
-        "?": "===",
+        "?": true,
         "rhs": {"observe": "[-rhs]", "vft": true},
         "setAttr": "hidden"
     }'>A witch!</div>
