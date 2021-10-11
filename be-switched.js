@@ -6,7 +6,7 @@ const ce = new CE({
     config: {
         tagName: 'be-switched',
         propDefaults: {
-            upgrade: '*',
+            upgrade: 'template',
             ifWantsToBe: 'switched',
             forceVisible: true,
             virtualProps: ['eventHandlers', 'iff', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 'val', 'echoVal', 'hiddenStyle']
@@ -45,12 +45,10 @@ const ce = new CE({
                 }
             },
             ({ iff, lhsVal, rhsVal, op, self }) => {
-                console.log({ iff, lhsVal, rhsVal });
                 if (!iff) {
                     self.val = false;
                     return;
                 }
-                console.log({ op });
                 if (op === undefined) {
                     self.val = true;
                     return;
@@ -66,12 +64,11 @@ const ce = new CE({
                     if (self.echoVal !== self.val) {
                         self.echoVal = self.val;
                     }
-                }, 5000);
+                }, 16);
             },
             ({ val, echoVal, self }) => {
                 if (val !== echoVal)
                     return;
-                console.log({ val });
                 if (val) {
                     if (self.dataset.cnt === undefined) {
                         const appendedChildren = insertAdjacentTemplate(self, self, 'afterend');
@@ -85,6 +82,7 @@ const ce = new CE({
                         while (nextSib && idx < cnt) {
                             nextSib = nextSib.nextElementSibling;
                             nextSib.classList.remove('be-switched-hide');
+                            idx++;
                         }
                     }
                 }
@@ -96,6 +94,7 @@ const ce = new CE({
                         while (nextSib && idx < cnt) {
                             nextSib = nextSib.nextElementSibling;
                             nextSib.classList.add('be-switched-hide');
+                            idx++;
                         }
                     }
                 }
@@ -103,8 +102,6 @@ const ce = new CE({
         ],
         on: {},
         init: (self, decor) => {
-            //const params = JSON.parse(self.getAttribute('is-' + decor.ifWantsToBe!)!);
-            console.log(self.iff);
         },
         finale: (self, target) => {
         }
