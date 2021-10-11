@@ -6,6 +6,7 @@ import { IObserve } from 'be-observant/types';
 import { convert, getProp, splitExt } from 'on-to-me/prop-mixin.js';
 import { structuralClone } from 'trans-render/lib/structuralClone.js';
 import { upSearch } from 'trans-render/lib/upSearch.js';
+import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
 //import {getElementToObserve} from 'be-observant/be-observant.js';
 
 const ce = new CE<XtalDecorCore<Element>>({
@@ -34,8 +35,11 @@ const ce = new CE<XtalDecorCore<Element>>({
             ({val, echoVal, self}) => {
                 if(val !== echoVal) return;
                 if(val){
-                    const docFrag = self.content.cloneNode(true);
-                    document.body.appendChild(docFrag);
+                    if(self.dataset.cnt === undefined){
+                        const appendedChildren = insertAdjacentTemplate(self, self, 'afterend');
+                        self.dataset.cnt = appendedChildren.length.toString();
+                    }
+                    
                 }
             }
         ],

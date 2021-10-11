@@ -1,5 +1,6 @@
 import { XtalDecor } from 'xtal-decor/xtal-decor.js';
 import { CE } from 'trans-render/lib/CE.js';
+import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
 //import {getElementToObserve} from 'be-observant/be-observant.js';
 const ce = new CE({
     config: {
@@ -28,8 +29,10 @@ const ce = new CE({
                 if (val !== echoVal)
                     return;
                 if (val) {
-                    const docFrag = self.content.cloneNode(true);
-                    document.body.appendChild(docFrag);
+                    if (self.dataset.cnt === undefined) {
+                        const appendedChildren = insertAdjacentTemplate(self, self, 'afterend');
+                        self.dataset.cnt = appendedChildren.length.toString();
+                    }
                 }
             }
         ],
