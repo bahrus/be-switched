@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "be-observant": "0.0.14",
+    "xtal-decor": "0.0.52",
+    "trans-render": "0.0.419"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

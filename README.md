@@ -10,9 +10,9 @@
     </largest-scale>
     <div hidden be-switched='{
         "iff": true,
-        "lhs": {"observe": "[-lhs]", "on":"value-changed", "value-from-target": "value"},
+        "lhs": {"observe": "[-lhs]", "vft": true},
         "?": "===",
-        "rhs": {"observe": "[-rhs]", "on":"value-changed", "value-from-target": "value"},
+        "rhs": {"observe": "[-rhs]", "vft": true},
         "setAttr": "hidden"
     }'>A witch!</div>
 </ways-of-science>
@@ -32,9 +32,9 @@ iff, setAttr, ? can also come from observations.
     </largest-scale>
     <div class="container" be-switched='{
         "iff": true,
-        "lhs": {"observe": "[-lhs]", "on":"value-changed", "value-from-target": "value"},
+        "lhs": {"observe": "[-lhs]", "vft": true},
         "?": "===",
-        "rhs": {"observe": "[-rhs]", "on":"value-changed", "value-from-target": "value"},
+        "rhs": {"observe": "[-rhs]", "vft": true},
         "andMediaMatches": "screen and (min-width: 1975px)",
         "beginSelector": ">header",
         "endSelector": ">footer",

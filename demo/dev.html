@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for=lhs>LHS:</label>
+    <input id=lhs>
+    <label for=rhs>RHS:</label>
+    <input id=rhs>
+    <template be-switched='{
+        "iff": true,
+        "lhs": {"observe": "#lhs", "on": "input", "vft": "value"},
+        "?": "===",
+        "rhs": {"observe": "#rhs", "on": "input", "vft": "value"}
+    }'>
+        <div>LHS === RHS</div>
+    </template>
+</body>
+</html>
