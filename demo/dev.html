@@ -14,7 +14,7 @@
     <template be-switched='{
         "iff": true,
         "lhs": {"observe": "#lhs", "on": "input", "vft": "value"},
-        "?": "===",
+        "op": "===",
         "rhs": {"observe": "#rhs", "on": "input", "vft": "value"}
     }'>
         <div>LHS === RHS</div>
@@ -26,7 +26,8 @@
                 "trans-render/": "../node_modules/trans-render/",
                 "xtal-element/": "../node_modules/xtal-element/",
                 "xtal-decor/": "../node_modules/xtal-decor/",
-                "on-to-me/": "../node_modules/on-to-me/"
+                "on-to-me/": "../node_modules/on-to-me/",
+                "be-observant/": "../node_modules/be-observant/"
             }
         }
     </script>

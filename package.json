@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "be-observant": "0.0.14",
+    "be-observant": "0.0.15",
     "xtal-decor": "0.0.52",
     "trans-render": "0.0.419"
   },
