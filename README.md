@@ -1,4 +1,4 @@
-# be-switched [TODO]
+# be-switched 
 
 ```html
 <ways-of-science>
@@ -16,10 +16,27 @@
     }'><div>A witch!</div></template>
 </ways-of-science>
 ```
+iff, op can also come from observations [TODO]
 
-iff, setAttr, ? can also come from observations.
+## Compatibility with server-side-rendering
 
-## With Holy Grail layout, lazy loading
+*be-switched* is compatible with server-side-rendering if the following approach is used:
+
+If during the time the SSR is taking place, the desire is not to display the content, but rely on the client to lazy load when conditions warrant, then the syntax above is exactly what the SSR should generate.
+
+If, however, the content should display initially, but we want the client-side JavaScript to be able to hide / disable the content when conditions in the browser change, the server should render the contents adjacent to the template, and provide an indicator, data-cnt, that specifies how many elements below the template are managed by the be-switched directive / decorator / behavior.
+
+```html
+<template  data-cnt=1 be-switched='{
+    "iff": true,
+    "lhs": {"observe": "[-lhs]", "vft": true},
+    "op": "===",
+    "rhs": {"observe": "[-rhs]", "vft": true},
+}'></template>
+<div>A witch!</div>
+```
+
+## With Holy Grail layout, lazy loading [TODO]
 
 ```html
 <ways-of-science>
