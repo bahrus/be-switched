@@ -19,5 +19,20 @@
     }'>
         <div>LHS === RHS</div>
     </template>
+
+    <script type=importmap>
+        {
+            "imports": {
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/",
+                "xtal-decor/": "../node_modules/xtal-decor/",
+                "on-to-me/": "../node_modules/on-to-me/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../be-switched.js';
+        
+    </script>
 </body>
 </html>

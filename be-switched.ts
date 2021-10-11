@@ -32,3 +32,4 @@ const ce = new CE<XtalDecorCore<Element>>({
     },
     superclass: XtalDecor
 });
+document.head.appendChild(document.createElement('be-switched'));

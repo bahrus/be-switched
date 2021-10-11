@@ -24,3 +24,4 @@ const ce = new CE({
     },
     superclass: XtalDecor
 });
+document.head.appendChild(document.createElement('be-switched'));
