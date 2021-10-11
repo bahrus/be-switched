@@ -36,6 +36,21 @@ const ce = new CE<XtalDecorCore<Element>>({
                         self.lhsVal = lhs;
                 }
             },
+            ({rhs, self}) => {
+                switch(typeof rhs){
+                    case 'object':
+                        const observeParams = rhs as IObserve;
+                        const elementToObserve = getElementToObserve(self, observeParams);
+                        if(elementToObserve === null){
+                            console.warn({msg:'404',observeParams});
+                            return;
+                        }
+                        addListener(elementToObserve, observeParams, 'rhsVal', self);
+                        break;
+                    default:
+                        self.rhsVal = rhs;
+                }                
+            },
             ({iff, lhsVal, rhsVal, op, self}) => {
                 console.log({iff, lhsVal, rhsVal});
                 if(!iff){
@@ -55,8 +70,8 @@ const ce = new CE<XtalDecorCore<Element>>({
             },
             ({val, self}) => {
                 setTimeout(() => {
-                    if(self.echoVal !== val){
-                        self.echoVal = val;
+                    if(self.echoVal !== self.val){
+                        self.echoVal = self.val;
                     }
                 }, 5000)
             },

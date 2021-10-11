@@ -8,13 +8,12 @@
     <largest-scale -rhs>
         <a-duck></a-duck>
     </largest-scale>
-    <div hidden be-switched='{
+    <template be-switched='{
         "iff": true,
         "lhs": {"observe": "[-lhs]", "vft": true},
-        "?": true,
+        "op": "===",
         "rhs": {"observe": "[-rhs]", "vft": true},
-        "setAttr": "hidden"
-    }'>A witch!</div>
+    }'><div>A witch!</div></template>
 </ways-of-science>
 ```
 
