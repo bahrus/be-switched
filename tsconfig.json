@@ -9,7 +9,7 @@
 		"watch": true
 	},
 	"files": [
-		"be-switched.ts"
+		"be-switched2.ts"
 	],
 	"exclude":[
 		"build",
