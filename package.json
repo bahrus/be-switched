@@ -24,7 +24,7 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-observant": "0.0.15",
+    "be-observant": "0.0.16",
     "xtal-decor": "0.0.52",
     "trans-render": "0.0.419",
     "be-decorated": "0.0.12"

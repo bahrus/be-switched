@@ -14,14 +14,16 @@ export interface BeSwitchedVirtualProps{
     hiddenStyle: string,
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
-    proxy: Element & BeSwitchedVirtualProps;
+    proxy: HTMLTemplateElement & BeSwitchedVirtualProps;
 }
 
 export interface BeSwitchedActions{
-    intro(proxy: Element & BeSwitchedVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
-    finale(proxy: Element & BeSwitchedVirtualProps, target:Element, beDecorProps: BeDecoratedProps): void;
+    intro(proxy: HTMLTemplateElement & BeSwitchedVirtualProps, target: HTMLTemplateElement, beDecorProps: BeDecoratedProps): void;
+    finale(proxy: HTMLTemplateElement & BeSwitchedVirtualProps, target: HTMLTemplateElement, beDecorProps: BeDecoratedProps): void;
     onLHS(self: this): void;
     onRHS(self: this): void;
     onIff(self: this): void;
     calcVal(self: this): void;
+    onVal(self: this): void;
+    doMain(self: this): void;
 }
