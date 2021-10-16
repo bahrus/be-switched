@@ -24,15 +24,15 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-observant": "0.0.16",
-    "xtal-decor": "0.0.52",
+    "be-observant": "0.0.17",
     "trans-render": "0.0.419",
     "be-decorated": "0.0.12"
   },
   "devDependencies": {
     "xtal-test": "0.0.51",
     "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.5.5"
+    "@custom-elements-manifest/analyzer": "0.5.5",
+    "xtal-decor": "0.0.52"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
