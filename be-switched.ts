@@ -138,13 +138,13 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
         },
         actions:{
             onLHS:{
-                ifAllOf: ['lhs']
+                ifKeyIn: ['lhs']
             },
             onRHS: {
-                ifAllOf: ['rhs']
+                ifKeyIn: ['rhs']
             },
             onIff: {
-                ifAllOf: ['iff']
+                ifKeyIn: ['iff']
             },
             calcVal: {
                 ifKeyIn: ['iffVal', 'lhsVal', 'rhsVal', 'op']
