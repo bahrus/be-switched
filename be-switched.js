@@ -114,12 +114,14 @@ export class BeSwitchedController {
     }
 }
 const tagName = 'be-switched';
+const ifWantsToBe = 'switched';
+const upgrade = 'template';
 define({
     config: {
         tagName,
         propDefaults: {
-            upgrade: 'template',
-            ifWantsToBe: 'switched',
+            upgrade,
+            ifWantsToBe,
             forceVisible: true,
             virtualProps: ['eventHandlers', 'iff', 'iffVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 'val', 'echoVal', 'hiddenStyle'],
             intro: 'intro',
@@ -168,4 +170,16 @@ function addStyle(proxy) {
         rootNode.appendChild(style);
     }
 }
-document.head.appendChild(document.createElement(tagName));
+const beHive = document.querySelector('be-hive');
+if (beHive !== null) {
+    customElements.whenDefined(beHive.localName).then(() => {
+        beHive.register({
+            ifWantsToBe,
+            upgrade,
+            localName: tagName,
+        });
+    });
+}
+else {
+    document.head.appendChild(document.createElement(tagName));
+}

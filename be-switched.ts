@@ -125,12 +125,16 @@ export interface BeSwitchedController extends BeSwitchedProps{}
 
 const tagName = 'be-switched';
 
+const ifWantsToBe = 'switched';
+
+const upgrade = 'template';
+
 define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, BeSwitchedActions>({
     config:{
         tagName,
         propDefaults:{
-            upgrade: 'template',
-            ifWantsToBe: 'switched',
+            upgrade,
+            ifWantsToBe,
             forceVisible: true,
             virtualProps: ['eventHandlers', 'iff', 'iffVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 'val', 'echoVal', 'hiddenStyle'],
             intro: 'intro',
@@ -181,4 +185,15 @@ function addStyle(proxy: Element & BeSwitchedVirtualProps){
     }
 }
 
-document.head.appendChild(document.createElement(tagName));
+const beHive = document.querySelector('be-hive') as any;
+if(beHive !== null){
+    customElements.whenDefined(beHive.localName).then(() => {
+        beHive.register({
+            ifWantsToBe,
+            upgrade,
+            localName: tagName,
+        })
+    })
+}else{
+    document.head.appendChild(document.createElement(tagName));
+}
