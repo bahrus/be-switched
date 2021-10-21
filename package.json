@@ -24,14 +24,15 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-observant": "0.0.20",
-    "trans-render": "0.0.422",
-    "be-decorated": "0.0.19"
+    "be-observant": "0.0.26",
+    "trans-render": "0.0.425",
+    "be-decorated": "0.0.30",
+    "be-hive": "0.0.5"
   },
   "devDependencies": {
     "xtal-test": "0.0.51",
     "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.5.5",
+    "@custom-elements-manifest/analyzer": "0.5.6",
     "xtal-decor": "0.0.52"
   },
   "scripts": {

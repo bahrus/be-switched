@@ -1,6 +1,7 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { getElementToObserve, addListener } from 'be-observant/be-observant.js';
 import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
+import { register } from 'be-hive/be-hive.js';
 export class BeSwitchedController {
     intro(proxy, target, beDecorProps) {
     }
@@ -170,16 +171,4 @@ function addStyle(proxy) {
         rootNode.appendChild(style);
     }
 }
-const beHive = document.querySelector('be-hive');
-if (beHive !== null) {
-    customElements.whenDefined(beHive.localName).then(() => {
-        beHive.register({
-            ifWantsToBe,
-            upgrade,
-            localName: tagName,
-        });
-    });
-}
-else {
-    document.head.appendChild(document.createElement(tagName));
-}
+register(ifWantsToBe, upgrade, tagName);
