@@ -50,10 +50,29 @@ export class BeSwitchedController {
                 proxy.iffVal = iff;
         }
     }
-    calcVal({ iffVal, lhsVal, rhsVal, op, proxy }) {
+    onIfMediaMatches({ ifMediaMatches }) {
+        this.addMediaListener(this);
+    }
+    #mediaQueryHandler = (e) => {
+        this.proxy.matchesMediaQuery = e.matches;
+    };
+    #mql;
+    addMediaListener = ({ ifMediaMatches }) => {
+        this.disconnect();
+        this.#mql = window.matchMedia(ifMediaMatches);
+        this.#mql.addEventListener('change', this.#mediaQueryHandler);
+        this.proxy.matchesMediaQuery = this.#mql.matches;
+    };
+    calcVal({ iffVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery }) {
         if (!iffVal) {
             proxy.val = false;
             return;
+        }
+        if (ifMediaMatches !== undefined) {
+            if (!matchesMediaQuery) {
+                proxy.val = false;
+                return;
+            }
         }
         if (op === undefined) {
             proxy.val = true;
@@ -107,11 +126,17 @@ export class BeSwitchedController {
             }
         }
     }
+    disconnect() {
+        // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
+        if (this.#mql)
+            this.#mql.removeEventListener('change', this.#mediaQueryHandler);
+    }
     finale(proxy, target, beDecorProps) {
         const eventHandlers = proxy.eventHandlers;
         for (const eh of eventHandlers) {
             eh.elementToObserve.removeEventListener(eh.on, eh.fn);
         }
+        this.disconnect();
     }
 }
 const tagName = 'be-switched';
@@ -138,8 +163,11 @@ define({
             onIff: {
                 ifKeyIn: ['iff']
             },
+            onIfMediaMatches: {
+                ifKeyIn: ['ifMediaMatches']
+            },
             calcVal: {
-                ifKeyIn: ['iffVal', 'lhsVal', 'rhsVal', 'op']
+                ifKeyIn: ['iffVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery']
             },
             onVal: {
                 ifKeyIn: ['val']

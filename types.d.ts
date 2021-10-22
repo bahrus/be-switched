@@ -3,6 +3,7 @@ import {BeDecoratedProps, EventHandler} from 'be-decorated/types';
 export interface BeSwitchedVirtualProps{
     eventHandlers: EventHandler[],
     iff: boolean | object,
+    ifMediaMatches: string,
     iffVal: boolean,
     lhs: any,
     op: string,
@@ -12,6 +13,7 @@ export interface BeSwitchedVirtualProps{
     val: boolean,
     echoVal: boolean,
     hiddenStyle: string,
+    matchesMediaQuery: boolean,
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
     proxy: HTMLTemplateElement & BeSwitchedVirtualProps;
@@ -23,6 +25,7 @@ export interface BeSwitchedActions{
     onLHS(self: this): void;
     onRHS(self: this): void;
     onIff(self: this): void;
+    onIfMediaMatches(self: this): void;
     calcVal(self: this): void;
     onVal(self: this): void;
     doMain(self: this): void;

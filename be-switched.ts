@@ -6,6 +6,7 @@ import {register} from 'be-hive/be-hive.js';
 
 export class BeSwitchedController implements BeSwitchedActions{
 
+
     intro(proxy: Element & BeSwitchedVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
 
     }
@@ -58,15 +59,37 @@ export class BeSwitchedController implements BeSwitchedActions{
         } 
     }
 
-    calcVal({iffVal, lhsVal, rhsVal, op, proxy}: this){
+    onIfMediaMatches({ifMediaMatches}: this){
+        this.addMediaListener(this);
+    }
+
+    #mediaQueryHandler = (e: MediaQueryListEvent) => {
+        this.proxy.matchesMediaQuery = e.matches;
+    }
+    #mql: MediaQueryList | undefined;
+    addMediaListener = ({ ifMediaMatches}: this) => {
+        this.disconnect();
+        this.#mql = window.matchMedia(ifMediaMatches!);
+        this.#mql.addEventListener('change', this.#mediaQueryHandler);
+        this.proxy.matchesMediaQuery = this.#mql.matches;
+    }
+
+    calcVal({iffVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery}: this){
         if(!iffVal){
             proxy.val = false;
             return;
+        }
+        if(ifMediaMatches !== undefined){
+            if(!matchesMediaQuery){
+                proxy.val = false;
+                return;
+            }
         }
         if(op === undefined) {
             proxy.val = true;
             return;
         }
+
         switch(op){
             case '===':
                 proxy.val = (lhsVal === rhsVal);
@@ -114,11 +137,20 @@ export class BeSwitchedController implements BeSwitchedActions{
         }
     }
 
+
+
+    disconnect() {
+
+        // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
+        if (this.#mql) this.#mql.removeEventListener('change', this.#mediaQueryHandler);
+    }
+
     finale(proxy: Element & BeSwitchedVirtualProps, target:Element, beDecorProps: BeDecoratedProps){
         const eventHandlers = proxy.eventHandlers;
         for(const eh of eventHandlers){
             eh.elementToObserve.removeEventListener(eh.on, eh.fn);
         }
+        this.disconnect();
     }
 }
 
@@ -151,8 +183,11 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             onIff: {
                 ifKeyIn: ['iff']
             },
+            onIfMediaMatches: {
+                ifKeyIn: ['ifMediaMatches']
+            },
             calcVal: {
-                ifKeyIn: ['iffVal', 'lhsVal', 'rhsVal', 'op']
+                ifKeyIn: ['iffVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery']
             },
             onVal: {
                 ifKeyIn: ['val']
