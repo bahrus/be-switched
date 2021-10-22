@@ -44,7 +44,7 @@ export class BeSwitchedController {
                     console.warn({ msg: '404', observeParams });
                     return;
                 }
-                addListener(elementToObserve, observeParams, 'iffVal', proxy);
+                addListener(elementToObserve, observeParams, 'ifVal', proxy);
                 break;
             default:
                 proxy.ifVal = iff;
