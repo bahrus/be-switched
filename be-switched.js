@@ -1,7 +1,8 @@
 import { define } from 'be-decorated/be-decorated.js';
-import { getElementToObserve, addListener } from 'be-observant/be-observant.js';
+import { getElementToObserve } from 'be-observant/getElementToObserve.js';
+import { addListener } from 'be-observant/addListener.js';
 import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
-import { register } from 'be-hive/be-hive.js';
+import { register } from 'be-hive/register.js';
 export class BeSwitchedController {
     intro(proxy, target, beDecorProps) {
     }
