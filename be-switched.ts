@@ -59,6 +59,21 @@ export class BeSwitchedController implements BeSwitchedActions{
         } 
     }
 
+    onIfNonZeroArray({ifNonZeroArray, proxy}: this){
+        if(Array.isArray(ifNonZeroArray)){
+            proxy.ifNonZeroArrayVal = ifNonZeroArray.length > 0;
+        }else{
+            const observeParams = ifNonZeroArray as IObserve;
+            const elementToObserve = getElementToObserve(proxy, observeParams);
+            if(elementToObserve === null){
+                console.warn({msg:'404',observeParams});
+                return;
+            }
+            addListener(elementToObserve, observeParams, 'ifNonZeroArray', proxy);
+        }
+
+    }
+
     onIfMediaMatches({ifMediaMatches}: this){
         this.addMediaListener(this);
     }
@@ -74,13 +89,22 @@ export class BeSwitchedController implements BeSwitchedActions{
         this.proxy.matchesMediaQuery = this.#mql.matches;
     }
 
-    calcVal({iffVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery}: this){
+    calcVal({
+        iffVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery,
+        ifNonZeroArray, ifNonZeroArrayVal
+    }: this){
         if(!iffVal){
             proxy.val = false;
             return;
         }
         if(ifMediaMatches !== undefined){
             if(!matchesMediaQuery){
+                proxy.val = false;
+                return;
+            }
+        }
+        if(ifNonZeroArray !== undefined){
+            if(!ifNonZeroArrayVal){
                 proxy.val = false;
                 return;
             }
@@ -169,7 +193,10 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             upgrade,
             ifWantsToBe,
             forceVisible: true,
-            virtualProps: ['eventHandlers', 'iff', 'iffVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 'val', 'echoVal', 'hiddenStyle'],
+            virtualProps: [
+                'eventHandlers', 'iff', 'iffVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 
+                'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery'
+            ],
             intro: 'intro',
             finale: 'finale'
         },

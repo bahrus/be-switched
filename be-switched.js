@@ -50,6 +50,20 @@ export class BeSwitchedController {
                 proxy.iffVal = iff;
         }
     }
+    onIfNonZeroArray({ ifNonZeroArray, proxy }) {
+        if (Array.isArray(ifNonZeroArray)) {
+            proxy.ifNonZeroArrayVal = ifNonZeroArray.length > 0;
+        }
+        else {
+            const observeParams = ifNonZeroArray;
+            const elementToObserve = getElementToObserve(proxy, observeParams);
+            if (elementToObserve === null) {
+                console.warn({ msg: '404', observeParams });
+                return;
+            }
+            addListener(elementToObserve, observeParams, 'ifNonZeroArray', proxy);
+        }
+    }
     onIfMediaMatches({ ifMediaMatches }) {
         this.addMediaListener(this);
     }
@@ -63,13 +77,19 @@ export class BeSwitchedController {
         this.#mql.addEventListener('change', this.#mediaQueryHandler);
         this.proxy.matchesMediaQuery = this.#mql.matches;
     };
-    calcVal({ iffVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery }) {
+    calcVal({ iffVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonZeroArray, ifNonZeroArrayVal }) {
         if (!iffVal) {
             proxy.val = false;
             return;
         }
         if (ifMediaMatches !== undefined) {
             if (!matchesMediaQuery) {
+                proxy.val = false;
+                return;
+            }
+        }
+        if (ifNonZeroArray !== undefined) {
+            if (!ifNonZeroArrayVal) {
                 proxy.val = false;
                 return;
             }
@@ -149,7 +169,10 @@ define({
             upgrade,
             ifWantsToBe,
             forceVisible: true,
-            virtualProps: ['eventHandlers', 'iff', 'iffVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 'val', 'echoVal', 'hiddenStyle'],
+            virtualProps: [
+                'eventHandlers', 'iff', 'iffVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
+                'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery'
+            ],
             intro: 'intro',
             finale: 'finale'
         },
