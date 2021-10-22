@@ -14,8 +14,8 @@ export interface BeSwitchedVirtualProps{
     echoVal: boolean,
     hiddenStyle: string,
     matchesMediaQuery: boolean,
-    ifNonZeroArray: any[] | object,
-    ifNonZeroArrayVal: boolean,
+    ifNonEmptyArray: any[] | object,
+    ifNonEmptyArrayVal: boolean,
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
     proxy: HTMLTemplateElement & BeSwitchedVirtualProps;
@@ -31,5 +31,5 @@ export interface BeSwitchedActions{
     calcVal(self: this): void;
     onVal(self: this): void;
     doMain(self: this): void;
-    onIfNonZeroArray(self: this): void;
+    onIfNonEmptyArray(self: this): void;
 }

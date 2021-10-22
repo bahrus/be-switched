@@ -50,18 +50,18 @@ export class BeSwitchedController {
                 proxy.ifVal = iff;
         }
     }
-    onIfNonZeroArray({ ifNonZeroArray, proxy }) {
-        if (Array.isArray(ifNonZeroArray)) {
-            proxy.ifNonZeroArrayVal = ifNonZeroArray.length > 0;
+    onIfNonEmptyArray({ ifNonEmptyArray, proxy }) {
+        if (Array.isArray(ifNonEmptyArray)) {
+            proxy.ifNonEmptyArrayVal = ifNonEmptyArray.length > 0;
         }
         else {
-            const observeParams = ifNonZeroArray;
+            const observeParams = ifNonEmptyArray;
             const elementToObserve = getElementToObserve(proxy, observeParams);
             if (elementToObserve === null) {
                 console.warn({ msg: '404', observeParams });
                 return;
             }
-            addListener(elementToObserve, observeParams, 'ifNonZeroArray', proxy);
+            addListener(elementToObserve, observeParams, 'ifNonEmptyArray', proxy);
         }
     }
     onIfMediaMatches({ ifMediaMatches }) {
@@ -77,7 +77,7 @@ export class BeSwitchedController {
         this.#mql.addEventListener('change', this.#mediaQueryHandler);
         this.proxy.matchesMediaQuery = this.#mql.matches;
     };
-    calcVal({ ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonZeroArray, ifNonZeroArrayVal }) {
+    calcVal({ ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonEmptyArray: ifNonZeroArray, ifNonEmptyArrayVal: ifNonZeroArrayVal }) {
         if (!ifVal) {
             proxy.val = false;
             return;
@@ -105,6 +105,9 @@ export class BeSwitchedController {
         }
     }
     onVal({ val, proxy }) {
+        if (proxy.debug) {
+            console.log({ val, proxy });
+        }
         setTimeout(() => {
             if (proxy.echoVal !== proxy.val) {
                 proxy.echoVal = proxy.val;
@@ -189,8 +192,8 @@ define({
             onIfMediaMatches: {
                 ifKeyIn: ['ifMediaMatches']
             },
-            onIfNonZeroArray: {
-                ifAllOf: ['ifNonZeroArray']
+            onIfNonEmptyArray: {
+                ifAllOf: ['ifNonEmptyArray']
             },
             calcVal: {
                 ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery']

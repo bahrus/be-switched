@@ -59,17 +59,17 @@ export class BeSwitchedController implements BeSwitchedActions{
         } 
     }
 
-    onIfNonZeroArray({ifNonZeroArray, proxy}: this){
-        if(Array.isArray(ifNonZeroArray)){
-            proxy.ifNonZeroArrayVal = ifNonZeroArray.length > 0;
+    onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
+        if(Array.isArray(ifNonEmptyArray)){
+            proxy.ifNonEmptyArrayVal = ifNonEmptyArray.length > 0;
         }else{
-            const observeParams = ifNonZeroArray as IObserve;
+            const observeParams = ifNonEmptyArray as IObserve;
             const elementToObserve = getElementToObserve(proxy, observeParams);
             if(elementToObserve === null){
                 console.warn({msg:'404',observeParams});
                 return;
             }
-            addListener(elementToObserve, observeParams, 'ifNonZeroArray', proxy);
+            addListener(elementToObserve, observeParams, 'ifNonEmptyArray', proxy);
         }
 
     }
@@ -91,7 +91,7 @@ export class BeSwitchedController implements BeSwitchedActions{
 
     calcVal({
         ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery,
-        ifNonZeroArray, ifNonZeroArrayVal
+        ifNonEmptyArray: ifNonZeroArray, ifNonEmptyArrayVal: ifNonZeroArrayVal
     }: this){
         if(!ifVal){
             proxy.val = false;
@@ -122,6 +122,9 @@ export class BeSwitchedController implements BeSwitchedActions{
     }
 
     onVal({val, proxy}: this){
+        if((<any>proxy).debug){
+            console.log({val, proxy});
+        }
         setTimeout(() => {
             if(proxy.echoVal !== proxy.val){
                 proxy.echoVal = proxy.val;
@@ -213,8 +216,8 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             onIfMediaMatches: {
                 ifKeyIn: ['ifMediaMatches']
             },
-            onIfNonZeroArray:{
-                ifAllOf: ['ifNonZeroArray']
+            onIfNonEmptyArray:{
+                ifAllOf: ['ifNonEmptyArray']
             },
             calcVal: {
                 ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery']
