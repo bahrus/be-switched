@@ -60,6 +60,7 @@ export class BeSwitchedController implements BeSwitchedActions{
     }
 
     onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
+        if(ifNonEmptyArray === undefined) return;
         if(Array.isArray(ifNonEmptyArray)){
             proxy.ifNonEmptyArrayVal = ifNonEmptyArray.length > 0;
         }else{

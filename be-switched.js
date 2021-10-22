@@ -51,6 +51,8 @@ export class BeSwitchedController {
         }
     }
     onIfNonEmptyArray({ ifNonEmptyArray, proxy }) {
+        if (ifNonEmptyArray === undefined)
+            return;
         if (Array.isArray(ifNonEmptyArray)) {
             proxy.ifNonEmptyArrayVal = ifNonEmptyArray.length > 0;
         }
