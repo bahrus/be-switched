@@ -35,7 +35,7 @@ export class BeSwitchedController {
                 proxy.rhsVal = rhs;
         }
     }
-    onIff({ iff, proxy }) {
+    onIf({ if: iff, proxy }) {
         switch (typeof iff) {
             case 'object':
                 const observeParams = iff;
@@ -47,7 +47,7 @@ export class BeSwitchedController {
                 addListener(elementToObserve, observeParams, 'iffVal', proxy);
                 break;
             default:
-                proxy.iffVal = iff;
+                proxy.ifVal = iff;
         }
     }
     onIfNonZeroArray({ ifNonZeroArray, proxy }) {
@@ -77,8 +77,8 @@ export class BeSwitchedController {
         this.#mql.addEventListener('change', this.#mediaQueryHandler);
         this.proxy.matchesMediaQuery = this.#mql.matches;
     };
-    calcVal({ iffVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonZeroArray, ifNonZeroArrayVal }) {
-        if (!iffVal) {
+    calcVal({ ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonZeroArray, ifNonZeroArrayVal }) {
+        if (!ifVal) {
             proxy.val = false;
             return;
         }
@@ -170,7 +170,7 @@ define({
             ifWantsToBe,
             forceVisible: true,
             virtualProps: [
-                'eventHandlers', 'iff', 'iffVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
+                'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery'
             ],
             intro: 'intro',
@@ -183,14 +183,17 @@ define({
             onRHS: {
                 ifKeyIn: ['rhs']
             },
-            onIff: {
-                ifKeyIn: ['iff']
+            onIf: {
+                ifKeyIn: ['if']
             },
             onIfMediaMatches: {
                 ifKeyIn: ['ifMediaMatches']
             },
+            onIfNonZeroArray: {
+                ifAllOf: ['ifNonZeroArray']
+            },
             calcVal: {
-                ifKeyIn: ['iffVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery']
+                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery']
             },
             onVal: {
                 ifKeyIn: ['val']

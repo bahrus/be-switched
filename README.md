@@ -39,7 +39,7 @@ If, however, the content should display initially, but we want the client-side J
 
 ```html
 <template  data-cnt=1 be-switched='{
-    "iff": true,
+    "if": true,
     "lhs": {"observe": "[-lhs]", "vft": true},
     "op": "===",
     "rhs": {"observe": "[-rhs]", "vft": true},
@@ -47,7 +47,7 @@ If, however, the content should display initially, but we want the client-side J
 <div>A witch!</div>
 ```
 
-## With Holy Grail layout, lazy loading [TODO]
+## With Holy Grail layout, lazy loading [WIP]
 
 ```html
 <ways-of-science>
@@ -58,11 +58,11 @@ If, however, the content should display initially, but we want the client-side J
         <a-duck></a-duck>
     </largest-scale>
     <div class="container" be-switched='{
-        "iff": true,
+        "if": true,
         "lhs": {"observe": "[-lhs]", "vft": true},
         "?": "===",
         "rhs": {"observe": "[-rhs]", "vft": true},
-        "andMediaMatches": "screen and (min-width: 1975px)",
+        "ifMediaMatches": "screen and (min-width: 1975px)",
         "beginSelector": ">header",
         "endSelector": ">footer",
         "lazyLoad": true,

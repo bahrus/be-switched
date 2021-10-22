@@ -7,19 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <label for=lhs>LHS:</label>
-    <input id=lhs>
-    <label for=rhs>RHS:</label>
-    <input id=rhs>
     <template be-switched='{
         "if": true,
-        "lhs": {"observe": "#lhs", "on": "input", "vft": "value"},
-        "op": "===",
-        "rhs": {"observe": "#rhs", "on": "input", "vft": "value"}
-    }'>
-        <div>LHS === RHS</div>
-    </template>
-
+        "ifMediaMatches": "(min-width: 600px)",
+        "debug": true
+    }'><div>iah</div></template>
     <script type=importmap>
         {
             "imports": {
