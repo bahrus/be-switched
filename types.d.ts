@@ -15,7 +15,7 @@ export interface BeSwitchedVirtualProps{
     hiddenStyle: string,
     matchesMediaQuery: boolean,
     ifNonEmptyArray: any[] | object,
-    ifNonEmptyArrayVal: boolean,
+    ifNonEmptyArrayVal: undefined | any[],
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
     proxy: HTMLTemplateElement & BeSwitchedVirtualProps;

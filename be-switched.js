@@ -51,10 +51,8 @@ export class BeSwitchedController {
         }
     }
     onIfNonEmptyArray({ ifNonEmptyArray, proxy }) {
-        if (ifNonEmptyArray === undefined)
-            return;
         if (Array.isArray(ifNonEmptyArray)) {
-            proxy.ifNonEmptyArrayVal = ifNonEmptyArray.length > 0;
+            proxy.ifNonEmptyArrayVal = ifNonEmptyArray;
         }
         else {
             const observeParams = ifNonEmptyArray;
@@ -63,7 +61,7 @@ export class BeSwitchedController {
                 console.warn({ msg: '404', observeParams });
                 return;
             }
-            addListener(elementToObserve, observeParams, 'ifNonEmptyArray', proxy);
+            addListener(elementToObserve, observeParams, 'ifNonEmptyArrayVal', proxy);
         }
     }
     onIfMediaMatches({ ifMediaMatches }) {
@@ -79,7 +77,7 @@ export class BeSwitchedController {
         this.#mql.addEventListener('change', this.#mediaQueryHandler);
         this.proxy.matchesMediaQuery = this.#mql.matches;
     };
-    calcVal({ ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonEmptyArray: ifNonZeroArray, ifNonEmptyArrayVal: ifNonZeroArrayVal }) {
+    calcVal({ ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonEmptyArray, ifNonEmptyArrayVal }) {
         if (!ifVal) {
             proxy.val = false;
             return;
@@ -90,8 +88,8 @@ export class BeSwitchedController {
                 return;
             }
         }
-        if (ifNonZeroArray !== undefined) {
-            if (!ifNonZeroArrayVal) {
+        if (ifNonEmptyArray !== undefined) {
+            if (ifNonEmptyArrayVal === undefined || ifNonEmptyArrayVal.length === 0) {
                 proxy.val = false;
                 return;
             }
@@ -176,7 +174,8 @@ define({
             forceVisible: true,
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
-                'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery'
+                'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal'
             ],
             intro: 'intro',
             finale: 'finale'

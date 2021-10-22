@@ -60,9 +60,8 @@ export class BeSwitchedController implements BeSwitchedActions{
     }
 
     onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
-        if(ifNonEmptyArray === undefined) return;
         if(Array.isArray(ifNonEmptyArray)){
-            proxy.ifNonEmptyArrayVal = ifNonEmptyArray.length > 0;
+            proxy.ifNonEmptyArrayVal = ifNonEmptyArray;
         }else{
             const observeParams = ifNonEmptyArray as IObserve;
             const elementToObserve = getElementToObserve(proxy, observeParams);
@@ -70,7 +69,7 @@ export class BeSwitchedController implements BeSwitchedActions{
                 console.warn({msg:'404',observeParams});
                 return;
             }
-            addListener(elementToObserve, observeParams, 'ifNonEmptyArray', proxy);
+            addListener(elementToObserve, observeParams, 'ifNonEmptyArrayVal', proxy);
         }
 
     }
@@ -92,7 +91,7 @@ export class BeSwitchedController implements BeSwitchedActions{
 
     calcVal({
         ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery,
-        ifNonEmptyArray: ifNonZeroArray, ifNonEmptyArrayVal: ifNonZeroArrayVal
+        ifNonEmptyArray, ifNonEmptyArrayVal
     }: this){
         if(!ifVal){
             proxy.val = false;
@@ -104,8 +103,8 @@ export class BeSwitchedController implements BeSwitchedActions{
                 return;
             }
         }
-        if(ifNonZeroArray !== undefined){
-            if(!ifNonZeroArrayVal){
+        if(ifNonEmptyArray !== undefined){
+            if(ifNonEmptyArrayVal === undefined || ifNonEmptyArrayVal.length === 0){
                 proxy.val = false;
                 return;
             }
@@ -199,7 +198,8 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             forceVisible: true,
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 
-                'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery'
+                'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal'
             ],
             intro: 'intro',
             finale: 'finale'
