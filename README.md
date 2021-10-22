@@ -11,7 +11,7 @@
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='{
-        "iff": true,
+        "if": true,
         "lhs": {"observe": "[-lhs]", "vft": true},
         "op": "===",
         "rhs": {"observe": "[-rhs]", "vft": true},
@@ -25,9 +25,9 @@ To use inside a ShadowDOM realm, an instance of the be-switched web component mu
 
 To use fully compliant HTML5 syntax, use data-be-switched instead of be-switched.
 
-The syntax for binding the lhs and rhs of the expressions to other DOM nodes within the ShadowRealm, or to the host container, follows the same pattern / syntax used by [be-observant](https://github.com/bahrus/be-observant).
+The syntax for binding the lhs and rhs of the expressions to other DOM nodes within the ShadowRealm, or to the host container, follows the same pattern / syntax used by [be-observant](https://github.com/bahrus/be-observant#syntax-in-depth).
 
-iff can also come from observing other elements.
+"if" can also come from observing other elements.
 
 ## Compatibility with server-side-rendering
 
@@ -46,6 +46,32 @@ If, however, the content should display initially, but we want the client-side J
 }'></template>
 <div>A witch!</div>
 ```
+
+In addition to "if" boolean checks, and equality checks using lhs and rhs keys, some additional "if" checks can be made:
+
+<table>
+    <caption>Additional Supported Conditions
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Meaning</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ifMediaMatches</td>
+            <td>Expands the template / makes visibile only when the specified media query expression is satisfied.</td>
+        </tr>
+        <tr>
+            <td>ifNonEmptyArray</td>
+            <td>Tests if (bound) expression evaluates to a non empty array</td>
+        </tr>
+        <tr>
+            <td>ifURLPattern [todo]</td>
+            <td>Address bar matches [URLPattern expression](https://web.dev/urlpattern/)</td>
+        </tr>
+    </tbody>
+</table>
 
 ## With Holy Grail layout, lazy loading [WIP]
 
