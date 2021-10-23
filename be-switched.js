@@ -1,6 +1,6 @@
 import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
 import { define } from 'be-decorated/be-decorated.js';
-import { getElementToObserve } from 'be-observant/getElementToObserve.js';
+import { getElementToObserve, getObserve } from 'be-observant/getElementToObserve.js';
 import { addListener } from 'be-observant/addListener.js';
 import { register } from 'be-hive/register.js';
 export class BeSwitchedController {
@@ -56,7 +56,7 @@ export class BeSwitchedController {
             proxy.ifNonEmptyArrayVal = ifNonEmptyArray;
         }
         else {
-            const observeParams = ifNonEmptyArray;
+            const observeParams = getObserve(ifNonEmptyArray);
             const elementToObserve = getElementToObserve(proxy, observeParams);
             if (elementToObserve === null) {
                 console.warn({ msg: '404', observeParams });
