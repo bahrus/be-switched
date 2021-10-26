@@ -2,6 +2,10 @@
 
 *be-switched* is a template behavior that lazy loads content when conditions are met.
 
+[![Actions Status](https://github.com/bahrus/be-switched/workflows/CI/badge.svg)](https://github.com/bahrus/be-switched/actions?query=workflow%3ACI)
+
+<a href="https://nodei.co/npm/be-switched/"><img src="https://nodei.co/npm/be-switched.png"></a>
+
 ```html
 <ways-of-science>
     <largest-scale -lhs>
