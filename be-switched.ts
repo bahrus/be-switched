@@ -13,64 +13,22 @@ export class BeSwitchedController implements BeSwitchedActions{
     }
 
     onLHS({lhs, proxy}: this){
-        switch(typeof lhs){
-            case 'object':
-                const observeParams = lhs as IObserve;
-                const elementToObserve = getElementToObserve(proxy, observeParams);
-                if(elementToObserve === null){
-                    console.warn({msg:'404',observeParams});
-                    return;
-                }
-                addListener(elementToObserve, observeParams, 'lhsVal', proxy);
-                break;
-            default:
-                proxy.lhsVal = lhs;
-        }        
+        hookUp(lhs, proxy, 'lhsVal');       
     }
 
     onRHS({rhs, proxy}: this){
-        switch(typeof rhs){
-            case 'object':
-                const observeParams = rhs as IObserve;
-                const elementToObserve = getElementToObserve(proxy, observeParams);
-                if(elementToObserve === null){
-                    console.warn({msg:'404',observeParams});
-                    return;
-                }
-                addListener(elementToObserve, observeParams, 'rhsVal', proxy);
-                break;
-            default:
-                proxy.rhsVal = rhs;
-        }        
+        hookUp(rhs, proxy, 'rhsVal');        
     }
 
     onIf({if: iff, proxy}: this){
-        switch(typeof iff){
-            case 'object':
-                const observeParams = iff as IObserve;
-                const elementToObserve = getElementToObserve(proxy, observeParams);
-                if(elementToObserve === null){
-                    console.warn({msg:'404',observeParams});
-                    return;
-                }
-                addListener(elementToObserve, observeParams, 'ifVal', proxy);
-                break;
-            default:
-                proxy.ifVal = iff;
-        } 
+        hookUp(iff, proxy, 'ifVal');
     }
 
     onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
         if(Array.isArray(ifNonEmptyArray)){
             proxy.ifNonEmptyArrayVal = ifNonEmptyArray;
         }else{
-            const observeParams = getObserve(ifNonEmptyArray);
-            const elementToObserve = getElementToObserve(proxy, observeParams);
-            if(elementToObserve === null){
-                console.warn({msg:'404',observeParams});
-                return;
-            }
-            addListener(elementToObserve, observeParams, 'ifNonEmptyArrayVal', proxy);
+            hookUp(ifNonEmptyArray, proxy, 'ifNonEmptyArrayVal');
         }
 
     }
@@ -179,6 +137,46 @@ export class BeSwitchedController implements BeSwitchedActions{
             eh.elementToObserve.removeEventListener(eh.on, eh.fn);
         }
         this.disconnect();
+    }
+}
+
+function hookUp(fromParam: any, proxy: any, toParam: string){
+    switch(typeof fromParam){
+        case 'object':{
+                if(Array.isArray(fromParam)){
+                    //assume for now is a string array
+                    const arr = fromParam as string[];
+                    if(arr.length !== 1) throw 'NI';
+                    //assume for now only one element in the array
+                    //TODO:  support alternating array with binding instructions in every odd element -- interpolation
+                    proxy[toParam] = fromParam;
+                }else{
+                    const observeParams = fromParam as IObserve;
+                    const elementToObserve = getElementToObserve(proxy, observeParams);
+                    if(elementToObserve === null){
+                        console.warn({msg:'404',observeParams});
+                        return;
+                    }
+                    addListener(elementToObserve, observeParams, toParam, proxy);
+                }
+
+            }
+            break;
+        case 'string':
+            {
+                const isProp = fromParam[0];
+                const vft = isProp ? fromParam.substr(1) : fromParam;
+                const observeParams = isProp ? {onSet: vft, vft} as IObserve : {vft} as IObserve;
+                const elementToObserve = getElementToObserve(proxy, observeParams);
+                if(elementToObserve === null){
+                    console.warn({msg:'404',observeParams});
+                    return;
+                }
+                addListener(elementToObserve, observeParams, toParam, proxy);
+            }
+            
+        default:
+            proxy[toParam] = fromParam;
     }
 }
 
