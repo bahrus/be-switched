@@ -1,7 +1,6 @@
 import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
 import { define } from 'be-decorated/be-decorated.js';
-import { getElementToObserve } from 'be-observant/getElementToObserve.js';
-import { addListener } from 'be-observant/addListener.js';
+import { hookUp } from 'be-observant/addListener.js';
 import { register } from 'be-hive/register.js';
 export class BeSwitchedController {
     intro(proxy, target, beDecorProps) {
@@ -119,46 +118,6 @@ export class BeSwitchedController {
             eh.elementToObserve.removeEventListener(eh.on, eh.fn);
         }
         this.disconnect();
-    }
-}
-function hookUp(fromParam, proxy, toParam) {
-    switch (typeof fromParam) {
-        case 'object':
-            {
-                if (Array.isArray(fromParam)) {
-                    //assume for now is a string array
-                    const arr = fromParam;
-                    if (arr.length !== 1)
-                        throw 'NI';
-                    //assume for now only one element in the array
-                    //TODO:  support alternating array with binding instructions in every odd element -- interpolation
-                    proxy[toParam] = fromParam;
-                }
-                else {
-                    const observeParams = fromParam;
-                    const elementToObserve = getElementToObserve(proxy, observeParams);
-                    if (elementToObserve === null) {
-                        console.warn({ msg: '404', observeParams });
-                        return;
-                    }
-                    addListener(elementToObserve, observeParams, toParam, proxy);
-                }
-            }
-            break;
-        case 'string':
-            {
-                const isProp = fromParam[0];
-                const vft = isProp ? fromParam.substr(1) : fromParam;
-                const observeParams = isProp ? { onSet: vft, vft } : { vft };
-                const elementToObserve = getElementToObserve(proxy, observeParams);
-                if (elementToObserve === null) {
-                    console.warn({ msg: '404', observeParams });
-                    return;
-                }
-                addListener(elementToObserve, observeParams, toParam, proxy);
-            }
-        default:
-            proxy[toParam] = fromParam;
     }
 }
 const tagName = 'be-switched';
