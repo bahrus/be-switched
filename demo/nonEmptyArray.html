@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <template be-definitive='{
+        "config": {
+            "tagName": "my-div",
+            "propDefaults": {
+                "attr": [],
+                "noshadow": true
+                
+            }
+        }
+    }'>
+        <div id=div>
+            <template be-switched='{
+                "if": true,
+                "ifNonEmptyArray": ".attr",
+                "debug": true
+            }'>
+                <div>I am here.</div>
+            </template>
+        </div>
+    </template>
+    <my-div  data-is-hostish></my-div>
+    
+    <script type=importmap>
+        {
+            "imports": {
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/",
+                "be-decorated/": "../node_modules/be-decorated/",
+                "on-to-me/": "../node_modules/on-to-me/",
+                "be-observant/": "../node_modules/be-observant/",
+                "be-hive/":  "../node_modules/be-hive/",
+                "be-definitive/": "../node_modules/be-definitive/",
+                "xodus/": "../node_modules/xodus/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../be-switched.js';
+        import 'be-definitive/be-definitive.js';
+    </script>
+</body>
+</html>
