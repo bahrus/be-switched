@@ -1,7 +1,7 @@
 import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeSwitchedVirtualProps, BeSwitchedActions, BeSwitchedProps} from './types';
-import {hookUp} from 'be-observant/addListener.js';
+import {hookUp} from 'be-observant/hookUp.js';
 import {register} from 'be-hive/register.js';
 
 export class BeSwitchedController implements BeSwitchedActions{
