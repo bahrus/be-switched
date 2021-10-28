@@ -70,68 +70,6 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
             <td>ifNonEmptyArray</td>
             <td>Tests if (bound) expression evaluates to a non empty array</td>
         </tr>
-        <tr>
-            <td>ifURLPattern [todo]</td>
-            <td>Address bar matches [URLPattern expression](https://web.dev/urlpattern/)</td>
-        </tr>
     </tbody>
 </table>
 
-## With Holy Grail layout, lazy loading [WIP]
-
-```html
-<ways-of-science>
-    <largest-scale -lhs>
-        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
-    </largest-scale>
-    <largest-scale -rhs>
-        <a-duck></a-duck>
-    </largest-scale>
-    <div class="container" be-switched='{
-        "if": true,
-        "lhs": {"observe": "[-lhs]", "vft": true},
-        "?": "===",
-        "rhs": {"observe": "[-rhs]", "vft": true},
-        "ifMediaMatches": "screen and (min-width: 1975px)",
-        "beginSelector": ">header",
-        "endSelector": ">footer",
-        "lazyLoad": true,
-        "lazyDelay": 50,
-        "toggleDisabled": true,
-        "templateSelector": "template"
-    }'>
-        <header>
-            <template>
-            <!-- Header content -->
-            </template>
-        </header>
-
-        
-        <nav>
-            <template>
-            <!-- Navigation -->
-            <template>
-        </nav>
-
-        <main>
-            <template>
-            <!-- Main content -->
-            </template>
-        </main>
-
-        <aside>
-            <template>
-            <!-- Sidebar / Ads -->
-            </template>
-        </aside>        
-
-
-
-        <footer>
-            <template>
-                <!-- Footer content -->
-            </template>
-        </footer>
-    </div>
-</ways-of-science>
-```

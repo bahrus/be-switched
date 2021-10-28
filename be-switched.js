@@ -72,7 +72,7 @@ export class BeSwitchedController {
             }
         }, 16);
     }
-    doMain({ val, echoVal, proxy }) {
+    doMain({ val, echoVal, proxy, toggleDisabled }) {
         if (val !== echoVal)
             return;
         if (val) {
@@ -87,8 +87,12 @@ export class BeSwitchedController {
                 let idx = 0;
                 while (nextSib && idx < cnt) {
                     nextSib = nextSib.nextElementSibling;
-                    if (nextSib)
+                    if (nextSib) {
                         nextSib.classList.remove('be-switched-hide');
+                        if (toggleDisabled && nextSib.disabled === false) {
+                            nextSib.disabled = true;
+                        }
+                    }
                     idx++;
                 }
             }
@@ -102,6 +106,9 @@ export class BeSwitchedController {
                     nextSib = nextSib.nextElementSibling;
                     if (nextSib)
                         nextSib.classList.add('be-switched-hide');
+                    if (toggleDisabled && nextSib.disabled === true) {
+                        nextSib.disabled = false;
+                    }
                     idx++;
                 }
             }

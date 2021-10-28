@@ -16,6 +16,7 @@ export interface BeSwitchedVirtualProps{
     matchesMediaQuery: boolean,
     ifNonEmptyArray: any[] | object,
     ifNonEmptyArrayVal: undefined | any[],
+    toggleDisabled: boolean;
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
     proxy: HTMLTemplateElement & BeSwitchedVirtualProps;
