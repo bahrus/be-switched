@@ -201,7 +201,7 @@ define({
                 ifAllOf: ['ifNonEmptyArray']
             },
             calcVal: {
-                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'isIntersecting', 'ifNonEmptyArray', 'echoVal']
+                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'isIntersecting', 'ifNonEmptyArrayVal', 'echoVal']
             },
             onVal: {
                 ifKeyIn: ['val']
