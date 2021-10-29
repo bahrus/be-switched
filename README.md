@@ -84,10 +84,17 @@ Syntax:
 
 ```html
 <style>
+/* These styling hacks will often lead to more effect lazy-loading.
+   Some experimentation will likely be required in each scenario to determine whether these settings help / hurt
+   or need further adjustments. */
 .be-lazy-loaded{
     position:absolute;
     top: -10000px;
     display:block;
+}
+be-switched-filler{
+    display:block;
+    min-height:1000px;
 }
 </style>
 <template class=be-lazy-loaded be-switched='{
