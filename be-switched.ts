@@ -231,7 +231,7 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
                 ifAllOf: ['ifNonEmptyArray']
             },
             calcVal: {
-                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'isIntersecting', 'ifNonEmptyArray']
+                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'isIntersecting', 'ifNonEmptyArray', 'echoVal']
             },
             onVal: {
                 ifKeyIn: ['val']
