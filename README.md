@@ -73,3 +73,32 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
     </tbody>
 </table>
 
+## Lazy Loading 
+
+Lazy Loading is support, so that in addition to satisfying the other conditions, the template must appear within the visible area of the browser.
+
+Syntax:
+
+```html
+<template be-switched='{
+    "if": true,
+    "lhs": {"observe": "#lhs", "on": "input", "vft": "value"},
+    "op": "===",
+    "rhs": {"observe": "#rhs", "on": "input", "vft": "value"},
+    "lazyDisplay": true,
+    "lazyDelay": 200,
+    "setAttr": "data-is-visible"
+}'>
+    <div class="container">
+      <div class="header">Header</div>
+      <div class="panel left">Left panel</div>
+      <div class="mainbody">Main body</div>
+      <div class="panel right">Right panel</div>
+      <div class="footer">Footer</div>
+    </div>
+</template>
+```
+
+The lazyDelay parameter is optional (it defaults to 16).  Without a delay, multiple lazy loaded sections will all seem to be visible during intial display, as they may all have zero size.
+
+You may need to apply some styling associated with the attribute set via setAttr.  That attribute will be set to "true" when it is displayed.

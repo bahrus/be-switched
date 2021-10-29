@@ -88,11 +88,14 @@ export class BeSwitchedController {
             }
         }, displayDelay);
     }
-    doMain({ val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay }) {
+    doMain({ val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay, setAttr }) {
         if (val !== echoVal)
             return;
         const valWithLazy = !val ? false : (!lazyDisplay || isIntersecting);
         if (valWithLazy) {
+            if (setAttr !== undefined) {
+                proxy.setAttribute(setAttr, "true");
+            }
             if (proxy.dataset.cnt === undefined) {
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 addStyle(proxy);
@@ -115,6 +118,9 @@ export class BeSwitchedController {
             }
         }
         else {
+            if (setAttr) {
+                proxy.setAttribute(setAttr, "false");
+            }
             if (proxy.dataset.cnt !== undefined) {
                 const cnt = Number(proxy.dataset.cnt);
                 let nextSib = proxy;
@@ -159,7 +165,7 @@ define({
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting'
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'setAttr'
             ],
             intro: 'intro',
             finale: 'finale',

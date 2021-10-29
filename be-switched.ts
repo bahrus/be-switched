@@ -104,15 +104,20 @@ export class BeSwitchedController implements BeSwitchedActions{
         }, displayDelay);
     }
 
-    doMain({val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay}: this){
+    doMain({val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay, setAttr}: this){
         if(val !== echoVal) return;
         const valWithLazy = !val ? false : (!lazyDisplay || isIntersecting);
         if(valWithLazy){
+            if(setAttr !== undefined){
+                proxy.setAttribute(setAttr, "true");
+            }
             if(proxy.dataset.cnt === undefined){
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 addStyle(proxy);
                 proxy.dataset.cnt = appendedChildren.length.toString();
+
             }else{
+
                 const cnt = Number(proxy.dataset.cnt);
                 let nextSib = proxy as Element | null;
                 let idx = 0
@@ -123,12 +128,16 @@ export class BeSwitchedController implements BeSwitchedActions{
                         if(toggleDisabled && (<any>nextSib).disabled === false){
                             (<any>nextSib).disabled = true;
                         }
+
                     }
                     idx++;
                 }                        
             }
             
         }else{
+            if(setAttr){
+                proxy.setAttribute(setAttr, "false");
+            }
             if(proxy.dataset.cnt !== undefined){
                 const cnt = Number(proxy.dataset.cnt);
                 let nextSib = proxy as Element | null;
@@ -183,7 +192,7 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting'
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'setAttr'
             ],
             intro: 'intro',
             finale: 'finale',
