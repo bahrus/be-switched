@@ -40,10 +40,7 @@ export class BeSwitchedController implements BeSwitchedActions{
             proxy.isIntersecting = entry.isIntersecting;
         }, options);
         this.#observer.observe(this.#target!);
-        queue.push(proxy);
-        if(!queueIsProcessing){
-            doQueue();
-        }
+        doQueue(proxy);
     }
 
     onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
@@ -274,7 +271,10 @@ register(ifWantsToBe, upgrade, tagName);
 
 const queue: any[] = [];
 let queueIsProcessing = false;
-function doQueue(){
+function doQueue(newItem?: any){
+    if(newItem !== undefined){
+        queue.push(newItem);
+    }
     if(queue.length === 0) {
         queueIsProcessing = false;
         return;

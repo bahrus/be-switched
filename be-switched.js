@@ -32,10 +32,7 @@ export class BeSwitchedController {
             proxy.isIntersecting = entry.isIntersecting;
         }, options);
         this.#observer.observe(this.#target);
-        queue.push(proxy);
-        if (!queueIsProcessing) {
-            doQueue();
-        }
+        doQueue(proxy);
     }
     onIfNonEmptyArray({ ifNonEmptyArray, proxy }) {
         if (Array.isArray(ifNonEmptyArray)) {
@@ -242,7 +239,10 @@ function addStyle(proxy) {
 register(ifWantsToBe, upgrade, tagName);
 const queue = [];
 let queueIsProcessing = false;
-function doQueue() {
+function doQueue(newItem) {
+    if (newItem !== undefined) {
+        queue.push(newItem);
+    }
     if (queue.length === 0) {
         queueIsProcessing = false;
         return;
