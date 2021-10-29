@@ -18,6 +18,9 @@ export class BeSwitchedController {
     }
     #observer;
     onLazyDisplay({ proxy, lazyDelay, lazyLoadClass }) {
+        const filler = document.createElement('be-switched-filler');
+        ;
+        proxy.insertAdjacentElement('beforebegin', filler);
         proxy.style.display = 'inline-block';
         const options = {
             root: null,
@@ -248,6 +251,10 @@ function doQueue() {
     const doThisOne = queue.shift();
     setTimeout(() => {
         doThisOne.classList.remove(doThisOne.lazyLoadClass);
+        const prevSibling = doThisOne.previousElementSibling;
+        if (prevSibling !== null && prevSibling.localName === 'be-switched-filler') {
+            prevSibling.remove();
+        }
         doQueue();
     }, doThisOne.lazyDelay);
 }
