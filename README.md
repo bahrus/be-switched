@@ -23,6 +23,9 @@
 </ways-of-science>
 ```
 
+Editing JSON attributes inside HTML isn't the most pleasant experience, but the experience isn't so bad if editing within VSCode, and installing the [JSON-in-HTML](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) extension.  The extension works in the VSCode PWA and [github.dev](https://github.dev/bahrus/be-switched) domain as well.
+
+
 If the be-switched attribute is applied to a DOM node outside any ShadowDOM, then the template will lazy load when the conditions are satisfied.
 
 To use inside a ShadowDOM realm, an instance of the be-switched web component must be placed somewhere inside.
