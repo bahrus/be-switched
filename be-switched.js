@@ -29,9 +29,10 @@ export class BeSwitchedController {
             proxy.isIntersecting = entry.isIntersecting;
         }, options);
         this.#observer.observe(this.#target);
-        setTimeout(() => {
-            proxy.classList.remove(lazyLoadClass);
-        }, lazyDelay);
+        queue.push(proxy);
+        if (!queueIsProcessing) {
+            doQueue();
+        }
     }
     onIfNonEmptyArray({ ifNonEmptyArray, proxy }) {
         if (Array.isArray(ifNonEmptyArray)) {
@@ -236,3 +237,17 @@ function addStyle(proxy) {
     }
 }
 register(ifWantsToBe, upgrade, tagName);
+const queue = [];
+let queueIsProcessing = false;
+function doQueue() {
+    if (queue.length === 0) {
+        queueIsProcessing = false;
+        return;
+    }
+    queueIsProcessing = true;
+    const doThisOne = queue.shift();
+    setTimeout(() => {
+        doThisOne.classList.remove(doThisOne.lazyLoadClass);
+        doQueue();
+    }, doThisOne.lazyDelay);
+}

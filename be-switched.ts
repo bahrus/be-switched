@@ -4,6 +4,8 @@ import {BeSwitchedVirtualProps, BeSwitchedActions, BeSwitchedProps} from './type
 import {hookUp} from 'be-observant/hookUp.js';
 import {register} from 'be-hive/register.js';
 
+
+
 export class BeSwitchedController implements BeSwitchedActions{
 
     #target: Element | undefined;
@@ -36,9 +38,10 @@ export class BeSwitchedController implements BeSwitchedActions{
             proxy.isIntersecting = entry.isIntersecting;
         }, options);
         this.#observer.observe(this.#target!);
-        setTimeout(() => {
-            proxy.classList.remove(lazyLoadClass);
-        }, lazyDelay);
+        queue.push(proxy);
+        if(!queueIsProcessing){
+            doQueue();
+        }
     }
 
     onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
@@ -266,3 +269,19 @@ function addStyle(proxy: Element & BeSwitchedVirtualProps){
     }
 }
 register(ifWantsToBe, upgrade, tagName);
+
+const queue: any[] = [];
+let queueIsProcessing = false;
+function doQueue(){
+    if(queue.length === 0) {
+        queueIsProcessing = false;
+        return;
+    }
+    queueIsProcessing = true;
+    const doThisOne = queue.shift()!;
+    setTimeout(() => {
+        doThisOne.classList.remove(doThisOne.lazyLoadClass);
+        doQueue();
+    }, doThisOne.lazyDelay);
+
+}
