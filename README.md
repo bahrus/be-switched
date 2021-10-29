@@ -23,7 +23,7 @@
 </ways-of-science>
 ```
 
-Editing JSON attributes inside HTML isn't the most pleasant experience, but the experience isn't so bad if editing within VSCode, and installing the [JSON-in-HTML](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) extension.  The extension works in the VSCode PWA and [github.dev](https://github.dev/bahrus/be-switched) domain as well.
+Editing JSON attributes inside HTML isn't the most pleasant experience, but it isn't so bad after installing the [JSON-in-HTML](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) extension, for VSCode users.  The extension works in the VSCode PWA and [github.dev](https://github.dev/bahrus/be-switched) domain as well.
 
 
 If the be-switched attribute is applied to a DOM node outside any ShadowDOM, then the template will lazy load when the conditions are satisfied.
@@ -78,19 +78,25 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
 
 ## Lazy Loading 
 
-Lazy Loading is support, so that in addition to satisfying the other conditions, the template must appear within the visible area of the browser.
+Lazy Loading is supported, so that in addition to satisfying the other conditions, the template must appear within the visible area of the browser.
 
 Syntax:
 
 ```html
-<template be-switched='{
+<style>
+.be-lazy-loaded{
+    position:absolute;
+    top: -10000px;
+    display:block;
+}
+</style>
+<template class=be-lazy-loaded be-switched='{
     "if": true,
     "lhs": {"observe": "#lhs", "on": "input", "vft": "value"},
     "op": "===",
     "rhs": {"observe": "#rhs", "on": "input", "vft": "value"},
     "lazyDisplay": true,
-    "lazyDelay": 200,
-    "setAttr": "data-is-visible"
+    "lazyDelay": 100,
 }'>
     <div class="container">
       <div class="header">Header</div>
@@ -102,6 +108,22 @@ Syntax:
 </template>
 ```
 
-The lazyDelay parameter is optional (it defaults to 16).  Without a delay, multiple lazy loaded sections will all seem to be visible during intial display, as they may all have zero size.
+The lazyDelay parameter is optional (it defaults to 50).  Without a delay, multiple lazy loaded sections will all seem to be visible during initial display, as they may all have zero size.
 
 You may need to apply some styling associated with the attribute set via setAttr.  That attribute will be set to "true" when it is displayed.
+
+## Viewing Your Element Locally
+
+1.  Install git.
+2.  Fork/clone this repo.
+3.  Install node.
+4.  Open command window to folder where you cloned this repo.
+5.  > npm install
+6.  > npm run serve
+7.  Open http://localhost:3030/demo/dev in a modern browser.
+
+## Running Tests
+
+```
+> npm run test
+```
