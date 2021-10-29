@@ -104,12 +104,12 @@ export class BeSwitchedController implements BeSwitchedActions{
         }, displayDelay);
     }
 
-    doMain({val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay, setAttr}: this){
+    doMain({val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay, setClass}: this){
         if(val !== echoVal) return;
         const valWithLazy = !val ? false : (!lazyDisplay || isIntersecting);
         if(valWithLazy){
-            if(setAttr !== undefined){
-                proxy.setAttribute(setAttr, "true");
+            if(setClass !== undefined){
+                proxy.classList.add(setClass);
             }
             if(proxy.dataset.cnt === undefined){
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
@@ -135,8 +135,9 @@ export class BeSwitchedController implements BeSwitchedActions{
             }
             
         }else{
-            if(setAttr){
-                proxy.setAttribute(setAttr, "false");
+            //checks for !val are done when appropriate -- boolean conditions, not necessarily lazy loading, is now false
+            if(setClass !== undefined && !val){
+                proxy.classList.remove(setClass);
             }
             if(proxy.dataset.cnt !== undefined){
                 const cnt = Number(proxy.dataset.cnt);
@@ -144,13 +145,17 @@ export class BeSwitchedController implements BeSwitchedActions{
                 let idx = 0
                 while(nextSib && idx < cnt){
                     nextSib = nextSib.nextElementSibling;
-                    if(nextSib) nextSib.classList.add('be-switched-hide');
-                    if(toggleDisabled && (<any>nextSib).disabled === true){
-                        (<any>nextSib).disabled = false;
+                    if(nextSib !== null){
+                        if(!val) nextSib.classList.add('be-switched-hide');
+                        if(toggleDisabled && (<any>nextSib).disabled === true){
+                            (<any>nextSib).disabled = false;
+                        }
+                        idx++;
                     }
-                    idx++;
+
                 }
             }
+
         }
     }
 
@@ -192,7 +197,7 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'setAttr'
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'setClass'
             ],
             intro: 'intro',
             finale: 'finale',

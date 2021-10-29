@@ -20,7 +20,7 @@ export interface BeSwitchedVirtualProps{
     displayDelay: number;
     lazyDisplay: boolean;
     isIntersecting: boolean;
-    setAttr: string;
+    setClass: string;
     
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
