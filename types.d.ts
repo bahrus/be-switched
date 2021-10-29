@@ -17,6 +17,11 @@ export interface BeSwitchedVirtualProps{
     ifNonEmptyArray: any[] | object,
     ifNonEmptyArrayVal: undefined | any[],
     toggleDisabled: boolean;
+    displayDelay: number;
+    lazyDisplay: boolean;
+    isIntersecting: boolean;
+    //setAttr: {[key: string]: any};
+    
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
     proxy: HTMLTemplateElement & BeSwitchedVirtualProps;
@@ -33,4 +38,5 @@ export interface BeSwitchedActions{
     onVal(self: this): void;
     doMain(self: this): void;
     onIfNonEmptyArray(self: this): void;
+    onLazyDisplay(self: this): void;
 }

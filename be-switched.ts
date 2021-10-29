@@ -6,9 +6,9 @@ import {register} from 'be-hive/register.js';
 
 export class BeSwitchedController implements BeSwitchedActions{
 
-
+    #target: Element | undefined;
     intro(proxy: Element & BeSwitchedVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
-
+        this.#target = target;
     }
 
     onLHS({lhs, proxy}: this){
@@ -23,13 +23,27 @@ export class BeSwitchedController implements BeSwitchedActions{
         hookUp(iff, proxy, 'ifVal');
     }
 
+    #observer: IntersectionObserver | undefined;
+    onLazyDisplay({proxy}: this){
+        proxy.style.display = 'inline-block';
+        const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0
+        } as IntersectionObserverInit;
+        this.#observer = new IntersectionObserver((entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+            const entry = entries[0];
+            proxy.isIntersecting = entry.isIntersecting;
+        }, options);
+        this.#observer.observe(this.#target!);
+    }
+
     onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
         if(Array.isArray(ifNonEmptyArray)){
             proxy.ifNonEmptyArrayVal = ifNonEmptyArray;
         }else{
             hookUp(ifNonEmptyArray, proxy, 'ifNonEmptyArrayVal');
         }
-
     }
 
     onIfMediaMatches({ifMediaMatches}: this){
@@ -79,7 +93,7 @@ export class BeSwitchedController implements BeSwitchedActions{
         }        
     }
 
-    onVal({val, proxy}: this){
+    onVal({val, proxy, displayDelay}: this){
         if((<any>proxy).debug){
             console.log({val, proxy});
         }
@@ -87,12 +101,13 @@ export class BeSwitchedController implements BeSwitchedActions{
             if(proxy.echoVal !== proxy.val){
                 proxy.echoVal = proxy.val;
             }
-        }, 16);
+        }, displayDelay);
     }
 
-    doMain({val, echoVal, proxy, toggleDisabled}: this){
+    doMain({val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay}: this){
         if(val !== echoVal) return;
-        if(val){
+        const valWithLazy = !val ? false : (!lazyDisplay || isIntersecting);
+        if(valWithLazy){
             if(proxy.dataset.cnt === undefined){
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 addStyle(proxy);
@@ -136,6 +151,7 @@ export class BeSwitchedController implements BeSwitchedActions{
 
         // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
         if (this.#mql) this.#mql.removeEventListener('change', this.#mediaQueryHandler);
+        if(this.#observer !== undefined) this.#observer.disconnect();
     }
 
     finale(proxy: Element & BeSwitchedVirtualProps, target:Element, beDecorProps: BeDecoratedProps){
@@ -167,10 +183,11 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal'
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting'
             ],
             intro: 'intro',
-            finale: 'finale'
+            finale: 'finale',
+            displayDelay: 16,
         },
         actions:{
             onLHS:{
@@ -195,7 +212,10 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
                 ifKeyIn: ['val']
             },
             doMain:{
-                ifKeyIn: ['val', 'echoVal']
+                ifKeyIn: ['val', 'echoVal', 'isIntersecting']
+            },
+            onLazyDisplay:{
+                ifAllOf: ['lazyDisplay']
             }
         }
     },

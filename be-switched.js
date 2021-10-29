@@ -3,7 +3,9 @@ import { define } from 'be-decorated/be-decorated.js';
 import { hookUp } from 'be-observant/hookUp.js';
 import { register } from 'be-hive/register.js';
 export class BeSwitchedController {
+    #target;
     intro(proxy, target, beDecorProps) {
+        this.#target = target;
     }
     onLHS({ lhs, proxy }) {
         hookUp(lhs, proxy, 'lhsVal');
@@ -13,6 +15,20 @@ export class BeSwitchedController {
     }
     onIf({ if: iff, proxy }) {
         hookUp(iff, proxy, 'ifVal');
+    }
+    #observer;
+    onLazyDisplay({ proxy }) {
+        proxy.style.display = 'inline-block';
+        const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0
+        };
+        this.#observer = new IntersectionObserver((entries, observer) => {
+            const entry = entries[0];
+            proxy.isIntersecting = entry.isIntersecting;
+        }, options);
+        this.#observer.observe(this.#target);
     }
     onIfNonEmptyArray({ ifNonEmptyArray, proxy }) {
         if (Array.isArray(ifNonEmptyArray)) {
@@ -62,7 +78,7 @@ export class BeSwitchedController {
                 break;
         }
     }
-    onVal({ val, proxy }) {
+    onVal({ val, proxy, displayDelay }) {
         if (proxy.debug) {
             console.log({ val, proxy });
         }
@@ -70,12 +86,13 @@ export class BeSwitchedController {
             if (proxy.echoVal !== proxy.val) {
                 proxy.echoVal = proxy.val;
             }
-        }, 16);
+        }, displayDelay);
     }
-    doMain({ val, echoVal, proxy, toggleDisabled }) {
+    doMain({ val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay }) {
         if (val !== echoVal)
             return;
-        if (val) {
+        const valWithLazy = !val ? false : (!lazyDisplay || isIntersecting);
+        if (valWithLazy) {
             if (proxy.dataset.cnt === undefined) {
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 addStyle(proxy);
@@ -118,6 +135,8 @@ export class BeSwitchedController {
         // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
         if (this.#mql)
             this.#mql.removeEventListener('change', this.#mediaQueryHandler);
+        if (this.#observer !== undefined)
+            this.#observer.disconnect();
     }
     finale(proxy, target, beDecorProps) {
         const eventHandlers = proxy.eventHandlers;
@@ -140,10 +159,11 @@ define({
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal'
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting'
             ],
             intro: 'intro',
-            finale: 'finale'
+            finale: 'finale',
+            displayDelay: 16,
         },
         actions: {
             onLHS: {
@@ -168,7 +188,10 @@ define({
                 ifKeyIn: ['val']
             },
             doMain: {
-                ifKeyIn: ['val', 'echoVal']
+                ifKeyIn: ['val', 'echoVal', 'isIntersecting']
+            },
+            onLazyDisplay: {
+                ifAllOf: ['lazyDisplay']
             }
         }
     },
