@@ -172,10 +172,12 @@ define({
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
                 'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'lazyLoadClass'
             ],
+            proxyPropDefaults: {
+                displayDelay: 16,
+                lazyLoadClass: 'be-lazy-loaded'
+            },
             intro: 'intro',
             finale: 'finale',
-            displayDelay: 16,
-            lazyLoadClass: 'be-lazy-loaded'
         },
         actions: {
             onLHS: {
