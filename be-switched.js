@@ -88,14 +88,16 @@ export class BeSwitchedController {
             }
         }, displayDelay);
     }
-    doMain({ val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay, setClass }) {
+    doMain({ val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay, lazyLoadClass }) {
         if (val !== echoVal)
             return;
         const valWithLazy = !val ? false : (!lazyDisplay || isIntersecting);
         if (valWithLazy) {
-            if (setClass !== undefined) {
-                proxy.classList.add(setClass);
-            }
+            // if(setClass !== undefined){
+            //     proxy.classList.add(setClass);
+            // }
+            if (isIntersecting)
+                proxy.classList.remove(lazyLoadClass);
             if (proxy.dataset.cnt === undefined) {
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 addStyle(proxy);
@@ -119,9 +121,9 @@ export class BeSwitchedController {
         }
         else {
             //checks for !val are done when appropriate -- boolean conditions, not necessarily lazy loading, is now false
-            if (setClass !== undefined && !val) {
-                proxy.classList.remove(setClass);
-            }
+            // if(setClass !== undefined && !val){
+            //     proxy.classList.remove(setClass);
+            // }
             if (proxy.dataset.cnt !== undefined) {
                 const cnt = Number(proxy.dataset.cnt);
                 let nextSib = proxy;
@@ -168,11 +170,12 @@ define({
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'setClass'
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'lazyLoadClass'
             ],
             intro: 'intro',
             finale: 'finale',
             displayDelay: 16,
+            lazyLoadClass: 'be-lazy-loaded'
         },
         actions: {
             onLHS: {
