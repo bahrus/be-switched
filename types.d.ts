@@ -21,6 +21,7 @@ export interface BeSwitchedVirtualProps{
     lazyDisplay: boolean;
     isIntersecting: boolean;
     lazyLoadClass: string;
+    lazyDelay: number;
     // setClass: string;
     
 }

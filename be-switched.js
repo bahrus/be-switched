@@ -17,7 +17,7 @@ export class BeSwitchedController {
         hookUp(iff, proxy, 'ifVal');
     }
     #observer;
-    onLazyDisplay({ proxy }) {
+    onLazyDisplay({ proxy, lazyDelay, lazyLoadClass }) {
         proxy.style.display = 'inline-block';
         const options = {
             root: null,
@@ -29,6 +29,9 @@ export class BeSwitchedController {
             proxy.isIntersecting = entry.isIntersecting;
         }, options);
         this.#observer.observe(this.#target);
+        setTimeout(() => {
+            proxy.classList.remove(lazyLoadClass);
+        }, lazyDelay);
     }
     onIfNonEmptyArray({ ifNonEmptyArray, proxy }) {
         if (Array.isArray(ifNonEmptyArray)) {
@@ -96,8 +99,7 @@ export class BeSwitchedController {
             // if(setClass !== undefined){
             //     proxy.classList.add(setClass);
             // }
-            if (isIntersecting)
-                proxy.classList.remove(lazyLoadClass);
+            //if(isIntersecting) proxy.classList.remove(lazyLoadClass);
             if (proxy.dataset.cnt === undefined) {
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 addStyle(proxy);
@@ -170,11 +172,13 @@ define({
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'lazyLoadClass'
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay',
+                'lazyDisplay', 'isIntersecting', 'lazyLoadClass', 'lazyDelay'
             ],
             proxyPropDefaults: {
                 displayDelay: 16,
-                lazyLoadClass: 'be-lazy-loaded'
+                lazyLoadClass: 'be-lazy-loaded',
+                lazyDelay: 50,
             },
             intro: 'intro',
             finale: 'finale',

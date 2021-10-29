@@ -24,7 +24,7 @@ export class BeSwitchedController implements BeSwitchedActions{
     }
 
     #observer: IntersectionObserver | undefined;
-    onLazyDisplay({proxy}: this){
+    onLazyDisplay({proxy, lazyDelay, lazyLoadClass}: this){
         proxy.style.display = 'inline-block';
         const options = {
             root: null,
@@ -36,6 +36,9 @@ export class BeSwitchedController implements BeSwitchedActions{
             proxy.isIntersecting = entry.isIntersecting;
         }, options);
         this.#observer.observe(this.#target!);
+        setTimeout(() => {
+            proxy.classList.remove(lazyLoadClass);
+        }, lazyDelay);
     }
 
     onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
@@ -111,7 +114,7 @@ export class BeSwitchedController implements BeSwitchedActions{
             // if(setClass !== undefined){
             //     proxy.classList.add(setClass);
             // }
-            if(isIntersecting) proxy.classList.remove(lazyLoadClass);
+            //if(isIntersecting) proxy.classList.remove(lazyLoadClass);
             if(proxy.dataset.cnt === undefined){
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 addStyle(proxy);
@@ -198,11 +201,13 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'lazyDisplay', 'isIntersecting', 'lazyLoadClass'
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 
+                'lazyDisplay', 'isIntersecting', 'lazyLoadClass', 'lazyDelay'
             ],
             proxyPropDefaults:{
                 displayDelay: 16,
-                lazyLoadClass: 'be-lazy-loaded'
+                lazyLoadClass: 'be-lazy-loaded',
+                lazyDelay: 50,
             },
             intro: 'intro',
             finale: 'finale',
