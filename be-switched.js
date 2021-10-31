@@ -103,7 +103,6 @@ export class BeSwitchedController {
             //if(isIntersecting) proxy.classList.remove(lazyLoadClass);
             if (proxy.dataset.cnt === undefined) {
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
-                addStyle(proxy);
                 proxy.dataset.cnt = appendedChildren.length.toString();
             }
             else {
@@ -123,6 +122,7 @@ export class BeSwitchedController {
             }
         }
         else {
+            addStyle(proxy);
             //checks for !val are done when appropriate -- boolean conditions, not necessarily lazy loading, is now false
             // if(setClass !== undefined && !val){
             //     proxy.classList.remove(setClass);
