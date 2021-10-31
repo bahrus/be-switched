@@ -2,6 +2,8 @@
 
 *be-switched* is a template behavior that lazy loads content when conditions are met.
 
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-switched)
+
 [![Actions Status](https://github.com/bahrus/be-switched/workflows/CI/badge.svg)](https://github.com/bahrus/be-switched/actions?query=workflow%3ACI)
 
 <a href="https://nodei.co/npm/be-switched/"><img src="https://nodei.co/npm/be-switched.png"></a>
@@ -28,7 +30,7 @@ Editing JSON attributes inside HTML isn't the most pleasant experience, but it i
 
 If the be-switched attribute is applied to a DOM node outside any ShadowDOM, then the template will lazy load when the conditions are satisfied.
 
-To use inside a ShadowDOM realm, an instance of the be-switched web component must be placed somewhere inside.
+To use inside a ShadowDOM realm, an instance of the [be-hive](https://github.dev/bahrus/be-hive) web component must be placed somewhere inside.
 
 To use fully compliant HTML5 syntax, use data-be-switched instead of be-switched.
 
@@ -53,6 +55,12 @@ If, however, the content should display initially, but we want the client-side J
 }'></template>
 <div>A witch!</div>
 ```
+
+A [demo](https://github.com/bahrus/be-switched/blob/baseline/demo/ssr.html) can be seen by opening http://localhost:3030/ssr (see set up instructions below).
+
+In the future, as the defer-hydration cross-web component library protocol solidifies, support will be added to ensure no extra unnecessary "flops" are wasted during hydration.
+
+## Additional conditions be-switched supports
 
 In addition to "if" boolean checks, and equality checks using lhs and rhs keys, some additional "if" checks can be made:
 
