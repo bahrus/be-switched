@@ -1,20 +1,22 @@
 import {BeDecoratedProps, EventHandler} from 'be-decorated/types';
+import {IObserve} from 'be-observant/types';
 
+type huVals = boolean | string | IObserve
 export interface BeSwitchedVirtualProps{
     eventHandlers: EventHandler[],
-    if: boolean | object,
-    ifMediaMatches: string,
+    if: huVals,
+    ifMediaMatches: huVals,
     ifVal: boolean,
-    lhs: any,
+    lhs: huVals,
     op: string,
-    rhs: any,
+    rhs: huVals,
     lhsVal: any,
     rhsVal: any,
     val: boolean,
     echoVal: boolean,
     hiddenStyle: string,
     matchesMediaQuery: boolean,
-    ifNonEmptyArray: any[] | object,
+    ifNonEmptyArray: any[] | IObserve,
     ifNonEmptyArrayVal: undefined | any[],
     toggleDisabled: boolean;
     displayDelay: number;

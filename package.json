@@ -19,8 +19,7 @@
     "./be-switched.js": "./be-switched.js"
   },
   "files": [
-    "be*.*",
-    "types.d.ts"
+    "*.*"
   ],
   "types": "types.d.ts",
   "dependencies": {
