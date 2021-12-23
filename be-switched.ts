@@ -228,9 +228,7 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             onIfMediaMatches: {
                 ifKeyIn: ['ifMediaMatches']
             },
-            onIfNonEmptyArray:{
-                ifAllOf: ['ifNonEmptyArray']
-            },
+            onIfNonEmptyArray:'ifNonEmptyArray',
             calcVal: {
                 ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'isIntersecting', 'ifNonEmptyArrayVal', 'echoVal']
             },
@@ -240,9 +238,7 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             doMain:{
                 ifKeyIn: ['val', 'echoVal', 'isIntersecting']
             },
-            onLazyDisplay:{
-                ifAllOf: ['lazyDisplay']
-            }
+            onLazyDisplay:'lazyDisplay'
         }
     },
     complexPropDefaults:{
