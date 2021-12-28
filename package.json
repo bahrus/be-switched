@@ -23,19 +23,19 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "trans-render": "0.0.441",
-    "be-observant": "0.0.70",
-    "be-decorated": "0.0.56",
-    "be-hive": "0.0.15"
+    "trans-render": "0.0.442",
+    "be-observant": "0.0.71",
+    "be-decorated": "0.0.57",
+    "be-hive": "0.0.16"
   },
   "devDependencies": {
     "xtal-test": "0.0.54",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.5.7",
-    "xtal-editor": "0.0.108",
+    "xtal-editor": "0.0.111",
     "xtal-shell": "0.0.25",
-    "xtal-element": "0.0.456",
-    "be-definitive": "0.0.19"
+    "xtal-element": "0.0.457",
+    "be-definitive": "0.0.22"
   },
   "scripts": {
     "test": "node test/test-all.js",
