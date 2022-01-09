@@ -61,7 +61,7 @@ export class BeSwitchedController implements BeSwitchedActions{
     #mql: MediaQueryList | undefined;
     addMediaListener = ({ ifMediaMatches}: this) => {
         this.disconnect();
-        this.#mql = window.matchMedia(ifMediaMatches!);
+        this.#mql = window.matchMedia(ifMediaMatches! as string); //TODO:  support observant media matches
         this.#mql.addEventListener('change', this.#mediaQueryHandler);
         this.proxy.matchesMediaQuery = this.#mql.matches;
     }
@@ -121,7 +121,7 @@ export class BeSwitchedController implements BeSwitchedActions{
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 
                 proxy.dataset.cnt = appendedChildren.length.toString();
-
+                proxy.style.display = '';
             }else{
 
                 const cnt = Number(proxy.dataset.cnt);
