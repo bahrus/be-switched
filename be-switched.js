@@ -16,24 +16,6 @@ export class BeSwitchedController {
     onIf({ if: iff, proxy }) {
         hookUp(iff, proxy, 'ifVal');
     }
-    #observer;
-    onLazyDisplay({ proxy, lazyDelay, lazyLoadClass }) {
-        const filler = document.createElement('be-switched-filler');
-        ;
-        proxy.insertAdjacentElement('beforebegin', filler);
-        proxy.style.display = 'inline-block';
-        const options = {
-            root: null,
-            rootMargin: "0px",
-            threshold: 0
-        };
-        this.#observer = new IntersectionObserver((entries, observer) => {
-            const entry = entries[0];
-            proxy.isIntersecting = entry.isIntersecting;
-        }, options);
-        this.#observer.observe(this.#target);
-        doQueue(proxy);
-    }
     onIfNonEmptyArray({ ifNonEmptyArray, proxy }) {
         if (Array.isArray(ifNonEmptyArray)) {
             proxy.ifNonEmptyArrayVal = ifNonEmptyArray;
@@ -92,11 +74,10 @@ export class BeSwitchedController {
             }
         }, displayDelay);
     }
-    doMain({ val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay, lazyLoadClass }) {
+    doMain({ val, echoVal, proxy, toggleDisabled }) {
         if (val !== echoVal)
             return;
-        const valWithLazy = !val ? false : (!lazyDisplay || isIntersecting);
-        if (valWithLazy) {
+        if (val) {
             // if(setClass !== undefined){
             //     proxy.classList.add(setClass);
             // }
@@ -149,8 +130,6 @@ export class BeSwitchedController {
         // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
         if (this.#mql)
             this.#mql.removeEventListener('change', this.#mediaQueryHandler);
-        if (this.#observer !== undefined)
-            this.#observer.disconnect();
     }
     finale(proxy, target, beDecorProps) {
         const eventHandlers = proxy.eventHandlers;
@@ -174,12 +153,9 @@ define({
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
                 'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay',
-                'lazyDisplay', 'isIntersecting', 'lazyLoadClass', 'lazyDelay'
             ],
             proxyPropDefaults: {
                 displayDelay: 16,
-                lazyLoadClass: 'be-lazy-loaded',
-                lazyDelay: 50,
             },
             intro: 'intro',
             finale: 'finale',
@@ -199,15 +175,14 @@ define({
             },
             onIfNonEmptyArray: 'ifNonEmptyArray',
             calcVal: {
-                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'isIntersecting', 'ifNonEmptyArrayVal', 'echoVal']
+                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'ifNonEmptyArrayVal', 'echoVal']
             },
             onVal: {
                 ifKeyIn: ['val']
             },
             doMain: {
-                ifKeyIn: ['val', 'echoVal', 'isIntersecting']
+                ifKeyIn: ['val', 'echoVal']
             },
-            onLazyDisplay: 'lazyDisplay'
         }
     },
     complexPropDefaults: {

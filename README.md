@@ -27,6 +27,7 @@
 
 Editing JSON attributes inside HTML isn't the most pleasant experience, but it isn't so bad after installing the [JSON-in-HTML](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) extension, for VSCode users.  The extension works in the VSCode PWA and [github.dev](https://github.dev/bahrus/be-switched) domain as well.
 
+For an optimal editing experience, edit html via an mjs file (or mts file soon, hopefully) with the help of the [may-it-be compiler](https://github.com/bahrus/may-it-be).
 
 If the be-switched attribute is applied to a DOM node outside any ShadowDOM, then the template will lazy load when the conditions are satisfied.
 
@@ -75,7 +76,7 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
     <tbody>
         <tr>
             <td>ifMediaMatches</td>
-            <td>Expands the template / makes visibile only when the specified media query expression is satisfied.</td>
+            <td>Expands the template / makes visible only when the specified media query expression is satisfied.</td>
         </tr>
         <tr>
             <td>ifNonEmptyArray</td>
@@ -84,48 +85,7 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
     </tbody>
 </table>
 
-## Lazy Loading 
 
-Lazy Loading is supported, so that in addition to satisfying the other conditions, the template must appear within the visible area of the browser.
-
-Syntax:
-
-```html
-<style>
-/* These styling hacks will often lead to more effect lazy-loading.
-   Some experimentation will likely be required in each scenario to determine whether these settings help / hurt
-   or need further adjustments. */
-.be-lazy-loaded{
-    position:absolute;
-    top: -10000px;
-    display:block;
-}
-be-switched-filler{
-    display:block;
-    min-height:1000px;
-}
-</style>
-<template class=be-lazy-loaded be-switched='{
-    "if": true,
-    "lhs": {"observe": "#lhs", "on": "input", "vft": "value"},
-    "op": "===",
-    "rhs": {"observe": "#rhs", "on": "input", "vft": "value"},
-    "lazyDisplay": true,
-    "lazyDelay": 100,
-}'>
-    <div class="container">
-      <div class="header">Header</div>
-      <div class="panel left">Left panel</div>
-      <div class="mainbody">Main body</div>
-      <div class="panel right">Right panel</div>
-      <div class="footer">Footer</div>
-    </div>
-</template>
-```
-
-The lazyDelay parameter is optional (it defaults to 50).  Without a delay, multiple lazy loaded sections will all seem to be visible during initial display, as they may all have zero size.
-
-You may need to apply some styling associated with the attribute set via setAttr.  That attribute will be set to "true" when it is displayed.
 
 ## Viewing Your Element Locally
 

@@ -20,11 +20,7 @@ export interface BeSwitchedVirtualProps{
     ifNonEmptyArrayVal: undefined | any[],
     toggleDisabled: boolean;
     displayDelay: number;
-    lazyDisplay: boolean;
-    isIntersecting: boolean;
-    lazyLoadClass: string;
-    lazyDelay: number;
-    // setClass: string;
+
     
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
@@ -42,5 +38,4 @@ export interface BeSwitchedActions{
     onVal(self: this): void;
     doMain(self: this): void;
     onIfNonEmptyArray(self: this): void;
-    onLazyDisplay(self: this): void;
 }

@@ -25,24 +25,6 @@ export class BeSwitchedController implements BeSwitchedActions{
         hookUp(iff, proxy, 'ifVal');
     }
 
-    #observer: IntersectionObserver | undefined;
-    onLazyDisplay({proxy, lazyDelay, lazyLoadClass}: this){
-        const filler = document.createElement('be-switched-filler');;
-        proxy.insertAdjacentElement('beforebegin', filler);
-        proxy.style.display = 'inline-block';
-        const options = {
-            root: null,
-            rootMargin: "0px",
-            threshold: 0
-        } as IntersectionObserverInit;
-        this.#observer = new IntersectionObserver((entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-            const entry = entries[0];
-            proxy.isIntersecting = entry.isIntersecting;
-        }, options);
-        this.#observer.observe(this.#target!);
-        doQueue(proxy);
-    }
-
     onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
         if(Array.isArray(ifNonEmptyArray)){
             proxy.ifNonEmptyArrayVal = ifNonEmptyArray;
@@ -109,10 +91,9 @@ export class BeSwitchedController implements BeSwitchedActions{
         }, displayDelay);
     }
 
-    doMain({val, echoVal, proxy, toggleDisabled, isIntersecting, lazyDisplay, lazyLoadClass}: this){
+    doMain({val, echoVal, proxy, toggleDisabled}: this){
         if(val !== echoVal) return;
-        const valWithLazy = !val ? false : (!lazyDisplay || isIntersecting);
-        if(valWithLazy){
+        if(val){
             // if(setClass !== undefined){
             //     proxy.classList.add(setClass);
             // }
@@ -171,7 +152,6 @@ export class BeSwitchedController implements BeSwitchedActions{
 
         // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
         if (this.#mql) this.#mql.removeEventListener('change', this.#mediaQueryHandler);
-        if(this.#observer !== undefined) this.#observer.disconnect();
     }
 
     finale(proxy: Element & BeSwitchedVirtualProps, target:Element, beDecorProps: BeDecoratedProps){
@@ -204,12 +184,9 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
                 'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 
-                'lazyDisplay', 'isIntersecting', 'lazyLoadClass', 'lazyDelay'
             ],
             proxyPropDefaults:{
                 displayDelay: 16,
-                lazyLoadClass: 'be-lazy-loaded',
-                lazyDelay: 50,
             },
             intro: 'intro',
             finale: 'finale',
@@ -229,15 +206,14 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             },
             onIfNonEmptyArray:'ifNonEmptyArray',
             calcVal: {
-                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'isIntersecting', 'ifNonEmptyArrayVal', 'echoVal']
+                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'ifNonEmptyArrayVal', 'echoVal']
             },
             onVal: {
                 ifKeyIn: ['val']
             },
             doMain:{
-                ifKeyIn: ['val', 'echoVal', 'isIntersecting']
+                ifKeyIn: ['val', 'echoVal']
             },
-            onLazyDisplay:'lazyDisplay'
         }
     },
     complexPropDefaults:{
