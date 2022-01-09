@@ -121,7 +121,6 @@ export class BeSwitchedController implements BeSwitchedActions{
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 
                 proxy.dataset.cnt = appendedChildren.length.toString();
-                proxy.style.display = '';
             }else{
 
                 const cnt = Number(proxy.dataset.cnt);

@@ -104,7 +104,6 @@ export class BeSwitchedController {
             if (proxy.dataset.cnt === undefined) {
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 proxy.dataset.cnt = appendedChildren.length.toString();
-                proxy.style.display = '';
             }
             else {
                 const cnt = Number(proxy.dataset.cnt);
