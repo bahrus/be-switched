@@ -2,6 +2,7 @@ import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.
 import { define } from 'be-decorated/be-decorated.js';
 import { hookUp } from 'be-observant/hookUp.js';
 import { register } from 'be-hive/register.js';
+import { unsubscribe } from 'trans-render/lib/subscribe.js';
 export class BeSwitchedController {
     #target;
     intro(proxy, target, beDecorProps) {
@@ -132,6 +133,7 @@ export class BeSwitchedController {
             this.#mql.removeEventListener('change', this.#mediaQueryHandler);
     }
     finale(proxy, target, beDecorProps) {
+        unsubscribe(proxy);
         const eventHandlers = proxy.eventHandlers;
         for (const eh of eventHandlers) {
             eh.elementToObserve.removeEventListener(eh.on, eh.fn);

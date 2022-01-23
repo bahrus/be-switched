@@ -3,7 +3,7 @@ import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeSwitchedVirtualProps, BeSwitchedActions, BeSwitchedProps} from './types';
 import {hookUp} from 'be-observant/hookUp.js';
 import {register} from 'be-hive/register.js';
-
+import { unsubscribe } from 'trans-render/lib/subscribe.js';
 
 
 export class BeSwitchedController implements BeSwitchedActions{
@@ -155,6 +155,7 @@ export class BeSwitchedController implements BeSwitchedActions{
     }
 
     finale(proxy: Element & BeSwitchedVirtualProps, target:Element, beDecorProps: BeDecoratedProps){
+        unsubscribe(proxy);
         const eventHandlers = proxy.eventHandlers;
         for(const eh of eventHandlers){
             eh.elementToObserve.removeEventListener(eh.on, eh.fn);
