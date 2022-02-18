@@ -1,10 +1,7 @@
-import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeSwitchedVirtualProps, BeSwitchedActions, BeSwitchedProps} from './types';
 import {hookUp} from 'be-observant/hookUp.js';
 import {register} from 'be-hive/register.js';
-import { unsubscribe } from 'trans-render/lib/subscribe.js';
-
 
 export class BeSwitchedController implements BeSwitchedActions{
 
@@ -91,14 +88,11 @@ export class BeSwitchedController implements BeSwitchedActions{
         }, displayDelay);
     }
 
-    doMain({val, echoVal, proxy, toggleDisabled}: this){
+    async doMain({val, echoVal, proxy, toggleDisabled}: this){
         if(val !== echoVal) return;
         if(val){
-            // if(setClass !== undefined){
-            //     proxy.classList.add(setClass);
-            // }
-            //if(isIntersecting) proxy.classList.remove(lazyLoadClass);
             if(proxy.dataset.cnt === undefined){
+                const {insertAdjacentTemplate} = await import('trans-render/lib/insertAdjacentTemplate.js');
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 
                 proxy.dataset.cnt = appendedChildren.length.toString();
@@ -154,7 +148,8 @@ export class BeSwitchedController implements BeSwitchedActions{
         if (this.#mql) this.#mql.removeEventListener('change', this.#mediaQueryHandler);
     }
 
-    finale(proxy: Element & BeSwitchedVirtualProps, target:Element, beDecorProps: BeDecoratedProps){
+    async finale(proxy: Element & BeSwitchedVirtualProps, target:Element, beDecorProps: BeDecoratedProps){
+        const {unsubscribe} = await import('trans-render/lib/subscribe.js');
         unsubscribe(proxy);
         const eventHandlers = proxy.eventHandlers;
         for(const eh of eventHandlers){
@@ -242,25 +237,25 @@ function addStyle(proxy: Element & BeSwitchedVirtualProps){
 }
 register(ifWantsToBe, upgrade, tagName);
 
-const queue: any[] = [];
-let queueIsProcessing = false;
-function doQueue(newItem?: any){
-    if(newItem !== undefined){
-        queue.push(newItem);
-    }
-    if(queue.length === 0) {
-        queueIsProcessing = false;
-        return;
-    }
-    queueIsProcessing = true;
-    const doThisOne = queue.shift()!;
-    setTimeout(() => {
-        doThisOne.classList.remove(doThisOne.lazyLoadClass);
-        const prevSibling = doThisOne.previousElementSibling;
-        if(prevSibling !== null && prevSibling.localName === 'be-switched-filler'){
-            prevSibling.remove();
-        }
-        doQueue();
-    }, doThisOne.lazyDelay);
+// const queue: any[] = [];
+// let queueIsProcessing = false;
+// function doQueue(newItem?: any){
+//     if(newItem !== undefined){
+//         queue.push(newItem);
+//     }
+//     if(queue.length === 0) {
+//         queueIsProcessing = false;
+//         return;
+//     }
+//     queueIsProcessing = true;
+//     const doThisOne = queue.shift()!;
+//     setTimeout(() => {
+//         doThisOne.classList.remove(doThisOne.lazyLoadClass);
+//         const prevSibling = doThisOne.previousElementSibling;
+//         if(prevSibling !== null && prevSibling.localName === 'be-switched-filler'){
+//             prevSibling.remove();
+//         }
+//         doQueue();
+//     }, doThisOne.lazyDelay);
 
-}
+// }

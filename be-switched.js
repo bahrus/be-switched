@@ -1,8 +1,6 @@
-import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
 import { define } from 'be-decorated/be-decorated.js';
 import { hookUp } from 'be-observant/hookUp.js';
 import { register } from 'be-hive/register.js';
-import { unsubscribe } from 'trans-render/lib/subscribe.js';
 export class BeSwitchedController {
     #target;
     intro(proxy, target, beDecorProps) {
@@ -75,15 +73,12 @@ export class BeSwitchedController {
             }
         }, displayDelay);
     }
-    doMain({ val, echoVal, proxy, toggleDisabled }) {
+    async doMain({ val, echoVal, proxy, toggleDisabled }) {
         if (val !== echoVal)
             return;
         if (val) {
-            // if(setClass !== undefined){
-            //     proxy.classList.add(setClass);
-            // }
-            //if(isIntersecting) proxy.classList.remove(lazyLoadClass);
             if (proxy.dataset.cnt === undefined) {
+                const { insertAdjacentTemplate } = await import('trans-render/lib/insertAdjacentTemplate.js');
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
                 proxy.dataset.cnt = appendedChildren.length.toString();
             }
@@ -132,7 +127,8 @@ export class BeSwitchedController {
         if (this.#mql)
             this.#mql.removeEventListener('change', this.#mediaQueryHandler);
     }
-    finale(proxy, target, beDecorProps) {
+    async finale(proxy, target, beDecorProps) {
+        const { unsubscribe } = await import('trans-render/lib/subscribe.js');
         unsubscribe(proxy);
         const eventHandlers = proxy.eventHandlers;
         for (const eh of eventHandlers) {
@@ -210,24 +206,24 @@ function addStyle(proxy) {
     }
 }
 register(ifWantsToBe, upgrade, tagName);
-const queue = [];
-let queueIsProcessing = false;
-function doQueue(newItem) {
-    if (newItem !== undefined) {
-        queue.push(newItem);
-    }
-    if (queue.length === 0) {
-        queueIsProcessing = false;
-        return;
-    }
-    queueIsProcessing = true;
-    const doThisOne = queue.shift();
-    setTimeout(() => {
-        doThisOne.classList.remove(doThisOne.lazyLoadClass);
-        const prevSibling = doThisOne.previousElementSibling;
-        if (prevSibling !== null && prevSibling.localName === 'be-switched-filler') {
-            prevSibling.remove();
-        }
-        doQueue();
-    }, doThisOne.lazyDelay);
-}
+// const queue: any[] = [];
+// let queueIsProcessing = false;
+// function doQueue(newItem?: any){
+//     if(newItem !== undefined){
+//         queue.push(newItem);
+//     }
+//     if(queue.length === 0) {
+//         queueIsProcessing = false;
+//         return;
+//     }
+//     queueIsProcessing = true;
+//     const doThisOne = queue.shift()!;
+//     setTimeout(() => {
+//         doThisOne.classList.remove(doThisOne.lazyLoadClass);
+//         const prevSibling = doThisOne.previousElementSibling;
+//         if(prevSibling !== null && prevSibling.localName === 'be-switched-filler'){
+//             prevSibling.remove();
+//         }
+//         doQueue();
+//     }, doThisOne.lazyDelay);
+// }
