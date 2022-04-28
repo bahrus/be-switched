@@ -2,8 +2,8 @@ import {BeDecoratedProps, EventHandler} from 'be-decorated/types';
 import {IObserve} from 'be-observant/types';
 
 type huVals = boolean | string | IObserve
-export interface BeSwitchedVirtualProps{
-    eventHandlers: EventHandler[],
+
+export interface BeSwitchedEndUserProps {
     if: huVals,
     ifMediaMatches: huVals,
     ifVal: boolean,
@@ -13,15 +13,17 @@ export interface BeSwitchedVirtualProps{
     lhsVal: any,
     rhsVal: any,
     val: boolean,
-    echoVal: boolean,
     hiddenStyle: string,
-    matchesMediaQuery: boolean,
     ifNonEmptyArray: any[] | IObserve,
     ifNonEmptyArrayVal: undefined | any[],
     toggleDisabled: boolean;
     displayDelay: number;
+}
 
-    
+export interface BeSwitchedVirtualProps extends BeSwitchedEndUserProps{
+    eventHandlers: EventHandler[],
+    echoVal: boolean,
+    matchesMediaQuery: boolean,
 }
 export interface BeSwitchedProps extends BeSwitchedVirtualProps{
     proxy: HTMLTemplateElement & BeSwitchedVirtualProps;
