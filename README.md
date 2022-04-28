@@ -27,7 +27,7 @@
 
 Editing JSON attributes inside HTML isn't the most pleasant experience, but it isn't so bad after installing the [JSON-in-HTML](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) extension, for VSCode users.  The extension works in the VSCode PWA and [github.dev](https://github.dev/bahrus/be-switched) domain as well.
 
-For an optimal editing experience, edit html via an mjs file (or mts file soon, hopefully) with the help of the [may-it-be compiler](https://github.com/bahrus/may-it-be).
+For an optimal editing experience, edit html via an mts/mjs file with the help of the [may-it-be compiler](https://github.com/bahrus/may-it-be).
 
 If the be-switched attribute is applied to a DOM node outside any ShadowDOM, then the template will lazy load when the conditions are satisfied.
 
@@ -85,7 +85,7 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
     </tbody>
 </table>
 
-
+[TODO]  Add support for freezeOnOffSwitch
 
 ## Viewing Your Element Locally
 
