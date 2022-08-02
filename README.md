@@ -10,7 +10,7 @@
 
 ```html
 <ways-of-science>
-    <largest-scale -lhs>
+    <largest-scale>
         <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
     </largest-scale>
     <largest-scale -rhs>
@@ -18,12 +18,19 @@
     </largest-scale>
     <template be-switched='{
         "if": true,
-        "lhs": {"observe": "[-lhs]", "vft": true},
+        "lhs": {"observe": "largest-scale:has(>woman-with-carrot-attached-to-nose", "vft": true},
         "op": "===",
-        "rhs": {"observe": "[-rhs]", "vft": true},
+        "rhs": {"observe": "largest-scale:has(>a-duck)", "vft": true},
     }'><div>A witch!</div></template>
 </ways-of-science>
 ```
+
+<details>
+    <summary>Why is this syntax so busy?</summary>
+
+1.  We are demonstrating a capability most conditional syntax doesn't support -- the ability to monitor siblings (some might consider that a bug rather than a feature.)
+2.  In my view, if built-in template instantiation ever lands in the browser, it ought to optionally support the beautiful syntax demonstrated by Vue, and other templating libraries -- not requiring a template wrapper around single element tags.  Because it ought to be able to wrap it in a template during the processing.  However, the syntax we are showing is the syntax that would be delivered to the browser.  And this decorator / behavior, together with it's counterpart, be-repeated, aren't guaranteed to be loaded during template instantiation.  In that scenario, where it isn't loaded yet, template instantiation punts, allowing the behavior to perform the conditional logic progressively in the live DOM tree.  We don't want to load content prematurely, because that's wasteful.
+</details>
 
 Editing JSON attributes inside HTML isn't the most pleasant experience, but it isn't so bad after installing the [JSON-in-HTML](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) extension, for VSCode users.  The extension works in the VSCode PWA and [github.dev](https://github.dev/bahrus/be-switched) domain as well.
 
@@ -57,6 +64,8 @@ If, however, the content should display initially, but we want the client-side J
 <div>A witch!</div>
 ```
 
+
+
 A [demo](https://github.com/bahrus/be-switched/blob/baseline/demo/ssr.html) can be seen by opening http://localhost:3030/ssr (see set up instructions below).
 
 In the future, as the defer-hydration cross-web component library protocol solidifies, support will be added to ensure no extra unnecessary "flops" are wasted during hydration.
@@ -82,6 +91,9 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
             <td>ifNonEmptyArray</td>
             <td>Tests if (bound) expression evaluates to a non empty array</td>
         </tr>
+        <tr>
+            <td>ifURLMatches</td>
+            <td>Tests if URL matches URL Pattern [TODO]</td>
     </tbody>
 </table>
 
