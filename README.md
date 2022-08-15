@@ -8,6 +8,10 @@
 
 <a href="https://nodei.co/npm/be-switched/"><img src="https://nodei.co/npm/be-switched.png"></a>
 
+[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-switched?style=for-the-badge)](https://bundlephobia.com/result?p=be-reformable)
+
+<img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-switched?compression=gzip">
+
 ```html
 <ways-of-science>
     <largest-scale>
@@ -94,6 +98,10 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
         <tr>
             <td>ifURLMatches</td>
             <td>Tests if URL matches URL Pattern [TODO]</td>
+        </tr>
+        <tr>
+            <td>Other planned op values [TODO]</td>
+            <td>>, >=, <, <=</td>
     </tbody>
 </table>
 

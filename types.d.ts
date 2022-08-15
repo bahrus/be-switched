@@ -8,7 +8,7 @@ export interface BeSwitchedEndUserProps {
     ifMediaMatches: huVals,
     ifVal: boolean,
     lhs: huVals,
-    op: string,
+    op: '===',
     rhs: huVals,
     lhsVal: any,
     rhsVal: any,

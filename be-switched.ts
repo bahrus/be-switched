@@ -183,6 +183,7 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
             ],
             proxyPropDefaults:{
                 displayDelay: 16,
+                op: '===',
             },
             intro: 'intro',
             finale: 'finale',
@@ -237,25 +238,3 @@ function addStyle(proxy: Element & BeSwitchedVirtualProps){
 }
 register(ifWantsToBe, upgrade, tagName);
 
-// const queue: any[] = [];
-// let queueIsProcessing = false;
-// function doQueue(newItem?: any){
-//     if(newItem !== undefined){
-//         queue.push(newItem);
-//     }
-//     if(queue.length === 0) {
-//         queueIsProcessing = false;
-//         return;
-//     }
-//     queueIsProcessing = true;
-//     const doThisOne = queue.shift()!;
-//     setTimeout(() => {
-//         doThisOne.classList.remove(doThisOne.lazyLoadClass);
-//         const prevSibling = doThisOne.previousElementSibling;
-//         if(prevSibling !== null && prevSibling.localName === 'be-switched-filler'){
-//             prevSibling.remove();
-//         }
-//         doQueue();
-//     }, doThisOne.lazyDelay);
-
-// }
