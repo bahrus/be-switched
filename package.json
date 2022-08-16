@@ -29,7 +29,7 @@
     "be-hive": "0.0.52"
   },
   "devDependencies": {
-    "@playwright/test": "1.24.2",
+    "@playwright/test": "1.25.0",
     "may-it-serve": "0.0.2",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.6.4",
