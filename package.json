@@ -33,7 +33,7 @@
     "may-it-serve": "0.0.2",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.6.4",
-    "xtal-editor": "0.0.177",
+    "xtal-editor": "0.0.187",
     "xtal-shell": "0.0.27",
     "xtal-element": "0.0.502",
     "be-definitive": "0.0.57"
