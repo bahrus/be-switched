@@ -3,12 +3,8 @@ import {BeSwitchedVirtualProps, BeSwitchedActions, BeSwitchedProps} from './type
 import {hookUp} from 'be-observant/hookUp.js';
 import {register} from 'be-hive/register.js';
 
-export class BeSwitchedController implements BeSwitchedActions{
+export class BeSwitchedController extends EventTarget implements BeSwitchedActions{
 
-    #target: Element | undefined;
-    intro(proxy: Element & BeSwitchedVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
-        this.#target = target;
-    }
 
     onLHS({lhs, proxy}: this){
         hookUp(lhs, proxy, 'lhsVal');       
@@ -185,7 +181,6 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
                 displayDelay: 16,
                 op: '===',
             },
-            intro: 'intro',
             finale: 'finale',
         },
         actions:{

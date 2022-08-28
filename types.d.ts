@@ -1,4 +1,4 @@
-import {BeDecoratedProps, EventHandler} from 'be-decorated/types';
+import {BeDecoratedProps, EventHandler, MinimalProxy} from 'be-decorated/types';
 import {IObserve} from 'be-observant/types';
 
 type huVals = boolean | string | IObserve
@@ -20,7 +20,7 @@ export interface BeSwitchedEndUserProps {
     displayDelay: number;
 }
 
-export interface BeSwitchedVirtualProps extends BeSwitchedEndUserProps{
+export interface BeSwitchedVirtualProps extends BeSwitchedEndUserProps, MinimalProxy{
     eventHandlers: EventHandler[],
     echoVal: boolean,
     matchesMediaQuery: boolean,
@@ -30,7 +30,6 @@ export interface BeSwitchedProps extends BeSwitchedVirtualProps{
 }
 
 export interface BeSwitchedActions{
-    intro(proxy: HTMLTemplateElement & BeSwitchedVirtualProps, target: HTMLTemplateElement, beDecorProps: BeDecoratedProps): void;
     finale(proxy: HTMLTemplateElement & BeSwitchedVirtualProps, target: HTMLTemplateElement, beDecorProps: BeDecoratedProps): void;
     onLHS(self: this): void;
     onRHS(self: this): void;

@@ -1,11 +1,7 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { hookUp } from 'be-observant/hookUp.js';
 import { register } from 'be-hive/register.js';
-export class BeSwitchedController {
-    #target;
-    intro(proxy, target, beDecorProps) {
-        this.#target = target;
-    }
+export class BeSwitchedController extends EventTarget {
     onLHS({ lhs, proxy }) {
         hookUp(lhs, proxy, 'lhsVal');
     }
@@ -154,8 +150,8 @@ define({
             ],
             proxyPropDefaults: {
                 displayDelay: 16,
+                op: '===',
             },
-            intro: 'intro',
             finale: 'finale',
         },
         actions: {
@@ -206,24 +202,3 @@ function addStyle(proxy) {
     }
 }
 register(ifWantsToBe, upgrade, tagName);
-// const queue: any[] = [];
-// let queueIsProcessing = false;
-// function doQueue(newItem?: any){
-//     if(newItem !== undefined){
-//         queue.push(newItem);
-//     }
-//     if(queue.length === 0) {
-//         queueIsProcessing = false;
-//         return;
-//     }
-//     queueIsProcessing = true;
-//     const doThisOne = queue.shift()!;
-//     setTimeout(() => {
-//         doThisOne.classList.remove(doThisOne.lazyLoadClass);
-//         const prevSibling = doThisOne.previousElementSibling;
-//         if(prevSibling !== null && prevSibling.localName === 'be-switched-filler'){
-//             prevSibling.remove();
-//         }
-//         doQueue();
-//     }, doThisOne.lazyDelay);
-// }
