@@ -19,19 +19,24 @@ export class BeSwitchedController extends EventTarget {
             hookUp(ifNonEmptyArray, proxy, 'ifNonEmptyArrayVal');
         }
     }
-    onIfMediaMatches({ ifMediaMatches }) {
-        this.addMediaListener(this);
+    onIfMediaMatches(pp) {
+        this.addMediaListener(pp);
     }
-    #mediaQueryHandler = (e) => {
-        this.proxy.matchesMediaQuery = e.matches;
-    };
+    #mediaQueryHandler({ proxy }, e) {
+        proxy.matchesMediaQuery = e.matches;
+    }
     #mql;
-    addMediaListener = ({ ifMediaMatches }) => {
+    #mqlAbortController;
+    addMediaListener(pp) {
+        const { ifMediaMatches, proxy } = pp;
         this.disconnect();
         this.#mql = window.matchMedia(ifMediaMatches); //TODO:  support observant media matches
-        this.#mql.addEventListener('change', this.#mediaQueryHandler);
-        this.proxy.matchesMediaQuery = this.#mql.matches;
-    };
+        this.#mqlAbortController = new AbortController();
+        this.#mql.addEventListener('change', (e) => {
+            this.#mediaQueryHandler(pp, e);
+        });
+        proxy.matchesMediaQuery = this.#mql.matches;
+    }
     calcVal({ ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonEmptyArray, ifNonEmptyArrayVal }) {
         if (!ifVal) {
             proxy.val = false;
@@ -120,8 +125,8 @@ export class BeSwitchedController extends EventTarget {
     }
     disconnect() {
         // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
-        if (this.#mql)
-            this.#mql.removeEventListener('change', this.#mediaQueryHandler);
+        if (this.#mql && this.#mqlAbortController)
+            this.#mqlAbortController.abort();
     }
     async finale(proxy, target, beDecorProps) {
         const { unsubscribe } = await import('trans-render/lib/subscribe.js');

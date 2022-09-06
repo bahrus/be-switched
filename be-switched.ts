@@ -1,24 +1,24 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeSwitchedVirtualProps, BeSwitchedActions, BeSwitchedProps} from './types';
+import {VirtualProps, Actions, PP, Proxy} from './types';
 import {hookUp} from 'be-observant/hookUp.js';
 import {register} from 'be-hive/register.js';
 
-export class BeSwitchedController extends EventTarget implements BeSwitchedActions{
+export class BeSwitchedController extends EventTarget implements Actions{
 
 
-    onLHS({lhs, proxy}: this){
+    onLHS({lhs, proxy}: PP){
         hookUp(lhs, proxy, 'lhsVal');       
     }
 
-    onRHS({rhs, proxy}: this){
+    onRHS({rhs, proxy}: PP){
         hookUp(rhs, proxy, 'rhsVal');        
     }
 
-    onIf({if: iff, proxy}: this){
+    onIf({if: iff, proxy}: PP){
         hookUp(iff, proxy, 'ifVal');
     }
 
-    onIfNonEmptyArray({ifNonEmptyArray, proxy}: this){
+    onIfNonEmptyArray({ifNonEmptyArray, proxy}: PP){
         if(Array.isArray(ifNonEmptyArray)){
             proxy.ifNonEmptyArrayVal = ifNonEmptyArray;
         }else{
@@ -26,25 +26,30 @@ export class BeSwitchedController extends EventTarget implements BeSwitchedActio
         }
     }
 
-    onIfMediaMatches({ifMediaMatches}: this){
-        this.addMediaListener(this);
+    onIfMediaMatches(pp: PP){
+        this.addMediaListener(pp);
     }
 
-    #mediaQueryHandler = (e: MediaQueryListEvent) => {
-        this.proxy.matchesMediaQuery = e.matches;
+    #mediaQueryHandler({proxy}: PP, e: MediaQueryListEvent){
+        proxy.matchesMediaQuery = e.matches;
     }
     #mql: MediaQueryList | undefined;
-    addMediaListener = ({ ifMediaMatches}: this) => {
+    #mqlAbortController: AbortController | undefined;
+    addMediaListener(pp: PP){
+        const { ifMediaMatches, proxy} = pp;
         this.disconnect();
         this.#mql = window.matchMedia(ifMediaMatches! as string); //TODO:  support observant media matches
-        this.#mql.addEventListener('change', this.#mediaQueryHandler);
-        this.proxy.matchesMediaQuery = this.#mql.matches;
+        this.#mqlAbortController = new AbortController();
+        this.#mql.addEventListener('change', (e: MediaQueryListEvent) => {
+            this.#mediaQueryHandler(pp, e);
+        });
+        proxy.matchesMediaQuery = this.#mql.matches;
     }
 
     calcVal({
         ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery,
         ifNonEmptyArray, ifNonEmptyArrayVal
-    }: this){
+    }: PP){
         if(!ifVal){
             proxy.val = false;
             return;
@@ -73,7 +78,7 @@ export class BeSwitchedController extends EventTarget implements BeSwitchedActio
         }        
     }
 
-    onVal({val, proxy, displayDelay}: this){
+    onVal({val, proxy, displayDelay}: PP){
         if((<any>proxy).debug){
             console.log({val, proxy});
         }
@@ -84,7 +89,7 @@ export class BeSwitchedController extends EventTarget implements BeSwitchedActio
         }, displayDelay);
     }
 
-    async doMain({val, echoVal, proxy, toggleDisabled}: this){
+    async doMain({val, echoVal, proxy, toggleDisabled}: PP){
         if(val !== echoVal) return;
         if(val){
             if(proxy.dataset.cnt === undefined){
@@ -141,10 +146,10 @@ export class BeSwitchedController extends EventTarget implements BeSwitchedActio
     disconnect() {
 
         // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
-        if (this.#mql) this.#mql.removeEventListener('change', this.#mediaQueryHandler);
+        if (this.#mql && this.#mqlAbortController) this.#mqlAbortController.abort();
     }
 
-    async finale(proxy: Element & BeSwitchedVirtualProps, target:Element, beDecorProps: BeDecoratedProps){
+    async finale(proxy: Proxy, target:Element, beDecorProps: BeDecoratedProps){
         const {unsubscribe} = await import('trans-render/lib/subscribe.js');
         unsubscribe(proxy);
         const eventHandlers = proxy.eventHandlers;
@@ -156,16 +161,13 @@ export class BeSwitchedController extends EventTarget implements BeSwitchedActio
 }
 
 
-
-export interface BeSwitchedController extends BeSwitchedProps{}
-
 const tagName = 'be-switched';
 
 const ifWantsToBe = 'switched';
 
 const upgrade = 'template';
 
-define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, BeSwitchedActions>({
+define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
     config:{
         tagName,
         propDefaults:{
@@ -214,7 +216,7 @@ define<BeSwitchedProps & BeDecoratedProps<BeSwitchedProps, BeSwitchedActions>, B
 });
 
 const styleMap = new WeakSet<Node>();
-function addStyle(proxy: Element & BeSwitchedVirtualProps){
+function addStyle(proxy: Element & VirtualProps){
     let rootNode = proxy.getRootNode();
     if ((<any>rootNode).host === undefined) {
         rootNode = document.head;

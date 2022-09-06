@@ -3,7 +3,7 @@ import {IObserve} from 'be-observant/types';
 
 type huVals = boolean | string | IObserve
 
-export interface BeSwitchedEndUserProps {
+export interface EndUserProps {
     if: huVals,
     ifMediaMatches: huVals,
     ifVal: boolean,
@@ -20,23 +20,28 @@ export interface BeSwitchedEndUserProps {
     displayDelay: number;
 }
 
-export interface BeSwitchedVirtualProps extends BeSwitchedEndUserProps, MinimalProxy{
+export interface VirtualProps extends EndUserProps, MinimalProxy{
     eventHandlers: EventHandler[],
     echoVal: boolean,
     matchesMediaQuery: boolean,
 }
-export interface BeSwitchedProps extends BeSwitchedVirtualProps{
-    proxy: HTMLTemplateElement & BeSwitchedVirtualProps;
+
+export type Proxy = HTMLTemplateElement & VirtualProps;
+
+export interface ProxyProps extends VirtualProps{
+    proxy: Proxy;
 }
 
-export interface BeSwitchedActions{
-    finale(proxy: HTMLTemplateElement & BeSwitchedVirtualProps, target: HTMLTemplateElement, beDecorProps: BeDecoratedProps): void;
-    onLHS(self: this): void;
-    onRHS(self: this): void;
-    onIf(self: this): void;
-    onIfMediaMatches(self: this): void;
-    calcVal(self: this): void;
-    onVal(self: this): void;
-    doMain(self: this): void;
-    onIfNonEmptyArray(self: this): void;
+export type PP = ProxyProps;
+
+export interface Actions{
+    finale(proxy: Proxy, target: HTMLTemplateElement, beDecorProps: BeDecoratedProps): void;
+    onLHS(self: PP): void;
+    onRHS(self: PP): void;
+    onIf(self: PP): void;
+    onIfMediaMatches(self: PP): void;
+    calcVal(self: PP): void;
+    onVal(self: PP): void;
+    doMain(self: PP): void;
+    onIfNonEmptyArray(self: PP): void;
 }
