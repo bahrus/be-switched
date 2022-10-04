@@ -50,15 +50,13 @@ export class BeSwitchedController extends EventTarget implements Actions{
         ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery,
         ifNonEmptyArray, ifNonEmptyArrayVal
     }: PP){
-        if(!ifVal){
+        if(ifVal === false){
             proxy.val = false;
             return;
         }
-        if(ifMediaMatches !== undefined){
-            if(!matchesMediaQuery){
+        if(ifMediaMatches === false){
                 proxy.val = false;
                 return;
-            }
         }
         if(ifNonEmptyArray !== undefined){
             if(ifNonEmptyArrayVal === undefined || ifNonEmptyArrayVal.length === 0){

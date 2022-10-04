@@ -38,15 +38,13 @@ export class BeSwitchedController extends EventTarget {
         proxy.matchesMediaQuery = this.#mql.matches;
     }
     calcVal({ ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonEmptyArray, ifNonEmptyArrayVal }) {
-        if (!ifVal) {
+        if (ifVal === false) {
             proxy.val = false;
             return;
         }
-        if (ifMediaMatches !== undefined) {
-            if (!matchesMediaQuery) {
-                proxy.val = false;
-                return;
-            }
+        if (ifMediaMatches === false) {
+            proxy.val = false;
+            return;
         }
         if (ifNonEmptyArray !== undefined) {
             if (ifNonEmptyArrayVal === undefined || ifNonEmptyArrayVal.length === 0) {
