@@ -186,25 +186,15 @@ define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
             finale: 'finale',
         },
         actions:{
-            onLHS:{
-                ifKeyIn: ['lhs']
-            },
-            onRHS: {
-                ifKeyIn: ['rhs']
-            },
-            onIf: {
-                ifKeyIn: ['if']
-            },
-            onIfMediaMatches: {
-                ifKeyIn: ['ifMediaMatches']
-            },
+            onLHS:'lhs',
+            onRHS: 'rhs',
+            onIf: 'if',
+            onIfMediaMatches: 'ifMediaMatches',
             onIfNonEmptyArray:'ifNonEmptyArray',
             calcVal: {
                 ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'ifNonEmptyArrayVal', 'echoVal']
             },
-            onVal: {
-                ifKeyIn: ['val']
-            },
+            onVal: 'val',
             doMain:{
                 ifKeyIn: ['val', 'echoVal']
             },

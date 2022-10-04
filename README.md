@@ -21,7 +21,6 @@
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='{
-        "if": true,
         "lhs": {"observe": "largest-scale:has(>woman-with-carrot-attached-to-nose", "vft": true},
         "op": "===",
         "rhs": {"observe": "largest-scale:has(>a-duck)", "vft": true},
@@ -33,7 +32,7 @@
     <summary>Why is this syntax so busy?</summary>
 
 1.  We are demonstrating a capability most conditional syntax doesn't support -- the ability to monitor siblings (some might consider that a bug rather than a feature.)
-2.  In my view, if built-in template instantiation ever lands in the browser, it ought to optionally support the beautiful syntax demonstrated by Vue, and other templating libraries -- not requiring a template wrapper around single element tags.  Because it ought to be able to wrap it in a template during the processing.  However, the syntax we are showing is the syntax that would be delivered to the browser.  And this decorator / behavior, together with it's counterpart, be-repeated, aren't guaranteed to be loaded during template instantiation.  In that scenario, where it isn't loaded yet, template instantiation punts, allowing the behavior to perform the conditional logic progressively in the live DOM tree.  We don't want to load content prematurely, because that's wasteful.
+2.  In my view, if built-in template instantiation ever lands in the browser, it ought to optionally support the beautiful syntax demonstrated by Vue, and other templating libraries -- not requiring a template wrapper around single element tags.  Because it ought to be able to wrap it in a template during the processing.  However, the syntax we are showing is the syntax that would be delivered to the browser.  And this decorator / behavior, together with its counterpart, be-repeated, isn't guaranteed to be loaded during template instantiation.  In that scenario, where it isn't loaded yet, template instantiation punts, allowing the behavior to perform the conditional logic progressively in the live DOM tree.  We don't want to load content prematurely, because that's wasteful.
 </details>
 
 Editing JSON attributes inside HTML isn't the most pleasant experience, but it isn't so bad after installing the [JSON-in-HTML](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) extension, for VSCode users.  The extension works in the VSCode PWA and [github.dev](https://github.dev/bahrus/be-switched) domain as well.
@@ -48,8 +47,6 @@ To use fully compliant HTML5 syntax, use data-be-switched instead of be-switched
 
 The syntax for binding the lhs and rhs of the expressions to other DOM nodes within the ShadowRealm, or to the host container, follows the same pattern / syntax used by [be-observant](https://github.com/bahrus/be-observant#syntax-in-depth).
 
-"if" can also come from observing other elements.
-
 ## Compatibility with server-side-rendering
 
 *be-switched* is compatible with server-side-rendering if the following approach is used:
@@ -60,7 +57,6 @@ If, however, the content should display initially, but we want the client-side J
 
 ```html
 <template  data-cnt=1 be-switched='{
-    "if": true,
     "lhs": {"observe": "[-lhs]", "vft": true},
     "op": "===",
     "rhs": {"observe": "[-rhs]", "vft": true},

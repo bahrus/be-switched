@@ -1,15 +1,14 @@
 import {BeDecoratedProps, EventHandler, MinimalProxy} from 'be-decorated/types';
-import {IObserve} from 'be-observant/types';
+import {IObserve, StringOrIObserve} from 'be-observant/types';
 
-type huVals = boolean | string | IObserve
 
 export interface EndUserProps {
-    if: huVals,
-    ifMediaMatches: huVals,
+    if?: StringOrIObserve,
+    ifMediaMatches?: StringOrIObserve,
     ifVal: boolean,
-    lhs: huVals,
+    lhs: StringOrIObserve,
     op: '===',
-    rhs: huVals,
+    rhs: StringOrIObserve,
     lhsVal: any,
     rhsVal: any,
     val: boolean,
