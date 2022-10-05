@@ -50,13 +50,15 @@ export class BeSwitchedController extends EventTarget implements Actions{
         ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery,
         ifNonEmptyArray, ifNonEmptyArrayVal
     }: PP){
-        if(ifVal === false){
+        if(!ifVal){
             proxy.val = false;
             return;
         }
-        if(ifMediaMatches === false){
+        if(ifMediaMatches !== undefined){
+            if(!matchesMediaQuery){
                 proxy.val = false;
                 return;
+            }
         }
         if(ifNonEmptyArray !== undefined){
             if(ifNonEmptyArrayVal === undefined || ifNonEmptyArrayVal.length === 0){
@@ -184,15 +186,25 @@ define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
             finale: 'finale',
         },
         actions:{
-            onLHS:'lhs',
-            onRHS: 'rhs',
-            onIf: 'if',
-            onIfMediaMatches: 'ifMediaMatches',
+            onLHS:{
+                ifKeyIn: ['lhs']
+            },
+            onRHS: {
+                ifKeyIn: ['rhs']
+            },
+            onIf: {
+                ifKeyIn: ['if']
+            },
+            onIfMediaMatches: {
+                ifKeyIn: ['ifMediaMatches']
+            },
             onIfNonEmptyArray:'ifNonEmptyArray',
             calcVal: {
                 ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'ifNonEmptyArrayVal', 'echoVal']
             },
-            onVal: 'val',
+            onVal: {
+                ifKeyIn: ['val']
+            },
             doMain:{
                 ifKeyIn: ['val', 'echoVal']
             },

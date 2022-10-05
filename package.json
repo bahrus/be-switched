@@ -24,7 +24,7 @@
   "types": "types.d.ts",
   "dependencies": {
     "trans-render": "0.0.618",
-    "be-observant": "0.0.150",
+    "be-observant": "0.0.151",
     "be-decorated": "0.0.165",
     "be-hive": "0.0.70"
   },
