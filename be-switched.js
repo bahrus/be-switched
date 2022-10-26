@@ -81,12 +81,12 @@ export class BeSwitchedController extends EventTarget {
             if (proxy.dataset.cnt === undefined) {
                 const { insertAdjacentTemplate } = await import('trans-render/lib/insertAdjacentTemplate.js');
                 const appendedChildren = insertAdjacentTemplate(proxy, proxy, 'afterend');
-                proxy.dataset.cnt = appendedChildren.length.toString();
+                proxy.dataset.cnt = (appendedChildren.length + 1).toString();
             }
             else {
                 const cnt = Number(proxy.dataset.cnt);
                 let nextSib = proxy;
-                let idx = 0;
+                let idx = 1;
                 while (nextSib && idx < cnt) {
                     nextSib = nextSib.nextElementSibling;
                     if (nextSib) {
@@ -108,7 +108,7 @@ export class BeSwitchedController extends EventTarget {
             if (proxy.dataset.cnt !== undefined) {
                 const cnt = Number(proxy.dataset.cnt);
                 let nextSib = proxy;
-                let idx = 0;
+                let idx = 1;
                 while (nextSib && idx < cnt) {
                     nextSib = nextSib.nextElementSibling;
                     if (nextSib !== null) {
