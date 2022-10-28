@@ -5,23 +5,25 @@ import {IObserve, StringOrIObserve} from 'be-observant/types';
 export interface EndUserProps {
     if?: StringOrIObserve,
     ifMediaMatches?: StringOrIObserve,
-    ifVal: boolean,
-    lhs: StringOrIObserve,
-    op: '===',
-    rhs: StringOrIObserve,
-    lhsVal: any,
-    rhsVal: any,
-    val: boolean,
-    hiddenStyle: string,
-    ifNonEmptyArray: any[] | IObserve,
-    ifNonEmptyArrayVal: undefined | any[],
+    ifVal?: boolean,
+    lhs?: StringOrIObserve,
+    op?: '===',
+    rhs?: StringOrIObserve,
+    lhsVal?: any,
+    rhsVal?: any,
+    hiddenStyle?: string,
+    ifNonEmptyArray?: any[] | IObserve,
     toggleDisabled: boolean;
     displayDelay: number;
+    beOosoom?: string;
+    disabled?: boolean;
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{
     eventHandlers: EventHandler[],
+    val: boolean,
     echoVal: boolean,
+    ifNonEmptyArrayVal: undefined | any[],
     matchesMediaQuery: boolean,
 }
 

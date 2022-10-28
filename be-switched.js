@@ -153,7 +153,7 @@ define({
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
                 'val', 'echoVal', 'hiddenStyle', 'ifMediaMatches', 'matchesMediaQuery',
-                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay',
+                'ifNonEmptyArray', 'ifNonEmptyArrayVal', 'displayDelay', 'beOosoom', 'disabled',
             ],
             proxyPropDefaults: {
                 displayDelay: 16,
