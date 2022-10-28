@@ -15,6 +15,9 @@ export interface EndUserProps {
     ifNonEmptyArray?: any[] | IObserve,
     toggleDisabled: boolean;
     displayDelay: number;
+    /**
+     * Works with beOosoom decorator, so becomes inert when out of view
+     */
     beOosoom?: string;
     disabled?: boolean;
 }

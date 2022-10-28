@@ -158,7 +158,7 @@ define({
             proxyPropDefaults: {
                 displayDelay: 16,
                 op: '===',
-                beOosoom: 'disabled',
+                beOosoom: '!disabled',
             },
             finale: 'finale',
         },
@@ -177,7 +177,8 @@ define({
             },
             onIfNonEmptyArray: 'ifNonEmptyArray',
             calcVal: {
-                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'ifNonEmptyArrayVal', 'echoVal']
+                ifKeyIn: ['ifVal', 'lhsVal', 'rhsVal', 'op', 'matchesMediaQuery', 'ifNonEmptyArrayVal', 'echoVal'],
+                ifNoneOf: ['disabled']
             },
             onVal: {
                 ifKeyIn: ['val']
