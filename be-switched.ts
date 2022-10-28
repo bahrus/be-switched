@@ -78,11 +78,13 @@ export class BeSwitchedController extends EventTarget implements Actions{
         }        
     }
 
+    #echoTimeOut: string | number | NodeJS.Timeout | undefined;
     onVal({val, proxy, displayDelay}: PP){
         if((<any>proxy).debug){
             console.log({val, proxy});
         }
-        setTimeout(() => {
+        clearTimeout(this.#echoTimeOut);
+        this.#echoTimeOut = setTimeout(() => {
             if(proxy.echoVal !== proxy.val){
                 proxy.echoVal = proxy.val;
             }
