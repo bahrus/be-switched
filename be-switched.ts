@@ -183,6 +183,7 @@ define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
             proxyPropDefaults:{
                 displayDelay: 16,
                 op: '===',
+                beOosoom: 'disabled',
             },
             finale: 'finale',
         },

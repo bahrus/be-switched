@@ -158,6 +158,7 @@ define({
             proxyPropDefaults: {
                 displayDelay: 16,
                 op: '===',
+                beOosoom: 'disabled',
             },
             finale: 'finale',
         },
