@@ -62,8 +62,11 @@ If, however, the content should display initially, but we want the client-side J
 <template  data-cnt=2 be-switched='{
     "if": true,
     "lhs": {"observe": "[-lhs]", "vft": true},
+    "lhsVal": 140 //or whatever the value was on the server
     "op": "===",
     "rhs": {"observe": "[-rhs]", "vft": true},
+    "rhsVal": 140,
+    "deferRendering": true 
 }'></template>
 <div>A witch!</div>
 ```
@@ -72,7 +75,7 @@ If, however, the content should display initially, but we want the client-side J
 
 A [demo](https://github.com/bahrus/be-switched/blob/baseline/demo/ssr.html) can be seen by opening http://localhost:3030/ssr (see set up instructions below).
 
-In the future, as the defer-hydration cross-web component library protocol solidifies, support will be added to ensure no extra unnecessary "flops" are wasted during hydration.
+
 
 ## Additional conditions be-switched supports
 
@@ -105,13 +108,15 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
     </tbody>
 </table>
 
-[TODO]  Add support for freezeOnOffSwitch
+## Lazy Loading
+
+be-switched can "go to sleep" when the template it adorns goes out of view, if the template is also decorated by [be-oosoom](https://github.com/be-oosoom).
 
 ## Viewing Your Element Locally
 
 1.  Install git.
 2.  Fork/clone this repo.
-3.  Install node.
+3.  Install node.h
 4.  Open command window to folder where you cloned this repo.
 5.  > npm install
 6.  > npm run serve

@@ -1,5 +1,5 @@
 import {define, BeDecoratedProps} from 'be-decorated/DE.js';
-import {VirtualProps, Actions, PP, Proxy} from './types';
+import {VirtualProps, Actions, PP, Proxy, PPP, PPE} from './types';
 import {hookUp} from 'be-observant/hookUp.js';
 import {register} from 'be-hive/register.js';
 
@@ -26,55 +26,56 @@ export class BeSwitchedController extends EventTarget implements Actions{
         }
     }
 
-    onIfMediaMatches(pp: PP){
-        this.addMediaListener(pp);
-    }
-
-    #mediaQueryHandler({proxy}: PP, e: MediaQueryListEvent){
-        proxy.matchesMediaQuery = e.matches;
+    chkMedia({}: PP, e: MediaQueryListEvent){
+        return {matchesMediaQuery: e.matches} as PPP;
     }
     #mql: MediaQueryList | undefined;
-    #mqlAbortController: AbortController | undefined;
     addMediaListener(pp: PP){
-        const { ifMediaMatches, proxy} = pp;
-        this.disconnect();
+        const { ifMediaMatches} = pp;
+        if(!ifMediaMatches) return [{}, {}] as PPE; //clears previous listener
         this.#mql = window.matchMedia(ifMediaMatches! as string); //TODO:  support observant media matches
-        this.#mqlAbortController = new AbortController();
-        this.#mql.addEventListener('change', (e: MediaQueryListEvent) => {
-            this.#mediaQueryHandler(pp, e);
-        });
-        proxy.matchesMediaQuery = this.#mql.matches;
+        return [{}, {chkMedia: {on: 'change', of: this.#mql, doInit: true}}] as PPE;
     }
 
-    calcVal({
-        ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery,
-        ifNonEmptyArray, ifNonEmptyArrayVal
-    }: PP){
-        if(!ifVal){
-            proxy.val = false;
-            return;
+    calcVal(pp: PP){
+        const {deferRendering} = pp;
+        if(deferRendering){
+            return {
+                deferRendering: false,
+            }
         }
+        const {ifVal, lhsVal, rhsVal} = pp;
+        if(!ifVal){
+            return {
+                val: false,
+            }
+        }
+        const {ifMediaMatches, matchesMediaQuery} = pp;
         if(ifMediaMatches !== undefined){
             if(!matchesMediaQuery){
-                proxy.val = false;
-                return;
+                return {
+                    val: false,
+                }
             }
         }
+        const {ifNonEmptyArray, ifNonEmptyArrayVal} = pp;
         if(ifNonEmptyArray !== undefined){
             if(ifNonEmptyArrayVal === undefined || ifNonEmptyArrayVal.length === 0){
-                proxy.val = false;
-                return;
+                return {
+                    val: false
+                };
             }
         }
+        const {op} =  pp;
         if(op === undefined) {
-            proxy.val = true;
-            return;
+            return {
+                val: true
+            };
         }
 
         switch(op){
             case '===':
-                proxy.val = (lhsVal === rhsVal);
-                break;
+                return {val: (lhsVal === rhsVal)};
         }        
     }
 
@@ -143,13 +144,6 @@ export class BeSwitchedController extends EventTarget implements Actions{
     }
 
 
-
-    disconnect() {
-
-        // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
-        if (this.#mql && this.#mqlAbortController) this.#mqlAbortController.abort();
-    }
-
     async finale(proxy: Proxy, target:Element, beDecorProps: BeDecoratedProps){
         const {unsubscribe} = await import('trans-render/lib/subscribe.js');
         unsubscribe(proxy);
@@ -157,7 +151,6 @@ export class BeSwitchedController extends EventTarget implements Actions{
         for(const eh of eventHandlers){
             eh.elementToObserve.removeEventListener(eh.on, eh.fn);
         }
-        this.disconnect();
     }
 }
 
@@ -197,7 +190,7 @@ define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
             onIf: {
                 ifKeyIn: ['if']
             },
-            onIfMediaMatches: {
+            addMediaListener: {
                 ifKeyIn: ['ifMediaMatches']
             },
             onIfNonEmptyArray:'ifNonEmptyArray',

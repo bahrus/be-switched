@@ -1,10 +1,10 @@
-import {BeDecoratedProps, EventHandler, MinimalProxy} from 'be-decorated/types';
+import {BeDecoratedProps, EventHandler, MinimalProxy, EventConfigs} from 'be-decorated/types';
 import {IObserve, StringOrIObserve} from 'be-observant/types';
 
 
 export interface EndUserProps {
     if?: StringOrIObserve,
-    ifMediaMatches?: StringOrIObserve,
+    ifMediaMatches?: string,//StringOrIObserve,
     ifVal?: boolean,
     lhs?: StringOrIObserve,
     op?: '===',
@@ -20,6 +20,7 @@ export interface EndUserProps {
      */
     beOosoom?: string;
     disabled?: boolean;
+    deferRendering?: boolean;
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{
@@ -38,14 +39,19 @@ export interface ProxyProps extends VirtualProps{
 
 export type PP = ProxyProps;
 
+export type PPP = Partial<PP>;
+
+export type PPE = [PPP, EventConfigs<Proxy, Actions>]
+
 export interface Actions{
     finale(proxy: Proxy, target: HTMLTemplateElement, beDecorProps: BeDecoratedProps): void;
     onLHS(self: PP): void;
     onRHS(self: PP): void;
     onIf(self: PP): void;
-    onIfMediaMatches(self: PP): void;
-    calcVal(self: PP): void;
+    addMediaListener(self: PP): PPE;
+    calcVal(self: PP): PPP;
     onVal(self: PP): void;
     doMain(self: PP): void;
+    chkMedia(self: PP, e: MediaQueryListEvent): PPP;
     onIfNonEmptyArray(self: PP): void;
 }

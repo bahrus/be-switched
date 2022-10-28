@@ -19,49 +19,55 @@ export class BeSwitchedController extends EventTarget {
             hookUp(ifNonEmptyArray, proxy, 'ifNonEmptyArrayVal');
         }
     }
-    onIfMediaMatches(pp) {
-        this.addMediaListener(pp);
-    }
-    #mediaQueryHandler({ proxy }, e) {
-        proxy.matchesMediaQuery = e.matches;
+    chkMedia({}, e) {
+        return { matchesMediaQuery: e.matches };
     }
     #mql;
-    #mqlAbortController;
     addMediaListener(pp) {
-        const { ifMediaMatches, proxy } = pp;
-        this.disconnect();
+        const { ifMediaMatches } = pp;
+        if (!ifMediaMatches)
+            return [{}, {}]; //clears previous listener
         this.#mql = window.matchMedia(ifMediaMatches); //TODO:  support observant media matches
-        this.#mqlAbortController = new AbortController();
-        this.#mql.addEventListener('change', (e) => {
-            this.#mediaQueryHandler(pp, e);
-        });
-        proxy.matchesMediaQuery = this.#mql.matches;
+        return [{}, { chkMedia: { on: 'change', of: this.#mql, doInit: true } }];
     }
-    calcVal({ ifVal, lhsVal, rhsVal, op, proxy, ifMediaMatches, matchesMediaQuery, ifNonEmptyArray, ifNonEmptyArrayVal }) {
-        if (!ifVal) {
-            proxy.val = false;
-            return;
+    calcVal(pp) {
+        const { deferRendering } = pp;
+        if (deferRendering) {
+            return {
+                deferRendering: false,
+            };
         }
+        const { ifVal, lhsVal, rhsVal } = pp;
+        if (!ifVal) {
+            return {
+                val: false,
+            };
+        }
+        const { ifMediaMatches, matchesMediaQuery } = pp;
         if (ifMediaMatches !== undefined) {
             if (!matchesMediaQuery) {
-                proxy.val = false;
-                return;
+                return {
+                    val: false,
+                };
             }
         }
+        const { ifNonEmptyArray, ifNonEmptyArrayVal } = pp;
         if (ifNonEmptyArray !== undefined) {
             if (ifNonEmptyArrayVal === undefined || ifNonEmptyArrayVal.length === 0) {
-                proxy.val = false;
-                return;
+                return {
+                    val: false
+                };
             }
         }
+        const { op } = pp;
         if (op === undefined) {
-            proxy.val = true;
-            return;
+            return {
+                val: true
+            };
         }
         switch (op) {
             case '===':
-                proxy.val = (lhsVal === rhsVal);
-                break;
+                return { val: (lhsVal === rhsVal) };
         }
     }
     #echoTimeOut;
@@ -125,11 +131,6 @@ export class BeSwitchedController extends EventTarget {
             }
         }
     }
-    disconnect() {
-        // https://www.youtube.com/watch?v=YDU_3WdfkxA&list=LL&index=2
-        if (this.#mql && this.#mqlAbortController)
-            this.#mqlAbortController.abort();
-    }
     async finale(proxy, target, beDecorProps) {
         const { unsubscribe } = await import('trans-render/lib/subscribe.js');
         unsubscribe(proxy);
@@ -137,7 +138,6 @@ export class BeSwitchedController extends EventTarget {
         for (const eh of eventHandlers) {
             eh.elementToObserve.removeEventListener(eh.on, eh.fn);
         }
-        this.disconnect();
     }
 }
 const tagName = 'be-switched';
@@ -172,7 +172,7 @@ define({
             onIf: {
                 ifKeyIn: ['if']
             },
-            onIfMediaMatches: {
+            addMediaListener: {
                 ifKeyIn: ['ifMediaMatches']
             },
             onIfNonEmptyArray: 'ifNonEmptyArray',
