@@ -76,6 +76,7 @@ export class BeSwitchedController extends EventTarget implements Actions{
         switch(op){
             case '===':
                 return {val: (lhsVal === rhsVal)};
+
         }        
     }
 
@@ -157,16 +158,12 @@ export class BeSwitchedController extends EventTarget implements Actions{
 
 const tagName = 'be-switched';
 
-const ifWantsToBe = 'switched';
-
 const upgrade = 'template';
 
 define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
     config:{
         tagName,
         propDefaults:{
-            upgrade,
-            ifWantsToBe,
             forceVisible: [upgrade],
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal', 
@@ -229,5 +226,5 @@ function addStyle(proxy: Element & VirtualProps){
         rootNode.appendChild(style);
     }
 }
-register(ifWantsToBe, upgrade, tagName);
+register('switched', upgrade, tagName);
 

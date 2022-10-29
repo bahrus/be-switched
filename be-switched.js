@@ -141,14 +141,11 @@ export class BeSwitchedController extends EventTarget {
     }
 }
 const tagName = 'be-switched';
-const ifWantsToBe = 'switched';
 const upgrade = 'template';
 define({
     config: {
         tagName,
         propDefaults: {
-            upgrade,
-            ifWantsToBe,
             forceVisible: [upgrade],
             virtualProps: [
                 'eventHandlers', 'if', 'ifVal', 'lhs', 'op', 'rhs', 'lhsVal', 'rhsVal',
@@ -210,4 +207,4 @@ function addStyle(proxy) {
         rootNode.appendChild(style);
     }
 }
-register(ifWantsToBe, upgrade, tagName);
+register('switched', upgrade, tagName);
