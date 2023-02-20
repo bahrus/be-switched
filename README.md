@@ -82,7 +82,13 @@ If, however, the content should display initially, but we want the client-side J
     <largest-scale -rhs>
         <a-duck></a-duck>
     </largest-scale>
-    <template be-switched="if value of largest scale element having woman with carrot attached to nose element equals value of largest scale element having a duck element then instantiate">
+    <template be-switched="
+        if 
+            value of largest scale element having woman with carrot attached to nose element 
+        equals 
+            value of largest scale element having a duck element 
+        then 
+            instantiate">
         <div>A witch!</div>
     </template>
 </ways-of-science>
