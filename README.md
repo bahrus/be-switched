@@ -73,7 +73,7 @@ If, however, the content should display initially, but we want the client-side J
 
 ## Experimental New Syntax [TODO]
 
-```html
+
 ```html
 <ways-of-science>
     <largest-scale>
@@ -82,12 +82,12 @@ If, however, the content should display initially, but we want the client-side J
     <largest-scale -rhs>
         <a-duck></a-duck>
     </largest-scale>
-    <template be-switched="if value of largest scale element having woman with carrot attached to nose element equals value of largest scale element having a duck element">
+    <template be-switched="if value of largest scale element having woman with carrot attached to nose element equals value of largest scale element having a duck element then instantiate">
         <div>A witch!</div>
     </template>
 </ways-of-science>
 ```
-```
+
 
 
 
