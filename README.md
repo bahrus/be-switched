@@ -61,10 +61,10 @@ If, however, the content should display initially, but we want the client-side J
 ```html
 <template  data-cnt=2 be-switched='{
     "if": true,
-    "lhs": {"observe": "[-lhs]", "vft": true},
+    "lhs": {"observe": "largest-scale:has(>woman-with-carrot-attached-to-nose", "vft": true},
     "lhsVal": 140 //or whatever the value was on the server
     "op": "===",
-    "rhs": {"observe": "[-rhs]", "vft": true},
+    "rhs": {"observe": "largest-scale:has(>a-duck)", "vft": true},
     "rhsVal": 140,
     "deferRendering": true 
 }'></template>
@@ -82,7 +82,7 @@ If, however, the content should display initially, but we want the client-side J
     <largest-scale -rhs>
         <a-duck></a-duck>
     </largest-scale>
-    <template be-switched=ifValueOfLargestScaleEHavingWomanWithCarrotAttachedToNoseEEqualsValueOfLargestScaleEHavingADuck>
+    <template be-switched="if value of largest scale element having woman with carrot attached to nose element equals value of largest scale element having a duck element">
         <div>A witch!</div>
     </template>
 </ways-of-science>

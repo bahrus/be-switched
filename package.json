@@ -23,7 +23,7 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "trans-render": "0.0.665"
+    "trans-render": "0.0.665",
     "be-observant": "0.0.163",
     "be-intersectional": "0.0.71",
     "be-decorated": "0.0.223",
