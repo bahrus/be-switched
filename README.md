@@ -88,7 +88,7 @@ If, however, the content should display initially, but we want the client-side J
         equals 
             value of largest scale element having a duck element 
         then 
-            instantiate">
+            instantiate.">
         <div>A witch!</div>
     </template>
 </ways-of-science>
