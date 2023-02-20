@@ -71,6 +71,24 @@ If, however, the content should display initially, but we want the client-side J
 <div>A witch!</div>
 ```
 
+## Experimental New Syntax [TODO]
+
+```html
+```html
+<ways-of-science>
+    <largest-scale>
+        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
+    </largest-scale>
+    <largest-scale -rhs>
+        <a-duck></a-duck>
+    </largest-scale>
+    <template be-switched=ifValueOfLargestScaleEHavingWomanWithCarrotAttachedToNoseEEqualsValueOfLargestScaleEHavingADuck>
+        <div>A witch!</div>
+    </template>
+</ways-of-science>
+```
+```
+
 
 
 A [demo](https://github.com/bahrus/be-switched/blob/baseline/demo/ssr.html) can be seen by opening http://localhost:3030/ssr (see set up instructions below).
