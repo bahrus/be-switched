@@ -83,9 +83,9 @@ If, however, the content should display initially, but we want the client-side J
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='
-        Refer to value of largest scale element having woman with carrot attached to nose element as lhs.
-        Refer to value of largest scale element having a duck element as rhs.
-        If lhs equals rhs then instantiate.
+        Refer to largest scale element having woman with carrot attached to nose element as lhs element.
+        Refer to largest scale element having a duck element as rhs element.
+        If value of lhs equals value of rhs then instantiate.
     '>
         <div>A witch!</div>
     </template>
