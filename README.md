@@ -71,7 +71,7 @@ If, however, the content should display initially, but we want the client-side J
 <div>A witch!</div>
 ```
 
-## Experimental New Syntax [TODO]
+## Hemingway Notation [TODO]
 
 
 ```html
@@ -82,13 +82,11 @@ If, however, the content should display initially, but we want the client-side J
     <largest-scale -rhs>
         <a-duck></a-duck>
     </largest-scale>
-    <template be-switched="
-        if 
-            value of largest scale element having woman with carrot attached to nose element 
-        equals 
-            value of largest scale element having a duck element 
-        then 
-            instantiate.">
+    <template be-switched='
+        Refer to value of largest scale element having woman with carrot attached to nose element as lhs.
+        Refer to value of largest scale element having a duck element as rhs.
+        If lhs equals rhs then instantiate.
+    '>
         <div>A witch!</div>
     </template>
 </ways-of-science>
