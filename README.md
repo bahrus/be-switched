@@ -83,9 +83,9 @@ If, however, the content should display initially, but we want the client-side J
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='
-        Set lhs instance to largest scale having woman with carrot attached to nose.
-        Set rhs instance to largest scale having a duck.
-        If value of lhs instance equals value of rhs instance then instantiate.
+        Set lhs to largest scale having woman with carrot attached to nose.
+        Set rhs to largest scale having a duck.
+        If value of lhs equals value of rhs then instantiate.
     '>
         <div>A witch!</div>
     </template>
