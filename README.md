@@ -61,7 +61,7 @@ If, however, the content should display initially, but we want the client-side J
 ```html
 <template  data-cnt=2 be-switched='{
     "if": true,
-    "lhs": {"observe": "largest-scale:has(>woman-with-carrot-attached-to-nose", "vft": true},
+    "lhs": {"observe": "largest-scale:has(>woman-with-carrot-attached-to-nose)", "vft": true},
     "lhsVal": 140 //or whatever the value was on the server
     "op": "===",
     "rhs": {"observe": "largest-scale:has(>a-duck)", "vft": true},
@@ -79,13 +79,13 @@ If, however, the content should display initially, but we want the client-side J
     <largest-scale>
         <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
     </largest-scale>
-    <largest-scale -rhs>
+    <largest-scale>
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='
-        Set lhs to largest scale that has a woman with carrot attached to nose.
-        Set rhs to largest scale that has a \a duck.
-        If value of lhs equals value of rhs then instantiate.
+        Share value of largest scale element having inner woman with carrot attached to nose element to my lhs property.
+        Share value of largest scale element having inner a-duck elemet to my rhs property.
+        If lhs equals rhs instantiate.
     '>
         <div>A witch!</div>
     </template>
