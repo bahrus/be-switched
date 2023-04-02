@@ -83,9 +83,9 @@ If, however, the content should display initially, but we want the client-side J
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='
-        Share value of largest scale element having inner woman with carrot attached to nose element to my lhs property.
-        Share value of largest scale element having inner a-duck elemet to my rhs property.
-        If lhs equals rhs instantiate.
+        Link value of largest scale element having inner woman with carrot attached to nose element to lhs property of my proxy.
+        Link value of largest scale element having inner a-duck element to rhs property of my proxy.
+        If lhs = rhs instantiate.
     '>
         <div>A witch!</div>
     </template>

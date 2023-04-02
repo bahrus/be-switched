@@ -23,14 +23,14 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "trans-render": "0.0.670",
+    "trans-render": "0.0.671",
     "be-observant": "0.0.163",
     "be-intersectional": "0.0.71",
-    "be-decorated": "0.0.235",
+    "be-decorated": "0.0.238",
     "be-hive": "0.0.82"
   },
   "devDependencies": {
-    "@playwright/test": "1.31.2",
+    "@playwright/test": "1.32.1",
     "may-it-serve": "0.0.5",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.6.4",
