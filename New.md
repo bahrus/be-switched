@@ -44,13 +44,15 @@
         "wideDevice": "(min-width: 30em) and (orientation: landscape)"
     }
 }
-Require ready to display property of host to be true.
-Require read only property of previous input element to be false.
-Require hidden property of previous input element to be true.
-Require that media matches wide device.
+Check that ready to display property of host is truthy.
+Check that read only property of previous input element is falsy.
+Check that hidden property of previous input element is truthy.
+Check that media matches wide device.
+Check that list of books property of host is a non empty array.
+On toggle event of host check that open property is truthy.
 On input event of previous phone number part pass value to lhs.
 On input event of previous phone number confirm part pass value to rhs.
-Require lhs=rhs.
+Check that lhs=rhs.
 '>
 </template>
 ```
@@ -63,9 +65,9 @@ The example above illustrates a massive and condition.  The get access to or con
 <input part=phone-number>
 <input part=phone-number-confirm>
 ```
-Require ready to display property of host to be true.
+Check that ready to display property of host is true.
 ```
-Require read only property of previous input element to be false.
+Check that read only property of previous input element is false.
 ```
 '>
 </template>
