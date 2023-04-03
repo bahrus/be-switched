@@ -50,8 +50,8 @@ Check that hidden property of previous input element is truthy.
 Check that media matches wide device.
 Check that list of books property of host is a non empty array.
 On toggle event of host check that open property is truthy.
-On input event of previous phone number part pass value to lhs.
-On input event of previous phone number confirm part pass value to rhs.
+On input event of previous phone-number part pass value to lhs.
+On input event of previous phone-number-confirm part pass value to rhs.
 Check that lhs=rhs.
 '>
 </template>
