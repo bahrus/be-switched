@@ -25,8 +25,8 @@
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='
-        Link lhs to value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element.
-        Link rhs to value of previous largest-scale element having inner a-duck element.
+        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to lhs.
+        Link value property of previous largest-scale element having inner a-duck element to rhs.
         Make visible when lhs = rhs.
         Defer rendering.
     '>
@@ -36,7 +36,8 @@
 ```
 
 ```html
-<input>
+<input part=phone-number>
+<input part=phone-number-confirm>
 <template be-switched='
 {
     "declare": {
@@ -46,7 +47,9 @@
 Require read only property of previous input element to be false.
 Require hidden property of previous input element to be true.
 Require media matches wide device.
-Make visible when all conditions are met.
+On input event of phone number part pass value to lhs.
+On input event of phone number confirm part pass value to rhs.
+Make visible when all conditions are met and lhs=rhs.
 '>
 </template>
 ```
