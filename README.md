@@ -83,9 +83,9 @@ If, however, the content should display initially, but we want the client-side J
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='
-        Link value of previous largest scale element having inner woman with carrot attached to nose element to lhs property of my proxy.
-        Link value of previous largest scale element having inner a-duck element to rhs property of my proxy.
-        Make visible only if lhs = rhs.
+        Set lhs to value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element.
+        Set rhs to value of previous largest-scale element having inner a-duck element.
+        Make visible when lhs = rhs.
         Defer rendering.
     '>
         <div>A witch!</div>
