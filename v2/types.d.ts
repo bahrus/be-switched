@@ -31,15 +31,15 @@ export type TorForNEA = 'Truthy' | 'Falsy' | 'NonEmptyArray';
 
 export type Op = '=';
 
-export type LorR = 'LHS' | 'RHS';
+export type MemKey = string;
 
 export type EventName = string;
 
 export type CheckUpstreamIsTOrFStatement = `That${UpstreamPropPath}Of${UpstreamCamelQry}Is${TorForNEA}`;
 export type CheckLHSOpRHSStatement = `${LHS}${Op}${RHS}`;
 export type CheckStatement = CheckUpstreamIsTOrFStatement | CheckLHSOpRHSStatement;
-export type OnUpstreamEventToLorRStatement = `${EventName}Of${UpstreamCamelQry}Map${UpstreamPropPath}To${LorR}`;
-export type MapUpstreamPropToLorR = `${UpstreamPropPath}Of${UpstreamCamelQry}To${LorR}`;
+export type OnUpstreamEventToLorRStatement = `${EventName}Of${UpstreamCamelQry}Map${UpstreamPropPath}To${MemKey}`;
+export type MapUpstreamPropToLorR = `${UpstreamPropPath}Of${UpstreamCamelQry}To${MemKey}`;
 export type Proxy = (HTMLScriptElement | HTMLTemplateElement) & VirtualProps;
 
 export interface PP extends VirtualProps{
