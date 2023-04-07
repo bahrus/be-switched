@@ -1,10 +1,10 @@
 import {RegExpOrRegExpExt} from 'be-decorated/types';
-import {} from 'be-linked/doOn.js';
+import {upstreamEvent} from 'be-linked/reOn.js';
 
 const reMapStatements : RegExpOrRegExpExt[] = [
     {
         //On input event of previous phone-number part map value to lhs.
-        regExp: new RegExp(String.raw `${upstream}To(?<memKey>\w+)`),
+        regExp: new RegExp(String.raw `${upstreamEvent}(?<!\\)Map(?<upstreamPropPath>[\w\:]+)(?<!\\)To(?<memKey>\w+)`),
         defaultVals: {},
     }
 ];

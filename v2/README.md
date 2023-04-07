@@ -11,7 +11,7 @@
     <template be-switched='
         Map value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to lhs.
         Map value property of previous largest-scale element having inner a-duck element to rhs.
-        Check IF lhs = rhs.
+        Check if lhs = rhs.
     '>
         <div>A witch!</div>
     </template>
@@ -27,14 +27,15 @@
         "wideDevice": "(min-width: 30em) and (orientation: landscape)"
     }
 }
+
 Check if ready to display property of host is truthy.
 Check if read only property of previous input element is falsy.
 Check if hidden property of previous input element is truthy.
 Check if media matches wide device.
 Check if list of books property of host is a non empty array.
 On toggle event of host check if open property is truthy.
-On input event of previous phone-number part map value to lhs.
-On input event of previous phone-number-confirm part map value to rhs.
+On input event of previous phone-number part map value property to lhs.
+On input event of previous phone-number-confirm part map value property to rhs.
 Check if lhs=rhs.
 '>
 </template>
@@ -47,6 +48,7 @@ The example above illustrates a massive and condition.  If an or condition of su
 ```html
 <input part=phone-number>
 <input part=phone-number-confirm>
+<template>
 ```
 Check if ready to display property of host is true.
 ```
