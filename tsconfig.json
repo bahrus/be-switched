@@ -10,6 +10,7 @@
 	},
 	"files": [
 		"be-switched.ts",
+		"v2/be-switched.ts"
 		//"playwright.config.ts",
 		//"tests/test1.spec.mts"
 	],
