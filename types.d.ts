@@ -55,3 +55,5 @@ export interface Actions{
     chkMedia(self: PP, e: MediaQueryListEvent): PPP;
     onIfNonEmptyArray(self: PP): void;
 }
+
+export type UpstreamPropPath = string;
