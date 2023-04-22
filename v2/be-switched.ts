@@ -1,6 +1,7 @@
 import {define, BeDecoratedProps} from 'be-decorated/DE.js';
-import {register} from "be-hive/register.js";
+import {register} from 'be-hive/register.js';
 import {Actions, PP, PPP, PPPP, CanonicalConfig, Proxy, CamelConfig} from './types';
+import {PP as beLinkedPP} from 'be-linked/types';
 export class BeSwitched extends EventTarget implements Actions {
 
     async camelToCanonical(pp: PP): PPPP {
@@ -17,6 +18,10 @@ export class BeSwitched extends EventTarget implements Actions {
                 const {doOn} = await import('./doOn.js');
                 await doOn(cc, links, pp);
             }
+            if(Check !== undefined){
+                const {doCheck} = await import('./doCheck.js');
+                await doCheck(cc, links, pp);
+            }
         }
         return {
             canonicalConfig
@@ -24,7 +29,15 @@ export class BeSwitched extends EventTarget implements Actions {
     }
 
     async onCanonical(pp: PP, mold: PPP): PPPP {
-        const {} = pp;
+        const {canonicalConfig} = pp;
+        const {links} = canonicalConfig!;
+        if(links !== undefined){
+            const {pass} = await import('be-linked/pass.js');
+            for(const link of links){
+                await pass(pp as beLinkedPP, link);
+            }
+        }
+
         return mold;
     }
 

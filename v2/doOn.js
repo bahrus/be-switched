@@ -6,7 +6,7 @@ export async function doOn(cc, links, pp) {
     for (const onString of On) {
         const test = tryParse(onString, reOnStatements);
         if (test !== null) {
-            await adjustLink(test, pp);
+            await adjustLink(test); //, pp);
             links.push({
                 ...test,
             });

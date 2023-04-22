@@ -12,7 +12,7 @@ export async function doOn(cc: CamelConfig, links: Link[], pp: PP){
    for(const onString of On!){
       const test = tryParse(onString, reOnStatements);
       if(test !== null){
-         await adjustLink(test as Link, pp);
+         await adjustLink(test as Link);//, pp);
          links.push({
             ...test,
          });

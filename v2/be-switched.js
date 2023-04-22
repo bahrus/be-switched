@@ -1,5 +1,5 @@
 import { define } from 'be-decorated/DE.js';
-import { register } from "be-hive/register.js";
+import { register } from 'be-hive/register.js';
 export class BeSwitched extends EventTarget {
     async camelToCanonical(pp) {
         const { camelConfig, self } = pp;
@@ -15,13 +15,24 @@ export class BeSwitched extends EventTarget {
                 const { doOn } = await import('./doOn.js');
                 await doOn(cc, links, pp);
             }
+            if (Check !== undefined) {
+                const { doCheck } = await import('./doCheck.js');
+                await doCheck(cc, links, pp);
+            }
         }
         return {
             canonicalConfig
         };
     }
     async onCanonical(pp, mold) {
-        const {} = pp;
+        const { canonicalConfig } = pp;
+        const { links } = canonicalConfig;
+        if (links !== undefined) {
+            const { pass } = await import('be-linked/pass.js');
+            for (const link of links) {
+                await pass(pp, link);
+            }
+        }
         return mold;
     }
 }
