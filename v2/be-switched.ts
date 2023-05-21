@@ -13,7 +13,13 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     calcVal(self: this): PAP {
-        const {lhs, rhs} = self;
+        const {lhs, rhs, checkIfNonEmptyArray} = self;
+        if(checkIfNonEmptyArray){
+            if(!Array.isArray(lhs) || lhs.length === 0) return {
+                val: false,
+                resolved: true,
+            }
+        }
         return {
             val: lhs === rhs,
             resolved: true,
@@ -21,7 +27,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     async onTrue(self: this) {
-        const {enhancedElement, toggleDisabled} = self;
+        const {enhancedElement, toggleDisabled, deferRendering} = self;
         const itemref= enhancedElement.getAttribute('itemref');
         if(itemref === null){
             const keys : string[] = [];
@@ -35,6 +41,10 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             }
             enhancedElement.setAttribute('itemref', keys.join(' '));
         }else{
+            if(deferRendering){
+                self.deferRendering = false;
+                return;
+            }
             const parent = (enhancedElement.parentElement || enhancedElement.getRootNode()) as DocumentFragment;
             const keys = itemref.split(' ');
             for(const key of keys){
@@ -62,6 +72,18 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
                 (<any>child).disabled = true;
             }
         }
+    }
+
+    #mql: MediaQueryList | undefined;
+    addMediaListener(self: this){
+        const { ifMediaMatches, enhancedElement} = self;
+        if(!ifMediaMatches) return [{}, {}] as POA; //clears previous listener
+        this.#mql = window.matchMedia(ifMediaMatches! as string); //TODO:  support observant media matches
+        return [{}, {chkMedia: {on: 'change', of: this.#mql, doInit: true}}] as POA;
+    }
+
+    chkMedia(self: this, e: MediaQueryListEvent){
+        return {matchesMediaQuery: e.matches} as PAP;
     }
 }
 
@@ -101,6 +123,9 @@ const xe = new XE<AP, Actions>({
             lhs: false,
             rhs: true,
             displayDelay: 16,
+            op: '===',
+            checkIfNonEmptyArray: false,
+            ifMediaMatches: '',
             hiddenStyle: 'display:none',
             toggleDisabled: false,
         },
@@ -126,6 +151,9 @@ const xe = new XE<AP, Actions>({
             onFalse: {
                 ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
+            },
+            addMediaListener: {
+                ifKeyIn:  ['ifMediaMatches']
             }
         }
     },

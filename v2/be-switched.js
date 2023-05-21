@@ -8,14 +8,21 @@ export class BeSwitched extends BE {
         };
     }
     calcVal(self) {
-        const { lhs, rhs } = self;
+        const { lhs, rhs, checkIfNonEmptyArray } = self;
+        if (checkIfNonEmptyArray) {
+            if (!Array.isArray(lhs) || lhs.length === 0)
+                return {
+                    val: false,
+                    resolved: true,
+                };
+        }
         return {
             val: lhs === rhs,
             resolved: true,
         };
     }
     async onTrue(self) {
-        const { enhancedElement, toggleDisabled } = self;
+        const { enhancedElement, toggleDisabled, deferRendering } = self;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null) {
             const keys = [];
@@ -30,6 +37,10 @@ export class BeSwitched extends BE {
             enhancedElement.setAttribute('itemref', keys.join(' '));
         }
         else {
+            if (deferRendering) {
+                self.deferRendering = false;
+                return;
+            }
             const parent = (enhancedElement.parentElement || enhancedElement.getRootNode());
             const keys = itemref.split(' ');
             for (const key of keys) {
@@ -60,6 +71,17 @@ export class BeSwitched extends BE {
                 child.disabled = true;
             }
         }
+    }
+    #mql;
+    addMediaListener(self) {
+        const { ifMediaMatches, enhancedElement } = self;
+        if (!ifMediaMatches)
+            return [{}, {}]; //clears previous listener
+        this.#mql = window.matchMedia(ifMediaMatches); //TODO:  support observant media matches
+        return [{}, { chkMedia: { on: 'change', of: this.#mql, doInit: true } }];
+    }
+    chkMedia(self, e) {
+        return { matchesMediaQuery: e.matches };
     }
 }
 const styleMap = new WeakSet();
@@ -93,6 +115,9 @@ const xe = new XE({
             lhs: false,
             rhs: true,
             displayDelay: 16,
+            op: '===',
+            checkIfNonEmptyArray: false,
+            ifMediaMatches: '',
             hiddenStyle: 'display:none',
             toggleDisabled: false,
         },
@@ -118,6 +143,9 @@ const xe = new XE({
             onFalse: {
                 ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
+            },
+            addMediaListener: {
+                ifKeyIn: ['ifMediaMatches']
             }
         }
     },
