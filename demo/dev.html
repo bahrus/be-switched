@@ -11,28 +11,28 @@
     <input id=lhs>
     <label for=rhs>RHS:</label>
     <input id=rhs>
-    <template be-switched='{
-        "if": true,
-        "lhs": {"observe": "#lhs", "on": "input", "vft": "value"},
-        "op": "===",
-        "rhs": {"observe": "#rhs", "on": "input", "vft": "value"}
-    }'>
+    <template be-switched be-linked='
+        On input event of previous lhs id pass value property to lhs property of be-switched enhancement of adorned element.
+        On input event of previous rhs id pass value property to rhs property of be-switched enhancement of adorned element.
+    '
+    >
         <div>LHS === RHS</div>
     </template>
 
     <script type=importmap>
         {
             "imports": {
+                "be-enhanced/": "../node_modules/be-enhanced/",
+                "be-linked/": "../node_modules/be-linked/",
+                "be-hive/":  "..//node_modules/be-hive/",
                 "trans-render/": "../node_modules/trans-render/",
-                "xtal-element/": "../node_modules/xtal-element/",
-                "be-decorated/": "../node_modules/be-decorated/",
-                "be-observant/": "../node_modules/be-observant/",
-                "be-hive/":  "../node_modules/be-hive/"
+                "xtal-element/": "../node_modules/xtal-element/"
             }
         }
     </script>
     <script type=module>
         import '../be-switched.js';
+        import 'be-linked/be-linked.js';
         
     </script>
 </body>
