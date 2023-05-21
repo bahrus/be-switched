@@ -40,6 +40,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
                 keys.push(child.id);
             }
             enhancedElement.setAttribute('itemref', keys.join(' '));
+            if(!enhancedElement.hasAttribute('itemscope')) enhancedElement.setAttribute('itemscope', '');
         }else{
             if(deferRendering){
                 self.deferRendering = false;

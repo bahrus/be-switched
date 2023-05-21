@@ -35,6 +35,8 @@ export class BeSwitched extends BE {
                 keys.push(child.id);
             }
             enhancedElement.setAttribute('itemref', keys.join(' '));
+            if (!enhancedElement.hasAttribute('itemscope'))
+                enhancedElement.setAttribute('itemscope', '');
         }
         else {
             if (deferRendering) {
