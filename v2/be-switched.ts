@@ -21,7 +21,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     async onTrue(self: this) {
-        const {enhancedElement} = self;
+        const {enhancedElement, toggleDisabled} = self;
         const itemref= enhancedElement.getAttribute('itemref');
         if(itemref === null){
             const keys : string[] = [];
@@ -34,10 +34,41 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
                 keys.push(child.id);
             }
             enhancedElement.setAttribute('itemref', keys.join(' '));
+        }else{
+            addStyle(self);
+            const parent = (enhancedElement.parentElement || enhancedElement.getRootNode()) as DocumentFragment;
+            const keys = itemref.split(' ');
+            for(const key of keys){
+                const child = parent.getElementById(key);
+                child?.classList.remove('be-switched-hide');
+                if(toggleDisabled && (<any>child).disabled === false){
+                    (<any>child).disabled = true;
+                }
+            }
         }
     }
     async onFalse(self: this){
 
+    }
+}
+
+const styleMap = new WeakSet<Node>();
+
+function addStyle(ap: AP){
+    const {enhancedElement, hiddenStyle} = ap;
+    let rootNode = enhancedElement.getRootNode();
+    if ((<any>rootNode).host === undefined) {
+        rootNode = document.head;
+    }
+    if (!styleMap.has(rootNode)) {
+        styleMap.add(rootNode);
+        const style = document.createElement('style');
+        style.innerHTML = /* css */`
+            .be-switched-hide{
+                ${hiddenStyle}
+            }
+        `;
+        rootNode.appendChild(style);
     }
 }
 
@@ -57,6 +88,8 @@ const xe = new XE<AP, Actions>({
             lhs: false,
             rhs: true,
             displayDelay: 16,
+            hiddenStyle: 'display:none',
+            toggleDisabled: false,
         },
         propInfo: {
             ...propInfo,
@@ -73,7 +106,7 @@ const xe = new XE<AP, Actions>({
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs']
             },
-            doMainOnTrue: {
+            onTrue: {
                 ifEquals: ['val', 'echoVal'],
                 ifAllOf: ['val']
             }

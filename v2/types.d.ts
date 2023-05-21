@@ -2,9 +2,11 @@ import { ActionOnEventConfigs } from "trans-render/froop/types";
 import {IBE} from 'be-enhanced/types';
 
 export interface EndUserProps extends IBE<HTMLTemplateElement>{
-    lhs: any,
-    rhs: any,
-    displayDelay: number;
+    lhs?: any,
+    rhs?: any,
+    displayDelay?: number;
+    hiddenStyle?: string;
+    toggleDisabled?: boolean;
 }
 
 export interface AllProps extends EndUserProps{
