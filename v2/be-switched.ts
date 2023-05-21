@@ -1,81 +1,85 @@
-import {define, BeDecoratedProps} from 'be-decorated/DE.js';
+import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
+import {BEConfig} from 'be-enhanced/types';
+import {XE} from 'xtal-element/XE.js';
+import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
 import {register} from 'be-hive/register.js';
-import {Actions, PP, PPP, PPPP, CanonicalConfig, Proxy, CamelConfig} from './types';
-import {PP as beLinkedPP} from 'be-linked/types';
-export class BeSwitched extends EventTarget implements Actions {
+import { IEchoTo } from '../../xtal-element/types';
 
-    async camelToCanonical(pp: PP): PPPP {
-        const {camelConfig, self} = pp;
-        const {arr} = await import('be-decorated/cpu.js');
-        const camelConfigArr = arr(camelConfig);
-        const canonicalConfig: CanonicalConfig = {
-            links: []
-        };
-        const {links} = canonicalConfig;
-        for(const cc of camelConfigArr){
-            const {Check, Map, On} = cc;
-            if(On !== undefined){
-                const {doOn} = await import('./doOn.js');
-                await doOn(cc, links, pp);
-            }
-            if(Check !== undefined){
-                const {doCheck} = await import('./doCheck.js');
-                await doCheck(cc, links, pp);
-            }
-        }
+export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
+    static  override get beConfig(){
         return {
-            canonicalConfig
-        };
+            parse: true,
+        } as BEConfig
     }
 
-    async onCanonical(pp: PP, mold: PPP): PPPP {
-        const {canonicalConfig} = pp;
-        const {links} = canonicalConfig!;
-        if(links !== undefined){
-            const {pass} = await import('be-linked/pass.js');
-            for(const link of links){
-                await pass(pp as beLinkedPP, link);
-            }
+    calcVal(self: this): PAP {
+        const {lhs, rhs} = self;
+        return {
+            val: lhs === rhs,
+            resolved: true,
         }
-
-        return mold;
     }
 
-    
+    async onTrue(self: this) {
+        const {enhancedElement} = self;
+        const itemref= enhancedElement.getAttribute('itemref');
+        if(itemref === null){
+            const keys : string[] = [];
+            const {insertAdjacentTemplate} = await import('trans-render/lib/insertAdjacentTemplate.js');
+            const appendedChildren = insertAdjacentTemplate(enhancedElement, enhancedElement, 'afterend');
+            for(const child of appendedChildren){
+                if(!child.id){
+                    child.id = crypto.randomUUID();
+                }
+                keys.push(child.id);
+            }
+            enhancedElement.setAttribute('itemref', keys.join(' '));
+        }
+    }
+    async onFalse(self: this){
+
+    }
 }
+
+export interface BeSwitched extends AllProps{}
 
 const tagName = 'be-switched';
 const ifWantsToBe = 'switched';
-const upgrade = 'template';
+const upgrade = '*';
 
-define<Proxy & BeDecoratedProps<Proxy, Actions, CamelConfig>, Actions>({
+const xe = new XE<AP, Actions>({
     config: {
         tagName,
         propDefaults: {
-            upgrade,
-            ifWantsToBe,
-            forceVisible: [upgrade],
-            virtualProps: ['camelConfig', 'canonicalConfig'],
-            primaryProp: 'camelConfig',
-            parseAndCamelize: true,
-            camelizeOptions: {
-
-            },
-            primaryPropReq: true,
+            ...propDefaults,
+            val: false,
+            echoVal: false,
+            lhs: false,
+            rhs: true,
+            displayDelay: 16,
+        },
+        propInfo: {
+            ...propInfo,
+            val: {
+                notify: {
+                    echoTo: {
+                        key: 'echoVal',
+                        delay: 'displayDelay'
+                    } as IEchoTo<AP>
+                }
+            }
         },
         actions: {
-            camelToCanonical: 'camelConfig',
-            onCanonical: {
-                ifAllOf: ['canonicalConfig', 'camelConfig'],
-                returnObjMold: {
-                    resolved: true,
-                }
+            calcVal: {
+                ifKeyIn: ['lhs', 'rhs']
+            },
+            doMainOnTrue: {
+                ifEquals: ['val', 'echoVal'],
+                ifAllOf: ['val']
             }
         }
     },
-    complexPropDefaults: {
-        controller: BeSwitched
-    }
+    superclass: BeSwitched
 });
 
 register(ifWantsToBe, upgrade, tagName);

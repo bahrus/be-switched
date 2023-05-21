@@ -1,56 +1,27 @@
-import {BeDecoratedProps, EventHandler, MinimalProxy, EventConfigs} from 'be-decorated/types';
-import {Link} from 'be-linked/types';
-import {QueryInfo, Scope, camelQry, JSONObject} from 'trans-render/lib/types';
+import { ActionOnEventConfigs } from "trans-render/froop/types";
+import {IBE} from 'be-enhanced/types';
 
-export interface EndUserProps {
-    camelConfig?: CamelConfig | CamelConfig[],
+export interface EndUserProps extends IBE<HTMLTemplateElement>{
+    lhs: any,
+    rhs: any,
+    displayDelay: number;
 }
 
-export interface VirtualProps extends EndUserProps, MinimalProxy{
-    canonicalConfig?: CanonicalConfig;
+export interface AllProps extends EndUserProps{
+    val: boolean,
+    echoVal: boolean,
 }
 
-export interface CamelConfig<TSrc=any, TDest=any>{
-    links: Link[];
-    Check?: CheckStatement[];
-    On?: OnUpstreamEventToLorRStatement[];
-    Map?: MapUpstreamPropToLorR[];
-}
+export type AP = AllProps;
 
-export interface CanonicalConfig{
-    links: Link[];
-    
-}
+export type PAP = Partial<AP>;
 
-export type UpstreamPropPath = string;
-export type UpstreamCamelQry = camelQry;
-export type LHS = string;
-export type RHS = string;
+export type ProPAP = Promise<PAP>;
 
-export type TorForNEA = 'Truthy' | 'Falsy' | 'NonEmptyArray';
-
-export type Op = '=';
-
-export type MemKey = string;
-
-export type EventName = string;
-
-export type CheckUpstreamIsTOrFStatement = `That${UpstreamPropPath}Of${UpstreamCamelQry}Is${TorForNEA}`;
-export type CheckLHSOpRHSStatement = `${LHS}${Op}${RHS}`;
-export type CheckStatement = CheckUpstreamIsTOrFStatement | CheckLHSOpRHSStatement;
-export type OnUpstreamEventToLorRStatement = `${EventName}Of${UpstreamCamelQry}Map${UpstreamPropPath}To${MemKey}`;
-export type MapUpstreamPropToLorR = `${UpstreamPropPath}Of${UpstreamCamelQry}To${MemKey}`;
-export type Proxy = (HTMLScriptElement | HTMLTemplateElement) & VirtualProps;
-
-export interface PP extends VirtualProps{
-    proxy: Proxy
-}
-
-export type PPP = Partial<PP>;
-
-export type PPPP = Promise<PPP>;
+export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
 
 export interface Actions{
-    camelToCanonical(pp: PP): PPPP;
-    onCanonical(pp: PP, mold: PPP): PPPP;
+    calcVal(self: this): PAP;
+    onTrue(self: this): Promise<void>;
+    onFalse(self: this): Promise<void>;
 }

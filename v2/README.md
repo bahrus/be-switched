@@ -8,11 +8,11 @@
     <largest-scale>
         <a-duck></a-duck>
     </largest-scale>
-    <template be-switched='
-        Map value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to lhs.
-        Map value property of previous largest-scale element having inner a-duck element to rhs.
-        Check if lhs = rhs.
-    '>
+    <template be-switched
+        be-linked='
+        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to lhs property of be-switched enhancement of adorned element.
+        Link value property of previous largest-scale element having inner a-duck element to rhs property of be-switched enhancement of adorned element.
+    >
         <div>A witch!</div>
     </template>
 </ways-of-science>

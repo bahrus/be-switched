@@ -35,6 +35,8 @@ export class BeSwitched extends EventTarget {
         }
         return mold;
     }
+    evaluateConditions(pp) {
+    }
 }
 const tagName = 'be-switched';
 const ifWantsToBe = 'switched';
@@ -46,7 +48,7 @@ define({
             upgrade,
             ifWantsToBe,
             forceVisible: [upgrade],
-            virtualProps: ['camelConfig', 'canonicalConfig'],
+            virtualProps: ['camelConfig', 'canonicalConfig', 'conditions', 'value'],
             primaryProp: 'camelConfig',
             parseAndCamelize: true,
             camelizeOptions: {},
