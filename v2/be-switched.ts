@@ -35,12 +35,12 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             }
             enhancedElement.setAttribute('itemref', keys.join(' '));
         }else{
-            addStyle(self);
             const parent = (enhancedElement.parentElement || enhancedElement.getRootNode()) as DocumentFragment;
             const keys = itemref.split(' ');
             for(const key of keys){
                 const child = parent.getElementById(key);
-                child?.classList.remove('be-switched-hide');
+                if(child === null) continue;
+                child.classList.remove('be-switched-hide');
                 if(toggleDisabled && (<any>child).disabled === false){
                     (<any>child).disabled = true;
                 }
@@ -48,7 +48,20 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         }
     }
     async onFalse(self: this){
-
+        const {enhancedElement, toggleDisabled} = self;
+        const itemref = enhancedElement.getAttribute('itemref');
+        if(itemref === null) return;
+        addStyle(self);
+        const parent = (enhancedElement.parentElement || enhancedElement.getRootNode()) as DocumentFragment;
+        const keys = itemref.split(' ');
+        for(const key of keys){
+            const child = parent.getElementById(key);
+            if(child === null) continue;
+            child.classList.add('be-switched-hidden');
+            if(toggleDisabled && (<any>child).disabled === false){
+                (<any>child).disabled = true;
+            }
+        }
     }
 }
 
@@ -109,6 +122,10 @@ const xe = new XE<AP, Actions>({
             onTrue: {
                 ifEquals: ['val', 'echoVal'],
                 ifAllOf: ['val']
+            },
+            onFalse: {
+                ifEquals: ['val', 'echoVal'],
+                ifNoneOf: ['val']
             }
         }
     },

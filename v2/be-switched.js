@@ -1,71 +1,126 @@
-import { define } from 'be-decorated/DE.js';
+import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
+import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
-export class BeSwitched extends EventTarget {
-    async camelToCanonical(pp) {
-        const { camelConfig, self } = pp;
-        const { arr } = await import('be-decorated/cpu.js');
-        const camelConfigArr = arr(camelConfig);
-        const canonicalConfig = {
-            links: []
-        };
-        const { links } = canonicalConfig;
-        for (const cc of camelConfigArr) {
-            const { Check, Map, On } = cc;
-            if (On !== undefined) {
-                const { doOn } = await import('./doOn.js');
-                await doOn(cc, links, pp);
-            }
-            if (Check !== undefined) {
-                const { doCheck } = await import('./doCheck.js');
-                await doCheck(cc, links, pp);
-            }
-        }
+export class BeSwitched extends BE {
+    static get beConfig() {
         return {
-            canonicalConfig
+            parse: true,
         };
     }
-    async onCanonical(pp, mold) {
-        const { canonicalConfig } = pp;
-        const { links } = canonicalConfig;
-        if (links !== undefined) {
-            const { pass } = await import('be-linked/pass.js');
-            for (const link of links) {
-                await pass(pp, link);
+    calcVal(self) {
+        const { lhs, rhs } = self;
+        return {
+            val: lhs === rhs,
+            resolved: true,
+        };
+    }
+    async onTrue(self) {
+        const { enhancedElement, toggleDisabled } = self;
+        const itemref = enhancedElement.getAttribute('itemref');
+        if (itemref === null) {
+            const keys = [];
+            const { insertAdjacentTemplate } = await import('trans-render/lib/insertAdjacentTemplate.js');
+            const appendedChildren = insertAdjacentTemplate(enhancedElement, enhancedElement, 'afterend');
+            for (const child of appendedChildren) {
+                if (!child.id) {
+                    child.id = crypto.randomUUID();
+                }
+                keys.push(child.id);
+            }
+            enhancedElement.setAttribute('itemref', keys.join(' '));
+        }
+        else {
+            const parent = (enhancedElement.parentElement || enhancedElement.getRootNode());
+            const keys = itemref.split(' ');
+            for (const key of keys) {
+                const child = parent.getElementById(key);
+                if (child === null)
+                    continue;
+                child.classList.remove('be-switched-hide');
+                if (toggleDisabled && child.disabled === false) {
+                    child.disabled = true;
+                }
             }
         }
-        return mold;
     }
-    evaluateConditions(pp) {
+    async onFalse(self) {
+        const { enhancedElement, toggleDisabled } = self;
+        const itemref = enhancedElement.getAttribute('itemref');
+        if (itemref === null)
+            return;
+        addStyle(self);
+        const parent = (enhancedElement.parentElement || enhancedElement.getRootNode());
+        const keys = itemref.split(' ');
+        for (const key of keys) {
+            const child = parent.getElementById(key);
+            if (child === null)
+                continue;
+            child.classList.add('be-switched-hidden');
+            if (toggleDisabled && child.disabled === false) {
+                child.disabled = true;
+            }
+        }
+    }
+}
+const styleMap = new WeakSet();
+function addStyle(ap) {
+    const { enhancedElement, hiddenStyle } = ap;
+    let rootNode = enhancedElement.getRootNode();
+    if (rootNode.host === undefined) {
+        rootNode = document.head;
+    }
+    if (!styleMap.has(rootNode)) {
+        styleMap.add(rootNode);
+        const style = document.createElement('style');
+        style.innerHTML = /* css */ `
+            .be-switched-hide{
+                ${hiddenStyle}
+            }
+        `;
+        rootNode.appendChild(style);
     }
 }
 const tagName = 'be-switched';
 const ifWantsToBe = 'switched';
-const upgrade = 'template';
-define({
+const upgrade = '*';
+const xe = new XE({
     config: {
         tagName,
         propDefaults: {
-            upgrade,
-            ifWantsToBe,
-            forceVisible: [upgrade],
-            virtualProps: ['camelConfig', 'canonicalConfig', 'conditions', 'value'],
-            primaryProp: 'camelConfig',
-            parseAndCamelize: true,
-            camelizeOptions: {},
-            primaryPropReq: true,
+            ...propDefaults,
+            val: false,
+            echoVal: false,
+            lhs: false,
+            rhs: true,
+            displayDelay: 16,
+            hiddenStyle: 'display:none',
+            toggleDisabled: false,
+        },
+        propInfo: {
+            ...propInfo,
+            val: {
+                notify: {
+                    echoTo: {
+                        key: 'echoVal',
+                        delay: 'displayDelay'
+                    }
+                }
+            }
         },
         actions: {
-            camelToCanonical: 'camelConfig',
-            onCanonical: {
-                ifAllOf: ['canonicalConfig', 'camelConfig'],
-                returnObjMold: {
-                    resolved: true,
-                }
+            calcVal: {
+                ifKeyIn: ['lhs', 'rhs']
+            },
+            onTrue: {
+                ifEquals: ['val', 'echoVal'],
+                ifAllOf: ['val']
+            },
+            onFalse: {
+                ifEquals: ['val', 'echoVal'],
+                ifNoneOf: ['val']
             }
         }
     },
-    complexPropDefaults: {
-        controller: BeSwitched
-    }
+    superclass: BeSwitched
 });
 register(ifWantsToBe, upgrade, tagName);
