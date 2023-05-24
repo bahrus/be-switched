@@ -4,6 +4,8 @@
 
 It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of enhancements, that can "cast spells" on server rendered content, but also apply the same logic quietly during template instantiation. 
 
+be-switched can easily complement server-rendered HTML, as discussed below.
+
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-switched)
 [![Playwright Tests](https://github.com/bahrus/be-switched/actions/workflows/CI.yml/badge.svg)](https://github.com/bahrus/be-switched/actions/workflows/CI.yml)
 <a href="https://nodei.co/npm/be-switched/"><img src="https://nodei.co/npm/be-switched.png"></a>
@@ -22,9 +24,11 @@ It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) famil
 </template>
 ```
 
-Since the lhs (37) doesn't equal "hello", the content inside the template remains inside the template.  The moment the lhs equals the rhs, the content inside the template is appended adjacent to the template element.  If the lhs later becomes uneaual to the rhs again, the live DOM content that came from the template is hidden via css.
+"lhs" stands for left-hand-side.  "rhs" stands for "right-hand-side".
 
-Now how can we change the values of the lhs and rhs?  Normally, a framework can pass values to the top level of a web component / built-in element.  Some frameworks may be able to pass values to sub properties.  With such frameworks, they can pass updated values like so (under the hood):
+Since the lhs (37) doesn't equal the rhs ("hello"), the content inside the template remains inside the template.  The moment the lhs equals the rhs, the content inside the template is appended adjacent to the template element.  If the lhs later becomes unequal to the rhs again, the live DOM content that came from the template is hidden via css.
+
+Now how can we change the values of the lhs and rhs?  Normally, a framework can pass values to the top level of a web component / built-in element.  Some frameworks may be able to pass values to sub properties.  With such frameworks, they could, theoretically, pass updated values like so (under the hood):
 
 ```
 await customElements.whenDefined('be-enhanced');
@@ -33,7 +37,7 @@ oTemplate.beEnhanced.by.beSwitched.rhs = 37;
 
 The extra ".by" is necessary just in case beSwitched hasn't been attached to the element yet.
 
-The first line can be avoided if we already know be-enhanced has been registered.  It can also be avoided thusly:
+The first line can be avoided if we already know be-enhanced has been registered.  I.e. another way to pass in the value reliably is thusly:
 
 ```
 if(oTemplate.beEnhanced === undefined) oTemplate.beEnhanced = {};
@@ -41,17 +45,17 @@ if(oTemplate.beEnhanced.beSwitched === undefined) oTemplate.beEnhanced.beSwitche
 oTemplate.beEnhanced.beSwitched.rhs = 37;
 ```
 
-All of this is to say, most frameworks probably won't make it trivially easy to pass values to the enhancement.
+All of this is to say, most frameworks probably won't make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.
 
-For that reason, among others, a supporting "enhancement helper" is provided:  be-linked, which we discuss below.  Using that helper, this enhancement can be used within most any framework, or even without the help of a framework.  
+For that reason, among others, a supporting "enhancement helper" is provided:  be-linked, which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework, adding its magic onto what the server rendered.
 
 ## 100% Hemingway Notation
 
-In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).
+In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).  be-linked provides two "lingos" that can work together:  JavaScriptObjectNotation, and ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
 
-The syntax is admittedly a bit long-winded (shortcuts described below).  All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  It uses 100% ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
+The syntax is admittedly a bit long-winded (shortcuts described below).  All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  It uses 100% "Hemingway notation".
 
-It should be noted that this simple functionality that be-linked demonstrates below, is actually beyond the capabilities of most every framework out there!
+It should be noted that this simple functionality that be-linked demonstrates below, is actually beyond the capabilities of most every framework out there (other than JQuery)!
 
 ```html
 <ways-of-science>
@@ -78,7 +82,7 @@ It should be noted that this simple functionality that be-linked demonstrates be
 
 ## Hemingway Notation combined with JSON notation.
 
-be-link provides a more TypeScript friendly alternative (that is also a bit less wordy):
+be-link provides a less verbose, more TypeScript friendly alternative:
 
 ```html
 <ways-of-science>
