@@ -16,7 +16,7 @@
 
 In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).
 
-The syntax is admittedly a bit long-winded.  All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  It uses 100% ("Hemingway notation")[https://bookanalysis.com/ernest-hemingway/writing-style/].
+The syntax is admittedly a bit long-winded.  All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  It uses 100% ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
 
 ```html
 <ways-of-science>
