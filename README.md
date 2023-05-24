@@ -26,15 +26,12 @@ The syntax is admittedly a bit long-winded.  All the line feeds / indentation is
     <largest-scale>
         <a-duck></a-duck>
     </largest-scale>
-    <template be-switched
-        be-linked='
-        Link value property 
-        of previous largest-scale element 
+    <template be-linked='
+        Link value property of previous largest-scale element 
         having inner woman-with-carrot-attached-to-nose element 
         to lhs property of be-switched enhancement of adorned element.
 
-        Link value property
-        of previous largest-scale element 
+        Link value propertyof previous largest-scale element 
         having inner a-duck element 
         to rhs property of be-switched enhancement of adorned element.'
     >
@@ -55,8 +52,7 @@ be-link provides a more TypeScript friendly alternative (that is also a bit less
     <largest-scale>
         <a-duck></a-duck>
     </largest-scale>
-    <template be-switched
-        be-linked='
+    <template be-linked='
         {
             "enh": {
                 "beSwitched": {
@@ -65,12 +61,10 @@ be-link provides a more TypeScript friendly alternative (that is also a bit less
                 }
             }
         }
-        Link value property 
-        of previous largest-scale element 
+        Link value property of previous largest-scale element 
         having inner woman-with-carrot-attached-to-nose element to lhs.
 
-        Link value property
-        of previous largest-scale element 
+        Link value property of previous largest-scale element 
         having inner a-duck element to rhs.
         '
     >
@@ -95,16 +89,29 @@ If, however, the content should display initially, but we want the client-side J
     <largest-scale>
         <a-duck></a-duck>
     </largest-scale>
-    <template itemscope itemref=witch be-switched='{"deferRendering": true}'
+    <template itemscope itemref="witch burn-her" 
         be-linked='
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to lhs property of be-switched enhancement of adorned element.
-        Link value property of previous largest-scale element having inner a-duck element to rhs property of be-switched enhancement of adorned element.'
+        {
+            "enh": {
+                "beSwitched": {
+                    "lhs": "",
+                    "rhs": "",
+                }
+            }
+        }
+        Link value property of previous largest-scale element 
+        having inner woman-with-carrot-attached-to-nose element to lhs.
+
+        Link value property of previous largest-scale element 
+        having inner a-duck element to rhs.
+        '
     >
-        
     </template>
-    <div id=witch></div>
+    <div id=witch>A witch!</div>
+    <div id=burn-her>Burn her!</div>
 </ways-of-science>
 ```
+
 
 
 
