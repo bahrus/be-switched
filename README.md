@@ -12,7 +12,11 @@
 
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-switched?compression=gzip">
 
+## 100% Hemingway Notation
+
 In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).
+
+The syntax is admittedly a bit long-winded.  All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  It uses 100% ("Hemingway notation")[https://bookanalysis.com/ernest-hemingway/writing-style/].
 
 ```html
 <ways-of-science>
@@ -24,15 +28,56 @@ In the following example, we see be-switched used in combination with [be-linked
     </largest-scale>
     <template be-switched
         be-linked='
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to lhs property of be-switched enhancement of adorned element.
-        Link value property of previous largest-scale element having inner a-duck element to rhs property of be-switched enhancement of adorned element.'
+        Link value property 
+        of previous largest-scale element 
+        having inner woman-with-carrot-attached-to-nose element 
+        to lhs property of be-switched enhancement of adorned element.
+
+        Link value property
+        of previous largest-scale element 
+        having inner a-duck element 
+        to rhs property of be-switched enhancement of adorned element.'
     >
         <div>A witch!</div>
     </template>
 </ways-of-science>
 ```
 
+## Hemingway Notation combined with JSON notation.
 
+be-link provides a more TypeScript friendly alternative (that is also a bit less wordy):
+
+```html
+<ways-of-science>
+    <largest-scale>
+        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
+    </largest-scale>
+    <largest-scale>
+        <a-duck></a-duck>
+    </largest-scale>
+    <template be-switched
+        be-linked='
+        {
+            "enh": {
+                "beSwitched": {
+                    "lhs": "",
+                    "rhs": "",
+                }
+            }
+        }
+        Link value property 
+        of previous largest-scale element 
+        having inner woman-with-carrot-attached-to-nose element to lhs.
+
+        Link value property
+        of previous largest-scale element 
+        having inner a-duck element to rhs.
+        '
+    >
+        <div>A witch!</div>
+    </template>
+</ways-of-science>
+```
 
 ## Compatibility with server-side-rendering
 

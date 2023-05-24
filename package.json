@@ -29,12 +29,9 @@
     "xtal-element": "0.0.562"
   },
   "devDependencies": {
-    "be-linked": "0.0.6",
-    "@playwright/test": "1.34.0",
-    "may-it-serve": "0.0.5",
-    "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.6.4",
-    "xtal-shell": "0.0.27"
+    "be-linked": "0.0.7",
+    "@playwright/test": "1.34.2",
+    "may-it-serve": "0.0.5"
   },
   "scripts": {
     "serve": "node node_modules/may-it-serve",
