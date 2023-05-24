@@ -69,11 +69,46 @@ be-link provides a more TypeScript friendly alternative (that is also a bit less
         '
     >
         <div>A witch!</div>
+        <div>Burn her!</div>
     </template>
 </ways-of-science>
 ```
 
-## Compatibility with server-side-rendering
+## Ditto notation [TODO]
+
+We can reduce the wordiness further by using some Ditto notation:
+
+```html
+<ways-of-science>
+    <largest-scale>
+        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
+    </largest-scale>
+    <largest-scale>
+        <a-duck></a-duck>
+    </largest-scale>
+    <template be-linked='
+        {
+            "enh": {
+                "beSwitched": {
+                    "lhs": "",
+                    "rhs": "",
+                }
+            }
+        }
+        Link value property of previous largest-scale element 
+        having inner woman-with-carrot-attached-to-nose element to lhs.
+
+        ^    ^     ^        ^  ^        ^             ^ 
+        ^      ^                  a-duck                        ^  rhs.
+        '
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+## Compatibility with server-side-rendering [TODO]
 
 *be-switched* is compatible with server-side-rendering if the following approach is used:
 
@@ -97,6 +132,11 @@ If, however, the content should display initially, but we want the client-side J
                     "lhs": "",
                     "rhs": "",
                 }
+            },
+            "enhancements": {
+                "beSwitched": {
+                    "deferRendering": true
+                }
             }
         }
         Link value property of previous largest-scale element 
@@ -112,7 +152,7 @@ If, however, the content should display initially, but we want the client-side J
 </ways-of-science>
 ```
 
-
+We are using built-in support for micro-data to signify a hierarchical relationship with a flat list of DOM elements.
 
 
 ## Additional conditions be-switched supports
