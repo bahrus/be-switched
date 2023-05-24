@@ -1,6 +1,8 @@
 # be-switched 
 
-*be-switched* is a template behavior that lazy loads content when conditions are met.
+*be-switched* is a template element enhancement that lazy loads content when conditions are met.
+
+It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of enhancements, that can "cast spells" on server rendered content, but also apply the same logic quietly during template instantiation. 
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-switched)
 
