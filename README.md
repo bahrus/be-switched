@@ -51,6 +51,8 @@ In the following example, we see be-switched used in combination with [be-linked
 
 The syntax is admittedly a bit long-winded (shortcuts described below).  All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  It uses 100% ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
 
+It should be noted that this simple functionality that be-linked demonstrates below, is actually beyond the capabilities of most every framework out there!
+
 ```html
 <ways-of-science>
     <largest-scale>
