@@ -23,7 +23,7 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.20",
+    "be-enhanced": "0.0.21",
     "be-hive": "0.0.95",
     "trans-render": "0.0.681",
     "xtal-element": "0.0.562"
