@@ -141,7 +141,7 @@ We can reduce the wordiness further by using some Ditto notation:
 </ways-of-science>
 ```
 
-## Compatibility with server-side-rendering [TODO]
+## Compatibility with server-side-rendering [Untested]
 
 *be-switched* is compatible with server-side-rendering if the following approach is used:
 
@@ -213,7 +213,7 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
     </tbody>
 </table>
 
-## Lazy Loading
+## Lazy Loading [Untested]
 
 be-switched can "go to sleep" when the template it adorns goes out of view, if the template is also decorated by [be-oosoom](https://github.com/be-oosoom).
 
