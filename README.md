@@ -113,7 +113,7 @@ be-link provides a less verbose, more TypeScript friendly alternative:
 
 This is basically saying that "lhs" refers to the lhs property of the beSwitched enhancement.  Likewise with "rhs".
 
-## Ditto notation [TODO]
+## Ditto notation
 
 We can reduce the wordiness further by using some Ditto notation:
 
