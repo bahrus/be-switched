@@ -122,6 +122,7 @@ const xe = new XE({
             ifMediaMatches: '',
             hiddenStyle: 'display:none',
             toggleDisabled: false,
+            deferRendering: false,
         },
         propInfo: {
             ...propInfo,
