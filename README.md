@@ -8,7 +8,7 @@ be-switched can easily complement server-rendered HTML, as discussed below.
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-switched)
 [![Playwright Tests](https://github.com/bahrus/be-switched/actions/workflows/CI.yml/badge.svg)](https://github.com/bahrus/be-switched/actions/workflows/CI.yml)
-<a href="https://nodei.co/npm/be-switched/"><img src="https://nodei.co/npm/be-switched.png"></a>
+[![NPM version](https://badge.fury.io/js/be-definitive.png)](http://badge.fury.io/js/be-definitive)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-switched?style=for-the-badge)](https://bundlephobia.com/result?p=be-switched)
 
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-switched?compression=gzip">
@@ -229,7 +229,7 @@ be-switched can "go to sleep" when the template it adorns goes out of view, if t
 4.  Open command window to folder where you cloned this repo.
 5.  > npm install
 6.  > npm run serve
-7.  Open http://localhost:3030/demo/dev in a modern browser.
+7.  Open http://localhost:3030/demo/ in a modern browser.
 
 ## Running Tests
 
