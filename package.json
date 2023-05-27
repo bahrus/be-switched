@@ -19,7 +19,8 @@
     "./be-switched.js": "./be-switched.js"
   },
   "files": [
-    "*.*"
+    "*.js",
+    "types.d.ts"
   ],
   "types": "types.d.ts",
   "dependencies": {
@@ -36,8 +37,7 @@
   "scripts": {
     "serve": "node node_modules/may-it-serve",
     "test": "playwright test",
-    "package-check": "package-check",
-    "doc": "custom-elements-manifest analyze"
+    "safari": "npx playwright wk http://localhost:3030"
   },
   "repository": {
     "type": "git",
