@@ -8,9 +8,8 @@ be-switched can easily complement server-rendered HTML, as discussed below.
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-switched)
 [![Playwright Tests](https://github.com/bahrus/be-switched/actions/workflows/CI.yml/badge.svg)](https://github.com/bahrus/be-switched/actions/workflows/CI.yml)
-[![NPM version](https://badge.fury.io/js/be-definitive.png)](http://badge.fury.io/js/be-definitive)
+[![NPM version](https://badge.fury.io/js/be-switched.png)](http://badge.fury.io/js/be-switched)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-switched?style=for-the-badge)](https://bundlephobia.com/result?p=be-switched)
-
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-switched?compression=gzip">
 
 ##  The basic functionality
@@ -37,7 +36,9 @@ oTemplate.beEnhanced.by.beSwitched.rhs = 37;
 
 The extra ".by" is necessary just in case beSwitched hasn't been attached to the element yet.
 
-The first line can be avoided if we already know be-enhanced has been registered.  I.e. another way to pass in the value reliably is thusly:
+The first line can be avoided if we already know be-enhanced has been registered.  
+
+Another way to pass in the value reliably is thusly:
 
 ```
 if(oTemplate.beEnhanced === undefined) oTemplate.beEnhanced = {};
@@ -45,17 +46,17 @@ if(oTemplate.beEnhanced.beSwitched === undefined) oTemplate.beEnhanced.beSwitche
 oTemplate.beEnhanced.beSwitched.rhs = 37;
 ```
 
-All of this is to say, most frameworks probably won't make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.
+All of this is to say, most frameworks probably won't make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.  Frameworks fail us, yet again!
 
-For that reason, among others, a supporting "enhancement helper" is provided:  be-linked, which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework, adding its magic onto what the server rendered.
+For that reason, among others, a supporting "enhancement helper" is provided:  be-linked, which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework of any sort, adding its magic onto what the server rendered.  Essentially be-linked becomes our loosely coupled "framework".
 
 ## 100% Hemingway Notation
 
 In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).  be-linked provides two "lingos" that can work together:  JavaScriptObjectNotation, and ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
 
-The syntax is admittedly a bit long-winded (shortcuts described below).  All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  It uses 100% "Hemingway notation".
+The syntax in our first example is admittedly a bit long-winded.  We will then quickly look at less verbose alternatives, but I think it's helpful to see the value add these alternatives provide. All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  This first example uses 100% "Hemingway notation".
 
-It should be noted that this simple functionality that be-linked demonstrates below, is actually beyond the capabilities of most every framework out there (other than JQuery)!
+It should be noted that this simple functionality that be-linked demonstrates below, connecting siblings together without a Host element micromanaging everything, is actually beyond the capabilities of most every framework out there (other than JQuery)!
 
 ```html
 <ways-of-science>
@@ -80,7 +81,7 @@ It should be noted that this simple functionality that be-linked demonstrates be
 </ways-of-science>
 ```
 
-## Hemingway Notation combined with JSON notation.
+## Hemingway Notation combined with JavaScriptObjectNotation.
 
 be-link provides a less verbose, more TypeScript friendly alternative:
 
@@ -112,6 +113,10 @@ be-link provides a less verbose, more TypeScript friendly alternative:
 ```
 
 This is basically saying that "lhs" refers to the lhs property of the beSwitched enhancement.  Likewise with "rhs".
+
+Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
+
+And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 supports compiling mts to mjs files, which then allows typing of the attributes. 
 
 ## Ditto notation
 
