@@ -147,7 +147,7 @@ We can reduce the wordiness further by using some Ditto notation:
 
 If during the time the SSR is taking place, the desire is not to display the content, but rely on the client to lazy load when conditions warrant, then the syntax above is exactly what the SSR should generate.
 
-If, however, the content should display initially, but we want the client-side JavaScript to be able to hide / disable the content when conditions in the browser change, the server should render the contents adjacent to the template, and provide an indicator, data-cnt, that specifies how many elements below the template are managed by the be-switched directive / decorator / behavior.
+If, however, the content should display initially, but we want the client-side JavaScript to be able to hide / disable the content when conditions in the browser change, the server should render the contents adjacent to the template, and leverage standard microdata attributes, to establish artificial hierarchies.
 
 ```html
 <ways-of-science>
@@ -180,6 +180,8 @@ If, however, the content should display initially, but we want the client-side J
         ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  rhs.
         '
     >
+        <div>A witch!</div>
+        <div>Burn her!</div>
     </template>
     <div id=witch>A witch!</div>
     <div id=burn-her>Burn her!</div>
@@ -187,6 +189,8 @@ If, however, the content should display initially, but we want the client-side J
 ```
 
 We are using built-in support for micro-data to signify a hierarchical relationship with a flat list of DOM elements.
+
+In this scenario, repeating the content inside the template is unnecessary, unless the optional setting: deleteWhenInvalid is set to true.[TODO]
 
 
 ## Additional conditions be-switched supports
