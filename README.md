@@ -118,6 +118,8 @@ Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://m
 
 And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 supports compiling mts to mjs files, which then allows typing of the attributes. 
 
+Another reason to consider using be-linked in conjunction with be-switched:  It provides an elegant way of self-binding lazy loaded content, without burdening the framework/web component library with micro managing components coming and going.
+
 ## Ditto notation
 
 We can reduce the wordiness further by using some Ditto notation:
