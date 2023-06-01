@@ -46,9 +46,9 @@ if(oTemplate.beEnhanced.beSwitched === undefined) oTemplate.beEnhanced.beSwitche
 oTemplate.beEnhanced.beSwitched.rhs = 37;
 ```
 
-All of this is to say, most frameworks probably won't make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.  Frameworks fail us, yet again!
+All of this is to say, most frameworks probably don't and won't be able to make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.  Frameworks fail us, yet again!
 
-For that reason, among others, a supporting "enhancement helper" is provided:  be-linked, which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework of any sort, adding its magic onto what the server rendered.  Essentially be-linked becomes our loosely coupled "framework".
+For that reason, among others, a supporting "enhancement helper" is provided:  [be-linked](https://github.com/bahrus/be-linked), which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework of any sort, adding its magic onto what the server rendered.  Essentially be-linked becomes our loosely coupled "framework".
 
 ## 100% Hemingway Notation
 
@@ -56,7 +56,7 @@ In the following example, we see be-switched used in combination with [be-linked
 
 The syntax in our first example is admittedly a bit long-winded.  We will then quickly look at less verbose alternatives, but I think it's helpful to see the value add these alternatives provide. All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  This first example uses 100% "Hemingway notation".
 
-It should be noted that this simple functionality that be-linked demonstrates below, connecting siblings together without a Host element micromanaging everything, is actually beyond the capabilities of most every framework out there (other than JQuery)!
+It should be noted that this simple functionality that be-linked demonstrates below, connecting siblings together, without a Host element micromanaging everything, is actually beyond the capabilities of most every framework out there (other than JQuery)!
 
 ```html
 <ways-of-science>
@@ -69,60 +69,23 @@ It should be noted that this simple functionality that be-linked demonstrates be
     <template be-linked='
         Link value property of previous largest-scale element 
         having inner woman-with-carrot-attached-to-nose element 
-        to lhs property of be-switched enhancement of adorned element.
+        to $0-enh-by-be-switched => lhs.
 
         Link value property of previous largest-scale element 
         having inner a-duck element 
-        to rhs property of be-switched enhancement of adorned element.'
+        to $0-enh-by-be-switched => rhs.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
 </ways-of-science>
 ```
-
-## Hemingway Notation combined with JavaScriptObjectNotation.
-
-be-link provides a less verbose, more TypeScript friendly alternative:
-
-```html
-<ways-of-science>
-    <largest-scale>
-        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
-    </largest-scale>
-    <largest-scale>
-        <a-duck></a-duck>
-    </largest-scale>
-    <template be-linked='
-        {
-            "enh": {
-                "beSwitched": {"lhs": "", "rhs": ""}
-            }
-        }
-        Link value property of previous largest-scale element 
-        having inner woman-with-carrot-attached-to-nose element to lhs.
-
-        Link value property of previous largest-scale element 
-        having inner a-duck element to rhs.
-        '
-    >
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
-
-This is basically saying that "lhs" refers to the lhs property of the beSwitched enhancement.  Likewise with "rhs".
-
-Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
-
-And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 supports compiling mts to mjs files, which then allows typing of the attributes. 
 
 Another reason to consider using be-linked in conjunction with be-switched:  It provides an elegant way of self-binding lazy loaded content, without burdening the framework/web component library with micro managing components coming and going.
 
 ## Ditto notation
 
-We can reduce the wordiness further by using some Ditto notation:
+We can reduce the wordiness of our statements linking components together by using some "ditto" syntax, where we use ^ to indicate to copy the word from the previous statement.  Here we remove the life feeds to help visualize the ditto notation (at the expense of incurring horizontal scrolling in github's rendering):
 
 ```html
 <ways-of-science>
@@ -133,13 +96,8 @@ We can reduce the wordiness further by using some Ditto notation:
         <a-duck></a-duck>
     </largest-scale>
     <template be-linked='
-        {
-            "enh": {
-                "beSwitched": {"lhs": "","rhs": ""}
-            }
-        }
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to lhs.
-        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  rhs.
+        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched => lhs.
+        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  ^                     => rhs.
         '
     >
         <div>A witch!</div>
@@ -167,12 +125,6 @@ If, however, the content should display initially, but we want the client-side J
     <template itemscope itemref="witch burn-her" 
         be-linked='
         {
-            "enh": {
-                "beSwitched": {
-                    "lhs": "",
-                    "rhs": "",
-                }
-            },
             "settings": {
                 "enh":{
                     "beSwitched": {
@@ -183,8 +135,8 @@ If, however, the content should display initially, but we want the client-side J
 
             }
         }
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to lhs.
-        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  rhs.
+        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched => lhs.
+        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  ^                     => rhs.
         '
     >
         <div>A witch!</div>
