@@ -50,11 +50,9 @@ All of this is to say, most frameworks probably don't and won't be able to make 
 
 For that reason, among others, a supporting "enhancement helper" is provided:  [be-linked](https://github.com/bahrus/be-linked), which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework of any sort, adding its magic onto what the server rendered.  Essentially be-linked becomes our loosely coupled "framework".
 
-## 100% Hemingway Notation
+## Hemingway Notation
 
-In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).  be-linked provides two "lingos" that can work together:  JavaScriptObjectNotation, and ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
-
-The syntax in our first example is admittedly a bit long-winded.  We will then quickly look at less verbose alternatives, but I think it's helpful to see the value add these alternatives provide. All the line feeds / indentation is purely optional, to make it easier to read in a github environment (without horizontal scrolling).  This first example uses 100% "Hemingway notation".
+In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).  be-linked allows us to connect components together using ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
 
 It should be noted that this simple functionality that be-linked demonstrates below, connecting siblings together, without a Host element micromanaging everything, is actually beyond the capabilities of most every framework out there (other than JQuery)!
 
