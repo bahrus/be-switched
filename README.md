@@ -83,7 +83,7 @@ Another reason to consider using be-linked in conjunction with be-switched:  It 
 
 ## Ditto notation
 
-We can reduce the wordiness of our statements linking components together by using some "ditto" syntax, where we use ^ to indicate to copy the word from the previous statement.  Here we remove the life feeds to help visualize the ditto notation (at the expense of incurring horizontal scrolling in github's rendering):
+We can reduce the wordiness of our statements linking components together by using some "ditto" syntax, where we use ^ to indicate to copy the word from the previous statement.  Here we remove the line feeds to help visualize the ditto notation (at the expense of incurring horizontal scrolling in github's rendering):
 
 ```html
 <ways-of-science>
