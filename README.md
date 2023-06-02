@@ -25,7 +25,7 @@ be-switched can easily complement server-rendered HTML, as discussed below.
 
 "lhs" stands for left-hand-side.  "rhs" stands for "right-hand-side".
 
-The default values for these two properties is lhs=true/rhs=false.  So this allows for a simple, single "if" statement, as well as an "ifNot" statement.
+The default values for these two properties is lhs=false/rhs=true.  So this allows for a simple, single "if" statement, as well as an "ifNot" statement.
 
 >**Note:** By default, setting: "beBoolish" is set to true, which means that if either the lhs or rhs value is a boolean, the equality check is made using truthy/falsy criteria, rather than an exact match of boolean values.
 
