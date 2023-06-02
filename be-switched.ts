@@ -14,16 +14,28 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
 
     calcVal(self: this): PAP {
         const {lhs, rhs, checkIfNonEmptyArray, beBoolish} = self;
+
+        if(beBoolish && typeof lhs === 'boolean' || typeof rhs === 'boolean'){
+            let lhsIsh = !!lhs;
+            let rhsIsh = !!rhs;
+            if(checkIfNonEmptyArray){
+                if(typeof lhs !== 'boolean'){
+                    lhsIsh = !Array.isArray(lhs) || lhs.length === 0;
+                }
+                if(typeof rhs !== 'boolean'){
+                    rhsIsh = !Array.isArray(rhs) || rhs.length === 0;
+                }
+            }
+            return {
+                val: lhsIsh === rhsIsh,
+                resolved: true
+            }
+        }
         if(checkIfNonEmptyArray){
+            
             if(!Array.isArray(lhs) || lhs.length === 0) return {
                 val: false,
                 resolved: true,
-            }
-        }
-        if(beBoolish && typeof lhs === 'boolean' || typeof rhs === 'boolean'){
-            return {
-                val: !!lhs === !!rhs,
-                resolved: true
             }
         }
         return {
