@@ -38,7 +38,7 @@ export class BeSwitched extends BE {
         };
     }
     async onTrue(self) {
-        const { enhancedElement, toggleDisabled, deferRendering } = self;
+        const { enhancedElement, toggleInert: toggleDisabled, deferRendering } = self;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null) {
             const keys = [];
@@ -73,7 +73,7 @@ export class BeSwitched extends BE {
         }
     }
     async onFalse(self) {
-        const { enhancedElement, toggleDisabled } = self;
+        const { enhancedElement, toggleInert, minMem } = self;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null)
             return;
@@ -84,11 +84,18 @@ export class BeSwitched extends BE {
             const child = rn.getElementById(key);
             if (child === null)
                 continue;
-            child.classList.add('be-switched-hide');
-            if (toggleDisabled && child.disabled === false) {
-                child.disabled = true;
+            if (minMem) {
+                child.remove();
+            }
+            else {
+                child.classList.add('be-switched-hide');
+                if (toggleInert && !child.inert) {
+                    child.inert = true;
+                }
             }
         }
+        if (minMem)
+            enhancedElement.removeAttribute('itemref');
     }
     #mql;
     addMediaListener(self) {
@@ -137,9 +144,10 @@ const xe = new XE({
             checkIfNonEmptyArray: false,
             ifMediaMatches: '',
             hiddenStyle: 'display:none',
-            toggleDisabled: false,
+            toggleInert: false,
             deferRendering: false,
             beBoolish: true,
+            minMem: false,
         },
         propInfo: {
             ...propInfo,

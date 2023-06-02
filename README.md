@@ -153,6 +153,9 @@ We are using built-in support for microdata to signify a hierarchical relationsh
 
 In this scenario, repeating the content inside the template is unnecessary, unless the optional setting: deleteWhenInvalid is set to true.[TODO]
 
+## Throwing elements out of scope away [Untested]
+
+An option, minMem, allows for completely wiping away content derived from the template when conditions are no longer met.  This *might* be better on a low memory device, especially if the content has no support for be-oosoom (see below).
 
 ## Additional conditions be-switched supports
 
@@ -178,7 +181,7 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
     </tbody>
 </table>
 
-## Lazy Loading [Untested]
+## Lazy Loading / Hibernating [Untested]
 
 be-switched can "go to sleep" when the template it adorns goes out of view, if the template is also decorated by [be-oosoom](https://github.com/be-oosoom).
 

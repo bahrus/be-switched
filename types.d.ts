@@ -13,8 +13,9 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
     beBoolish: boolean;
     displayDelay?: number;
     hiddenStyle?: string;
-    toggleDisabled?: boolean;
+    toggleInert?: boolean;
     deferRendering?: boolean;
+    minMem?: boolean;
     /**
      * Works with beOosoom decorator, so becomes inert when out of view
      */

@@ -45,7 +45,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     async onTrue(self: this) {
-        const {enhancedElement, toggleDisabled, deferRendering} = self;
+        const {enhancedElement, toggleInert: toggleDisabled, deferRendering} = self;
         const itemref= enhancedElement.getAttribute('itemref');
         if(itemref === null){
             const keys : string[] = [];
@@ -77,7 +77,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         }
     }
     async onFalse(self: this){
-        const {enhancedElement, toggleDisabled} = self;
+        const {enhancedElement, toggleInert, minMem} = self;
         const itemref = enhancedElement.getAttribute('itemref');
         if(itemref === null) return;
         addStyle(self);
@@ -86,11 +86,17 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         for(const key of keys){
             const child = rn.getElementById(key);
             if(child === null) continue;
-            child.classList.add('be-switched-hide');
-            if(toggleDisabled && (<any>child).disabled === false){
-                (<any>child).disabled = true;
+            if(minMem) {
+                child.remove();
+            }else{
+                child.classList.add('be-switched-hide');
+                if(toggleInert && !child.inert){
+                    child.inert = true;
+                }
             }
+
         }
+        if(minMem) enhancedElement.removeAttribute('itemref');
     }
 
     #mql: MediaQueryList | undefined;
@@ -146,9 +152,10 @@ const xe = new XE<AP, Actions>({
             checkIfNonEmptyArray: false,
             ifMediaMatches: '',
             hiddenStyle: 'display:none',
-            toggleDisabled: false,
+            toggleInert: false,
             deferRendering: false,
             beBoolish: true,
+            minMem: false,
         },
         propInfo: {
             ...propInfo,
