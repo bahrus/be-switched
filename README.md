@@ -183,7 +183,7 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
 
 ## Lazy Loading / Hibernating [Untested]
 
-be-switched can "go to sleep" when the template it adorns goes out of view, if the template is also decorated by [be-oosoom](https://github.com/be-oosoom).
+be-switched can "go to sleep" when the template it adorns goes out of view, if the template is also decorated by [be-oosoom](https://github.com/be-oosoom).  *be-switched* provides an option to toggle the inert property when the conditions become false, in lieu of deleting the content.
 
 ## Viewing Your Element Locally
 
