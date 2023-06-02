@@ -13,11 +13,17 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     calcVal(self: this): PAP {
-        const {lhs, rhs, checkIfNonEmptyArray} = self;
+        const {lhs, rhs, checkIfNonEmptyArray, beBoolish} = self;
         if(checkIfNonEmptyArray){
             if(!Array.isArray(lhs) || lhs.length === 0) return {
                 val: false,
                 resolved: true,
+            }
+        }
+        if(beBoolish && typeof lhs === 'boolean' || typeof rhs === 'boolean'){
+            return {
+                val: !!lhs === !!rhs,
+                resolved: true
             }
         }
         return {
@@ -130,6 +136,7 @@ const xe = new XE<AP, Actions>({
             hiddenStyle: 'display:none',
             toggleDisabled: false,
             deferRendering: false,
+            beBoolish: true,
         },
         propInfo: {
             ...propInfo,

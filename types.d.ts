@@ -7,6 +7,10 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
     ifMediaMatches?: string,
     checkIfNonEmptyArray?: boolean;
     op?: '===';
+    /**
+     * If lhs and/or rhs is boolean, just check that truthiness matches.
+     */
+    beBoolish: boolean;
     displayDelay?: number;
     hiddenStyle?: string;
     toggleDisabled?: boolean;

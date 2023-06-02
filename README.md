@@ -25,6 +25,10 @@ be-switched can easily complement server-rendered HTML, as discussed below.
 
 "lhs" stands for left-hand-side.  "rhs" stands for "right-hand-side".
 
+The default values for these two properties is lhs=true/rhs=false.  So this allows for a simple, single "if" statement, as well as an "ifNot" statement.
+
+>**Note:** By default, setting: "beBoolish" is set to true, which means that if either the lhs or rhs value is a boolean, the equality check is made using truthy/falsy criteria, rather than an exact match of boolean values.
+
 Since the lhs (37) doesn't equal the rhs ("hello"), the content inside the template remains inside the template.  The moment the lhs equals the rhs, the content inside the template is appended adjacent to the template element.  If the lhs later becomes unequal to the rhs again, the live DOM content that came from the template is hidden via css.
 
 Now how can we change the values of the lhs and rhs?  Normally, a framework can pass values to the top level of a web component / built-in element.  Some frameworks may be able to pass values to sub properties.  With such frameworks, they could, theoretically, pass updated values like so (under the hood):
@@ -54,7 +58,7 @@ For that reason, among others, a supporting "enhancement helper" is provided:  [
 
 In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).  be-linked allows us to connect components together using ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
 
-It should be noted that this simple functionality that be-linked demonstrates below, connecting siblings together, without a Host element micromanaging everything, is actually beyond the capabilities of most every framework out there (other than JQuery)!
+It should be noted that this simple functionality that be-linked demonstrates below, connecting siblings together, without a host element micromanaging everything, is actually beyond the capabilities of most every framework out there (other than JQuery)!
 
 ```html
 <ways-of-science>
@@ -145,7 +149,7 @@ If, however, the content should display initially, but we want the client-side J
 </ways-of-science>
 ```
 
-We are using built-in support for micro-data to signify a hierarchical relationship with a flat list of DOM elements.
+We are using built-in support for microdata to signify a hierarchical relationship with a flat list of DOM elements.
 
 In this scenario, repeating the content inside the template is unnecessary, unless the optional setting: deleteWhenInvalid is set to true.[TODO]
 
