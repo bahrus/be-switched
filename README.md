@@ -151,7 +151,7 @@ If, however, the content should display initially, but we want the client-side J
 
 We are using built-in support for microdata to signify a hierarchical relationship with a flat list of DOM elements.
 
-In this scenario, repeating the content inside the template is unnecessary, unless the optional setting: deleteWhenInvalid is set to true.[TODO]
+In this scenario, repeating the content inside the template is unnecessary, unless the optional setting: deleteWhenInvalid is set to true.
 
 ## Throwing elements out of scope away [Untested]
 
