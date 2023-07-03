@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input>
+    <template be-linked='
+        Link read only property of previous input element to $0-enh-by-be-switched => lhs.
+    '
+    >
+        <div>Input is read only</div>
+    </template>
+    <button onclick=test()>test</button>
+    <script>
+        function test(){
+            document.querySelector('input').readOnly = true;
+        }
+    </script>
+    <script type=importmap>
+        {
+            "imports": {
+                "be-enhanced/": "../node_modules/be-enhanced/",
+                "be-hive/":  "../node_modules/be-hive/",
+                "be-linked/": "../be-linked/",
+                "be-propagating/": "../node_modules/be-propagating/",
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../be-switched.js';
+        import 'be-linked/be-linked.js';
+        
+    </script>
+</body>
+</html>
