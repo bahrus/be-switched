@@ -108,6 +108,17 @@ We can reduce the wordiness of our statements linking components together by usi
 </ways-of-science>
 ```
 
+## Special case: single boolean condition -i.e. the simple "if" conditional display
+
+If all you are trying to do is to instante (and then hide) a template depending on single truthy value, the [be-it](https://github.com/bahrus/be-it#conditionally-displaying-a-template-element) enhancement builds on be-switched, and makes the syntax quit simpler, and also search engine friendly:
+
+```html
+<link itemprop=isHappy be-it=content-display>
+<template>
+    <my-content></my-content>
+</template>
+```
+
 ## Compatibility with server-side-rendering [Untested]
 
 *be-switched* is compatible with server-side-rendering if the following approach is used:
