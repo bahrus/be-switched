@@ -119,6 +119,8 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 </template>
 ```
 
+This assumes you are using a search-engine-friendly (and thus society-friendly) framework that has binding support for [microdata](https://developer.mozilla.org/en-US/docs/Web/HTML/Microdata).
+
 ## Compatibility with server-side-rendering [Untested]
 
 *be-switched* is compatible with server-side-rendering if the following approach is used:
