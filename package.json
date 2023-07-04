@@ -24,20 +24,21 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.24",
-    "be-hive": "0.0.98",
-    "trans-render": "0.0.683",
-    "xtal-element": "0.0.563"
+    "be-enhanced": "0.0.34",
+    "be-hive": "0.0.111",
+    "trans-render": "0.0.694",
+    "xtal-element": "0.0.572"
   },
   "devDependencies": {
-    "be-linked": "0.0.12",
-    "@playwright/test": "1.34.3",
+    "be-linked": "0.0.32",
+    "@playwright/test": "1.35.1",
     "may-it-serve": "0.0.5"
   },
   "scripts": {
     "serve": "node node_modules/may-it-serve",
     "test": "playwright test",
-    "safari": "npx playwright wk http://localhost:3030"
+    "safari": "npx playwright wk http://localhost:3030",
+    "update": "ncu -u && npm install"
   },
   "repository": {
     "type": "git",
