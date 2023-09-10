@@ -12,23 +12,8 @@
     <label for=rhs>RHS:</label>
     <input id=rhs>
     <template be-switched be-linked='
-        {
-            "enh": {
-                "beSwitched": {
-                    "lhs": "",
-                    "rhs": ""
-                }
-            },
-            "settings": {
-                "enh": {
-                    "beSwitched": {
-                        "deferRendering": true
-                    }
-                }
-            }
-        }
-        On input event of previous lhs id pass value property to lhs.
-        ^  ^     ^     ^  ^        rhs ^  ^    ^     ^        ^  rhs.
+        On input event of previous lhs id pass value property to $0-enh-by-be-switched => lhs.
+        ^  ^     ^     ^  ^        rhs ^  ^    ^     ^        ^  ^                     => rhs.
     '
     >
         <div>LHS === RHS</div>
