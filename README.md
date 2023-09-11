@@ -71,11 +71,11 @@ It should be noted that this simple functionality that be-linked demonstrates be
     <template be-linked='
         Link value property of previous largest-scale element 
         having inner woman-with-carrot-attached-to-nose element 
-        to $0-enh-by-be-switched => lhs.
+        to $0-enh-by-be-switched : lhs.
 
         Link value property of previous largest-scale element 
         having inner a-duck element 
-        to $0-enh-by-be-switched => rhs.'
+        to $0-enh-by-be-switched : rhs.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -150,8 +150,8 @@ If, however, the content should display initially, but we want the client-side J
 
             }
         }
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched => lhs.
-        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  ^                     => rhs.
+        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched : lhs.
+        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  ^                     : rhs.
         '
     >
         <div>A witch!</div>

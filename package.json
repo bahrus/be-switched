@@ -30,7 +30,7 @@
     "xtal-element": "0.0.578"
   },
   "devDependencies": {
-    "be-linked": "0.0.44",
+    "be-linked": "0.0.46",
     "@playwright/test": "1.37.1",
     "may-it-serve": "0.0.6"
   },
