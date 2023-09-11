@@ -200,6 +200,8 @@ be-switched can "go to sleep" when the template it adorns goes out of view, if t
 
 ## Viewing Your Element Locally
 
+Any web server that can serve static files will do, but...
+
 1.  Install git.
 2.  Fork/clone this repo.
 3.  Install node.h
