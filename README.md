@@ -215,3 +215,18 @@ Any web server that can serve static files will do, but...
 ```
 > npm run test
 ```
+
+## Using from ESM Module:
+
+```JavaScript
+import 'be-searching/be-switched.js';
+```
+
+## Using from CDN:
+
+```html
+<script type=module crossorigin=anonymous>
+    import 'https://esm.run/be-switched';
+</script>
+```
+
