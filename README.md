@@ -25,9 +25,10 @@ be-switched can easily complement server-rendered HTML, as discussed below.
 
 "lhs" stands for left-hand-side.  "rhs" stands for "right-hand-side".
 
-The default values for these two properties is lhs=false/rhs=true.  So this allows for a simple, single "if" statement, as well as an "ifNot" statement.
+The default values for these two properties is lhs=false/rhs=true.  So this allows for a simple, single "if" statement, as well as an "if not" statement.
 
->**Note:** By default, setting: "beBoolish" is set to true, which means that if either the lhs or rhs value is a boolean, the equality check is made using truthy/falsy criteria, rather than an exact match of boolean values.
+> [!NOTE]
+> By default, setting "beBoolish" is set to true, which means that if either the lhs or rhs value is a boolean, the equality check is made using truthy/falsy criteria, rather than an exact match of boolean values.
 
 Since the lhs (37) doesn't equal the rhs ("hello"), the content inside the template remains inside the template.  The moment the lhs equals the rhs, the content inside the template is appended adjacent to the template element.  If the lhs later becomes unequal to the rhs again, the live DOM content that came from the template is hidden via css.
 
@@ -50,7 +51,9 @@ if(oTemplate.beEnhanced.beSwitched === undefined) oTemplate.beEnhanced.beSwitche
 oTemplate.beEnhanced.beSwitched.rhs = 37;
 ```
 
-All of this is to say, most frameworks probably don't and won't be able to make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.  Frameworks fail us, yet again!
+All of this is to say, most frameworks probably don't and won't be able to make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.  
+
+Frameworks fail us, yet again!
 
 For that reason, among others, a supporting "enhancement helper" is provided:  [be-linked](https://github.com/bahrus/be-linked), which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework of any sort, adding its magic onto what the server rendered.  Essentially be-linked becomes our loosely coupled "framework".
 
@@ -98,8 +101,8 @@ We can reduce the wordiness of our statements linking components together by usi
         <a-duck></a-duck>
     </largest-scale>
     <template be-linked='
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched:lhs.
-        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  $0-enh-by-be-switched:rhs.
+        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched : lhs.
+        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  ^                     : rhs.
         '
     >
         <div>A witch!</div>
@@ -108,16 +111,22 @@ We can reduce the wordiness of our statements linking components together by usi
 </ways-of-science>
 ```
 
-## Special case: single boolean condition -i.e. the simple "if" conditional display
+## Special case: single boolean condition - i.e. the simple "if" conditional display [TODO]
 
-If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value, the [be-it](https://github.com/bahrus/be-it#conditionally-displaying-a-template-element) enhancement builds on be-switched, and makes the syntax quite a bit simpler, and also makes the HTML search engine friendly:
+If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
 ```html
-<link itemprop=isHappy be-it=content-display>
-<template>
-    <my-content></my-content>
-</template>
+<div itemscope>
+    ...
+    <link itemprop=isHappy be-it=content-display>
+    ...
+    <template be-switched='On when is happy.'>
+        <my-content></my-content>
+    </template>
+</div>
 ```
+
+
 
 This assumes you are using a search-engine-friendly (and thus society-friendly) framework that has binding support for [microdata](https://developer.mozilla.org/en-US/docs/Web/HTML/Microdata).
 
