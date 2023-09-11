@@ -98,8 +98,8 @@ We can reduce the wordiness of our statements linking components together by usi
         <a-duck></a-duck>
     </largest-scale>
     <template be-linked='
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched => lhs.
-        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  ^                     => rhs.
+        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched:lhs.
+        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  $0-enh-by-be-switched:rhs.
         '
     >
         <div>A witch!</div>
