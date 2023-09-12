@@ -118,9 +118,9 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 ```html
 <div itemscope>
     ...
-    <link itemprop=isHappy be-it=content-display>
+    <link itemprop=isHappy>
     ...
-    <template be-switched='Switch on when $ is happy.'>
+    <template be-switched='On when $ is happy.'>
         <my-content></my-content>
     </template>
 </div>
@@ -136,9 +136,9 @@ Can also reference form element, or [form associated custom elements](https://be
 ```html
 <form>
     ...
-    <input name=isHappy be-it=content-display>
+    <input name=isHappy>
     ...
-    <template be-switched='Switch on when & is happy.'>
+    <template be-switched='On when & is happy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -149,15 +149,14 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 ```html
 <form>
     ...
-    <input id=isHappy be-it=content-display>
+    <input id=isHappy>
     ...
-    <template be-switched='Switch on when # is happy.'>
+    <template be-switched='On when # is happy.'>
         <my-content></my-content>
     </template>
 </form>
 ```
 
-This assumes you are using a search-engine-friendly (and thus society-friendly) framework that has binding support for [microdata](https://developer.mozilla.org/en-US/docs/Web/HTML/Microdata).
 
 ## Compatibility with server-side-rendering [Untested]
 
