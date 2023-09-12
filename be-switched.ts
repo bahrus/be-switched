@@ -9,6 +9,13 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     static  override get beConfig(){
         return {
             parse: true,
+            //primaryProp: 'camelConfig',
+            //cache,
+            primaryPropReq: true,
+            parseAndCamelize: true,
+            camelizeOptions:{
+
+            },
         } as BEConfig
     }
 

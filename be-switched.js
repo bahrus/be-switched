@@ -5,6 +5,11 @@ export class BeSwitched extends BE {
     static get beConfig() {
         return {
             parse: true,
+            //primaryProp: 'camelConfig',
+            //cache,
+            primaryPropReq: true,
+            parseAndCamelize: true,
+            camelizeOptions: {},
         };
     }
     calcVal(self) {

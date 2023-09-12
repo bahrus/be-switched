@@ -20,11 +20,18 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
      * Works with beOosoom decorator, so becomes inert when out of view
      */
     beOosoom?: string;
+    camelConfig?: CamelConfig,
 }
 
 export interface AllProps extends EndUserProps{
     val: boolean,
     echoVal: boolean,
+}
+
+export type SwitchStatement = string;
+
+export interface CamelConfig{
+    On?: Array<SwitchStatement>,
 }
 
 export type AP = AllProps;
