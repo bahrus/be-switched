@@ -146,7 +146,16 @@ Can also reference form element, or [form associated custom elements](https://be
 
 Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input and change events.
 
-
+```html
+<form>
+    ...
+    <input id=isHappy be-it=content-display>
+    ...
+    <template be-switched='Switch on when # is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
 
 This assumes you are using a search-engine-friendly (and thus society-friendly) framework that has binding support for [microdata](https://developer.mozilla.org/en-US/docs/Web/HTML/Microdata).
 
