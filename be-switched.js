@@ -7,7 +7,7 @@ export class BeSwitched extends BE {
             parse: true,
             //primaryProp: 'camelConfig',
             //cache,
-            primaryPropReq: true,
+            //primaryPropReq: true,
             parseAndCamelize: true,
             camelizeOptions: {},
         };

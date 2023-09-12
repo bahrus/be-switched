@@ -11,7 +11,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             parse: true,
             //primaryProp: 'camelConfig',
             //cache,
-            primaryPropReq: true,
+            //primaryPropReq: true,
             parseAndCamelize: true,
             camelizeOptions:{
 
