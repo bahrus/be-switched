@@ -120,11 +120,31 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
     ...
     <link itemprop=isHappy be-it=content-display>
     ...
-    <template be-switched='On when is happy.'>
+    <template be-switched='Switch on when $ is happy.'>
         <my-content></my-content>
     </template>
 </div>
 ```
+
+Defaults to "is truthy"
+
+
+Can have multiple such statements -- or condition.
+
+Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
+
+```html
+<form>
+    ...
+    <input name=isHappy be-it=content-display>
+    ...
+    <template be-switched='Switch on when & is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
+
+Checks for $0.checked, if undefined, checks for $0.ariaChecked.
 
 
 
