@@ -114,8 +114,8 @@ export class BeSwitched extends BE {
         return { matchesMediaQuery: e.matches };
     }
     async onOn(self) {
-        const { On } = self;
-        console.log({ On });
+        const { prsOn } = await import('./prsOn.js');
+        return await prsOn(self);
     }
 }
 const styleMap = new WeakSet();

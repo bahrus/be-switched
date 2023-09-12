@@ -21,18 +21,20 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
      */
     beOosoom?: string;
     On?: Array<SwitchStatement>;
+    
 }
 
 export interface AllProps extends EndUserProps{
     val: boolean,
     echoVal: boolean,
-    
+    onSwitches?: Array<OnSwitch>,
 }
 
 export type SwitchStatement = string;
 
-export interface CamelConfig{
-    On?: Array<SwitchStatement>,
+export interface OnSwitch{
+    prop?: string,
+    type?: '$' | '#' | '&'
 }
 
 export type AP = AllProps;

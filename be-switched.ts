@@ -119,8 +119,8 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     async onOn(self: this): ProPAP {
-        const {On} = self;
-        console.log({On});
+        const {prsOn} = await import('./prsOn.js');
+        return await prsOn(self);
     }
 }
 
