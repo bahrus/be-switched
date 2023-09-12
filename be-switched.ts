@@ -117,6 +117,11 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     chkMedia(self: this, e: MediaQueryListEvent){
         return {matchesMediaQuery: e.matches} as PAP;
     }
+
+    async onOn(self: this): ProPAP {
+        const {On} = self;
+        console.log({On});
+    }
 }
 
 const styleMap = new WeakSet<Node>();
@@ -189,7 +194,8 @@ const xe = new XE<AP, Actions>({
             },
             addMediaListener: {
                 ifKeyIn:  ['ifMediaMatches']
-            }
+            },
+            onOn: 'On'
         }
     },
     superclass: BeSwitched

@@ -113,6 +113,10 @@ export class BeSwitched extends BE {
     chkMedia(self, e) {
         return { matchesMediaQuery: e.matches };
     }
+    async onOn(self) {
+        const { On } = self;
+        console.log({ On });
+    }
 }
 const styleMap = new WeakSet();
 function addStyle(ap) {
@@ -179,7 +183,8 @@ const xe = new XE({
             },
             addMediaListener: {
                 ifKeyIn: ['ifMediaMatches']
-            }
+            },
+            onOn: 'On'
         }
     },
     superclass: BeSwitched

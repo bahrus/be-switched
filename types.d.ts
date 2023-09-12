@@ -20,12 +20,13 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
      * Works with beOosoom decorator, so becomes inert when out of view
      */
     beOosoom?: string;
-    camelConfig?: CamelConfig,
+    On?: Array<SwitchStatement>;
 }
 
 export interface AllProps extends EndUserProps{
     val: boolean,
     echoVal: boolean,
+    
 }
 
 export type SwitchStatement = string;
@@ -48,4 +49,5 @@ export interface Actions{
     onFalse(self: this): Promise<void>;
     addMediaListener(self: this): POA;
     chkMedia(self: this, e: MediaQueryListEvent): PAP;
+    onOn(self: this): ProPAP;
 }
