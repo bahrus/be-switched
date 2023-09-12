@@ -5,12 +5,20 @@ export async function configSwitch(self) {
     const scope = enhancedElement.closest('[itemscope]');
     for (const onSwitch of onSwitches) {
         const { prop } = onSwitch;
-        let itempropEls = Array.from(scope.querySelectorAll(`[itemprop="${prop}"]`)); //TODO check in donut
-        if (itempropEls.length === 0) {
-            const itempropEl = document.createElement('link');
+        let itempropEl = scope.querySelector(`[itemprop="${prop}"]`); //TODO check in donut
+        if (itempropEl === null) {
+            itempropEl = document.createElement('link');
             itempropEl.setAttribute('itemprop', prop);
             scope.appendChild(itempropEl);
         }
+        const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
+        if (beValueAdded.value) {
+            self.anySwitchIsOn = true;
+            return;
+        }
+        beValueAdded.addEventListener('value-changed', e => {
+            console.log(e);
+        });
         // for(const itempropEl of itempropEls){
         //     (<any>itempropEl).beEnhanced.by.beValueAdded.value = itemVal;
         // }
