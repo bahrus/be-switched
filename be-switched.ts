@@ -20,8 +20,13 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     calcVal(self: this): PAP {
-        const {lhs, rhs, checkIfNonEmptyArray, beBoolish} = self;
-
+        const {lhs, rhs, checkIfNonEmptyArray, beBoolish, On, anySwitchIsOn} = self;
+        if(On !== undefined && !anySwitchIsOn){
+            return {
+                val: false,
+                resolved: true,
+            }
+        }
         if(beBoolish && typeof lhs === 'boolean' || typeof rhs === 'boolean'){
             let lhsIsh = !!lhs;
             let rhsIsh = !!rhs;
@@ -122,6 +127,11 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         const {prsOn} = await import('./prsOn.js');
         return await prsOn(self);
     }
+
+    async onOnSwitches(self: this): Promise<void> {
+        const {configSwitch} = await import('./configSwitch.js');
+        configSwitch(self);
+    }
 }
 
 const styleMap = new WeakSet<Node>();
@@ -182,7 +192,7 @@ const xe = new XE<AP, Actions>({
         },
         actions: {
             calcVal: {
-                ifKeyIn: ['lhs', 'rhs']
+                ifKeyIn: ['lhs', 'rhs', 'anySwitchIsOn']
             },
             onTrue: {
                 ifEquals: ['val', 'echoVal'],
@@ -195,7 +205,8 @@ const xe = new XE<AP, Actions>({
             addMediaListener: {
                 ifKeyIn:  ['ifMediaMatches']
             },
-            onOn: 'On'
+            onOn: 'On',
+            onOnSwitches: 'onSwitches',
         }
     },
     superclass: BeSwitched

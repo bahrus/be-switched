@@ -11,6 +11,7 @@
                 "be-enhanced/": "../node_modules/be-enhanced/",
                 "be-linked/": "../node_modules/be-linked/",
                 "be-hive/":  "../node_modules/be-hive/",
+                "be-value-added/": "../node_modules/be-value-added/",
                 "trans-render/": "../node_modules/trans-render/",
                 "xtal-element/": "../node_modules/xtal-element/"
             }
@@ -18,16 +19,18 @@
     </script>
 </head>
 <body>
-    
-    <template be-switched='{
-        "lhs": 37,
-        "rhs": "hello"
-    }
-    On when $ is happy.
-    '
-    >
-        <div>LHS === RHS</div>
-    </template>
+    <div itemscope>
+        <template be-switched='{
+            "lhs": 37,
+            "rhs": "hello"
+        }
+        On when $ is happy.
+        '
+        >
+            <div>LHS === RHS</div>
+        </template>
+    </div>
+
 
 
     <script type=module>

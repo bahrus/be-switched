@@ -13,7 +13,13 @@ export class BeSwitched extends BE {
         };
     }
     calcVal(self) {
-        const { lhs, rhs, checkIfNonEmptyArray, beBoolish } = self;
+        const { lhs, rhs, checkIfNonEmptyArray, beBoolish, On, anySwitchIsOn } = self;
+        if (On !== undefined && !anySwitchIsOn) {
+            return {
+                val: false,
+                resolved: true,
+            };
+        }
         if (beBoolish && typeof lhs === 'boolean' || typeof rhs === 'boolean') {
             let lhsIsh = !!lhs;
             let rhsIsh = !!rhs;
@@ -117,6 +123,10 @@ export class BeSwitched extends BE {
         const { prsOn } = await import('./prsOn.js');
         return await prsOn(self);
     }
+    async onOnSwitches(self) {
+        const { configSwitch } = await import('./configSwitch.js');
+        configSwitch(self);
+    }
 }
 const styleMap = new WeakSet();
 function addStyle(ap) {
@@ -171,7 +181,7 @@ const xe = new XE({
         },
         actions: {
             calcVal: {
-                ifKeyIn: ['lhs', 'rhs']
+                ifKeyIn: ['lhs', 'rhs', 'anySwitchIsOn']
             },
             onTrue: {
                 ifEquals: ['val', 'echoVal'],
@@ -184,7 +194,8 @@ const xe = new XE({
             addMediaListener: {
                 ifKeyIn: ['ifMediaMatches']
             },
-            onOn: 'On'
+            onOn: 'On',
+            onOnSwitches: 'onSwitches',
         }
     },
     superclass: BeSwitched

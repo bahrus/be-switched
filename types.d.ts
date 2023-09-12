@@ -26,6 +26,7 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
 
 export interface AllProps extends EndUserProps{
     val: boolean,
+    anySwitchIsOn?: boolean,
     echoVal: boolean,
     onSwitches?: Array<OnSwitch>,
 }
@@ -52,4 +53,5 @@ export interface Actions{
     addMediaListener(self: this): POA;
     chkMedia(self: this, e: MediaQueryListEvent): PAP;
     onOn(self: this): ProPAP;
+    onOnSwitches(self: this): Promise<void>;
 }
