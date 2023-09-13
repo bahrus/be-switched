@@ -13,10 +13,10 @@ export class BeSwitched extends BE {
         };
     }
     calcVal(self) {
-        const { lhs, rhs, checkIfNonEmptyArray, beBoolish, On, anySwitchIsOn } = self;
-        if (On !== undefined && !anySwitchIsOn) {
+        const { lhs, rhs, checkIfNonEmptyArray, beBoolish, On, switchesSatisfied } = self;
+        if (On !== undefined) {
             return {
-                val: false,
+                val: switchesSatisfied,
                 resolved: true,
             };
         }
@@ -181,7 +181,7 @@ const xe = new XE({
         },
         actions: {
             calcVal: {
-                ifKeyIn: ['lhs', 'rhs', 'anySwitchIsOn']
+                ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
             onTrue: {
                 ifEquals: ['val', 'echoVal'],

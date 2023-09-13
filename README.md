@@ -157,6 +157,19 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 </form>
 ```
 
+```html
+<form>
+    ...
+    <input id=isHappy>
+    ...
+    <template be-switched='On only when # is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
+
+This is an "and" condition due to the presence of "only"
+
 
 ## Compatibility with server-side-rendering [Untested]
 

@@ -1,5 +1,6 @@
 import { ActionOnEventConfigs } from "trans-render/froop/types";
 import {IBE} from 'be-enhanced/types';
+import {BVAAllProps} from 'be-value-added/types';
 
 export interface EndUserProps extends IBE<HTMLTemplateElement>{
     lhs?: any,
@@ -26,16 +27,19 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
 
 export interface AllProps extends EndUserProps{
     val: boolean,
-    anySwitchIsOn?: boolean,
+    switchesSatisfied?: boolean,
     echoVal: boolean,
     onSwitches?: Array<OnSwitch>,
+    
 }
 
 export type SwitchStatement = string;
 
 export interface OnSwitch{
     prop?: string,
-    type?: '$' | '#' | '&'
+    type?: '$' | '#' | '&',
+    req?: boolean,
+    signal?: WeakRef<BVAAllProps>
 }
 
 export type AP = AllProps;

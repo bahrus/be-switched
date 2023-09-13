@@ -1,5 +1,5 @@
 import('be-value-added/be-value-added.js');
-//almost identical to be-itmized/#addMicrodataEleemnt -- share?
+//almost identical to be-itemized/#addMicrodataElement -- share?
 export async function configSwitch(self) {
     const { enhancedElement, onSwitches } = self;
     const scope = enhancedElement.closest('[itemscope]');
@@ -12,15 +12,35 @@ export async function configSwitch(self) {
             scope.appendChild(itempropEl);
         }
         const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
-        if (beValueAdded.value) {
-            self.anySwitchIsOn = true;
-            return;
-        }
+        onSwitch.signal = new WeakRef(beValueAdded);
         beValueAdded.addEventListener('value-changed', e => {
-            console.log(e);
+            checkSwitches(self);
         });
-        // for(const itempropEl of itempropEls){
-        //     (<any>itempropEl).beEnhanced.by.beValueAdded.value = itemVal;
-        // }
     }
+    checkSwitches(self);
+}
+function checkSwitches(self) {
+    const { onSwitches } = self;
+    let foundOne = false;
+    for (const onSwitch of onSwitches) {
+        const { req } = onSwitch;
+        if (foundOne && !req)
+            continue;
+        const ref = onSwitch.signal?.deref();
+        if (ref === undefined) {
+            console.warn({ onSwitch, msg: "Out of scope" });
+            continue;
+        }
+        if (req) {
+            if (!ref.value) {
+                self.switchesSatisfied = false;
+                return;
+            }
+        }
+        else {
+            if (ref.value)
+                foundOne = true;
+        }
+    }
+    self.switchesSatisfied = foundOne;
 }

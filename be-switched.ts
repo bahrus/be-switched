@@ -20,10 +20,10 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     calcVal(self: this): PAP {
-        const {lhs, rhs, checkIfNonEmptyArray, beBoolish, On, anySwitchIsOn} = self;
-        if(On !== undefined && !anySwitchIsOn){
+        const {lhs, rhs, checkIfNonEmptyArray, beBoolish, On, switchesSatisfied} = self;
+        if(On !== undefined){
             return {
-                val: false,
+                val: switchesSatisfied,
                 resolved: true,
             }
         }
@@ -192,7 +192,7 @@ const xe = new XE<AP, Actions>({
         },
         actions: {
             calcVal: {
-                ifKeyIn: ['lhs', 'rhs', 'anySwitchIsOn']
+                ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
             onTrue: {
                 ifEquals: ['val', 'echoVal'],

@@ -1,7 +1,8 @@
+//import { BeValueAdded } from 'be-value-added/be-value-added.js';
 import {AP, ProPAP, OnSwitch, PAP} from './types';
 import('be-value-added/be-value-added.js');
 import {BVAAllProps} from 'be-value-added/types';
-//almost identical to be-itmized/#addMicrodataEleemnt -- share?
+//almost identical to be-itemized/#addMicrodataElement -- share?
 export async function configSwitch(self: AP){
     const {enhancedElement, onSwitches} = self;
     const scope = enhancedElement.closest('[itemscope]') as Element;
@@ -14,16 +15,34 @@ export async function configSwitch(self: AP){
             scope.appendChild(itempropEl);
         }
         const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps;
-        if(beValueAdded.value){
-            self.anySwitchIsOn = true;
-            return;
-        }
+        onSwitch.signal = new WeakRef<BVAAllProps>(beValueAdded);
         beValueAdded.addEventListener('value-changed', e => {
-            console.log(e);
+            checkSwitches(self);
         })
-        // for(const itempropEl of itempropEls){
-        //     (<any>itempropEl).beEnhanced.by.beValueAdded.value = itemVal;
-        // }
     }
+    checkSwitches(self);
 
+}
+
+function checkSwitches(self: AP){
+    const {onSwitches} = self;
+    let foundOne = false;
+    for(const onSwitch of onSwitches!){
+        const {req} = onSwitch;
+        if(foundOne && !req) continue;
+        const ref = onSwitch.signal?.deref();
+        if(ref === undefined) {
+            console.warn({onSwitch, msg: "Out of scope");
+            continue;
+        }
+        if(req){
+            if(!ref.value){
+                self.switchesSatisfied = false;
+                return;
+            }
+        }else{
+            if(ref.value) foundOne = true;
+        }
+    }
+    self.switchesSatisfied = foundOne;
 }
