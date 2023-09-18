@@ -14,6 +14,15 @@ be-switched can easily complement server-rendered HTML, as discussed below.
 
 ##  The basic functionality
 
+be-switched can be used in two modes:  
+
+1.  It can switch the template "on and off" based on comparing two values (lhs and rhs). 
+2.  Or it can switch the template "on and off" based on the values of peer microdata or form elements.
+
+We will look at both options closely, starting with...
+
+### Comparing two values
+
 ```html
 <template be-switched='{
     "lhs": 37,
@@ -57,7 +66,7 @@ Frameworks fail us, yet again!
 
 For that reason, among others, a supporting "enhancement helper" is provided:  [be-linked](https://github.com/bahrus/be-linked), which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework of any sort, adding its magic onto what the server rendered.  Essentially be-linked becomes our loosely coupled "framework".
 
-## Hemingway Notation
+### Hemingway Notation
 
 In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).  be-linked allows us to connect components together using ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
 
@@ -88,7 +97,7 @@ It should be noted that this simple functionality that be-linked demonstrates be
 
 Another reason to consider using be-linked in conjunction with be-switched:  It provides an elegant way of self-binding lazy loaded content, without burdening the framework/web component library with micro managing components coming and going.
 
-## Ditto notation
+### Ditto notation
 
 We can reduce the wordiness of our statements linking components together by using some "ditto" syntax, where we use ^ to indicate to copy the word from the previous statement.  Here we remove the line feeds to help visualize the ditto notation (at the expense of incurring horizontal scrolling in github's rendering):
 
@@ -111,14 +120,16 @@ We can reduce the wordiness of our statements linking components together by usi
 </ways-of-science>
 ```
 
-## Special case: single boolean condition - i.e. the simple "if" conditional display [TODO]
+## Boolean conditions based on peer elements [WIP]
+
+A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements that can contain values -- form elements or microdata elements.
 
 If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
 ```html
 <div itemscope>
     ...
-    <link itemprop=isHappy>
+    <link itemprop=isHappy href=https://schema.org/True>
     ...
     <template be-switched='On when $ is happy.'>
         <my-content></my-content>
@@ -126,7 +137,6 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 </div>
 ```
 
-Defaults to "is truthy"
 
 
 Can have multiple such statements -- or condition.
