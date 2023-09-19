@@ -120,6 +120,8 @@ We can reduce the wordiness of our statements linking components together by usi
 </ways-of-science>
 ```
 
+
+
 ## Boolean conditions based on peer elements or host [WIP]
 
 A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements  that can contain values -- form elements or microdata elements, as well as properties of the host.
@@ -187,6 +189,33 @@ This is an "and" condition due to the presence of "only"
         <my-content></my-content>
     </template>
 </mood-stone>
+```
+
+## Hemingway Notation, take two [TODO]
+
+```html
+<ways-of-science>
+    <largest-scale>
+        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
+    </largest-scale>
+    <largest-scale>
+        <a-duck></a-duck>
+    </largest-scale>
+    <template be-switched='
+        On when 
+            value property of previous largest-scale element 
+        having 
+            inner woman-with-carrot-attached-to-nose element 
+        matches
+            value property of previous largest-scale element 
+        having 
+            inner a-duck element 
+        .'
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
 ```
 
 
