@@ -122,7 +122,7 @@ We can reduce the wordiness of our statements linking components together by usi
 
 ## Boolean conditions based on peer elements or host [WIP]
 
-A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements that can contain values -- form elements or microdata elements.
+A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements  that can contain values -- form elements or microdata elements, as well as properties of the host.
 
 If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
