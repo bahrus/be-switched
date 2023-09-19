@@ -218,6 +218,8 @@ This is an "and" condition due to the presence of "only"
 </ways-of-science>
 ```
 
+>[!NOTE]
+> The dashes are optional, I think it makes the meaning more clear, depending.
 
 ## Compatibility with server-side-rendering [Untested]
 
