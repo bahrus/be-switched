@@ -120,7 +120,7 @@ We can reduce the wordiness of our statements linking components together by usi
 </ways-of-science>
 ```
 
-## Boolean conditions based on peer elements [WIP]
+## Boolean conditions based on peer elements or host [WIP]
 
 A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements that can contain values -- form elements or microdata elements.
 
