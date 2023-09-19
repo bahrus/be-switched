@@ -170,6 +170,15 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 
 This is an "and" condition due to the presence of "only"
 
+```html
+<mood-stone>
+    #shadow
+    <template be-switched='On when host is happy.'>
+        <my-content></my-content>
+    </template>
+</mood-stone>
+```
+
 
 ## Compatibility with server-side-rendering [Untested]
 
