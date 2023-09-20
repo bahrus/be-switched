@@ -21,7 +21,7 @@ be-switched can be used in two modes:
 
 We will look at both options closely, starting with...
 
-### Comparing two values
+### Comparing two values - JavaScriptObjectNotation
 
 ```html
 <template be-switched='{
@@ -64,9 +64,9 @@ All of this is to say, most frameworks probably don't and won't be able to make 
 
 Frameworks fail us, yet again!
 
-For that reason, among others, a supporting "enhancement helper" is provided:  [be-linked](https://github.com/bahrus/be-linked), which we discuss below.  Using that helper, this enhancement (be-switched) can be used within most any framework, especially web component "frameworks", or even without the help of a client-side framework of any sort, adding its magic onto what the server rendered.  Essentially be-linked becomes our loosely coupled "framework".
+For that reason, among others, an alternative way of "pulling in" values to compare is provided via:
 
-### Hemingway Notation
+### Hemingway Notation [TODO]
 
 In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).  be-linked allows us to connect components together using ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
 
