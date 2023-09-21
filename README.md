@@ -93,10 +93,6 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 </ways-of-science>
 ```
 
-### Ditto notation
-
-We can reduce the wordiness of our statements linking components together by using some "ditto" syntax, where we use ^ to indicate to copy the word from the previous statement.  Here we remove the line feeds to help visualize the ditto notation (at the expense of incurring horizontal scrolling in github's rendering):
-
 
 ## Boolean conditions based on peer elements or host [WIP]
 
