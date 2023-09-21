@@ -77,15 +77,11 @@ For that reason, among others, an alternative way of "pulling in" values to comp
         <a-duck></a-duck>
     </largest-scale>
     <template be-switched='
-        On when 
-            value property of previous largest-scale element 
-        having 
-            inner woman-with-carrot-attached-to-nose element 
-        matches
-            value property of previous largest-scale element 
-        having 
-            inner a-duck element 
-        .'
+    On when value property of previous largest-scale element 
+    having inner woman-with-carrot-attached-to-nose element 
+    matches value property of previous largest-scale element 
+    having inner a-duck element.
+    '
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -112,8 +108,6 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
     </template>
 </div>
 ```
-
-
 
 Can have multiple such statements -- or condition.
 
@@ -183,14 +177,10 @@ If, however, the content should display initially, but we want the client-side J
     </largest-scale>
     <template itemscope itemref="witch burn-her" 
         be-switched='
-        Off when 
-            value property of previous largest-scale element 
-        having 
-            inner woman-with-carrot-attached-to-nose element 
-        does not match
-            value property of previous largest-scale element 
-        having 
-            inner a-duck element 
+        Off when value property of previous largest-scale element 
+        having inner woman-with-carrot-attached-to-nose element 
+        does not match value property of previous largest-scale element 
+        having inner a-duck element 
         .
         '
     >
