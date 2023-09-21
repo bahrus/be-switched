@@ -17,7 +17,7 @@ be-switched can easily complement server-rendered HTML, as discussed below.
 be-switched can be used in two modes:  
 
 1.  It can switch the template "on and off" based on comparing two values (lhs and rhs). 
-2.  Or it can switch the template "on and off" based on the values of peer microdata or form elements.
+2.  Or it can switch the template "on and off" based on the values of peer microdata or form elements, or "boolish" properties coming from the host or upstream peer elements.
 
 We will look at both options closely, starting with...
 
@@ -68,10 +68,6 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 
 ### Hemingway Notation [TODO]
 
-In the following example, we see be-switched used in combination with [be-linked](https://github.com/bahrus/be-linked).  be-linked allows us to connect components together using ["Hemingway notation"](https://bookanalysis.com/ernest-hemingway/writing-style/).
-
-It should be noted that this simple functionality that be-linked demonstrates below, connecting siblings together, without a host element micromanaging everything, is actually beyond the capabilities of most every framework out there (other than JQuery)!
-
 ```html
 <ways-of-science>
     <largest-scale>
@@ -80,46 +76,26 @@ It should be noted that this simple functionality that be-linked demonstrates be
     <largest-scale>
         <a-duck></a-duck>
     </largest-scale>
-    <template be-linked='
-        Link value property of previous largest-scale element 
-        having inner woman-with-carrot-attached-to-nose element 
-        to $0-enh-by-be-switched : lhs.
-
-        Link value property of previous largest-scale element 
-        having inner a-duck element 
-        to $0-enh-by-be-switched : rhs.'
+    <template be-switched='
+        On when 
+            value property of previous largest-scale element 
+        having 
+            inner woman-with-carrot-attached-to-nose element 
+        matches
+            value property of previous largest-scale element 
+        having 
+            inner a-duck element 
+        .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
 </ways-of-science>
 ```
-
-Another reason to consider using be-linked in conjunction with be-switched:  It provides an elegant way of self-binding lazy loaded content, without burdening the framework/web component library with micro managing components coming and going.
 
 ### Ditto notation
 
 We can reduce the wordiness of our statements linking components together by using some "ditto" syntax, where we use ^ to indicate to copy the word from the previous statement.  Here we remove the line feeds to help visualize the ditto notation (at the expense of incurring horizontal scrolling in github's rendering):
-
-```html
-<ways-of-science>
-    <largest-scale>
-        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
-    </largest-scale>
-    <largest-scale>
-        <a-duck></a-duck>
-    </largest-scale>
-    <template be-linked='
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched : lhs.
-        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  ^                     : rhs.
-        '
-    >
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
-
 
 
 ## Boolean conditions based on peer elements or host [WIP]
@@ -193,30 +169,7 @@ This is an "and" condition due to the presence of "only"
 
 ## Hemingway Notation, take two [TODO]
 
-```html
-<ways-of-science>
-    <largest-scale>
-        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
-    </largest-scale>
-    <largest-scale>
-        <a-duck></a-duck>
-    </largest-scale>
-    <template be-switched='
-        On when 
-            value property of previous largest-scale element 
-        having 
-            inner woman-with-carrot-attached-to-nose element 
-        matches
-            value property of previous largest-scale element 
-        having 
-            inner a-duck element 
-        .'
-    >
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
+
 
 >[!NOTE]
 > The dashes are optional, I think it makes the meaning more clear, depending.
