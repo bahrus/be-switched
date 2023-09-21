@@ -93,6 +93,8 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 </ways-of-science>
 ```
 
+>[!NOTE]
+> The dashes are optional, I think it makes the meaning more clear, depending.
 
 ## Boolean conditions based on peer elements or host [WIP]
 
@@ -162,13 +164,6 @@ This is an "and" condition due to the presence of "only"
     </template>
 </mood-stone>
 ```
-
-## Hemingway Notation, take two [TODO]
-
-
-
->[!NOTE]
-> The dashes are optional, I think it makes the meaning more clear, depending.
 
 ## Compatibility with server-side-rendering [Untested]
 
