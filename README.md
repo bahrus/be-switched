@@ -182,20 +182,16 @@ If, however, the content should display initially, but we want the client-side J
         <a-duck></a-duck>
     </largest-scale>
     <template itemscope itemref="witch burn-her" 
-        be-linked='
-        {
-            "settings": {
-                "enh":{
-                    "beSwitched": {
-                        "deferRendering": true,
-                        "autoImport": true,
-                    }
-                }
-
-            }
-        }
-        Link value property of previous largest-scale element having inner woman-with-carrot-attached-to-nose element to $0-enh-by-be-switched : lhs.
-        ^    ^     ^        ^  ^        ^             ^       ^      ^                  a-duck                ^       ^  ^                     : rhs.
+        be-switched='
+        Off when 
+            value property of previous largest-scale element 
+        having 
+            inner woman-with-carrot-attached-to-nose element 
+        does not match
+            value property of previous largest-scale element 
+        having 
+            inner a-duck element 
+        .
         '
     >
         <div>A witch!</div>
