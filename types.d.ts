@@ -30,7 +30,7 @@ export interface AllProps extends EndUserProps{
     switchesSatisfied?: boolean,
     echoVal: boolean,
     onSwitches?: Array<OnSwitch>,
-    
+    isParsed?: boolean,
 }
 
 export type SwitchStatement = string;

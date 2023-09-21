@@ -10,6 +10,7 @@ export class BeSwitched extends BE {
             //primaryPropReq: true,
             parseAndCamelize: true,
             camelizeOptions: {},
+            isParsedProp: 'isParsed'
         };
     }
     calcVal(self) {
@@ -181,6 +182,7 @@ const xe = new XE({
         },
         actions: {
             calcVal: {
+                ifAllOf: ['isParsed'],
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
             onTrue: {

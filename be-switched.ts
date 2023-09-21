@@ -16,6 +16,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             camelizeOptions:{
 
             },
+            isParsedProp: 'isParsed'
         } as BEConfig
     }
 
@@ -192,6 +193,7 @@ const xe = new XE<AP, Actions>({
         },
         actions: {
             calcVal: {
+                ifAllOf: ['isParsed'],
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
             onTrue: {
