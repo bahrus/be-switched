@@ -165,7 +165,7 @@ This is an "and" condition due to the presence of "only"
 </mood-stone>
 ```
 
-## Compatibility with server-side-rendering [Untested]
+## Compatibility with server-side-rendering [TODO]
 
 *be-switched* is compatible with server-side-rendering if the following approach is used:
 
