@@ -21,15 +21,22 @@ be-switched can be used in two modes:
 
 We will look at both options closely, starting with...
 
-### Comparing two values - JavaScriptObjectNotation
+## Comparing two values - JavaScriptObjectNotation
 
 ```html
+<!-- Example -->
 <template be-switched='{
     "lhs": 37,
     "rhs": "hello"
 }'>
     <div>lhs === rhs</div>
 </template>
+<button onclick=setLHS()>Set lhs = "hello"</button>
+<script>
+    function setLHS(){
+        template.beEnhanced.beSwitched.lhs = 'hello';
+    }
+</script>
 ```
 
 "lhs" stands for left-hand-side.  "rhs" stands for "right-hand-side".
@@ -66,7 +73,19 @@ Frameworks fail us, yet again!
 
 For that reason, among others, an alternative way of "pulling in" values to compare is provided via:
 
-### Hemingway Notation [TODO]
+## Hemingway Notation [TODO]
+
+### Example 2
+
+```html
+<label for=lhs>LHS:</label>
+<input id=lhs>
+<label for=rhs>RHS:</label>
+<input id=rhs>
+<template be-switched='On when #lhs matches #rhs.'>
+    <div>LHS === RHS</div>
+</template>
+```
 
 ```html
 <ways-of-science>
