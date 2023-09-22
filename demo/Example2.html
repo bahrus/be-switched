@@ -22,9 +22,8 @@
     <input id=lhs>
     <label for=rhs>RHS:</label>
     <input id=rhs>
-    <template be-switched be-linked='
-        On input event of previous lhs id pass value property to $0-enh-by-be-switched : lhs.
-        ^  ^     ^     ^  ^        rhs ^  ^    ^     ^        ^  ^ : rhs.
+    <template be-switched='
+        On when #lhs matches #rhs.
     '
     >
         <div>LHS === RHS</div>
@@ -33,8 +32,6 @@
 
     <script type=module>
         import '../be-switched.js';
-        import 'be-linked/be-linked.js';
-        
     </script>
 </body>
 </html>
