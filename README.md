@@ -1,4 +1,4 @@
-# be-switched 
+# be-switched [TODO]
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -75,16 +75,126 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 
 ## Hemingway Notation [TODO]
 
-### Example 2
+### Example 2a [TODO]
 
 ```html
 <label for=lhs>LHS:</label>
 <input id=lhs>
 <label for=rhs>RHS:</label>
 <input id=rhs>
-<template be-switched='On when #lhs matches #rhs.'>
+<template be-switched='On when # lhs matches # rhs.'>
     <div>LHS === RHS</div>
 </template>
+```
+
+### Example 2b [TODO]
+
+```html
+<form>
+    <label>
+        LHS:
+        <input name=lhs>
+    </label>
+    
+    <label>RHS:
+        <input name=rhs>
+    </label>
+    
+    <template be-switched='On when & lhs matches & rhs.'>
+        <div>LHS === RHS</div>
+    </template>
+</form>
+```
+
+### Example 2c [TODO]
+
+```html
+<div itemscope>
+
+    <span itemscope=lhs contenteditable>
+    
+    <span itemscope=rhs contenteditable>
+    
+    
+    <template be-switched='On when $ lhs matches $ rhs.'>
+        <div>LHS === RHS</div>
+    </template>
+</form>
+```
+
+A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements  that can contain values -- form elements or microdata elements, as well as properties of the host.
+
+If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
+
+## Boolean conditions based on peer elements or host [WIP]
+
+### Example 3a [TODO]
+
+```html
+<div itemscope>
+    ...
+    <link itemprop=isHappy href=https://schema.org/True>
+    ...
+    <template be-switched='On when $ is happy.'>
+        <my-content></my-content>
+    </template>
+</div>
+```
+
+Can have multiple such statements -- or condition.
+
+### Example 3b [TODO]
+
+Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
+
+```html
+<form>
+    ...
+    <input name=isHappy>
+    ...
+    <template be-switched='On when & is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
+
+Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input and change events.
+
+### Example 3c [TODO]
+
+```html
+<form>
+    ...
+    <input id=isHappy>
+    ...
+    <template be-switched='On when # is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
+
+### Example 3d [TODO]
+
+```html
+<form>
+    ...
+    <input id=isHappy>
+    ...
+    <template be-switched='On only when # is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
+
+This is an "and" condition due to the presence of "only"
+
+```html
+<mood-stone>
+    #shadow
+    <template be-switched='On when host is happy.'>
+        <my-content></my-content>
+    </template>
+</mood-stone>
 ```
 
 ```html
@@ -111,72 +221,13 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 >[!NOTE]
 > The dashes are optional, I think it makes the meaning more clear, depending.
 
-## Boolean conditions based on peer elements or host [WIP]
 
-A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements  that can contain values -- form elements or microdata elements, as well as properties of the host.
 
-If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
-```html
-<div itemscope>
-    ...
-    <link itemprop=isHappy href=https://schema.org/True>
-    ...
-    <template be-switched='On when $ is happy.'>
-        <my-content></my-content>
-    </template>
-</div>
-```
 
-Can have multiple such statements -- or condition.
 
-Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
 
-```html
-<form>
-    ...
-    <input name=isHappy>
-    ...
-    <template be-switched='On when & is happy.'>
-        <my-content></my-content>
-    </template>
-</form>
-```
 
-Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input and change events.
-
-```html
-<form>
-    ...
-    <input id=isHappy>
-    ...
-    <template be-switched='On when # is happy.'>
-        <my-content></my-content>
-    </template>
-</form>
-```
-
-```html
-<form>
-    ...
-    <input id=isHappy>
-    ...
-    <template be-switched='On only when # is happy.'>
-        <my-content></my-content>
-    </template>
-</form>
-```
-
-This is an "and" condition due to the presence of "only"
-
-```html
-<mood-stone>
-    #shadow
-    <template be-switched='On when host is happy.'>
-        <my-content></my-content>
-    </template>
-</mood-stone>
-```
 
 ## Compatibility with server-side-rendering [TODO]
 
