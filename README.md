@@ -82,7 +82,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 <input id=lhs>
 <label for=rhs>RHS:</label>
 <input id=rhs>
-<template be-switched='On when # lhs matches # rhs.'>
+<template be-switched='On when # lhs equals # rhs.'>
     <div>LHS === RHS</div>
 </template>
 ```
@@ -100,7 +100,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
         <input name=rhs>
     </label>
     
-    <template be-switched='On when & lhs matches & rhs.'>
+    <template be-switched='On when & lhs equals & rhs.'>
         <div>LHS === RHS</div>
     </template>
 </form>
@@ -116,7 +116,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
     <span itemscope=rhs contenteditable>
     
     
-    <template be-switched='On when $ lhs matches $ rhs.'>
+    <template be-switched='On when $ lhs equals $ rhs.'>
         <div>LHS === RHS</div>
     </template>
 </form>
@@ -208,7 +208,7 @@ This is an "and" condition due to the presence of "only"
     <template be-switched='
     On when value property of previous largest-scale element 
     having inner woman-with-carrot-attached-to-nose element 
-    matches value property of previous largest-scale element 
+    equals value property of previous largest-scale element 
     having inner a-duck element.
     '
     >
@@ -284,7 +284,7 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
     </thead>
     <tbody>
         <tr>
-            <td>ifMediaMatches</td>
+            <td>ifMediaequals</td>
             <td>Expands the template / makes visible only when the specified media query expression is satisfied.</td>
         </tr>
         <tr>
