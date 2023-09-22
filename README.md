@@ -4,7 +4,6 @@
 
 It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of enhancements, that can "cast spells" on server rendered content, but also apply the same logic quietly during template instantiation. 
 
-be-switched can easily complement server-rendered HTML, as discussed below.
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-switched)
 [![Playwright Tests](https://github.com/bahrus/be-switched/actions/workflows/CI.yml/badge.svg)](https://github.com/bahrus/be-switched/actions/workflows/CI.yml)
@@ -23,9 +22,11 @@ We will look at both options closely, starting with...
 
 ## Comparing two values - JavaScriptObjectNotation
 
+### Example 1
+
 ```html
-<!-- Example -->
-<template be-switched='{
+<!-- Example 1 -->
+<template id=template be-switched='{
     "lhs": 37,
     "rhs": "hello"
 }'>
@@ -111,9 +112,9 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 ```html
 <div itemscope>
 
-    <span itemscope=lhs contenteditable>
+    <span itemprop=lhs contenteditable>
     
-    <span itemscope=rhs contenteditable>
+    <span itemprop=rhs contenteditable>
     
     
     <template be-switched='On when $ lhs equals $ rhs.'>
@@ -197,6 +198,8 @@ This is an "and" condition due to the presence of "only"
 </mood-stone>
 ```
 
+## Example 4
+
 ```html
 <ways-of-science>
     <largest-scale>
@@ -223,12 +226,6 @@ This is an "and" condition due to the presence of "only"
 
 
 
-
-
-
-
-
-
 ## Compatibility with server-side-rendering [TODO]
 
 *be-switched* is compatible with server-side-rendering if the following approach is used:
@@ -249,7 +246,7 @@ If, however, the content should display initially, but we want the client-side J
         be-switched='
         Off when value property of previous largest-scale element 
         having inner woman-with-carrot-attached-to-nose element 
-        does not match value property of previous largest-scale element 
+        is not equal to the value property of previous largest-scale element 
         having inner a-duck element 
         .
         '
