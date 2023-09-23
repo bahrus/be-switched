@@ -125,7 +125,7 @@ export class BeSwitched extends BE {
         return await prsOn(self);
     }
     async onOnBinarySwitches(self) {
-        const { configSwitch } = await import('./configSwitch.js');
+        const { doBinSwitch: configSwitch } = await import('./doBinSwitch.js');
         configSwitch(self);
     }
 }
