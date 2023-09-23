@@ -70,4 +70,5 @@ export interface Actions{
     chkMedia(self: this, e: MediaQueryListEvent): PAP;
     onOn(self: this): ProPAP;
     onOnBinarySwitches(self: this): Promise<void>;
+    onTwoValSwitches(self: this): Promise<void>;
 }

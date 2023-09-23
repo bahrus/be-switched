@@ -133,6 +133,11 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         const {doBinSwitch} = await import('./doBinSwitch.js');
         doBinSwitch(self);
     }
+
+    async onTwoValSwitches(self: this): Promise<void> {
+        const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
+        doTwoValSwitch(self);
+    }
 }
 
 const styleMap = new WeakSet<Node>();

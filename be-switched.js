@@ -128,6 +128,10 @@ export class BeSwitched extends BE {
         const { doBinSwitch } = await import('./doBinSwitch.js');
         doBinSwitch(self);
     }
+    async onTwoValSwitches(self) {
+        const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
+        doTwoValSwitch(self);
+    }
 }
 const styleMap = new WeakSet();
 function addStyle(ap) {
