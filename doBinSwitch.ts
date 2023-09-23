@@ -7,20 +7,13 @@ import { Scope } from 'trans-render/lib/types';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function doBinSwitch(self: AP){
     const {enhancedElement, onBinarySwitches} = self;
-    //TODO:  replace with trans-render/lib/findRealm.js.
-    //const scope = enhancedElement.closest('[itemscope]') as Element;
     for(const onSwitch of onBinarySwitches!){
         const {prop, type} = onSwitch;
         let scope: Scope;
         switch(type){
             case '$':
-                let itempropEl= await findRealm(enhancedElement, ['wis', prop!])  as HTMLLinkElement;
-                if(itempropEl === null){
-                    itempropEl = document.createElement('link');
-                    itempropEl.setAttribute('itemprop', prop!);
-                    const scope = enhancedElement.closest('[itemscope]')!;
-                    scope.appendChild(itempropEl);
-                }
+                const {getItemPropEl} = await import('./getItempropEl.js');
+                const itempropEl = getItemPropEl(enhancedElement, prop!);
                 const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
                 onSwitch.signal = new WeakRef<BVAAllProps>(beValueAdded);
                 beValueAdded.addEventListener('value-changed', e => {
