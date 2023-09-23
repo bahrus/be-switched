@@ -20,9 +20,12 @@ const reOnBinarySwitchStatements = [
 export async function prsOn(self) {
     const { On } = self;
     const onBinarySwitches = [];
+    const onTwoValueSwitches = [];
     for (const onS of On) {
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
         if (twoValSwitchTest !== null) {
+            onTwoValueSwitches.push(twoValSwitchTest);
+            continue;
         }
         const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements);
         if (binarySwitchTest === null)

@@ -25,10 +25,12 @@ const reOnBinarySwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
 export async function prsOn(self: AP) : ProPAP{
     const {On} = self;
     const onBinarySwitches: Array<OnBinaryValueSwitch> = [];
+    const onTwoValueSwitches : Array<OnTwoValueSwitch> = [];
     for(const onS of On!){
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements) as OnTwoValueSwitch;
         if(twoValSwitchTest !== null){
-
+            onTwoValueSwitches.push(twoValSwitchTest);
+            continue;
         }
         const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements) as OnBinaryValueSwitch;
         if(binarySwitchTest === null) throw 'PE'//Parse Error
