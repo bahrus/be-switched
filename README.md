@@ -88,7 +88,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 </template>
 ```
 
-### Example 2b [TODO]
+### Example 2b
 
 ```html
 <form>
@@ -101,7 +101,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
         <input name=rhs>
     </label>
     
-    <template be-switched='On when & lhs equals & rhs.'>
+    <template be-switched='On when @lhs equals @rhs.'>
         <div>LHS === RHS</div>
     </template>
 </form>
