@@ -24,11 +24,11 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.51",
+    "be-enhanced": "0.0.52",
     "be-hive": "0.0.123",
     "be-value-added": "0.0.7",
-    "trans-render": "0.0.705",
-    "xtal-element": "0.0.578"
+    "trans-render": "0.0.706",
+    "xtal-element": "0.0.579"
   },
   "devDependencies": {
     
