@@ -151,7 +151,7 @@ Can also reference form element, or [form associated custom elements](https://be
 ```html
 <form>
     ...
-    <input name=isHappy>
+    <input name=isHappy type=checkbox>
     ...
     <template be-switched='On when & is happy.'>
         <my-content></my-content>
@@ -166,7 +166,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 ```html
 <form>
     ...
-    <input id=isHappy>
+    <input id=isHappy type=checkbox>
     ...
     <template be-switched='On when # is happy.'>
         <my-content></my-content>

@@ -18,13 +18,13 @@
     </script>
 </head>
 <body>
-    <div itemscope>
-        <link itemprop=isHappy href=https://schema.org/True>
+    <form>
+        <input name=isHappy type="checkbox">
         <template be-switched='
             On when $ is happy.'>
             <my-content></my-content>
         </template>
-    </div>
+    </form>
     <script type=module>
         import '../be-switched.js';
     </script>
