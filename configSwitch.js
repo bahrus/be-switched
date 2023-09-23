@@ -28,9 +28,9 @@ export async function configSwitch(self) {
                 if (!inputEl)
                     throw 404;
                 onSwitch.signal = new WeakRef(inputEl);
-                inputEl.addEventListener('changed', e => {
-                    checkSwitches(self);
-                });
+                // inputEl.addEventListener('change', e => {
+                //     checkSwitches(self);
+                // });
                 inputEl.addEventListener('input', e => {
                     checkSwitches(self);
                 });

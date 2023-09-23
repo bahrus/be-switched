@@ -31,9 +31,9 @@ export async function configSwitch(self: AP){
                 const inputEl = await findRealm(enhancedElement, ['wf', prop!]) as HTMLInputElement;
                 if(!inputEl) throw 404;
                 onSwitch.signal = new WeakRef(inputEl);
-                inputEl.addEventListener('changed', e => {
-                    checkSwitches(self);
-                });
+                // inputEl.addEventListener('change', e => {
+                //     checkSwitches(self);
+                // });
                 inputEl.addEventListener('input', e => {
                     checkSwitches(self);
                 });
