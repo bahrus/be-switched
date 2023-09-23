@@ -5,6 +5,7 @@ import {BVAAllProps} from 'be-value-added/types';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function configSwitch(self: AP){
     const {enhancedElement, onSwitches} = self;
+    //TODO:  replace with trans-render/lib/findRealm.js.
     const scope = enhancedElement.closest('[itemscope]') as Element;
     for(const onSwitch of onSwitches!){
         const {prop} = onSwitch;
