@@ -144,7 +144,7 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 
 Can have multiple such statements -- or condition.
 
-### Example 3b [TODO]
+### Example 3b
 
 Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
 
