@@ -174,7 +174,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 </form>
 ```
 
-### Example 3d [TODO]
+### Example 3d
 
 ```html
 <form>

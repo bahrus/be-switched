@@ -4,6 +4,12 @@ import {arr, tryParse} from 'be-enhanced/cpu.js';
 
 const reOnSwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
     {
+        regExp: new RegExp(String.raw `^onlyWhen(?<type>\$|\#|\@)(?<prop>[\w]+)`),
+        defaultVals:{
+            req: true
+        } as OnBinaryValueSwitch
+    },
+    {
         regExp: new RegExp(String.raw `^when(?<type>\$|\#|\@)(?<prop>[\w]+)`),
         defaultVals:{}
     }
