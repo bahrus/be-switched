@@ -76,7 +76,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 
 ## Hemingway Notation [WIP]
 
-### Example 2a [TODO]
+### Example 2a
 
 ```html
 <label for=lhs>LHS:</label>
