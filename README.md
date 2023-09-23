@@ -74,7 +74,7 @@ Frameworks fail us, yet again!
 
 For that reason, among others, an alternative way of "pulling in" values to compare is provided via:
 
-## Hemingway Notation [TODO]
+## Hemingway Notation [WIP]
 
 ### Example 2a [TODO]
 
@@ -83,7 +83,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 <input id=lhs>
 <label for=rhs>RHS:</label>
 <input id=rhs>
-<template be-switched='On when # lhs equals # rhs.'>
+<template be-switched='On when #lhs equals #rhs.'>
     <div>LHS === RHS</div>
 </template>
 ```

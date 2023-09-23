@@ -124,7 +124,7 @@ export class BeSwitched extends BE {
         const { prsOn } = await import('./prsOn.js');
         return await prsOn(self);
     }
-    async onOnSwitches(self) {
+    async onOnBinarySwitches(self) {
         const { configSwitch } = await import('./configSwitch.js');
         configSwitch(self);
     }
@@ -197,7 +197,7 @@ const xe = new XE({
                 ifKeyIn: ['ifMediaMatches']
             },
             onOn: 'On',
-            onOnSwitches: 'onSwitches',
+            onOnBinarySwitches: 'onBinarySwitches',
         }
     },
     superclass: BeSwitched

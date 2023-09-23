@@ -3,13 +3,13 @@ import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
 import('be-value-added/be-value-added.js');
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
-import { Scope } from './trans-render/lib/types';
+import { Scope } from 'trans-render/lib/types';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function configSwitch(self: AP){
-    const {enhancedElement, onSwitches} = self;
+    const {enhancedElement, onBinarySwitches} = self;
     //TODO:  replace with trans-render/lib/findRealm.js.
     //const scope = enhancedElement.closest('[itemscope]') as Element;
-    for(const onSwitch of onSwitches!){
+    for(const onSwitch of onBinarySwitches!){
         const {prop, type} = onSwitch;
         let scope: Scope;
         switch(type){
@@ -55,9 +55,9 @@ export async function configSwitch(self: AP){
 }
 
 function checkSwitches(self: AP){
-    const {onSwitches} = self;
+    const {onBinarySwitches} = self;
     let foundOne = false;
-    for(const onSwitch of onSwitches!){
+    for(const onSwitch of onBinarySwitches!){
         const {req} = onSwitch;
         if(foundOne && !req) continue;
         const ref = onSwitch.signal?.deref();
@@ -71,7 +71,7 @@ function checkSwitches(self: AP){
         }else if(ref instanceof Element && ref.hasAttribute('aria-checked')){
             value = ref.getAttribute('aria-checked') === 'true';
         }else{
-            value = ref.value;
+            value = (ref as BVAAllProps).value as boolean;
         }
         if(req){
             if(!value){

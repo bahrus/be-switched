@@ -29,21 +29,28 @@ export interface AllProps extends EndUserProps{
     val: boolean,
     switchesSatisfied?: boolean,
     echoVal: boolean,
-    onSwitches?: Array<OnBinaryValueSwitch>,
+    onBinarySwitches?: Array<OnBinaryValueSwitch>,
     isParsed?: boolean,
 }
 
 export type SwitchStatement = string;
 
+export type Types = '$' | '#' | '@';
+
 export interface OnBinaryValueSwitch{
     prop?: string,
-    type?: '$' | '#' | '@',
+    type?: Types,
     req?: boolean,
     signal?: WeakRef<BVAAllProps> | WeakRef<HTMLInputElement>,
 }
 
-export interface OnTwoCamelQrySwitch{
-    
+export interface OnTwoValueSwitch{
+    lhsProp?: string,
+    rhsProp?: string,
+    lhsType?: Types,
+    rhsType?: Types,
+    op?: 'Equals'
+    lhsSignal?: WeakRef<BVAAllProps> | WeakRef<HTMLInputElement>,
 }
 
 export type AP = AllProps;
@@ -61,5 +68,5 @@ export interface Actions{
     addMediaListener(self: this): POA;
     chkMedia(self: this, e: MediaQueryListEvent): PAP;
     onOn(self: this): ProPAP;
-    onOnSwitches(self: this): Promise<void>;
+    onOnBinarySwitches(self: this): Promise<void>;
 }

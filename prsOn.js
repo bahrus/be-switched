@@ -1,5 +1,11 @@
 import { tryParse } from 'be-enhanced/cpu.js';
-const reOnSwitchStatements = [
+const reOnTwoValSwitchStatements = [
+    {
+        regExp: new RegExp(String.raw `^when(?<lhsType>\$|\#|\@)(?<lhsProp>[\w]+)(?<!\\)(?<op>Equals)(?<rhsType>\$|\#|\@)(?<rhsProp>[\w]+)`),
+        defaultVals: {}
+    },
+];
+const reOnBinarySwitchStatements = [
     {
         regExp: new RegExp(String.raw `^onlyWhen(?<type>\$|\#|\@)(?<prop>[\w]+)`),
         defaultVals: {
@@ -13,14 +19,17 @@ const reOnSwitchStatements = [
 ];
 export async function prsOn(self) {
     const { On } = self;
-    const onSwitches = [];
+    const onBinarySwitches = [];
     for (const onS of On) {
-        const test = tryParse(onS, reOnSwitchStatements);
-        if (test === null)
+        const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
+        if (twoValSwitchTest !== null) {
+        }
+        const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements);
+        if (binarySwitchTest === null)
             throw 'PE'; //Parse Error
-        onSwitches.push(test);
+        onBinarySwitches.push(binarySwitchTest);
     }
     return {
-        onSwitches
+        onBinarySwitches
     };
 }

@@ -129,7 +129,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         return await prsOn(self);
     }
 
-    async onOnSwitches(self: this): Promise<void> {
+    async onOnBinarySwitches(self: this): Promise<void> {
         const {configSwitch} = await import('./configSwitch.js');
         configSwitch(self);
     }
@@ -208,7 +208,7 @@ const xe = new XE<AP, Actions>({
                 ifKeyIn:  ['ifMediaMatches']
             },
             onOn: 'On',
-            onOnSwitches: 'onSwitches',
+            onOnBinarySwitches: 'onBinarySwitches',
         }
     },
     superclass: BeSwitched

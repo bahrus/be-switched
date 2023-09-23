@@ -2,10 +2,10 @@ import('be-value-added/be-value-added.js');
 import { findRealm } from 'trans-render/lib/findRealm.js';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function configSwitch(self) {
-    const { enhancedElement, onSwitches } = self;
+    const { enhancedElement, onBinarySwitches } = self;
     //TODO:  replace with trans-render/lib/findRealm.js.
     //const scope = enhancedElement.closest('[itemscope]') as Element;
-    for (const onSwitch of onSwitches) {
+    for (const onSwitch of onBinarySwitches) {
         const { prop, type } = onSwitch;
         let scope;
         switch (type) {
@@ -48,9 +48,9 @@ export async function configSwitch(self) {
     checkSwitches(self);
 }
 function checkSwitches(self) {
-    const { onSwitches } = self;
+    const { onBinarySwitches } = self;
     let foundOne = false;
-    for (const onSwitch of onSwitches) {
+    for (const onSwitch of onBinarySwitches) {
         const { req } = onSwitch;
         if (foundOne && !req)
             continue;
