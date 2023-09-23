@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type=importmap>
+        {
+            "imports": {
+                "be-enhanced/": "../be-enhanced/",
+                "be-hive/":  "../node_modules/be-hive/",
+                "be-value-added/": "../node_modules/be-value-added/",
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div itemscope>
+        <link itemprop=isHappy href=https://schema.org/True>
+        <template be-switched='
+            On when $ is happy.'>
+            <my-content></my-content>
+        </template>
+    </div>
+    <script type=module>
+        import '../be-switched.js';
+    </script>
+</body>
+</html>

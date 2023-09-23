@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     
-    "@playwright/test": "1.38.0",
+    "@playwright/test": "1.38.1",
     "may-it-serve": "0.0.6"
   },
   "scripts": {

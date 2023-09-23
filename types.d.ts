@@ -40,7 +40,10 @@ export interface OnBinaryValueSwitch{
     type?: '$' | '#' | '&',
     req?: boolean,
     signal?: WeakRef<BVAAllProps> | HTMLInputElement,
+}
 
+export interface OnTwoCamelQrySwitch{
+    
 }
 
 export type AP = AllProps;
