@@ -27,6 +27,17 @@ export async function configSwitch(self: AP){
                     checkSwitches(self);
                 })
                 break;
+            case '@':
+                const inputEl = await findRealm(enhancedElement, ['wf', prop!]) as HTMLInputElement;
+                if(!inputEl) throw 404;
+                onSwitch.signal = new WeakRef(inputEl);
+                inputEl.addEventListener('changed', e => {
+                    checkSwitches(self);
+                });
+                inputEl.addEventListener('input', e => {
+                    checkSwitches(self);
+                });
+                break;
         }
         
         
@@ -44,16 +55,24 @@ function checkSwitches(self: AP){
         if(foundOne && !req) continue;
         const ref = onSwitch.signal?.deref();
         if(ref === undefined) {
-            console.warn({onSwitch, msg: "Out of scope");
+            console.warn({onSwitch, msg: "Out of scope"});
             continue;
         }
+        let value = false;
+        if((<HTMLInputElement>ref).checked !== undefined){
+            value = (<HTMLInputElement>ref).checked;
+        }else if(ref instanceof Element && ref.hasAttribute('aria-checked')){
+            value = ref.getAttribute('aria-checked') === 'true';
+        }else{
+            value = ref.value;
+        }
         if(req){
-            if(!ref.value){
+            if(!value){
                 self.switchesSatisfied = false;
                 return;
             }
         }else{
-            if(ref.value) foundOne = true;
+            if(value) foundOne = true;
         }
     }
     self.switchesSatisfied = foundOne;

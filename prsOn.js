@@ -1,7 +1,7 @@
 import { tryParse } from 'be-enhanced/cpu.js';
 const reOnSwitchStatements = [
     {
-        regExp: new RegExp(String.raw `^when(?<type>\$|\#|\&)(?<prop>[\w]+)`),
+        regExp: new RegExp(String.raw `^when(?<type>\$|\#|\@)(?<prop>[\w]+)`),
         defaultVals: {}
     }
 ];

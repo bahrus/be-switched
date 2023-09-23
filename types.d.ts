@@ -37,9 +37,9 @@ export type SwitchStatement = string;
 
 export interface OnBinaryValueSwitch{
     prop?: string,
-    type?: '$' | '#' | '&',
+    type?: '$' | '#' | '@',
     req?: boolean,
-    signal?: WeakRef<BVAAllProps> | HTMLInputElement,
+    signal?: WeakRef<BVAAllProps> | WeakRef<HTMLInputElement>,
 }
 
 export interface OnTwoCamelQrySwitch{
