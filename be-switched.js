@@ -125,8 +125,8 @@ export class BeSwitched extends BE {
         return await prsOn(self);
     }
     async onOnBinarySwitches(self) {
-        const { doBinSwitch: configSwitch } = await import('./doBinSwitch.js');
-        configSwitch(self);
+        const { doBinSwitch } = await import('./doBinSwitch.js');
+        doBinSwitch(self);
     }
 }
 const styleMap = new WeakSet();

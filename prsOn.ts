@@ -37,7 +37,8 @@ export async function prsOn(self: AP) : ProPAP{
         onBinarySwitches.push(binarySwitchTest);
     }
     return {
-        onBinarySwitches
+        onBinarySwitches,
+        onTwoValueSwitches
     } as PAP;
 }
 

@@ -33,6 +33,7 @@ export async function prsOn(self) {
         onBinarySwitches.push(binarySwitchTest);
     }
     return {
-        onBinarySwitches
+        onBinarySwitches,
+        onTwoValueSwitches
     };
 }

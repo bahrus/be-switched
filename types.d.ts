@@ -30,6 +30,7 @@ export interface AllProps extends EndUserProps{
     switchesSatisfied?: boolean,
     echoVal: boolean,
     onBinarySwitches?: Array<OnBinaryValueSwitch>,
+    onTwoValueSwitches?: Array<OnTwoValueSwitch>,
     isParsed?: boolean,
 }
 
