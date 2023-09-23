@@ -189,6 +189,8 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 
 This is an "and" condition due to the presence of "only"
 
+### Example 4a [TODO]
+
 ```html
 <mood-stone>
     #shadow
@@ -198,7 +200,7 @@ This is an "and" condition due to the presence of "only"
 </mood-stone>
 ```
 
-## Example 4
+## Example 5
 
 ```html
 <ways-of-science>

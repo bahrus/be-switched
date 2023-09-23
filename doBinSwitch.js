@@ -5,7 +5,6 @@ export async function doBinSwitch(self) {
     const { enhancedElement, onBinarySwitches } = self;
     for (const onSwitch of onBinarySwitches) {
         const { prop, type } = onSwitch;
-        let scope;
         switch (type) {
             case '$':
                 const { getItemPropEl } = await import('./getItempropEl.js');

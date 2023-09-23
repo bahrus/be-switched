@@ -50,8 +50,10 @@ export interface OnTwoValueSwitch{
     rhsProp?: string,
     lhsType?: Types,
     rhsType?: Types,
+    req?: boolean,
     op?: 'Equals'
     lhsSignal?: WeakRef<BVAAllProps> | WeakRef<HTMLInputElement>,
+    rhsSignal?: WeakRef<BVAAllProps> | WeakRef<HTMLInputElement>,
 }
 
 export type AP = AllProps;

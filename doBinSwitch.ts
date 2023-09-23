@@ -3,13 +3,11 @@ import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
 import('be-value-added/be-value-added.js');
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
-import { Scope } from 'trans-render/lib/types';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function doBinSwitch(self: AP){
     const {enhancedElement, onBinarySwitches} = self;
     for(const onSwitch of onBinarySwitches!){
         const {prop, type} = onSwitch;
-        let scope: Scope;
         switch(type){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
