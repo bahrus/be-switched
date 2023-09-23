@@ -1,21 +1,29 @@
 import('be-value-added/be-value-added.js');
+import { findRealm } from 'trans-render/lib/findRealm.js';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function configSwitch(self) {
     const { enhancedElement, onSwitches } = self;
-    const scope = enhancedElement.closest('[itemscope]');
+    //TODO:  replace with trans-render/lib/findRealm.js.
+    //const scope = enhancedElement.closest('[itemscope]') as Element;
     for (const onSwitch of onSwitches) {
-        const { prop } = onSwitch;
-        let itempropEl = scope.querySelector(`[itemprop="${prop}"]`); //TODO check in donut
-        if (itempropEl === null) {
-            itempropEl = document.createElement('link');
-            itempropEl.setAttribute('itemprop', prop);
-            scope.appendChild(itempropEl);
+        const { prop, type } = onSwitch;
+        let scope;
+        switch (type) {
+            case '$':
+                let itempropEl = await findRealm(enhancedElement, ['wis', prop]);
+                if (itempropEl === null) {
+                    itempropEl = document.createElement('link');
+                    itempropEl.setAttribute('itemprop', prop);
+                    const scope = enhancedElement.closest('[itemscope]');
+                    scope.appendChild(itempropEl);
+                }
+                const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
+                onSwitch.signal = new WeakRef(beValueAdded);
+                beValueAdded.addEventListener('value-changed', e => {
+                    checkSwitches(self);
+                });
+                break;
         }
-        const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
-        onSwitch.signal = new WeakRef(beValueAdded);
-        beValueAdded.addEventListener('value-changed', e => {
-            checkSwitches(self);
-        });
     }
     checkSwitches(self);
 }
