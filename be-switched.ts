@@ -214,6 +214,7 @@ const xe = new XE<AP, Actions>({
             },
             onOn: 'On',
             onOnBinarySwitches: 'onBinarySwitches',
+            onTwoValSwitches: 'onTwoValueSwitches',
         }
     },
     superclass: BeSwitched

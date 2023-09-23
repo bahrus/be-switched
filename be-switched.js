@@ -202,6 +202,7 @@ const xe = new XE({
             },
             onOn: 'On',
             onOnBinarySwitches: 'onBinarySwitches',
+            onTwoValSwitches: 'onTwoValueSwitches',
         }
     },
     superclass: BeSwitched

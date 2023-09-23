@@ -66,12 +66,13 @@ export async function doTwoValSwitch(self) {
             }
         }
     }
+    checkSwitches(self);
 }
 function checkSwitches(self) {
     const { onTwoValueSwitches } = self;
     let foundOne = false;
     for (const onSwitch of onTwoValueSwitches) {
-        const { req, lhsSignal, rhsSignal } = onSwitch;
+        const { req, lhsSignal, rhsSignal, op } = onSwitch;
         if (foundOne && !req)
             continue;
         const lhsRef = lhsSignal?.deref();
@@ -87,5 +88,21 @@ function checkSwitches(self) {
         const lhs = lhsRef.value;
         const rhs = rhsRef.value;
         let value = false;
+        switch (op) {
+            case 'equals':
+                value = lhs === rhs;
+                break;
+        }
+        if (req) {
+            if (!value) {
+                self.switchesSatisfied = false;
+                return;
+            }
+        }
+        else {
+            if (value)
+                foundOne = true;
+        }
     }
+    self.switchesSatisfied = foundOne;
 }
