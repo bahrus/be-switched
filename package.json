@@ -1,6 +1,6 @@
 {
   "name": "be-switched",
-  "version": "0.0.93",
+  "version": "0.0.94",
   "keywords": [
     "web-components",
     "web-component",
@@ -31,7 +31,6 @@
     "xtal-element": "0.0.579"
   },
   "devDependencies": {
-    
     "@playwright/test": "1.38.1",
     "may-it-serve": "0.0.6"
   },
