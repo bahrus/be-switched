@@ -161,7 +161,7 @@ Can also reference form element, or [form associated custom elements](https://be
 
 Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input and change events.
 
-### Example 3c [TODO]
+### Example 3c
 
 ```html
 <form>

@@ -27,17 +27,24 @@ export async function configSwitch(self: AP){
                     checkSwitches(self);
                 })
                 break;
-            case '@':
+            case '@':{
                 const inputEl = await findRealm(enhancedElement, ['wf', prop!]) as HTMLInputElement;
                 if(!inputEl) throw 404;
                 onSwitch.signal = new WeakRef(inputEl);
-                // inputEl.addEventListener('change', e => {
-                //     checkSwitches(self);
-                // });
                 inputEl.addEventListener('input', e => {
                     checkSwitches(self);
                 });
                 break;
+            }
+            case '#':{
+                const inputEl = await findRealm(enhancedElement, ['wrn', '#' + prop!]) as HTMLInputElement;
+                if(!inputEl) throw 404;
+                onSwitch.signal = new WeakRef(inputEl);
+                inputEl.addEventListener('input', e => {
+                    checkSwitches(self);
+                });
+                break;
+            }
         }
         
         

@@ -23,18 +23,26 @@ export async function configSwitch(self) {
                     checkSwitches(self);
                 });
                 break;
-            case '@':
+            case '@': {
                 const inputEl = await findRealm(enhancedElement, ['wf', prop]);
                 if (!inputEl)
                     throw 404;
                 onSwitch.signal = new WeakRef(inputEl);
-                // inputEl.addEventListener('change', e => {
-                //     checkSwitches(self);
-                // });
                 inputEl.addEventListener('input', e => {
                     checkSwitches(self);
                 });
                 break;
+            }
+            case '#': {
+                const inputEl = await findRealm(enhancedElement, ['wrn', '#' + prop]);
+                if (!inputEl)
+                    throw 404;
+                onSwitch.signal = new WeakRef(inputEl);
+                inputEl.addEventListener('input', e => {
+                    checkSwitches(self);
+                });
+                break;
+            }
         }
     }
     checkSwitches(self);
