@@ -159,7 +159,7 @@ Can also reference form element, or [form associated custom elements](https://be
 </form>
 ```
 
-Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input and change events.
+Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input events.
 
 ### Example 3c
 
