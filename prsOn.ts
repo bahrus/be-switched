@@ -1,8 +1,8 @@
-import {AP, ProPAP, OnSwitch, PAP} from './types';
+import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
 import {arr, tryParse} from 'be-enhanced/cpu.js';
 
-const reOnSwitchStatements: RegExpOrRegExpExt<OnSwitch>[] = [
+const reOnSwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
     {
         regExp: new RegExp(String.raw `^when(?<type>\$|\#|\&)(?<prop>[\w]+)`),
         defaultVals:{}
@@ -11,9 +11,9 @@ const reOnSwitchStatements: RegExpOrRegExpExt<OnSwitch>[] = [
 
 export async function prsOn(self: AP) : ProPAP{
     const {On} = self;
-    const onSwitches: Array<OnSwitch> = [];
+    const onSwitches: Array<OnBinaryValueSwitch> = [];
     for(const onS of On!){
-        const test = tryParse(onS, reOnSwitchStatements) as OnSwitch;
+        const test = tryParse(onS, reOnSwitchStatements) as OnBinaryValueSwitch;
         if(test === null) throw 'PE'//Parse Error
         onSwitches.push(test);
     }

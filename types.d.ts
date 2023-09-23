@@ -29,17 +29,18 @@ export interface AllProps extends EndUserProps{
     val: boolean,
     switchesSatisfied?: boolean,
     echoVal: boolean,
-    onSwitches?: Array<OnSwitch>,
+    onSwitches?: Array<OnBinaryValueSwitch>,
     isParsed?: boolean,
 }
 
 export type SwitchStatement = string;
 
-export interface OnSwitch{
+export interface OnBinaryValueSwitch{
     prop?: string,
     type?: '$' | '#' | '&',
     req?: boolean,
-    signal?: WeakRef<BVAAllProps>
+    signal?: WeakRef<BVAAllProps> | HTMLInputElement,
+
 }
 
 export type AP = AllProps;
