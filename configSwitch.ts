@@ -14,7 +14,7 @@ export async function configSwitch(self: AP){
         let scope: Scope;
         switch(type){
             case '$':
-                let itempropEl= await findRealm(enhancedElement, ['wis', prop])  as HTMLLinkElement;
+                let itempropEl= await findRealm(enhancedElement, ['wis', prop!])  as HTMLLinkElement;
                 if(itempropEl === null){
                     itempropEl = document.createElement('link');
                     itempropEl.setAttribute('itemprop', prop!);
