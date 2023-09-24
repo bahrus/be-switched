@@ -85,6 +85,7 @@ function checkSwitches(self: AP){
         } 
         const lhs = lhsRef.value;
         const rhs = rhsRef.value;
+        
         let value = false;
         switch(op){
             case 'equals':
@@ -93,12 +94,15 @@ function checkSwitches(self: AP){
         }
         if(req){
             if(!value){
+                //console.log({lhs, rhs, value, req});
                 self.switchesSatisfied = false;
                 return;
             }
         }else{
             if(value) foundOne = true;
         }
+        //console.log({lhs, rhs, value, foundOne});
     }
+    
     self.switchesSatisfied = foundOne;
 }

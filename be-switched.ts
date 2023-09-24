@@ -22,6 +22,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
 
     calcVal(self: this): PAP {
         const {lhs, rhs, checkIfNonEmptyArray, beBoolish, On, switchesSatisfied} = self;
+        //console.log({switchesSatisfied});
         if(On !== undefined){
             return {
                 val: switchesSatisfied,
@@ -169,6 +170,7 @@ const upgrade = '*';
 const xe = new XE<AP, Actions>({
     config: {
         tagName,
+        isEnh: true,
         propDefaults: {
             ...propDefaults,
             val: false,

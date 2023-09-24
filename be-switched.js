@@ -15,6 +15,7 @@ export class BeSwitched extends BE {
     }
     calcVal(self) {
         const { lhs, rhs, checkIfNonEmptyArray, beBoolish, On, switchesSatisfied } = self;
+        //console.log({switchesSatisfied});
         if (On !== undefined) {
             return {
                 val: switchesSatisfied,
@@ -157,6 +158,7 @@ const upgrade = '*';
 const xe = new XE({
     config: {
         tagName,
+        isEnh: true,
         propDefaults: {
             ...propDefaults,
             val: false,

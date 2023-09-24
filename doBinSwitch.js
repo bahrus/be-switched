@@ -75,6 +75,7 @@ function checkSwitches(self) {
         }
         if (req) {
             if (!value) {
+                //console.log({value, foundOne, req});
                 self.switchesSatisfied = false;
                 return;
             }
@@ -83,6 +84,7 @@ function checkSwitches(self) {
             if (value)
                 foundOne = true;
         }
+        //console.log({value, foundOne, req});
     }
     self.switchesSatisfied = foundOne;
 }

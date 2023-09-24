@@ -78,12 +78,14 @@ function checkSwitches(self: AP){
         }
         if(req){
             if(!value){
+                //console.log({value, foundOne, req});
                 self.switchesSatisfied = false;
                 return;
             }
         }else{
             if(value) foundOne = true;
         }
+        //console.log({value, foundOne, req});
     }
     self.switchesSatisfied = foundOne;
 }
