@@ -6,6 +6,8 @@ import {register} from 'be-hive/register.js';
 import { IEchoTo } from '../xtal-element/types';
 
 export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
+    //TODO:  cache parsing, but make sure to do structural clone of parsed objects because
+    //we are adding dynamic weakrefs to it.
     static  override get beConfig(){
         return {
             parse: true,

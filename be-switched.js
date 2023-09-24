@@ -2,6 +2,8 @@ import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
 import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
 export class BeSwitched extends BE {
+    //TODO:  cache parsing, but make sure to do structural clone of parsed objects because
+    //we are adding dynamic weakrefs to it.
     static get beConfig() {
         return {
             parse: true,
