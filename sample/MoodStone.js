@@ -5,7 +5,7 @@ export class MoodStone extends HTMLElement {
     }
     set isHappy(nv) {
         this.#isHappy = nv;
-        this.shadowRoot.innerHTML = nv.toString();
+        this.shadowRoot.querySelector('#target').innerHTML = nv.toString();
     }
     constructor() {
         super();
@@ -13,6 +13,7 @@ export class MoodStone extends HTMLElement {
     }
     connectedCallback() {
         this.shadowRoot.innerHTML = String.raw `
+            <div id=target></div>
             <template be-switched='On when / is happy.'>
                 <my-content></my-content>
             </template>
