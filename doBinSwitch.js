@@ -41,11 +41,11 @@ export async function doBinSwitch(self) {
                 if (!host)
                     throw 404;
                 const bePropagating = await host.beEnhanced.whenResolved('be-propagating');
-                const et = bePropagating.propagators.get('self');
-                et.addEventListener(prop, e => {
+                const signal = await bePropagating.getSignal(prop);
+                signal.addEventListener('value-changed', e => {
                     checkSwitches(self);
                 });
-                onSwitch.signal = new WeakRef(bePropagating);
+                onSwitch.signal = new WeakRef(signal);
             }
         }
     }

@@ -3,7 +3,7 @@ import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
 import('be-value-added/be-value-added.js');
 import('be-propagating/be-propagating.js');
 import {BVAAllProps} from 'be-value-added/types';
-import {AP as BPAP} from 'be-propagating/types';
+import {Actions as BPActions} from 'be-propagating/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function doBinSwitch(self: AP){
@@ -41,12 +41,12 @@ export async function doBinSwitch(self: AP){
             case '/':{
                 const host = await findRealm(enhancedElement, 'hostish');
                 if(!host) throw 404;
-                const bePropagating = await (<any>host).beEnhanced.whenResolved('be-propagating') as BPAP;
-                const et = bePropagating.propagators.get('self')!;
-                et.addEventListener(prop!, e => {
+                const bePropagating = await (<any>host).beEnhanced.whenResolved('be-propagating') as BPActions;
+                const signal = await bePropagating.getSignal(prop!);
+                signal.addEventListener('value-changed', e => {
                     checkSwitches(self);
                 });
-                onSwitch.signal = new WeakRef(bePropagating);
+                onSwitch.signal = new WeakRef(signal);
             }
         }
         
