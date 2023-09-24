@@ -9,6 +9,7 @@ export async function doTwoValSwitch(self: AP){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
                 const itempropEl = getItemPropEl(enhancedElement, lhsProp!);
+                import('be-value-added/be-value-added.js');
                 const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
                 onSwitch.lhsSignal = new WeakRef<BVAAllProps>(beValueAdded);
                 beValueAdded.addEventListener('value-changed', e => {
@@ -38,6 +39,7 @@ export async function doTwoValSwitch(self: AP){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
                 const itempropEl = getItemPropEl(enhancedElement, rhsProp!);
+                import('be-value-added/be-value-added.js');
                 const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
                 onSwitch.rhsSignal = new WeakRef<BVAAllProps>(beValueAdded);
                 beValueAdded.addEventListener('value-changed', e => {
