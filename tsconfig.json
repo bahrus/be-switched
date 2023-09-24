@@ -8,7 +8,8 @@
 		"strict": true,
 	},
 	"files": [
-		"be-switched.ts"
+		"be-switched.ts",
+		"sample/MoodStone.ts"
 	],
 	"exclude":[
 		"node_modules"
