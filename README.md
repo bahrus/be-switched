@@ -127,7 +127,7 @@ A somewhat simpler approach that be-switched also supports is basing the instant
 
 If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
-## Boolean conditions based on peer elements or host [WIP]
+## Boolean conditions based on peer elements or host
 
 ### Example 3a
 
