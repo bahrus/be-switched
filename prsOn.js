@@ -1,19 +1,20 @@
 import { tryParse } from 'be-enhanced/cpu.js';
+const strType = String.raw `\$|\#|\@|\/`;
 const reOnTwoValSwitchStatements = [
     {
-        regExp: new RegExp(String.raw `^when(?<lhsType>\$|\#|\@)(?<lhsProp>[\w]+)(?<!\\)(?<op>Equals)(?<rhsType>\$|\#|\@)(?<rhsProp>[\w]+)`),
+        regExp: new RegExp(String.raw `^when(?<lhsType>${strType})(?<lhsProp>[\w]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w]+)`),
         defaultVals: {}
     },
 ];
 const reOnBinarySwitchStatements = [
     {
-        regExp: new RegExp(String.raw `^onlyWhen(?<type>\$|\#|\@)(?<prop>[\w]+)`),
+        regExp: new RegExp(String.raw `^onlyWhen(?<type>${strType})(?<prop>[\w]+)`),
         defaultVals: {
             req: true
         }
     },
     {
-        regExp: new RegExp(String.raw `^when(?<type>\$|\#|\@)(?<prop>[\w]+)`),
+        regExp: new RegExp(String.raw `^when(?<type>${strType})(?<prop>[\w]+)`),
         defaultVals: {}
     }
 ];

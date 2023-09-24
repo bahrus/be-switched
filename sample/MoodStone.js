@@ -11,5 +11,13 @@ export class MoodStone extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
     }
+    connectedCallback() {
+        this.shadowRoot.innerHTML = String.raw `
+            <template be-switched='On when / is happy.'>
+                <my-content></my-content>
+            </template>
+            <be-hive></be-hive>
+        `;
+    }
 }
 customElements.define('mood-stone', MoodStone);

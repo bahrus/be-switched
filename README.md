@@ -197,6 +197,7 @@ This is an "and" condition due to the presence of "only"
     <template be-switched='On when / is happy.'>
         <my-content></my-content>
     </template>
+    <be-hive></be-hive>
 </mood-stone>
 ```
 
