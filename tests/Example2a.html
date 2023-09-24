@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,11 +19,17 @@
         }
     </script>
 </head>
+
 <body>
-    <label for=lhs>LHS:</label>
-    <input id=lhs>
-    <label for=rhs>RHS:</label>
-    <input id=rhs>
+    <div>
+        <label for=lhs>LHS:</label>
+        <input id=lhs>
+    </div>
+    <div>
+        <label for=rhs>RHS:</label>
+        <input id=rhs >
+    </div>
+
     <template be-switched='On when #lhs equals #rhs.'>
         <div id=equals>LHS === RHS</div>
     </template>
@@ -31,17 +38,18 @@
     <script type=module>
         import '../be-switched.js';
     </script>
-        <script>
-            function runTest(){
-                setTimeout(() => {
-                    if(window['equals'] !== undefined){
-                        target.setAttribute('mark', 'good');
-                    }
-                }, 100);
-            }
+    <script>
+        function runTest() {
             setTimeout(() => {
-                runTest();
-            }, 2000);
-        </script>
+                if (window['equals'] !== undefined) {
+                    target.setAttribute('mark', 'good');
+                }
+            }, 100);
+        }
+        setTimeout(() => {
+            runTest();
+        }, 2000);
+    </script>
 </body>
+
 </html>

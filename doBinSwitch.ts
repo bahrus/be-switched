@@ -59,6 +59,7 @@ export async function doBinSwitch(self: AP){
 
 function checkSwitches(self: AP){
     const {onBinarySwitches} = self;
+    if(onBinarySwitches?.length === 0) return;
     let foundOne = false;
     for(const onSwitch of onBinarySwitches!){
         const {req} = onSwitch;
@@ -87,5 +88,6 @@ function checkSwitches(self: AP){
         }
         //console.log({value, foundOne, req});
     }
+    //console.log({foundOne, onBinarySwitches});
     self.switchesSatisfied = foundOne;
 }

@@ -70,6 +70,8 @@ export async function doTwoValSwitch(self) {
 }
 function checkSwitches(self) {
     const { onTwoValueSwitches } = self;
+    if (onTwoValueSwitches?.length === 0)
+        return;
     let foundOne = false;
     for (const onSwitch of onTwoValueSwitches) {
         const { req, lhsSignal, rhsSignal, op } = onSwitch;
