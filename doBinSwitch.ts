@@ -82,6 +82,8 @@ function checkSwitches(self: AP){
                 //console.log({value, foundOne, req});
                 self.switchesSatisfied = false;
                 return;
+            }else{
+                foundOne = true;
             }
         }else{
             if(value) foundOne = true;

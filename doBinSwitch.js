@@ -81,6 +81,9 @@ function checkSwitches(self) {
                 self.switchesSatisfied = false;
                 return;
             }
+            else {
+                foundOne = true;
+            }
         }
         else {
             if (value)
