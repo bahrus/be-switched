@@ -1,7 +1,5 @@
 //import { BeValueAdded } from 'be-value-added/be-value-added.js';
 import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
-import('be-value-added/be-value-added.js');
-import('be-propagating/be-propagating.js');
 import {BVAAllProps} from 'be-value-added/types';
 import {Actions as BPActions} from 'be-propagating/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
@@ -14,6 +12,7 @@ export async function doBinSwitch(self: AP){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
                 const itempropEl = getItemPropEl(enhancedElement, prop!);
+                import('be-value-added/be-value-added.js');
                 const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
                 onSwitch.signal = new WeakRef<BVAAllProps>(beValueAdded);
                 beValueAdded.addEventListener('value-changed', e => {
@@ -41,6 +40,7 @@ export async function doBinSwitch(self: AP){
             case '/':{
                 const host = await findRealm(enhancedElement, 'hostish');
                 if(!host) throw 404;
+                import('be-propagating/be-propagating.js');
                 const bePropagating = await (<any>host).beEnhanced.whenResolved('be-propagating') as BPActions;
                 const signal = await bePropagating.getSignal(prop!);
                 signal.addEventListener('value-changed', e => {

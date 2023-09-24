@@ -1,5 +1,3 @@
-import('be-value-added/be-value-added.js');
-import('be-propagating/be-propagating.js');
 import { findRealm } from 'trans-render/lib/findRealm.js';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function doBinSwitch(self) {
@@ -10,6 +8,7 @@ export async function doBinSwitch(self) {
             case '$':
                 const { getItemPropEl } = await import('./getItempropEl.js');
                 const itempropEl = getItemPropEl(enhancedElement, prop);
+                import('be-value-added/be-value-added.js');
                 const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
                 onSwitch.signal = new WeakRef(beValueAdded);
                 beValueAdded.addEventListener('value-changed', e => {
@@ -40,6 +39,7 @@ export async function doBinSwitch(self) {
                 const host = await findRealm(enhancedElement, 'hostish');
                 if (!host)
                     throw 404;
+                import('be-propagating/be-propagating.js');
                 const bePropagating = await host.beEnhanced.whenResolved('be-propagating');
                 const signal = await bePropagating.getSignal(prop);
                 signal.addEventListener('value-changed', e => {
