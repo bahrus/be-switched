@@ -1,4 +1,5 @@
 import('be-value-added/be-value-added.js');
+import('be-propagating/be-propagating.js');
 import { findRealm } from 'trans-render/lib/findRealm.js';
 //almost identical to be-itemized/#addMicrodataElement -- share?
 export async function doBinSwitch(self) {
@@ -34,6 +35,17 @@ export async function doBinSwitch(self) {
                     checkSwitches(self);
                 });
                 break;
+            }
+            case '/': {
+                const host = await findRealm(enhancedElement, 'hostish');
+                if (!host)
+                    throw 404;
+                const bePropagating = await host.beEnhanced.whenResolved('be-propagating');
+                const et = bePropagating.propagators.get('self');
+                et.addEventListener(prop, e => {
+                    checkSwitches(self);
+                });
+                onSwitch.signal = new WeakRef(bePropagating);
             }
         }
     }

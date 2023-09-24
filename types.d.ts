@@ -1,6 +1,7 @@
 import { ActionOnEventConfigs } from "trans-render/froop/types";
 import {IBE} from 'be-enhanced/types';
 import {BVAAllProps} from 'be-value-added/types';
+import {AP as BPAP} from 'be-propagating/types';
 
 export interface EndUserProps extends IBE<HTMLTemplateElement>{
     lhs?: any,
@@ -36,13 +37,15 @@ export interface AllProps extends EndUserProps{
 
 export type SwitchStatement = string;
 
-export type Types = '$' | '#' | '@';
+export type Types = '$' | '#' | '@' | '/';
+
+export type SignalRefType = BVAAllProps | BPAP | HTMLInputElement;
 
 export interface OnBinaryValueSwitch{
     prop?: string,
     type?: Types,
     req?: boolean,
-    signal?: WeakRef<BVAAllProps> | WeakRef<HTMLInputElement>,
+    signal?: WeakRef<SignalRefType>,
 }
 
 export interface OnTwoValueSwitch{
@@ -52,8 +55,8 @@ export interface OnTwoValueSwitch{
     rhsType?: Types,
     req?: boolean,
     op?: 'equals'
-    lhsSignal?: WeakRef<BVAAllProps> | WeakRef<HTMLInputElement>,
-    rhsSignal?: WeakRef<BVAAllProps> | WeakRef<HTMLInputElement>,
+    lhsSignal?: WeakRef<SignalRefType>,
+    rhsSignal?: WeakRef<SignalRefType>,
 }
 
 export type AP = AllProps;
