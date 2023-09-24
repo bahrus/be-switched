@@ -1,4 +1,4 @@
-# be-switched [TODO]
+# be-switched [WIP]
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
