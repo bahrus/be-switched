@@ -112,12 +112,12 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 ```html
 <div itemscope>
 
-    <span itemprop=lhs contenteditable>
+    <span itemprop=lhs contenteditable></span>
     
-    <span itemprop=rhs contenteditable>
+    <span itemprop=rhs contenteditable></span>
     
     
-    <template be-switched='On when $ lhs equals $ rhs.'>
+    <template be-switched='On when $lhs equals $rhs.'>
         <div>LHS === RHS</div>
     </template>
 </form>
