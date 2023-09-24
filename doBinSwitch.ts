@@ -11,7 +11,7 @@ export async function doBinSwitch(self: AP){
         switch(type){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
-                const itempropEl = getItemPropEl(enhancedElement, prop!);
+                const itempropEl = await getItemPropEl(enhancedElement, prop!);
                 import('be-value-added/be-value-added.js');
                 const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
                 onSwitch.signal = new WeakRef<BVAAllProps>(beValueAdded);
