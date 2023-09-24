@@ -189,12 +189,26 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 
 This is an "and" condition due to the presence of "only"
 
-### Example 4a [TODO]
+### Example 4a
+
+"/" refers to the host.
 
 ```html
 <mood-stone>
     #shadow
     <template be-switched='On when / is happy.'>
+        <my-content></my-content>
+    </template>
+    <be-hive></be-hive>
+</mood-stone>
+```
+
+This also works:
+
+```html
+<mood-stone>
+    #shadow
+    <template be-switched='On when /isHappy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
