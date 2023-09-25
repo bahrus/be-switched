@@ -5,14 +5,14 @@ import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
 import {register} from 'be-hive/register.js';
 import { IEchoTo } from '../xtal-element/types';
 
+const cache = new Map<string, {}>();
+const prsOnCache = new Map<string, {}>();
 export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
-    //TODO:  cache parsing, but make sure to do structural clone of parsed objects because
-    //we are adding dynamic weakrefs to it.
     static  override get beConfig(){
         return {
             parse: true,
             //primaryProp: 'camelConfig',
-            //cache,
+            cache,
             //primaryPropReq: true,
             parseAndCamelize: true,
             camelizeOptions:{
@@ -128,8 +128,15 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     async onOn(self: this): ProPAP {
-        const {prsOn} = await import('./prsOn.js');
-        return await prsOn(self);
+        const {parsedFrom} = self;
+        //console.log({parsedFrom});
+        let parsed = prsOnCache.get(parsedFrom);
+        if(parsed === undefined){
+            const {prsOn} = await import('./prsOn.js');
+            parsed = await prsOn(self);
+            prsOnCache.set(parsedFrom, parsed); 
+        }
+        return structuredClone(parsed);
     }
 
     async onOnBinarySwitches(self: this): Promise<void> {

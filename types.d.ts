@@ -37,6 +37,7 @@ export interface AllProps extends EndUserProps{
 
 export type SwitchStatement = string;
 
+//duplicated by be-for.  Share from trans-render?
 export type Types = '$' | '#' | '@' | '/';
 
 export type SignalRefType = BVAAllProps | ISignal | HTMLElement;

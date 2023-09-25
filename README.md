@@ -136,7 +136,7 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched='On when $ is happy.'>
+    <template be-switched='On when $ is happy. //or $isHappy.' >
         <my-content></my-content>
     </template>
 </div>

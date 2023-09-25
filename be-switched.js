@@ -1,14 +1,14 @@
 import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
 import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
+const cache = new Map();
+const prsOnCache = new Map();
 export class BeSwitched extends BE {
-    //TODO:  cache parsing, but make sure to do structural clone of parsed objects because
-    //we are adding dynamic weakrefs to it.
     static get beConfig() {
         return {
             parse: true,
             //primaryProp: 'camelConfig',
-            //cache,
+            cache,
             //primaryPropReq: true,
             parseAndCamelize: true,
             camelizeOptions: {},
@@ -124,8 +124,15 @@ export class BeSwitched extends BE {
         return { matchesMediaQuery: e.matches };
     }
     async onOn(self) {
-        const { prsOn } = await import('./prsOn.js');
-        return await prsOn(self);
+        const { parsedFrom } = self;
+        //console.log({parsedFrom});
+        let parsed = prsOnCache.get(parsedFrom);
+        if (parsed === undefined) {
+            const { prsOn } = await import('./prsOn.js');
+            parsed = await prsOn(self);
+            prsOnCache.set(parsedFrom, parsed);
+        }
+        return structuredClone(parsed);
     }
     async onOnBinarySwitches(self) {
         const { doBinSwitch } = await import('./doBinSwitch.js');
