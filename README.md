@@ -107,7 +107,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 </form>
 ```
 
-### Example 2c [TODO]
+### Example 2c
 
 ```html
 <div itemscope>
