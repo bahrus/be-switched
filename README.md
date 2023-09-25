@@ -1,4 +1,4 @@
-# be-switched [WIP]
+# be-switched
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -215,6 +215,44 @@ This also works:
 </mood-stone>
 ```
 
+## Viewing Your Element Locally
+
+Any web server that can serve static files will do, but...
+
+1.  Install git.
+2.  Fork/clone this repo.
+3.  Install node.h
+4.  Open command window to folder where you cloned this repo.
+5.  > npm install
+6.  > npm run serve
+7.  Open http://localhost:3030/demo/ in a modern browser.
+
+## Running Tests
+
+```
+> npm run test
+```
+
+## Using from ESM Module:
+
+```JavaScript
+import 'be-searching/be-switched.js';
+```
+
+## Using from CDN:
+
+```html
+<script type=module crossorigin=anonymous>
+    import 'https://esm.run/be-switched';
+</script>
+```
+
+
+
+P.S.
+
+These are scenarios that may be supported in the future.  For now, these can be achieved with the help of [be-linked](https://github.com/bahrus/be-linked)
+
 ## Example 5 [TODO]
 
 ```html
@@ -311,36 +349,4 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
 ## Lazy Loading / Hibernating [Untested]
 
 be-switched can "go to sleep" when the template it adorns goes out of view, if the template is also decorated by [be-oosoom](https://github.com/be-oosoom).  *be-switched* provides an option to toggle the inert property when the conditions become false, in lieu of deleting the content.
-
-## Viewing Your Element Locally
-
-Any web server that can serve static files will do, but...
-
-1.  Install git.
-2.  Fork/clone this repo.
-3.  Install node.h
-4.  Open command window to folder where you cloned this repo.
-5.  > npm install
-6.  > npm run serve
-7.  Open http://localhost:3030/demo/ in a modern browser.
-
-## Running Tests
-
-```
-> npm run test
-```
-
-## Using from ESM Module:
-
-```JavaScript
-import 'be-searching/be-switched.js';
-```
-
-## Using from CDN:
-
-```html
-<script type=module crossorigin=anonymous>
-    import 'https://esm.run/be-switched';
-</script>
-```
 
