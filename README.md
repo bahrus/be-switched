@@ -74,7 +74,7 @@ Frameworks fail us, yet again!
 
 For that reason, among others, an alternative way of "pulling in" values to compare is provided via:
 
-## Hemingway Notation [WIP]
+## Hemingway Notation
 
 ### Example 2a
 
