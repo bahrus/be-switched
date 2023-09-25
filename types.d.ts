@@ -39,7 +39,7 @@ export type SwitchStatement = string;
 
 export type Types = '$' | '#' | '@' | '/';
 
-export type SignalRefType = BVAAllProps | ISignal | HTMLInputElement;
+export type SignalRefType = BVAAllProps | ISignal | HTMLElement;
 
 export interface OnBinaryValueSwitch{
     prop?: string,

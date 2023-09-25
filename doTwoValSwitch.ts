@@ -1,6 +1,7 @@
 import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
+import {getValue} from './getValue.js';
 export async function doTwoValSwitch(self: AP){
     const {enhancedElement, onTwoValueSwitches} = self;
     for(const onSwitch of onTwoValueSwitches!){
@@ -8,13 +9,20 @@ export async function doTwoValSwitch(self: AP){
         switch(lhsType){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
-                const itempropEl = getItemPropEl(enhancedElement, lhsProp!);
-                import('be-value-added/be-value-added.js');
-                const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
-                onSwitch.lhsSignal = new WeakRef<BVAAllProps>(beValueAdded);
-                beValueAdded.addEventListener('value-changed', e => {
-                    checkSwitches(self);
-                })
+                const itempropEl = await getItemPropEl(enhancedElement, lhsProp!);
+                if(itempropEl.contentEditable){
+                    onSwitch.lhsSignal = new WeakRef(itempropEl);
+                    itempropEl.addEventListener('input', e => {
+                        checkSwitches(self);
+                    });
+                }else{
+                    import('be-value-added/be-value-added.js');
+                    const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
+                    onSwitch.lhsSignal = new WeakRef<BVAAllProps>(beValueAdded);
+                    beValueAdded.addEventListener('value-changed', e => {
+                        checkSwitches(self);
+                    });
+                }
                 break;
             case '@':{
                 const inputEl = await findRealm(enhancedElement, ['wf', lhsProp!]) as HTMLInputElement;
@@ -38,13 +46,20 @@ export async function doTwoValSwitch(self: AP){
         switch(rhsType){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
-                const itempropEl = getItemPropEl(enhancedElement, rhsProp!);
-                import('be-value-added/be-value-added.js');
-                const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
-                onSwitch.rhsSignal = new WeakRef<BVAAllProps>(beValueAdded);
-                beValueAdded.addEventListener('value-changed', e => {
-                    checkSwitches(self);
-                })
+                const itempropEl = await getItemPropEl(enhancedElement, rhsProp!);
+                if(itempropEl.contentEditable){
+                    onSwitch.rhsSignal = new WeakRef(itempropEl);
+                    itempropEl.addEventListener('input', e => {
+                        checkSwitches(self);
+                    });
+                }else{
+                    import('be-value-added/be-value-added.js');
+                    const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
+                    onSwitch.rhsSignal = new WeakRef<BVAAllProps>(beValueAdded);
+                    beValueAdded.addEventListener('value-changed', e => {
+                        checkSwitches(self);
+                    });
+                }
                 break;
             case '@':{
                 const inputEl = await findRealm(enhancedElement, ['wf', rhsProp!]) as HTMLInputElement;
@@ -86,8 +101,8 @@ function checkSwitches(self: AP){
             console.warn({onSwitch, msg: "Out of scope"});
             continue;
         } 
-        const lhs = lhsRef.value;
-        const rhs = rhsRef.value;
+        const lhs = getValue(lhsRef);
+        const rhs = getValue(rhsRef);
         
         let value = false;
         switch(op){

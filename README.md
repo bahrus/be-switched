@@ -120,7 +120,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
     <template be-switched='On when $lhs equals $rhs.'>
         <div>LHS === RHS</div>
     </template>
-</form>
+</div>
 ```
 
 A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements  that can contain values -- form elements or microdata elements, as well as properties of the host.

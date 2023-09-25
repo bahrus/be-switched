@@ -1,6 +1,7 @@
 import {findRealm} from 'trans-render/lib/findRealm.js';
+
 export async function getItemPropEl(enhancedElement: Element, prop: string){
-    let itempropEl= await findRealm(enhancedElement, ['wis', prop])  as HTMLLinkElement;
+    let itempropEl= await findRealm(enhancedElement, ['wis', prop])  as HTMLElement;
     if(itempropEl === null){
         itempropEl = document.createElement('link');
         itempropEl.setAttribute('itemprop', prop!);
@@ -10,3 +11,5 @@ export async function getItemPropEl(enhancedElement: Element, prop: string){
     }
     return itempropEl;
 }
+
+

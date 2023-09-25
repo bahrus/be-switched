@@ -1,4 +1,5 @@
 import { findRealm } from 'trans-render/lib/findRealm.js';
+import { getValue } from './getValue.js';
 export async function doTwoValSwitch(self) {
     const { enhancedElement, onTwoValueSwitches } = self;
     for (const onSwitch of onTwoValueSwitches) {
@@ -6,13 +7,21 @@ export async function doTwoValSwitch(self) {
         switch (lhsType) {
             case '$':
                 const { getItemPropEl } = await import('./getItempropEl.js');
-                const itempropEl = getItemPropEl(enhancedElement, lhsProp);
-                import('be-value-added/be-value-added.js');
-                const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
-                onSwitch.lhsSignal = new WeakRef(beValueAdded);
-                beValueAdded.addEventListener('value-changed', e => {
-                    checkSwitches(self);
-                });
+                const itempropEl = await getItemPropEl(enhancedElement, lhsProp);
+                if (itempropEl.contentEditable) {
+                    onSwitch.lhsSignal = new WeakRef(itempropEl);
+                    itempropEl.addEventListener('input', e => {
+                        checkSwitches(self);
+                    });
+                }
+                else {
+                    import('be-value-added/be-value-added.js');
+                    const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
+                    onSwitch.lhsSignal = new WeakRef(beValueAdded);
+                    beValueAdded.addEventListener('value-changed', e => {
+                        checkSwitches(self);
+                    });
+                }
                 break;
             case '@': {
                 const inputEl = await findRealm(enhancedElement, ['wf', lhsProp]);
@@ -38,13 +47,21 @@ export async function doTwoValSwitch(self) {
         switch (rhsType) {
             case '$':
                 const { getItemPropEl } = await import('./getItempropEl.js');
-                const itempropEl = getItemPropEl(enhancedElement, rhsProp);
-                import('be-value-added/be-value-added.js');
-                const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
-                onSwitch.rhsSignal = new WeakRef(beValueAdded);
-                beValueAdded.addEventListener('value-changed', e => {
-                    checkSwitches(self);
-                });
+                const itempropEl = await getItemPropEl(enhancedElement, rhsProp);
+                if (itempropEl.contentEditable) {
+                    onSwitch.rhsSignal = new WeakRef(itempropEl);
+                    itempropEl.addEventListener('input', e => {
+                        checkSwitches(self);
+                    });
+                }
+                else {
+                    import('be-value-added/be-value-added.js');
+                    const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
+                    onSwitch.rhsSignal = new WeakRef(beValueAdded);
+                    beValueAdded.addEventListener('value-changed', e => {
+                        checkSwitches(self);
+                    });
+                }
                 break;
             case '@': {
                 const inputEl = await findRealm(enhancedElement, ['wf', rhsProp]);
@@ -89,8 +106,8 @@ function checkSwitches(self) {
             console.warn({ onSwitch, msg: "Out of scope" });
             continue;
         }
-        const lhs = lhsRef.value;
-        const rhs = rhsRef.value;
+        const lhs = getValue(lhsRef);
+        const rhs = getValue(rhsRef);
         let value = false;
         switch (op) {
             case 'equals':
