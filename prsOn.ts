@@ -35,7 +35,7 @@ export async function prsOn(self: AP) : ProPAP{
             continue;
         }
         const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements) as OnBinaryValueSwitch;
-        if(binarySwitchTest === null) throw 'PE'//Parse Error
+        if(binarySwitchTest === null) throw 'PE';//Parse Error
         onBinarySwitches.push(binarySwitchTest);
     }
     return {
