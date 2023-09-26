@@ -1,3 +1,4 @@
+//shared with be-for
 export function getValue(obj) {
     if (obj instanceof HTMLElement) {
         if ('value' in obj) {

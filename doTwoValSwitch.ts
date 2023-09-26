@@ -10,7 +10,7 @@ export async function doTwoValSwitch(self: AP){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
                 const itempropEl = await getItemPropEl(enhancedElement, lhsProp!);
-                if(itempropEl.contentEditable){
+                if(itempropEl.hasAttribute('contenteditable')){
                     onSwitch.lhsSignal = new WeakRef(itempropEl);
                     itempropEl.addEventListener('input', e => {
                         checkSwitches(self);
@@ -47,7 +47,7 @@ export async function doTwoValSwitch(self: AP){
             case '$':
                 const {getItemPropEl} = await import('./getItempropEl.js');
                 const itempropEl = await getItemPropEl(enhancedElement, rhsProp!);
-                if(itempropEl.contentEditable){
+                if(itempropEl.hasAttribute('contenteditable')){
                     onSwitch.rhsSignal = new WeakRef(itempropEl);
                     itempropEl.addEventListener('input', e => {
                         checkSwitches(self);
