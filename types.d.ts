@@ -2,6 +2,7 @@ import { ActionOnEventConfigs } from "trans-render/froop/types";
 import {IBE} from 'be-enhanced/types';
 import {BVAAllProps} from 'be-value-added/types';
 import {AP as BPAP, ISignal, Actions as BPActions} from 'be-propagating/types';
+import {ElTypes, SignalRefType} from 'be-linked/types';
 
 export interface EndUserProps extends IBE<HTMLTemplateElement>{
     lhs?: any,
@@ -37,14 +38,10 @@ export interface AllProps extends EndUserProps{
 
 export type SwitchStatement = string;
 
-//duplicated by be-for.  Share from trans-render?
-export type Types = '$' | '#' | '@' | '/';
-
-export type SignalRefType = BVAAllProps | ISignal | HTMLElement;
 
 export interface OnBinaryValueSwitch{
     prop?: string,
-    type?: Types,
+    type?: ElTypes,
     req?: boolean,
     signal?: WeakRef<SignalRefType>,
 }
@@ -52,8 +49,8 @@ export interface OnBinaryValueSwitch{
 export interface OnTwoValueSwitch{
     lhsProp?: string,
     rhsProp?: string,
-    lhsType?: Types,
-    rhsType?: Types,
+    lhsType?: ElTypes,
+    rhsType?: ElTypes,
     req?: boolean,
     op?: 'equals'
     lhsSignal?: WeakRef<SignalRefType>,
