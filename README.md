@@ -221,7 +221,7 @@ Any web server that can serve static files will do, but...
 
 1.  Install git.
 2.  Fork/clone this repo.
-3.  Install node.h
+3.  Install node.js
 4.  Open command window to folder where you cloned this repo.
 5.  > npm install
 6.  > npm run serve
