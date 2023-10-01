@@ -129,7 +129,6 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
 
     async onOn(self: this): ProPAP {
         const {parsedFrom} = self;
-        //console.log({parsedFrom});
         let parsed = prsOnCache.get(parsedFrom);
         if(parsed === undefined){
             const {prsOn} = await import('./prsOn.js');
