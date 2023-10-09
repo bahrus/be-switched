@@ -16,9 +16,9 @@ export class BeSwitched extends BE {
         };
     }
     calcVal(self) {
-        const { lhs, rhs, checkIfNonEmptyArray, beBoolish, On, switchesSatisfied } = self;
+        const { lhs, rhs, checkIfNonEmptyArray, beBoolish, On, switchesSatisfied, on } = self;
         //console.log({switchesSatisfied});
-        if (On !== undefined) {
+        if (On !== undefined || on !== undefined) {
             return {
                 val: switchesSatisfied,
                 resolved: true,
