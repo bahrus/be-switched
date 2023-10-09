@@ -106,7 +106,7 @@ In the examples below, we will encounter special symbols used in order to keep t
 </template>
 ```
 
-### Example 2b [WIP]
+### Example 2b
 
 ```html
 <form>
