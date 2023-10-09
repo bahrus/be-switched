@@ -94,7 +94,7 @@ In the examples below, we will encounter special symbols used in order to keep t
 1.  First, do a "closest" for an element with attribute itemscope, where the tag name has a dash in it.  Do that search recursively.  
 2.  If no match found, use getRootNode().host.
 
-### Example 2a [WIP]
+### Example 2a
 
 ```html
 <label for=lhs>LHS:</label>
