@@ -147,7 +147,7 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 
 ## Boolean conditions based on peer elements or host
 
-### Example 3a [WIP]
+### Example 3a 
 
 ```html
 <div itemscope>
