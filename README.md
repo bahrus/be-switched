@@ -125,7 +125,7 @@ In the examples below, we will encounter special symbols used in order to keep t
 </form>
 ```
 
-### Example 2c [WIP]
+### Example 2c
 
 ```html
 <div itemscope>
