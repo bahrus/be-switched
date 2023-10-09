@@ -1,4 +1,4 @@
-# be-switched [WIP]
+# be-switched
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -207,7 +207,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 
 This is an "and" condition due to the presence of "only"
 
-### Example 4a [WIP]
+### Example 4a
 
 "/" refers to the host.
 
@@ -224,7 +224,7 @@ This is an "and" condition due to the presence of "only"
 
 This also works: 
 
-### Example 4b[WIP]
+### Example 4b
 
 ```html
 <mood-stone>
@@ -238,7 +238,7 @@ This also works:
 
 / is considered the "default" symbol, so it actually doesn't need to be specified:
 
-### Example 4c[WIP]
+### Example 4c
 
 ```html
 <mood-stone>

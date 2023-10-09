@@ -21,7 +21,13 @@ const reOnBinarySwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
     {
         regExp: new RegExp(String.raw `^when(?<type>${strType})(?<prop>[\w]+)`),
         defaultVals:{}
-    }
+    },
+    {
+        regExp: new RegExp(String.raw `^when(?<prop>[\w]+)`),
+        defaultVals:{
+            type: '/'
+        }
+    },
 ];
 
 export async function prsOn(self: AP) : ProPAP{
