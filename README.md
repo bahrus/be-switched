@@ -192,7 +192,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 </form>
 ```
 
-### Example 3d [WIP]
+### Example 3d
 
 ```html
 <form>

@@ -14,7 +14,7 @@ export class MoodStone extends HTMLElement {
     connectedCallback() {
         this.shadowRoot.innerHTML = String.raw `
             <div id=target2></div>
-            <template be-switched='On when /isHappy.'>
+            <template be-switched='on when /isHappy.'>
                 <my-content></my-content>
             </template>
             <be-hive></be-hive>
