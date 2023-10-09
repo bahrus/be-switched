@@ -1,4 +1,4 @@
-# be-switched
+# be-switched [WIP]
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -62,7 +62,7 @@ The first line can be avoided if we already know be-enhanced has been registered
 
 Another way to pass in the value reliably is thusly:
 
-```
+```JavaScript
 if(oTemplate.beEnhanced === undefined) oTemplate.beEnhanced = {};
 if(oTemplate.beEnhanced.beSwitched === undefined) oTemplate.beEnhanced.beSwitched = {};
 oTemplate.beEnhanced.beSwitched.rhs = 37;
@@ -76,19 +76,37 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 
 ## Hemingway Notation
 
-### Example 2a
+## Special Symbols
+
+In the examples below, we will encounter special symbols used in order to keep the statements small:
+
+| Symbol      | Meaning              | Notes                                                                                |
+|-------------|----------------------|--------------------------------------------------------------------------------------|
+| /propName   |"Hostish"             | Attaches listeners to getters/setters.                                               |
+| @propName   |Name attribute        | Listens for input events.                                                            |
+| $propName   |Itemprop attribute    | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
+| #propName   |Id attribute          | Listens for input events.                                                            |
+| -prop-name  |Marker indicates prop | Attaches listeners to getters/setters.                                               |
+
+
+"Hostish" means:
+
+1.  First, do a "closest" for an element with attribute itemscope, where the tag name has a dash in it.  Do that search recursively.  
+2.  If no match found, use getRootNode().host.
+
+### Example 2a [WIP]
 
 ```html
 <label for=lhs>LHS:</label>
 <input id=lhs>
 <label for=rhs>RHS:</label>
 <input id=rhs>
-<template be-switched='On when #lhs equals #rhs.'>
+<template be-switched='on when #lhs equals #rhs.'>
     <div>LHS === RHS</div>
 </template>
 ```
 
-### Example 2b
+### Example 2b [WIP]
 
 ```html
 <form>
@@ -101,13 +119,13 @@ For that reason, among others, an alternative way of "pulling in" values to comp
         <input name=rhs>
     </label>
     
-    <template be-switched='On when @lhs equals @rhs.'>
+    <template be-switched='on when @lhs equals @rhs.'>
         <div>LHS === RHS</div>
     </template>
 </form>
 ```
 
-### Example 2c
+### Example 2c [WIP]
 
 ```html
 <div itemscope>
@@ -117,7 +135,7 @@ For that reason, among others, an alternative way of "pulling in" values to comp
     <span itemprop=rhs contenteditable></span>
     
     
-    <template be-switched='On when $lhs equals $rhs.'>
+    <template be-switched='on when $lhs equals $rhs.'>
         <div>LHS === RHS</div>
     </template>
 </div>
@@ -129,20 +147,20 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 
 ## Boolean conditions based on peer elements or host
 
-### Example 3a
+### Example 3a [WIP]
 
 ```html
 <div itemscope>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched='On when $ is happy. //or $isHappy.' >
+    <template be-switched='on when $ is happy. //or $isHappy.' >
         <my-content></my-content>
     </template>
 </div>
 ```
 
-Can have multiple such statements -- or condition.
+Can have multiple such statements -- or condition.  Each sentence can begin with "on" or "On", whichever seems more readable.
 
 ### Example 3b
 
@@ -153,7 +171,7 @@ Can also reference form element, or [form associated custom elements](https://be
     ...
     <input name=isHappy type=checkbox>
     ...
-    <template be-switched='On when & is happy.'>
+    <template be-switched='on when & is happy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -161,27 +179,27 @@ Can also reference form element, or [form associated custom elements](https://be
 
 Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input events.
 
-### Example 3c
+### Example 3c [WIP]
 
 ```html
 <form>
     ...
     <input id=isHappy type=checkbox>
     ...
-    <template be-switched='On when # is happy.'>
+    <template be-switched='on when # is happy.'>
         <my-content></my-content>
     </template>
 </form>
 ```
 
-### Example 3d
+### Example 3d [WIP]
 
 ```html
 <form>
     ...
     <input id=isHappy>
     ...
-    <template be-switched='On only when # is happy.'>
+    <template be-switched='on only when # is happy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -189,26 +207,43 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 
 This is an "and" condition due to the presence of "only"
 
-### Example 4a
+### Example 4a [WIP]
 
 "/" refers to the host.
 
 ```html
 <mood-stone>
     #shadow
-    <template be-switched='On when / is happy.'>
+    <template be-switched='on when / is happy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
 </mood-stone>
 ```
 
-This also works:
+
+This also works: 
+
+### Example 4b[WIP]
 
 ```html
 <mood-stone>
     #shadow
-    <template be-switched='On when /isHappy.'>
+    <template be-switched='on when /isHappy.'>
+        <my-content></my-content>
+    </template>
+    <be-hive></be-hive>
+</mood-stone>
+```
+
+/ is considered the "default" symbol, so it actually doesn't need to be specified:
+
+### Example 4c[WIP]
+
+```html
+<mood-stone>
+    #shadow
+    <template be-switched='on when is happy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
