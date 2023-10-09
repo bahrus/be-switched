@@ -222,7 +222,10 @@ const xe = new XE<AP, Actions>({
             addMediaListener: {
                 ifKeyIn:  ['ifMediaMatches']
             },
-            onOn: 'On',
+            onOn: {
+                ifAllOf: ['isParsed'],
+                ifAtLeastOneOf: ['On', 'on'],
+            },
             onOnBinarySwitches: 'onBinarySwitches',
             onTwoValSwitches: 'onTwoValueSwitches',
         }

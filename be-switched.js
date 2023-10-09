@@ -125,7 +125,6 @@ export class BeSwitched extends BE {
     }
     async onOn(self) {
         const { parsedFrom } = self;
-        //console.log({parsedFrom});
         let parsed = prsOnCache.get(parsedFrom);
         if (parsed === undefined) {
             const { prsOn } = await import('./prsOn.js');
@@ -211,7 +210,10 @@ const xe = new XE({
             addMediaListener: {
                 ifKeyIn: ['ifMediaMatches']
             },
-            onOn: 'On',
+            onOn: {
+                ifAllOf: ['isParsed'],
+                ifAtLeastOneOf: ['On', 'on'],
+            },
             onOnBinarySwitches: 'onBinarySwitches',
             onTwoValSwitches: 'onTwoValueSwitches',
         }

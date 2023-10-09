@@ -19,10 +19,11 @@ const reOnBinarySwitchStatements = [
     }
 ];
 export async function prsOn(self) {
-    const { On } = self;
+    const { On, on } = self;
     const onBinarySwitches = [];
     const onTwoValueSwitches = [];
-    for (const onS of On) {
+    const onUnion = [...(On || []), ...(on || [])];
+    for (const onS of onUnion) {
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
         if (twoValSwitchTest !== null) {
             onTwoValueSwitches.push(twoValSwitchTest);

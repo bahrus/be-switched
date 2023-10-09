@@ -24,7 +24,7 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
      */
     beOosoom?: string;
     On?: Array<SwitchStatement>;
-    
+    on?: Array<SwitchStatement>;
 }
 
 export interface AllProps extends EndUserProps{
