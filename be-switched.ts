@@ -7,6 +7,7 @@ import { IEchoTo } from '../xtal-element/types';
 
 const cache = new Map<string, {}>();
 const prsOnCache = new Map<string, {}>();
+const prsOffCache = new Map<string, {}>();
 export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
     static  override get beConfig(){
         return {
@@ -138,14 +139,35 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         return structuredClone(parsed);
     }
 
+    async onOff(self: this): ProPAP {
+        const {parsedFrom} = self;
+        let parsed = prsOffCache.get(parsedFrom);
+        if(parsed === undefined){
+            const {prsOff} = await import('./prsOff.js');
+            parsed = await prsOff(self);
+            prsOffCache.set(parsedFrom, parsed); 
+        }
+        return structuredClone(parsed);
+    }
+
     async onOnBinarySwitches(self: this): Promise<void> {
         const {doBinSwitch} = await import('./doBinSwitch.js');
-        doBinSwitch(self);
+        doBinSwitch(self, 'on');
     }
 
     async onTwoValSwitches(self: this): Promise<void> {
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
-        doTwoValSwitch(self);
+        doTwoValSwitch(self, 'on');
+    }
+
+    async onOffBinarySwitches(self: this): Promise<void> {
+        const {doBinSwitch} = await import('./doBinSwitch.js');
+        doBinSwitch(self, 'off');
+    }
+
+    async offTwoValSwitches(self: this): Promise<void> {
+        const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
+        doTwoValSwitch(self, 'off');
     }
 }
 
@@ -226,8 +248,14 @@ const xe = new XE<AP, Actions>({
                 ifAllOf: ['isParsed'],
                 ifAtLeastOneOf: ['On', 'on'],
             },
+            onOff:{
+                ifAllOf: ['isParsed'],
+                ifAtLeastOneOf: ['Off', 'off'],
+            },
             onOnBinarySwitches: 'onBinarySwitches',
             onTwoValSwitches: 'onTwoValueSwitches',
+            onOffBinarySwitches: 'offBinarySwitches',
+            offTwoValSwitches: 'offTwoValueSwitches',
         }
     },
     superclass: BeSwitched

@@ -2,9 +2,10 @@ import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
 import {getSignalVal} from 'be-linked/getSignalVal.js';
-export async function doTwoValSwitch(self: AP){
-    const {enhancedElement, onTwoValueSwitches} = self;
-    for(const onSwitch of onTwoValueSwitches!){
+export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
+    const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
+    const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
+    for(const onSwitch of valueSwitches!){
         const {lhsProp, rhsProp, lhsType, rhsType} = onSwitch;
         switch(lhsType){
             case '$':

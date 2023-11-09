@@ -3,6 +3,7 @@ import {IBE} from 'be-enhanced/types';
 import {BVAAllProps} from 'be-value-added/types';
 import {AP as BPAP, ISignal, Actions as BPActions} from 'be-propagating/types';
 import {ElTypes, SignalRefType} from 'be-linked/types';
+import { Propagator } from "../trans-render/froop/PropSvc";
 
 export interface EndUserProps extends IBE<HTMLTemplateElement>{
     lhs?: any,
@@ -25,6 +26,8 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
     beOosoom?: string;
     On?: Array<SwitchStatement>;
     on?: Array<SwitchStatement>;
+    Off?: Array<SwitchStatement>;
+    off?: Array<SwitchStatement>;
 }
 
 export interface AllProps extends EndUserProps{
@@ -33,6 +36,8 @@ export interface AllProps extends EndUserProps{
     echoVal: boolean,
     onBinarySwitches?: Array<OnBinaryValueSwitch>,
     onTwoValueSwitches?: Array<OnTwoValueSwitch>,
+    offBinarySwitches?: Array<OnBinaryValueSwitch>,
+    offTwoValueSwitches?: Array<OnTwoValueSwitch>,
     isParsed?: boolean,
 }
 
@@ -44,6 +49,7 @@ export interface OnBinaryValueSwitch{
     type?: ElTypes,
     req?: boolean,
     signal?: WeakRef<SignalRefType>,
+    negate?: boolean,
 }
 
 export interface OnTwoValueSwitch{
@@ -52,9 +58,10 @@ export interface OnTwoValueSwitch{
     lhsType?: ElTypes,
     rhsType?: ElTypes,
     req?: boolean,
-    op?: 'equals'
+    op?: 'equals',
     lhsSignal?: WeakRef<SignalRefType>,
     rhsSignal?: WeakRef<SignalRefType>,
+    negate?: boolean,
 }
 
 export type AP = AllProps;
@@ -72,6 +79,9 @@ export interface Actions{
     addMediaListener(self: this): POA;
     chkMedia(self: this, e: MediaQueryListEvent): PAP;
     onOn(self: this): ProPAP;
+    onOff(self: this): ProPAP;
     onOnBinarySwitches(self: this): Promise<void>;
     onTwoValSwitches(self: this): Promise<void>;
+    onOffBinarySwitches(self: this): Promise<void>;
+    offTwoValSwitches(sef: this): Promise<void>;
 }

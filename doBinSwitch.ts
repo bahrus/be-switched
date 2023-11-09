@@ -4,9 +4,10 @@ import {BVAAllProps} from 'be-value-added/types';
 import {Actions as BPActions} from 'be-propagating/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
 //almost identical to be-itemized/#addMicrodataElement -- share?
-export async function doBinSwitch(self: AP){
-    const {enhancedElement, onBinarySwitches} = self;
-    for(const onSwitch of onBinarySwitches!){
+export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
+    const {enhancedElement, onBinarySwitches, offBinarySwitches} = self;
+    const binarySwitches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
+    for(const onSwitch of binarySwitches!){
         const {prop, type} = onSwitch;
         switch(type){
             case '$':

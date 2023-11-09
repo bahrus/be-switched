@@ -250,6 +250,10 @@ This also works:
 </mood-stone>
 ```
 
+### Example !2a - !4a
+
+All the examples above also work, but instead of "on", use "off", which of course means the negation is performed.
+
 ## Viewing Your Element Locally
 
 Any web server that can serve static files will do, but...
