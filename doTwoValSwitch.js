@@ -12,7 +12,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                 if (itempropEl.hasAttribute('contenteditable')) {
                     onSwitch.lhsSignal = new WeakRef(itempropEl);
                     itempropEl.addEventListener('input', e => {
-                        checkSwitches(self);
+                        checkSwitches(self, onOrOff);
                     });
                 }
                 else {
@@ -20,7 +20,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                     const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
                     onSwitch.lhsSignal = new WeakRef(beValueAdded);
                     beValueAdded.addEventListener('value-changed', e => {
-                        checkSwitches(self);
+                        checkSwitches(self, onOrOff);
                     });
                 }
                 break;
@@ -30,7 +30,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                     throw 404;
                 onSwitch.lhsSignal = new WeakRef(inputEl);
                 inputEl.addEventListener('input', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             }
@@ -40,7 +40,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                     throw 404;
                 onSwitch.lhsSignal = new WeakRef(inputEl);
                 inputEl.addEventListener('input', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             }
@@ -52,7 +52,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                 if (itempropEl.hasAttribute('contenteditable')) {
                     onSwitch.rhsSignal = new WeakRef(itempropEl);
                     itempropEl.addEventListener('input', e => {
-                        checkSwitches(self);
+                        checkSwitches(self, onOrOff);
                     });
                 }
                 else {
@@ -60,7 +60,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                     const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
                     onSwitch.rhsSignal = new WeakRef(beValueAdded);
                     beValueAdded.addEventListener('value-changed', e => {
-                        checkSwitches(self);
+                        checkSwitches(self, onOrOff);
                     });
                 }
                 break;
@@ -70,7 +70,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                     throw 404;
                 onSwitch.rhsSignal = new WeakRef(inputEl);
                 inputEl.addEventListener('input', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             }
@@ -80,13 +80,13 @@ export async function doTwoValSwitch(self, onOrOff) {
                     throw 404;
                 onSwitch.rhsSignal = new WeakRef(inputEl);
                 inputEl.addEventListener('input', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             }
         }
     }
-    checkSwitches(self);
+    checkSwitches(self, onOrOff);
 }
 function checkSwitches(self, onOrOff) {
     const { onTwoValueSwitches, offTwoValueSwitches } = self;
