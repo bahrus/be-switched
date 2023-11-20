@@ -17,7 +17,7 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
                 const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
                 onSwitch.signal = new WeakRef<BVAAllProps>(beValueAdded);
                 beValueAdded.addEventListener('value-changed', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 })
                 break;
             case '@':{
@@ -25,7 +25,7 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
                 if(!inputEl) throw 404;
                 onSwitch.signal = new WeakRef(inputEl);
                 inputEl.addEventListener('input', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             }
@@ -34,7 +34,7 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
                 if(!inputEl) throw 404;
                 onSwitch.signal = new WeakRef(inputEl);
                 inputEl.addEventListener('input', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             }
@@ -45,7 +45,7 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
                 const bePropagating = await (<any>host).beEnhanced.whenResolved('be-propagating') as BPActions;
                 const signal = await bePropagating.getSignal(prop!);
                 signal.addEventListener('value-changed', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 onSwitch.signal = new WeakRef(signal);
             }
@@ -54,15 +54,16 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
         
 
     }
-    checkSwitches(self);
+    checkSwitches(self, onOrOff);
 
 }
 
-function checkSwitches(self: AP){
-    const {onBinarySwitches} = self;
-    if(onBinarySwitches?.length === 0) return;
+function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
+    const {onBinarySwitches, offBinarySwitches} = self;
+    const binarySwitches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
+    if(binarySwitches?.length === 0) return;
     let foundOne = false;
-    for(const onSwitch of onBinarySwitches!){
+    for(const onSwitch of binarySwitches!){
         const {req} = onSwitch;
         if(foundOne && !req) continue;
         const ref = onSwitch.signal?.deref();

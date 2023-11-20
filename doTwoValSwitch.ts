@@ -85,11 +85,12 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     checkSwitches(self);
 }
 
-function checkSwitches(self: AP){
-    const {onTwoValueSwitches} = self;
-    if(onTwoValueSwitches?.length === 0) return;
+function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
+    const {onTwoValueSwitches, offTwoValueSwitches} = self;
+    const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
+    if(valueSwitches?.length === 0) return;
     let foundOne = false;
-    for(const onSwitch of onTwoValueSwitches!){
+    for(const onSwitch of valueSwitches!){
         const {req, lhsSignal, rhsSignal, op} = onSwitch;
         if(foundOne && !req) continue; 
         const lhsRef = lhsSignal?.deref();

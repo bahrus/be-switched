@@ -29,11 +29,11 @@
     </div>
     <div>
         <label for=rhs>RHS:</label>
-        <input id=rhs >
+        <input id=rhs>
     </div>
 
     <template be-switched='off when #lhs equals #rhs.'>
-        <div id=equals>LHS === RHS</div>
+        <div id=not_equals>LHS !== RHS</div>
     </template>
 
     <div id=target></div>
@@ -43,7 +43,7 @@
     <script>
         function runTest() {
             setTimeout(() => {
-                if (window['equals'] !== undefined) {
+                if (window['not_equals'] !== undefined) {
                     target.setAttribute('mark', 'good');
                 }
             }, 100);

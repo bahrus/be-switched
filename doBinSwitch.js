@@ -13,7 +13,7 @@ export async function doBinSwitch(self, onOrOff) {
                 const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
                 onSwitch.signal = new WeakRef(beValueAdded);
                 beValueAdded.addEventListener('value-changed', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             case '@': {
@@ -22,7 +22,7 @@ export async function doBinSwitch(self, onOrOff) {
                     throw 404;
                 onSwitch.signal = new WeakRef(inputEl);
                 inputEl.addEventListener('input', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             }
@@ -32,7 +32,7 @@ export async function doBinSwitch(self, onOrOff) {
                     throw 404;
                 onSwitch.signal = new WeakRef(inputEl);
                 inputEl.addEventListener('input', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 break;
             }
@@ -44,20 +44,21 @@ export async function doBinSwitch(self, onOrOff) {
                 const bePropagating = await host.beEnhanced.whenResolved('be-propagating');
                 const signal = await bePropagating.getSignal(prop);
                 signal.addEventListener('value-changed', e => {
-                    checkSwitches(self);
+                    checkSwitches(self, onOrOff);
                 });
                 onSwitch.signal = new WeakRef(signal);
             }
         }
     }
-    checkSwitches(self);
+    checkSwitches(self, onOrOff);
 }
-function checkSwitches(self) {
-    const { onBinarySwitches } = self;
-    if (onBinarySwitches?.length === 0)
+function checkSwitches(self, onOrOff) {
+    const { onBinarySwitches, offBinarySwitches } = self;
+    const binarySwitches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
+    if (binarySwitches?.length === 0)
         return;
     let foundOne = false;
-    for (const onSwitch of onBinarySwitches) {
+    for (const onSwitch of binarySwitches) {
         const { req } = onSwitch;
         if (foundOne && !req)
             continue;
