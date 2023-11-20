@@ -250,7 +250,7 @@ This also works:
 </mood-stone>
 ```
 
-### Example !2a - !4a [TODO]
+### Example !2a - !4a [Not Fully Tested]
 
 All the examples above also work, but instead of "on", use "off", which of course means the negation is performed.
 
