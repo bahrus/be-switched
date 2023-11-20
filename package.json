@@ -25,7 +25,7 @@
   "types": "types.d.ts",
   "dependencies": {
     "be-enhanced": "0.0.55",
-    "be-hive": "0.0.124",
+    "be-hive": "0.0.125",
     "be-linked": "0.0.66",
     "be-propagating": "0.0.28",
     "be-value-added": "0.0.15",
