@@ -95,7 +95,7 @@ function checkSwitches(self, onOrOff) {
         return;
     let foundOne = false;
     for (const onSwitch of valueSwitches) {
-        const { req, lhsSignal, rhsSignal, op } = onSwitch;
+        const { req, lhsSignal, rhsSignal, op, negate } = onSwitch;
         if (foundOne && !req)
             continue;
         const lhsRef = lhsSignal?.deref();
@@ -116,6 +116,8 @@ function checkSwitches(self, onOrOff) {
                 value = lhs === rhs;
                 break;
         }
+        if (negate)
+            value = !value;
         if (req) {
             if (!value) {
                 //console.log({lhs, rhs, value, req});
