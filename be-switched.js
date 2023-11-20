@@ -3,6 +3,7 @@ import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
 const cache = new Map();
 const prsOnCache = new Map();
+const prsOffCache = new Map();
 export class BeSwitched extends BE {
     static get beConfig() {
         return {
@@ -133,13 +134,31 @@ export class BeSwitched extends BE {
         }
         return structuredClone(parsed);
     }
+    async onOff(self) {
+        const { parsedFrom } = self;
+        let parsed = prsOffCache.get(parsedFrom);
+        if (parsed === undefined) {
+            const { prsOff } = await import('./prsOff.js');
+            parsed = await prsOff(self);
+            prsOffCache.set(parsedFrom, parsed);
+        }
+        return structuredClone(parsed);
+    }
     async onOnBinarySwitches(self) {
         const { doBinSwitch } = await import('./doBinSwitch.js');
-        doBinSwitch(self);
+        doBinSwitch(self, 'on');
     }
     async onTwoValSwitches(self) {
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
-        doTwoValSwitch(self);
+        doTwoValSwitch(self, 'on');
+    }
+    async onOffBinarySwitches(self) {
+        const { doBinSwitch } = await import('./doBinSwitch.js');
+        doBinSwitch(self, 'off');
+    }
+    async offTwoValSwitches(self) {
+        const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
+        doTwoValSwitch(self, 'off');
     }
 }
 const styleMap = new WeakSet();
@@ -214,8 +233,14 @@ const xe = new XE({
                 ifAllOf: ['isParsed'],
                 ifAtLeastOneOf: ['On', 'on'],
             },
+            onOff: {
+                ifAllOf: ['isParsed'],
+                ifAtLeastOneOf: ['Off', 'off'],
+            },
             onOnBinarySwitches: 'onBinarySwitches',
             onTwoValSwitches: 'onTwoValueSwitches',
+            onOffBinarySwitches: 'offBinarySwitches',
+            offTwoValSwitches: 'offTwoValueSwitches',
         }
     },
     superclass: BeSwitched
