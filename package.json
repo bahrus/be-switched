@@ -25,15 +25,15 @@
   "types": "types.d.ts",
   "dependencies": {
     "be-enhanced": "0.0.55",
-    "be-hive": "0.0.123",
-    "be-linked": "0.0.51",
+    "be-hive": "0.0.124",
+    "be-linked": "0.0.66",
     "be-propagating": "0.0.28",
-    "be-value-added": "0.0.7",
-    "trans-render": "0.0.706",
+    "be-value-added": "0.0.15",
+    "trans-render": "0.0.707",
     "xtal-element": "0.0.579"
   },
   "devDependencies": {
-    "@playwright/test": "1.38.1",
+    "@playwright/test": "1.40.0",
     "may-it-serve": "0.0.6"
   },
   "scripts": {

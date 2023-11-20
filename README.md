@@ -275,7 +275,7 @@ Any web server that can serve static files will do, but...
 ## Using from ESM Module:
 
 ```JavaScript
-import 'be-searching/be-switched.js';
+import 'be-switched/be-switched.js';
 ```
 
 ## Using from CDN:
