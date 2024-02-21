@@ -24,16 +24,16 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.55",
-    "be-hive": "0.0.126",
-    "be-linked": "0.0.66",
-    "be-propagating": "0.0.28",
-    "be-value-added": "0.0.15",
-    "trans-render": "0.0.707",
-    "xtal-element": "0.0.579"
+    "be-enhanced": "0.0.66",
+    "be-hive": "0.0.135",
+    "be-linked": "0.0.73",
+    "be-propagating": "0.0.32",
+    "be-value-added": "0.0.22",
+    "trans-render": "0.0.737",
+    "xtal-element": "0.0.594"
   },
   "devDependencies": {
-    "@playwright/test": "1.40.0",
+    "@playwright/test": "1.41.2",
     "may-it-serve": "0.0.6"
   },
   "scripts": {
