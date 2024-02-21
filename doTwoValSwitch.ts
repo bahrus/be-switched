@@ -8,7 +8,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     for(const onSwitch of valueSwitches!){
         const {lhsProp, rhsProp, lhsType, rhsType} = onSwitch;
         switch(lhsType){
-            case '$':
+            case '|':
                 const {getItemPropEl} = await import('./getItempropEl.js');
                 const itempropEl = await getItemPropEl(enhancedElement, lhsProp!);
                 if(itempropEl.hasAttribute('contenteditable')){
@@ -45,7 +45,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
             }            
         }
         switch(rhsType){
-            case '$':
+            case '|':
                 const {getItemPropEl} = await import('./getItempropEl.js');
                 const itempropEl = await getItemPropEl(enhancedElement, rhsProp!);
                 if(itempropEl.hasAttribute('contenteditable')){

@@ -2,7 +2,7 @@ import {AP, ProPAP, OnBinaryValueSwitch as BinaryValueSwitch, PAP, OnTwoValueSwi
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
 import {arr, tryParse} from 'be-enhanced/cpu.js';
 
-const strType = String.raw `\$|\#|\@|\/`;
+const strType = String.raw `\||\#|\@|\/`;
 
 const reOnTwoValSwitchStatements: RegExpOrRegExpExt<BinaryValueSwitch>[] = [
     {

@@ -53,6 +53,7 @@ export class BeSwitched extends BE {
             resolved: true,
         };
     }
+    //TODO:  use trans-render/lib/partition
     async onTrue(self) {
         const { enhancedElement, toggleInert: toggleDisabled, deferRendering } = self;
         const itemref = enhancedElement.getAttribute('itemref');

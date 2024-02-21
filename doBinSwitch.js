@@ -6,7 +6,7 @@ export async function doBinSwitch(self, onOrOff) {
     for (const onSwitch of binarySwitches) {
         const { prop, type } = onSwitch;
         switch (type) {
-            case '$':
+            case '|':
                 const { getItemPropEl } = await import('./getItempropEl.js');
                 const itempropEl = await getItemPropEl(enhancedElement, prop);
                 import('be-value-added/be-value-added.js');

@@ -1,4 +1,4 @@
-# be-switched
+# be-switched [WIP]
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -84,7 +84,7 @@ In the examples below, we will encounter special symbols used in order to keep t
 |-------------|----------------------|--------------------------------------------------------------------------------------|
 | /propName   |"Hostish"             | Attaches listeners to getters/setters.                                               |
 | @propName   |Name attribute        | Listens for input events.                                                            |
-| $propName   |Itemprop attribute    | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
+| |propName   |Itemprop attribute    | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
 | #propName   |Id attribute          | Listens for input events.                                                            |
 | -prop-name  |Marker indicates prop | Attaches listeners to getters/setters.                                               |
 
@@ -135,7 +135,7 @@ In the examples below, we will encounter special symbols used in order to keep t
     <span itemprop=rhs contenteditable></span>
     
     
-    <template be-switched='on when $lhs equals $rhs.'>
+    <template be-switched='on when |lhs equals |rhs.'>
         <div>LHS === RHS</div>
     </template>
 </div>
@@ -154,7 +154,7 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched='on when $ is happy. //or $isHappy.' >
+    <template be-switched='on when | is happy. //or |isHappy.' >
         <my-content></my-content>
     </template>
 </div>
