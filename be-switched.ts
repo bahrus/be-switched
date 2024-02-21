@@ -60,7 +60,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             resolved: true,
         }
     }
-
+    //TODO:  use trans-render/lib/partition
     async onTrue(self: this) {
         const {enhancedElement, toggleInert: toggleDisabled, deferRendering} = self;
         const itemref= enhancedElement.getAttribute('itemref');
