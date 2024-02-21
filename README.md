@@ -80,12 +80,14 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 
 In the examples below, we will encounter special symbols used in order to keep the statements small:
 
-| Symbol      | Meaning              | Notes                                                                                |
-|-------------|----------------------|--------------------------------------------------------------------------------------|
-| /propName   |"Hostish"             | Attaches listeners to getters/setters.                                               |
-| @propName   |Name attribute        | Listens for input events.                                                            |
-| |propName   |Itemprop attribute    | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
-| #propName   |Id attribute          | Listens for input events.                                                            |
+| Symbol      | Meaning                        | Notes                                                                                |
+|-------------|--------------------------------|--------------------------------------------------------------------------------------|
+| /propName   |"Hostish"                       | Attaches listeners to getters/setters.                                               |
+| @propName   |Name attribute                  | Listens for input events.                                                            |
+| |propName   |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
+| #propName   |Id attribute                    | Listens for input events.                                                            |
+| .propName   |css class match                 | Listens for input events. [TODO]                                                               |
+| %propName   |match based on part attribute   | Listens for input events. [TODO]
 | -prop-name  |Marker indicates prop | Attaches listeners to getters/setters.                                               |
 
 
@@ -141,11 +143,13 @@ In the examples below, we will encounter special symbols used in order to keep t
 </div>
 ```
 
-A somewhat simpler approach that be-switched also supports is basing the instantiation / hiding of the template based on (a combination of) boolean conditions of peer elements  that can contain values -- form elements or microdata elements, as well as properties of the host.
+Examples 2* all focused on comparing two values.  The reason for focusing first on what is the "harder" case, is simply to suggest why this enhancement was so named.
 
-If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
+But what if we just want to lazy load content when a single value goes from "false" to "true"?  This package supports that as well.
 
 ## Boolean conditions based on peer elements or host
+
+If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
 ### Example 3a 
 
@@ -171,7 +175,7 @@ Can also reference form element, or [form associated custom elements](https://be
     ...
     <input name=isHappy type=checkbox>
     ...
-    <template be-switched='on when & is happy.'>
+    <template be-switched='on when @ is happy.'>
         <my-content></my-content>
     </template>
 </form>

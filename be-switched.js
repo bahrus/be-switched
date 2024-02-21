@@ -1,6 +1,5 @@
 import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
 import { XE } from 'xtal-element/XE.js';
-import { register } from 'be-hive/register.js';
 const cache = new Map();
 const prsOnCache = new Map();
 const prsOffCache = new Map();
@@ -180,9 +179,7 @@ function addStyle(ap) {
         rootNode.appendChild(style);
     }
 }
-const tagName = 'be-switched';
-const ifWantsToBe = 'switched';
-const upgrade = '*';
+export const tagName = 'be-switched';
 const xe = new XE({
     config: {
         tagName,
@@ -246,4 +243,3 @@ const xe = new XE({
     },
     superclass: BeSwitched
 });
-register(ifWantsToBe, upgrade, tagName);

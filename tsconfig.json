@@ -8,7 +8,7 @@
 		"strict": true,
 	},
 	"files": [
-		"be-switched.ts",
+		"behivior.ts",
 		"sample/MoodStone.ts"
 	],
 	"exclude":[
