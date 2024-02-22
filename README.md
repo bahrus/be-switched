@@ -87,7 +87,7 @@ In the examples below, we will encounter special symbols used in order to keep t
 | |propName   |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
 | #propName   |Id attribute                    | Listens for input events.                                                            |
 | .propName   |css class match                 | Listens for input events. [TODO]                                                               |
-| %propName   |match based on part attribute   | Listens for input events. [TODO]
+| %propName   |match based on part attribute   | Listens for input events. 
 | -prop-name  |Marker indicates prop | Attaches listeners to getters/setters.                                               |
 
 
@@ -205,6 +205,17 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
     ...
     <template be-switched='on only when # is happy.'>
         <my-content></my-content>
+    </template>
+</form>
+```
+
+### Example 3e binding based on part attribute
+
+```html
+<form>
+    <input part=isHappy type="checkbox">
+    <template be-switched='on only when % is happy.'>
+        <my-content id=myContent></my-content>
     </template>
 </form>
 ```
