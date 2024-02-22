@@ -20,35 +20,50 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
                     checkSwitches(self, onOrOff);
                 })
                 break;
-            case '@':{
-                const inputEl = await findRealm(enhancedElement, ['wf', prop!]) as HTMLInputElement;
-                if(!inputEl) throw 404;
-                onSwitch.signal = new WeakRef(inputEl);
-                inputEl.addEventListener('input', e => {
-                    checkSwitches(self, onOrOff);
-                });
-                break;
-            }
-            case '#':{
-                const inputEl = await findRealm(enhancedElement, ['wrn', '#' + prop!]) as HTMLInputElement;
-                if(!inputEl) throw 404;
-                onSwitch.signal = new WeakRef(inputEl);
-                inputEl.addEventListener('input', e => {
-                    checkSwitches(self, onOrOff);
-                });
-                break;
-            }
             case '/':{
-                const host = await findRealm(enhancedElement, 'hostish');
-                if(!host) throw 404;
-                import('be-propagating/be-propagating.js');
-                const bePropagating = await (<any>host).beEnhanced.whenResolved('be-propagating') as BPActions;
-                const signal = await bePropagating.getSignal(prop!);
-                signal.addEventListener('value-changed', e => {
+                    const host = await findRealm(enhancedElement, 'hostish');
+                    if(!host) throw 404;
+                    import('be-propagating/be-propagating.js');
+                    const bePropagating = await (<any>host).beEnhanced.whenResolved('be-propagating') as BPActions;
+                    const signal = await bePropagating.getSignal(prop!);
+                    signal.addEventListener('value-changed', e => {
+                        checkSwitches(self, onOrOff);
+                    });
+                    onSwitch.signal = new WeakRef(signal);
+                }
+                break;
+            case '@':
+            case '#':{
+                let editableElement: EventTarget | null = null;
+                switch(type){
+                    case '@':
+                        editableElement = await findRealm(enhancedElement, ['wf', prop!]);
+                        break;
+                    case '#':
+                        editableElement = await findRealm(enhancedElement, ['wrn', '#' + prop!]);
+                        break;
+                }
+                onSwitch.signal = new WeakRef(editableElement as HTMLInputElement);
+                editableElement?.addEventListener('input', e => {
                     checkSwitches(self, onOrOff);
                 });
-                onSwitch.signal = new WeakRef(signal);
+                break;
             }
+            // case '@':{
+            //     const inputEl = await findRealm(enhancedElement, ['wf', prop!]) as HTMLInputElement;
+            //     if(!inputEl) throw 404;
+                
+            // }
+            // case '#':{
+            //     const inputEl = await findRealm(enhancedElement, ['wrn', '#' + prop!]) as HTMLInputElement;
+            //     if(!inputEl) throw 404;
+            //     onSwitch.signal = new WeakRef(inputEl);
+            //     inputEl.addEventListener('input', e => {
+            //         checkSwitches(self, onOrOff);
+            //     });
+            //     break;
+            // }
+
         }
         
         
@@ -57,6 +72,10 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
     checkSwitches(self, onOrOff);
 
 }
+
+const symLookup = new Map(
+    []
+);
 
 function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
     const {onBinarySwitches, offBinarySwitches} = self;
