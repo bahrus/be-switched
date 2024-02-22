@@ -32,6 +32,7 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
                     onSwitch.signal = new WeakRef(signal);
                 }
                 break;
+            case '%':
             case '@':
             case '#':{
                 let editableElement: EventTarget | null = null;
@@ -41,6 +42,9 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
                         break;
                     case '#':
                         editableElement = await findRealm(enhancedElement, ['wrn', '#' + prop!]);
+                        break;
+                    case '%':
+                        editableElement = await findRealm(enhancedElement, ['wrn', `[part~="${prop}"]`]);
                         break;
                 }
                 onSwitch.signal = new WeakRef(editableElement as HTMLInputElement);
