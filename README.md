@@ -147,6 +147,30 @@ Examples 2* all focused on comparing two values.  The reason for focusing first 
 
 But what if we just want to lazy load content when a single value goes from "false" to "true"?  This package supports that as well.
 
+### Example 2d [TODO]
+
+```html
+<ways-of-science>
+    <largest-scale>
+        <carrot-nosed-woman></carrot-nosed-woman>
+    </largest-scale>
+    <largest-scale>
+        <a-duck></a-duck>
+    </largest-scale>
+    <template 
+        be-switched='
+            On when 
+                value of largest-scale where querySelector|carrot-nosed-woman is truthy
+            equals 
+                value of largest-scale where querySelector|a-duck is truthy
+            .
+     '>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
 ## Boolean conditions based on peer elements or host
 
 If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
@@ -312,34 +336,6 @@ import 'be-switched/be-switched.js';
 
 
 P.S.
-
-These are scenarios that may be supported in the future.  For now, these can be achieved with the help of [be-linked](https://github.com/bahrus/be-linked)
-
-## Example 5 [TODO]
-
-```html
-<ways-of-science>
-    <largest-scale>
-        <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
-    </largest-scale>
-    <largest-scale>
-        <a-duck></a-duck>
-    </largest-scale>
-    <template be-switched='
-    On when value property of previous largest-scale element 
-    having inner woman-with-carrot-attached-to-nose element 
-    equals value property of previous largest-scale element 
-    having inner a-duck element.
-    '
-    >
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
-
->[!NOTE]
-> The dashes are optional, I think it makes the meaning more clear, depending.
 
 
 
