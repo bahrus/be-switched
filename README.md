@@ -108,6 +108,8 @@ In the examples below, we will encounter special symbols used in order to keep t
 </template>
 ```
 
+Not that for id based matches (which is what we have above), the search is done within the root node of the element.
+
 ### Example 2b
 
 ```html
@@ -126,6 +128,8 @@ In the examples below, we will encounter special symbols used in order to keep t
     </template>
 </form>
 ```
+
+Here, the search for matching names is done within a containing form, and if no form is found, within the root node.
 
 ### Example 2c
 
@@ -147,10 +151,12 @@ Examples 2* all focused on comparing two values.  The reason for focusing first 
 
 But what if we just want to lazy load content when a single value goes from "false" to "true"?  This package supports that as well.
 
-### Example 2d
+Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
+
+### Example 2d [TODO]
 
 ```html
-<ways-of-science>
+<ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template 
@@ -165,18 +171,35 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 What this does:
 
-1.  Finds carrot-nosed-woman.  
+1.  Finds carrot-nosed-woman within itemscope, and if not found, within root node.  
 2.  Waits for customElements.whenDefined('carrot-nosed-woman').
 3.  Attempts to infer the value of the element.
     1.  If 'value' in oCarrotNosedWoman, uses that.
     2.  ariaValueNow.
     3.  If 'checked' in oCarrotNosedWoman, uses that.
     4.  ariaChecked.
-    5.  textContent
+    5.  If 'href' in oCarrotNosedWoman, uses that.
+    6.  textContent
 4.  Finds element a-duck.
 5.  Waits for customElements.whenDefined('a-duck').
 6.  Attempts to infer the value of the element, same as 3 above.
 7.  Compares the values
+
+## Example 2e [TODO]
+
+```html
+<ways-of-science>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template 
+        be-switched='
+            On when weight property of ~ carrot nosed woman equals weight property of ~ a duck.
+     '>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
 
 ### Example 2f [TODO]
 
@@ -191,9 +214,15 @@ What this does:
     <template 
         be-switched='
             On when 
-                property value of largest-scale where querySelector|carrot-nosed-woman is truthy
+                ~ largest-scale 
+                having
+                    querySelector|carrot-nosed-woman 
+                is truthy
             equals 
-                property value of largest-scale where querySelector|a-duck is truthy
+                ~ largest-scale 
+                having 
+                    querySelector|a-duck
+                is truthy
             .
      '>
         <div>A witch!</div>
