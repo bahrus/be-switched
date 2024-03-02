@@ -147,7 +147,38 @@ Examples 2* all focused on comparing two values.  The reason for focusing first 
 
 But what if we just want to lazy load content when a single value goes from "false" to "true"?  This package supports that as well.
 
-### Example 2d [TODO]
+### Example 2d
+
+```html
+<ways-of-science>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template 
+        be-switched='
+            On when ~ carrotNosedWoman equals ~ aDuck.
+     '>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+What this does:
+
+1.  Finds carrot-nosed-woman.  
+2.  Waits for customElements.whenDefined('carrot-nosed-woman').
+3.  Attempts to infer the value of the element.
+    1.  If 'value' in oCarrotNosedWoman, uses that.
+    2.  ariaValueNow.
+    3.  If 'checked' in oCarrotNosedWoman, uses that.
+    4.  ariaChecked.
+    5.  textContent
+4.  Finds element a-duck.
+5.  Waits for customElements.whenDefined('a-duck').
+6.  Attempts to infer the value of the element, same as 3 above.
+7.  Compares the values
+
+### Example 2f [TODO]
 
 ```html
 <ways-of-science>
@@ -160,9 +191,9 @@ But what if we just want to lazy load content when a single value goes from "fal
     <template 
         be-switched='
             On when 
-                value of largest-scale where querySelector|carrot-nosed-woman is truthy
+                property value of largest-scale where querySelector|carrot-nosed-woman is truthy
             equals 
-                value of largest-scale where querySelector|a-duck is truthy
+                property value of largest-scale where querySelector|a-duck is truthy
             .
      '>
         <div>A witch!</div>
