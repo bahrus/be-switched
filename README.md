@@ -213,8 +213,8 @@ What this does:
         <a-duck></a-duck>
     </largest-scale>
     <template 
-        be-switched='
-            On when 
+        be-switched='On
+            when 
                 ~ largest-scale 
                 having
                     querySelector|carrot-nosed-woman 
