@@ -51,7 +51,7 @@ Since the lhs (37) doesn't equal the rhs ("hello"), the content inside the templ
 
 Now how can we change the values of the lhs and rhs?  Normally, a framework can pass values to the top level of a web component / built-in element.  Some frameworks may be able to pass values to sub properties.  With such frameworks, they could, theoretically, pass updated values like so (under the hood):
 
-```
+```JavaScript
 await customElements.whenDefined('be-enhanced');
 oTemplate.beEnhanced.by.beSwitched.rhs = 37;
 ```
