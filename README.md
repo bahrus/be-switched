@@ -80,15 +80,15 @@ For that reason, among others, an alternative way of "pulling in" values to comp
 
 In the examples below, we will encounter special symbols used in order to keep the statements small:
 
-| Symbol      | Meaning                        | Notes                                                                                |
-|-------------|--------------------------------|--------------------------------------------------------------------------------------|
-| /propName   |"Hostish"                       | Attaches listeners to getters/setters.                                               |
-| @propName   |Name attribute                  | Listens for input events.                                                            |
-| |propName   |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
-| #propName   |Id attribute                    | Listens for input events.                                                            |
-| .propName   |css class match                 | Listens for input events. [TODO]                                                               |
-| %propName   |match based on part attribute   | Listens for input events. 
-| -prop-name  |Marker indicates prop | Attaches listeners to getters/setters.                                               |
+| Symbol       | Meaning                        | Notes                                                                                |
+|--------------|--------------------------------|--------------------------------------------------------------------------------------|
+| /propName    |"Hostish"                       | Attaches listeners to getters/setters.                                               |
+| @propName    |Name attribute                  | Listens for input events.                                                            |
+| |propName    |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
+| #propName    |Id attribute                    | Listens for input events.                                                            |
+| %propName    |match based on part attribute   | Listens for input events.                                                            |
+| -prop-name   |Marker indicates prop           | Attaches listeners to getters/setters.                                               | 
+| ~elementName |match based on element name     | Listens for input events.                                                            |
 
 
 "Hostish" means:
@@ -183,7 +183,8 @@ What this does:
 4.  Finds element a-duck.
 5.  Waits for customElements.whenDefined('a-duck').
 6.  Attempts to infer the value of the element, same as 3 above.
-7.  Compares the values
+7.  Compares the values.
+8.  Listens for input event, and re-evaluates.
 
 ## Example 2e [TODO]
 
