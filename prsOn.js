@@ -1,5 +1,5 @@
 import { tryParse } from 'be-enhanced/cpu.js';
-const strType = String.raw `\||\#|\@|\/|\%`;
+const strType = String.raw `\||\#|\@|\/|\%|\~`;
 const reOnTwoValSwitchStatements = [
     {
         regExp: new RegExp(String.raw `^when(?<lhsType>${strType})(?<lhsProp>[\w]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w]+)`),
