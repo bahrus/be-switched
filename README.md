@@ -196,7 +196,34 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event, and re-evaluates.
 
-## Example 2e [TODO]
+## Example 2e specifying event name(s) [TODO]
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template 
+        be-switched='
+            On change when ~ carrotNosedWoman equals ~ aDuck.
+     '>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+This will listen for "change" events on both the carrot-nosed-woman and the a-duck elements.
+
+To specify a different event for each, separate with commas:
+
+```html
+<template 
+    be-switched='
+        On change,input when ~ carrotNosedWoman equals ~ aDuck.
+'></template>
+```
+
+## Example 2g specify property path to compare [TODO]
 
 ```html
 <ways-of-science>
@@ -204,7 +231,7 @@ What this does:
     <a-duck></a-duck>
     <template 
         be-switched='
-            On when weight property of ~ carrot nosed woman equals weight property of ~ a duck.
+            On when ~ carrotNosedWoman:weight equals ~ aDuck:weight.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
