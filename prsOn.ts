@@ -6,7 +6,7 @@ const strType = String.raw `\||\#|\@|\/|\%|\~`;
 
 const lhsOpRhs = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w\-\:]+)`;
 
-const eventTypeLhsOpRhs = String.raw `^(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
+const eventTypeLhsOpRhs = String.raw `^on(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
 
 const reOnTwoValSwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
     {

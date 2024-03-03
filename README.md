@@ -196,7 +196,9 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event, and re-evaluates.
 
-## Example 2e specifying event name(s) [TODO]
+## Example 2e specifying event name(s)
+
+Although the following almost looks like a typo and might not get Hemingway's stamp of approval, it was the best we could come up with being able to specify the event name/type(s) to listen for:
 
 ```html
 <ways-of-science itemscope>
@@ -204,7 +206,7 @@ What this does:
     <a-duck></a-duck>
     <template 
         be-switched='
-            On change when ~ carrotNosedWoman equals ~ aDuck.
+            On on change when ~ carrotNosedWoman equals ~ aDuck.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -219,7 +221,7 @@ To specify a different event for each, separate with commas:
 ```html
 <template 
     be-switched='
-        On change,input when ~ carrotNosedWoman equals ~ aDuck.
+        On on change,input when ~ carrotNosedWoman equals ~ aDuck.
 '></template>
 ```
 

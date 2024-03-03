@@ -8,6 +8,8 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     for(const onSwitch of valueSwitches!){
         const {lhsProp, rhsProp, lhsType, rhsType, eventNames} = onSwitch;
         console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType});
+        const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
+
         switch(lhsType){
             case '|':
                 const {getItemPropEl} = await import('./getItempropEl.js');
@@ -45,7 +47,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
                 }
                 if(!inputEl) throw 404;
                 onSwitch.lhsSignal = new WeakRef(inputEl);
-                inputEl.addEventListener('input', e => {
+                inputEl.addEventListener(splitEventNames[0], e => {
                     checkSwitches(self, onOrOff);
                 });
                 break;
@@ -89,7 +91,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
                 }
                 if(!inputEl) throw 404;
                 onSwitch.rhsSignal = new WeakRef(inputEl);
-                inputEl.addEventListener('input', e => {
+                inputEl.addEventListener(splitEventNames.length > 1 ? splitEventNames[1] : splitEventNames[0], e => {
                     checkSwitches(self, onOrOff);
                 });
                 break;
