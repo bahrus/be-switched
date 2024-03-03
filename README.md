@@ -198,7 +198,7 @@ What this does:
 
 ## Example 2e specifying event name(s)
 
-Although the following almost looks like a typo and might not get Hemingway's stamp of approval, it was the best we could come up with being able to specify the event name/type(s) to listen for:
+Although the following almost looks like a typo and might not get Hemingway's stamp of approval, it was the best we could come up with as far as being able to specify the event name/type(s) to listen for:
 
 ```html
 <ways-of-science itemscope>
