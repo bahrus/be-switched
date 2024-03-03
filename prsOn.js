@@ -1,6 +1,6 @@
 import { tryParse } from 'be-enhanced/cpu.js';
 const strType = String.raw `\||\#|\@|\/|\%|\~`;
-const lhsOpRhs = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w\-\:]+)`;
+const lhsOpRhs = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
 const eventTypeLhsOpRhs = String.raw `^on(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
 const reOnTwoValSwitchStatements = [
     {
@@ -38,17 +38,16 @@ export async function prsOn(self) {
     for (const onS of onUnion) {
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
         if (twoValSwitchTest !== null) {
-            console.log({ twoValSwitchTest });
             const { lhsProp, rhsProp } = twoValSwitchTest;
             if (lhsProp?.includes(':')) {
                 const split = lhsProp.split(':');
                 twoValSwitchTest.lhsProp = split[0];
-                twoValSwitchTest.lhsSubProp = split.slice(1).join('.');
+                twoValSwitchTest.lhsSubProp = '.' + split.slice(1).join('.');
             }
             if (rhsProp?.includes(':')) {
                 const split = rhsProp.split(':');
                 twoValSwitchTest.rhsProp = split[0];
-                twoValSwitchTest.rhsSubProp = split.slice(1).join('.');
+                twoValSwitchTest.rhsSubProp = '.' + split.slice(1).join('.');
             }
             //twoValSwitchTest.rhsProp = twoValSwitchTest.lhs
             onTwoValueSwitches.push(twoValSwitchTest);

@@ -1,4 +1,4 @@
-# be-switched [WIP]
+# be-switched 
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -243,7 +243,7 @@ The change event type is applied to carrot-nosed-woman, and input event type is 
 </ways-of-science>
 ```
 
-### Example 2g property path including  single argument methods with string arguments. [Untested]
+### Example 2g property path including  single argument methods with string arguments. 
 
 ```html
 <ways-of-science>

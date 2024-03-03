@@ -8,7 +8,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for(const onSwitch of valueSwitches!){
         const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsSubProp, rhsSubProp} = onSwitch;
-        console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
+        //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
 
         switch(lhsType){
@@ -122,7 +122,6 @@ async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
         } 
         const lhs = lhsSubProp !== undefined ? await getVal({host: lhsRef}, lhsSubProp) :  getSignalVal(lhsRef);
         const rhs = rhsSubProp !== undefined ? await getVal({host:rhsRef}, rhsSubProp) : getSignalVal(rhsRef);
-        console.log({lhs, rhs});
         let value = false;
         switch(op){
             case 'equals':
