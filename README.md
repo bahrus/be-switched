@@ -239,7 +239,7 @@ To specify a different event for each, separate with commas:
 </ways-of-science>
 ```
 
-### Example 2f [TODO]
+### Example 2f property path including  single argument methods with string arguments.
 
 ```html
 <ways-of-science>
@@ -250,19 +250,7 @@ To specify a different event for each, separate with commas:
         <a-duck></a-duck>
     </largest-scale>
     <template 
-        be-switched='On
-            when 
-                ~ largest-scale 
-                having
-                    querySelector|carrot-nosed-woman 
-                is truthy
-            equals 
-                ~ largest-scale 
-                having 
-                    querySelector|a-duck
-                is truthy
-            .
-     '>
+        be-switched='On when ~ carrotNosedWoman:closest|largest-scale:weight equals ~ aDuck:closest|largest-scale:weight'>
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
