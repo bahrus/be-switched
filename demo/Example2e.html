@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example !2a</title>
+    <title>Example 2a</title>
     <script type=importmap>
         {
             "imports": {
@@ -13,6 +13,7 @@
                 "be-linked/": "../node_modules/be-linked/",
                 "be-propagating/": "../node_modules/be-propagating/",
                 "be-value-added/": "../node_modules/be-value-added/",
+                "mount-observer/": "../node_modules/mount-observer/",
                 "trans-render/": "../node_modules/trans-render/",
                 "xtal-element/": "../node_modules/xtal-element/"
             }
@@ -24,13 +25,13 @@
     <input id=lhs>
     <label for=rhs>RHS:</label>
     <input id=rhs>
-    <template be-switched='on when #lhs equals #rhs.'>
+    <template be-switched='on change,input when #lhs equals #rhs.'>
         <div>LHS === RHS</div>
     </template>
 
 
     <script type=module>
-        import '../be-switched.js';
+        import '../behivior.js';
     </script>
 </body>
 </html>

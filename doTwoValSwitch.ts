@@ -6,7 +6,8 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for(const onSwitch of valueSwitches!){
-        const {lhsProp, rhsProp, lhsType, rhsType} = onSwitch;
+        const {lhsProp, rhsProp, lhsType, rhsType, eventNames} = onSwitch;
+        console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType});
         switch(lhsType){
             case '|':
                 const {getItemPropEl} = await import('./getItempropEl.js');

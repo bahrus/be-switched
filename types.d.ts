@@ -50,6 +50,7 @@ export interface OnBinaryValueSwitch{
     req?: boolean,
     signal?: WeakRef<SignalRefType>,
     negate?: boolean,
+    
 }
 
 export interface OnTwoValueSwitch{
@@ -62,6 +63,7 @@ export interface OnTwoValueSwitch{
     lhsSignal?: WeakRef<SignalRefType>,
     rhsSignal?: WeakRef<SignalRefType>,
     negate?: boolean,
+    eventNames?: string,
 }
 
 export type AP = AllProps;

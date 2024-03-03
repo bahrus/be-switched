@@ -4,13 +4,13 @@ import {arr, tryParse} from 'be-enhanced/cpu.js';
 
 const strType = String.raw `\||\#|\@|\/|\%|\~`;
 
-const lhsOpRhs = String.raw `when(?<lhsType>${strType})(?<lhsProp>[\w\-\:]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w\-\:]+)`;
+const lhsOpRhs = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w\-\:]+)`;
 
-const eventTypeLhsOpRhs = String.raw `^(?<eventTypes>[\w\-\:]+)$`
+const eventTypeLhsOpRhs = String.raw `^(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
 
 const reOnTwoValSwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
     {
-        regExp: new RegExp(`^${lhsOpRhs}`),
+        regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals:{}
     },
     {
