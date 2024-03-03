@@ -223,6 +223,8 @@ To specify a different event for each, separate with commas:
 '></template>
 ```
 
+The change event name is applied to carrot-nosed-woman, and input event name is applied to a-duck.
+
 ## Example 2g specify property path to compare [TODO]
 
 ```html
