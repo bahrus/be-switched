@@ -39,7 +39,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
                     case '~':
                         const {camelToLisp} = await import('trans-render/lib/camelToLisp.js');
                         const localName = camelToLisp(lhsProp!);
-                        inputEl = await findRealm(enhancedElement, ['wrn', localName]) as HTMLInputElement;
+                        inputEl = await findRealm(enhancedElement, ['wis', localName, true]) as HTMLInputElement;
                         break;
                 }
                 if(!inputEl) throw 404;
@@ -83,7 +83,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
                     case '~':
                         const {camelToLisp} = await import('trans-render/lib/camelToLisp.js');
                         const localName = camelToLisp(rhsProp!);
-                        inputEl = await findRealm(enhancedElement, ['wrn', localName]) as HTMLInputElement;
+                        inputEl = await findRealm(enhancedElement, ['wis', localName, true]) as HTMLInputElement;
                         break;
                 }
                 if(!inputEl) throw 404;

@@ -153,7 +153,7 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
 
-### Example 2d [TODO]
+### Example 2d
 
 ```html
 <ways-of-science itemscope>
