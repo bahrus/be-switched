@@ -96,6 +96,12 @@ In the examples below, we will encounter special symbols used in order to keep t
 1.  First, do a "closest" for an element with attribute itemscope, where the tag name has a dash in it.  Do that search recursively.  
 2.  If no match found, use getRootNode().host.
 
+We make some assumptions about the elements we are comparing -- 
+
+1.  The value of the elements are are comparing are primitive JS types that are either inferrable, or specified by a property path.
+2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event.  
+
+
 ### Example 2a
 
 ```html
@@ -108,7 +114,11 @@ In the examples below, we will encounter special symbols used in order to keep t
 </template>
 ```
 
-Not that for id based matches (which is what we have above), the search is done within the root node of the element.
+> [!NOTE]
+> For id based matches (which is what we have above), the search is done within the root node of the element.  
+
+> [!NOTE]
+> The comparison condition is re-evaluated on the input events of the lhs and rhs elements.  See below for how to specify alternate event names
 
 ### Example 2b
 
