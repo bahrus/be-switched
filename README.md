@@ -227,7 +227,7 @@ To specify a different event for each, separate with commas:
 
 The change event type is applied to carrot-nosed-woman, and input event type is applied to a-duck.
 
-## Example 2g specify property path to compare [TODO]
+## Example 2f specify property path to compare 
 
 ```html
 <ways-of-science>
@@ -243,7 +243,7 @@ The change event type is applied to carrot-nosed-woman, and input event type is 
 </ways-of-science>
 ```
 
-### Example 2f property path including  single argument methods with string arguments.
+### Example 2g property path including  single argument methods with string arguments. [Untested]
 
 ```html
 <ways-of-science>

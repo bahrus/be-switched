@@ -38,6 +38,19 @@ export async function prsOn(self) {
     for (const onS of onUnion) {
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
         if (twoValSwitchTest !== null) {
+            console.log({ twoValSwitchTest });
+            const { lhsProp, rhsProp } = twoValSwitchTest;
+            if (lhsProp?.includes(':')) {
+                const split = lhsProp.split(':');
+                twoValSwitchTest.lhsProp = split[0];
+                twoValSwitchTest.lhsSubProp = split.slice(1).join('.');
+            }
+            if (rhsProp?.includes(':')) {
+                const split = rhsProp.split(':');
+                twoValSwitchTest.rhsProp = split[0];
+                twoValSwitchTest.rhsSubProp = split.slice(1).join('.');
+            }
+            //twoValSwitchTest.rhsProp = twoValSwitchTest.lhs
             onTwoValueSwitches.push(twoValSwitchTest);
             continue;
         }

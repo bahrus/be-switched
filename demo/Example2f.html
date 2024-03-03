@@ -26,13 +26,16 @@
         <a-duck aria-valuenow=hello></a-duck>
         <template 
             be-switched='
-                On when ~ carrotNosedWoman equals ~ aDuck.
+            On when ~ carrotNosedWoman:weight equals ~ aDuck:weight.
          '>
             <div>A witch!</div>
             <div>Burn her!</div>
         </template>
     </ways-of-science>
-
+    <script>
+        document.querySelector('carrot-nosed-woman').weight=100;
+        document.querySelector('a-duck').weight=100;
+    </script>
 
 
     <script type=module>

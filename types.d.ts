@@ -56,6 +56,8 @@ export interface OnBinaryValueSwitch{
 export interface OnTwoValueSwitch{
     lhsProp?: string,
     rhsProp?: string,
+    lhsSubProp?: string,
+    rhsSubProp?: string,
     lhsType?: ElTypes,
     rhsType?: ElTypes,
     req?: boolean,

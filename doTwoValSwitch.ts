@@ -2,12 +2,13 @@ import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
 import {getSignalVal} from 'be-linked/getSignalVal.js';
+import {getVal} from 'trans-render/lib/getVal.js';
 export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for(const onSwitch of valueSwitches!){
-        const {lhsProp, rhsProp, lhsType, rhsType, eventNames} = onSwitch;
-        console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType});
+        const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsSubProp, rhsSubProp} = onSwitch;
+        console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
 
         switch(lhsType){
@@ -98,16 +99,16 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
             }
         }
     }
-    checkSwitches(self, onOrOff);
+    await checkSwitches(self, onOrOff);
 }
 
-function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
+async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
     const {onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     if(valueSwitches?.length === 0) return;
     let foundOne = false;
     for(const onSwitch of valueSwitches!){
-        const {req, lhsSignal, rhsSignal, op, negate} = onSwitch;
+        const {req, lhsSignal, rhsSignal, op, negate, rhsSubProp, lhsSubProp} = onSwitch;
         if(foundOne && !req) continue; 
         const lhsRef = lhsSignal?.deref();
         if(lhsRef === undefined) {
@@ -119,9 +120,9 @@ function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
             console.warn({onSwitch, msg: "Out of scope"});
             continue;
         } 
-        const lhs = getSignalVal(lhsRef);
-        const rhs = getSignalVal(rhsRef);
-        
+        const lhs = lhsSubProp !== undefined ? await getVal({host: lhsRef}, lhsSubProp) :  getSignalVal(lhsRef);
+        const rhs = rhsSubProp !== undefined ? await getVal({host:rhsRef}, rhsSubProp) : getSignalVal(rhsRef);
+        console.log({lhs, rhs});
         let value = false;
         switch(op){
             case 'equals':
