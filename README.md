@@ -250,7 +250,11 @@ To specify a different event for each, separate with commas:
         <a-duck></a-duck>
     </largest-scale>
     <template 
-        be-switched='On when ~ carrotNosedWoman:closest|largest-scale:weight equals ~ aDuck:closest|largest-scale:weight'>
+        be-switched='On 
+            when 
+                ~ carrotNosedWoman:closest|largest-scale:weight
+            equals 
+                ~ aDuck:closest|largest-scale:weight'>
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
