@@ -24,18 +24,17 @@ export async function doTwoValSwitch(self, onOrOff) {
                     });
                 }
                 break;
-            case '@': {
-                const inputEl = await findRealm(enhancedElement, ['wf', lhsProp]);
-                if (!inputEl)
-                    throw 404;
-                onSwitch.lhsSignal = new WeakRef(inputEl);
-                inputEl.addEventListener('input', e => {
-                    checkSwitches(self, onOrOff);
-                });
-                break;
-            }
+            case '@':
             case '#': {
-                const inputEl = await findRealm(enhancedElement, ['wrn', '#' + lhsProp]);
+                let inputEl;
+                switch (lhsType) {
+                    case '@':
+                        inputEl = await findRealm(enhancedElement, ['wf', lhsProp]);
+                        break;
+                    case '#':
+                        inputEl = await findRealm(enhancedElement, ['wrn', '#' + lhsProp]);
+                        break;
+                }
                 if (!inputEl)
                     throw 404;
                 onSwitch.lhsSignal = new WeakRef(inputEl);
