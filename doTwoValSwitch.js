@@ -24,6 +24,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                     });
                 }
                 break;
+            case '~':
             case '@':
             case '#': {
                 let inputEl;
@@ -33,6 +34,11 @@ export async function doTwoValSwitch(self, onOrOff) {
                         break;
                     case '#':
                         inputEl = await findRealm(enhancedElement, ['wrn', '#' + lhsProp]);
+                        break;
+                    case '~':
+                        const { camelToLisp } = await import('trans-render/lib/camelToLisp.js');
+                        const localName = camelToLisp(lhsProp);
+                        inputEl = await findRealm(enhancedElement, ['wrn', localName]);
                         break;
                 }
                 if (!inputEl)
@@ -63,6 +69,7 @@ export async function doTwoValSwitch(self, onOrOff) {
                     });
                 }
                 break;
+            case '~':
             case '@':
             case '#': {
                 let inputEl;
@@ -72,6 +79,11 @@ export async function doTwoValSwitch(self, onOrOff) {
                         break;
                     case '#':
                         inputEl = await findRealm(enhancedElement, ['wrn', '#' + rhsProp]);
+                        break;
+                    case '~':
+                        const { camelToLisp } = await import('trans-render/lib/camelToLisp.js');
+                        const localName = camelToLisp(rhsProp);
+                        inputEl = await findRealm(enhancedElement, ['wrn', localName]);
                         break;
                 }
                 if (!inputEl)
