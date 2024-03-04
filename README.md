@@ -16,7 +16,9 @@ It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) famil
 be-switched can be used in two modes:  
 
 1.  It can switch the template "on and off" based on comparing two values (lhs and rhs). 
-2.  Or it can switch the template "on and off" based on the values of peer microdata or form elements, or "boolish" properties coming from the host or upstream peer elements.
+2.  Or it can switch the template "on and off" based on a single value.
+
+The values to compare can come from peer microdata or form elements, or "boolish" properties coming from the host or peer (custom) elements.
 
 We will look at both options closely, starting with...
 
