@@ -167,7 +167,7 @@ However, if that is not sufficient, we can specify a "scoping" perimeter via an 
 
 [TODO] Support for down search?
 
-Maybe use v or ¥ (or &yen?).
+Use Y.
 
 ### Example 2c
 
@@ -343,7 +343,7 @@ The standalone ^ is indicating to just look at the previous element sibling.
 <div itemscope>
     ...
     
-    <template be-switched='on when v is falsy.'>
+    <template be-switched='on when Y is falsy.'>
         <my-content></my-content>
     </template>
     <link itemprop=isHappy href=https://schema.org/True>
