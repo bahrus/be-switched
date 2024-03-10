@@ -122,6 +122,8 @@ We make some assumptions about the elements we are comparing --
 > [!NOTE]
 > The comparison condition is re-evaluated on the input events of the lhs and rhs elements.  See below for how to specify alternate event names
 
+Since id's are intended to be unique within a (shadow) root node, the search by id is done  within the root node by default.
+
 ### Example 2b
 
 ```html
@@ -142,6 +144,26 @@ We make some assumptions about the elements we are comparing --
 ```
 
 Here, the search for matching names is done within a containing form, and if no form is found, within the root node.
+
+However, if that is not sufficient, we can specify a "scoping" perimeter via the closest selector.  Symbolically, we use the "^" symbol to indicate this [TODO]:
+
+```html
+<section>
+    <label>
+        LHS:
+        <input name=lhs>
+    </label>
+    
+    <label>RHS:
+        <input name=rhs>
+    </label>
+    
+    <template be-switched='on when ^section@lhs equals ^section@rhs.'>
+        <div>LHS === RHS</div>
+    </template>
+</section>
+```
+
 
 ### Example 2c
 
