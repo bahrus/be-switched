@@ -165,6 +165,10 @@ However, if that is not sufficient, we can specify a "scoping" perimeter via an 
 
 "UpSearch" means:  First check for previous siblings that match the selector, then the parent, then previous siblings of the parent, etc.  Stop at the ShadowDOM root.
 
+[TODO] Support for down search?
+
+Maybe use ¥ (or &yen?)
+
 ### Example 2c
 
 ```html
