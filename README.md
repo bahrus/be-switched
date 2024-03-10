@@ -144,7 +144,7 @@ We make some assumptions about the elements we are comparing --
 
 Here, the search for matching names is done within a containing form, and if no form is found, within the root node.
 
-However, if that is not sufficient, we can specify a "scoping" perimeter via the closest selector.  Symbolically, we use the "^" symbol to indicate this [TODO]:
+However, if that is not sufficient, we can specify a "scoping" perimeter via an "upSearch" query.  Symbolically, we use the "^" symbol to indicate this [TODO]:
 
 ```html
 <section>
@@ -163,6 +163,7 @@ However, if that is not sufficient, we can specify a "scoping" perimeter via the
 </section>
 ```
 
+"UpSearch" means:  First check for previous siblings that match the selector, then the parent, then previous siblings of the parent, etc.  Stop at the ShadowDOM root.
 
 ### Example 2c
 
