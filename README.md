@@ -122,7 +122,6 @@ We make some assumptions about the elements we are comparing --
 > [!NOTE]
 > The comparison condition is re-evaluated on the input events of the lhs and rhs elements.  See below for how to specify alternate event names
 
-Since id's are intended to be unique within a (shadow) root node, the search by id is done  within the root node by default.
 
 ### Example 2b
 
@@ -181,9 +180,7 @@ However, if that is not sufficient, we can specify a "scoping" perimeter via the
 </div>
 ```
 
-Examples 2* all focused on comparing two values.  The reason for focusing first on what is the "harder" case, is simply to suggest why this enhancement was so named.
 
-But what if we just want to lazy load content when a single value goes from "false" to "true"?  This package supports that as well.
 
 Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
 
@@ -312,6 +309,10 @@ So instead of example 2e, to specify using the change event, use:
     </template>
 </ways-of-science>
 ```
+
+Examples 2* all focused on comparing two values.  The reason for focusing first on what is the "harder" case, is simply to suggest why this enhancement was so named.
+
+But what if we just want to lazy load content when a single value goes from "false" to "true"?  This package supports that as well.
 
 ## Boolean conditions based on peer elements or host
 
