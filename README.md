@@ -232,7 +232,7 @@ Although the following almost looks like a typo and might not get Hemingway's st
     <a-duck></a-duck>
     <template 
         be-switched='
-            On on change when ~ carrotNosedWoman equals ~ aDuck.
+            On on weight-changed when ~ carrotNosedWoman equals ~ aDuck.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -247,7 +247,7 @@ To specify a different event for each, separate with commas:
 ```html
 <template 
     be-switched='
-        On on change,input when ~ carrotNosedWoman equals ~ aDuck.
+        On on weight-changed,molting when ~ carrotNosedWoman equals ~ aDuck.
 '></template>
 ```
 
