@@ -222,7 +222,7 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event, and re-evaluates.
 
-## Example 2e specifying event name(s)
+## Example 2e specifying event name(s) 
 
 Although the following almost looks like a typo and might not get Hemingway's stamp of approval, it was the best we could come up with as far as being able to specify the event name/type(s) to listen for:
 
@@ -253,7 +253,29 @@ To specify a different event for each, separate with commas:
 
 The change event type is applied to carrot-nosed-woman, and input event type is applied to a-duck.
 
-## Example 2f specify property path to compare 
+## Example 2f [TODO]
+
+*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done by built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete", and "change" used when there are intermediate steps the user doesn't intend to affect anything.
+
+Everything becomes easier that way, and will also make Hemingway's spirit ready to pass on.
+
+So instead of example 2e, to specify using the change event, use:
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template 
+        be-switched='
+            On when ~ carrotNosedWoman! equals ~ aDuck.
+     '>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+## Example 2f => 2g[TODO] specify property path to compare 
 
 ```html
 <ways-of-science>
@@ -269,7 +291,7 @@ The change event type is applied to carrot-nosed-woman, and input event type is 
 </ways-of-science>
 ```
 
-### Example 2g property path including  single argument methods with string arguments. 
+### Example 2g => 2h[TODO] property path including  single argument methods with string arguments. 
 
 ```html
 <ways-of-science>
@@ -282,9 +304,9 @@ The change event type is applied to carrot-nosed-woman, and input event type is 
     <template 
         be-switched='On 
             when 
-                ~ carrotNosedWoman:closest|largest-scale:weight
+                ^largest-scale~carrotNosedWoman:weight
             equals 
-                ~ aDuck:closest|largest-scale:weight'>
+                ^largest-scale~aDuck:weight'>
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
