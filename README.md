@@ -98,9 +98,9 @@ In the examples below, we will encounter special symbols used in order to keep t
 1.  First, do a "closest" for an element with attribute itemscope, where the tag name has a dash in it.  Do that search recursively.  
 2.  If no match found, use getRootNode().host.
 
-We make some assumptions about the elements we are comparing -- 
+We are often (but not always in the case of 2. below) making some assumptions about the elements we are comparing -- 
 
-1.  The value of the elements are are comparing are primitive JS types that are either inferrable, or specified by a property path.
+1.  The value of the elements we are comparing are primitive JS types that are either inferrable, or specified by a property path.
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event.  
 
 
@@ -167,7 +167,7 @@ However, if that is not sufficient, we can specify a "scoping" perimeter via an 
 
 [TODO] Support for down search?
 
-Maybe use ¥ (or &yen?)
+Maybe use v or ¥ (or &yen?).
 
 ### Example 2c
 
@@ -184,8 +184,6 @@ Maybe use ¥ (or &yen?)
     </template>
 </div>
 ```
-
-
 
 Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
 
@@ -242,7 +240,7 @@ Although the following almost looks like a typo and might not get Hemingway's st
 </ways-of-science>
 ```
 
-This will listen for "change" events on both the carrot-nosed-woman and the a-duck elements.
+This will listen for "weight-changed" events on both the carrot-nosed-woman and the a-duck elements.
 
 To specify a different event for each, separate with commas:
 
@@ -257,11 +255,11 @@ The change event type is applied to carrot-nosed-woman, and input event type is 
 
 ## Example 2f [TODO]
 
-*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done by built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user doesn't intend to affect anything.
+*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user doesn't intend to affect anything.
 
 Everything becomes easier that way, and will also make Hemingway's spirit ready to pass on.
 
-So instead of example 2e, to specify using the change event, use:
+So instead of example 2e, to specify using the change event, use the exclamation point (kind of an emphatic, I'm ready!):
 
 ```html
 <ways-of-science itemscope>
@@ -315,6 +313,8 @@ So instead of example 2e, to specify using the change event, use:
 </ways-of-science>
 ```
 
+## And now for something completely different
+
 Examples 2* all focused on comparing two values.  The reason for focusing first on what is the "harder" case, is simply to suggest why this enhancement was so named.
 
 But what if we just want to lazy load content when a single value goes from "false" to "true"?  This package supports that as well.
@@ -323,7 +323,21 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
-### Example 3a 
+### Example 3a
+
+```html
+<div itemscope>
+    ...
+    <link itemprop=isHappy href=https://schema.org/True>
+    <template be-switched='on when ^ is truthy.>
+        <my-content></my-content>
+    </template>
+</div>
+```
+
+The standalone ^ is indicating to just look at the previous element sibling.
+
+### Example 3a => 3b [TODO] 
 
 ```html
 <div itemscope>
@@ -338,7 +352,20 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 
 Can have multiple such statements -- or condition.  Each sentence can begin with "on" or "On", whichever seems more readable.
 
-### Example 3b
+If no itemscope container is present and there's some ambiguity use [TODO]:
+
+```html
+<section part=myPart>
+    ...
+    <link itemprop=isHappy href=https://schema.org/True>
+    ...
+    <template be-switched='on when ^%myPart|isHappy.'>
+        <my-content></my-content>
+    </template>
+</section>
+```
+
+### Example 3b => 3c [TODO]
 
 Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
 
