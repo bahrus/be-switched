@@ -1,4 +1,4 @@
-# be-switched 
+# be-switched [WIP]
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -255,7 +255,7 @@ The change event type is applied to carrot-nosed-woman, and input event type is 
 
 ## Example 2f [TODO]
 
-*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done by built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete", and "change" used when there are intermediate steps the user doesn't intend to affect anything.
+*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done by built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user doesn't intend to affect anything.
 
 Everything becomes easier that way, and will also make Hemingway's spirit ready to pass on.
 
