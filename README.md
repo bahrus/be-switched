@@ -187,6 +187,8 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
 
+Again, if that proves inadequate, use the ^ character to indicate the closest parent to search within.
+
 ### Example 2d
 
 ```html
