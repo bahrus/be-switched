@@ -329,7 +329,7 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 <div itemscope>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
-    <template be-switched='on when ^ is truthy.>
+    <template be-switched='on when ^ is truthy.'>
         <my-content></my-content>
     </template>
 </div>
@@ -337,7 +337,20 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 
 The standalone ^ is indicating to just look at the previous element sibling.
 
-### Example 3a => 3b [TODO] 
+### Example 3b Down search
+
+```html
+<div itemscope>
+    ...
+    
+    <template be-switched='on when v is falsy.'>
+        <my-content></my-content>
+    </template>
+    <link itemprop=isHappy href=https://schema.org/True>
+</div>
+```
+
+### Example 3a => 3c [TODO] 
 
 ```html
 <div itemscope>
@@ -352,6 +365,8 @@ The standalone ^ is indicating to just look at the previous element sibling.
 
 Can have multiple such statements -- or condition.  Each sentence can begin with "on" or "On", whichever seems more readable.
 
+
+
 If no itemscope container is present and there's some ambiguity use [TODO]:
 
 ```html
@@ -365,7 +380,9 @@ If no itemscope container is present and there's some ambiguity use [TODO]:
 </section>
 ```
 
-### Example 3b => 3c [TODO]
+
+
+### Example 3b => 3d [TODO]
 
 Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
 
@@ -382,7 +399,7 @@ Can also reference form element, or [form associated custom elements](https://be
 
 Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input events.
 
-### Example 3c
+### Example 3c => 3e [TODO]
 
 ```html
 <form>
@@ -395,7 +412,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 </form>
 ```
 
-### Example 3d
+### Example 3d => 3f [TODO]
 
 ```html
 <form>
@@ -410,7 +427,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 
 This is an "and" condition due to the presence of "only"
 
-### Example 3e binding based on part attribute
+### Example 3e => 3g [TODO] binding based on part attribute
 
 ```html
 <form>
@@ -423,7 +440,7 @@ This is an "and" condition due to the presence of "only"
 
 
 
-### Example 3f binding based on class attribute. [NOTTODO?]
+### Example 3f => void binding based on class attribute. [NOTTODO?]
 
 So this is where we have a clash between Hemingway and CSS.  The most natural symbol to use for a class selector would be the period (".").  However, because the period is used to break up statements, that would require an escape character of some sort, or using some other symbol to represent the class query.
 
