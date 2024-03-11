@@ -222,9 +222,9 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event, and re-evaluates.
 
-## Example 2e specifying event name(s) 
+## Example 2e specifying event name(s) [TODO]
 
-Although the following almost looks like a typo and might not get Hemingway's stamp of approval, it was the best we could come up with as far as being able to specify the event name/type(s) to listen for:
+
 
 ```html
 <ways-of-science itemscope>
@@ -232,7 +232,7 @@ Although the following almost looks like a typo and might not get Hemingway's st
     <a-duck></a-duck>
     <template 
         be-switched='
-            On on weight-changed when ~ carrotNosedWoman equals ~ aDuck.
+            On when ~ carrotNosedWoman equals ~ aDuck, listening for weight-changed event.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -247,19 +247,18 @@ To specify a different event for each, separate with commas:
 ```html
 <template 
     be-switched='
-        On on weight-changed,molting when ~ carrotNosedWoman equals ~ aDuck.
+        On when ~ carrotNosedWoman equals ~ aDuck, listening for weight-changed,molting events.
 '></template>
 ```
 
-The change event type is applied to carrot-nosed-woman, and input event type is applied to a-duck.
 
 ## Example 2f [TODO]
 
-*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user doesn't intend to affect anything.
+*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything.
 
 Everything becomes easier that way, and will also make Hemingway's spirit ready to pass on.
 
-So instead of example 2e, to specify using the change event, use the exclamation point (kind of an emphatic, I'm ready!):
+So instead of example 2e, to specify using the change event:
 
 ```html
 <ways-of-science itemscope>
@@ -267,13 +266,31 @@ So instead of example 2e, to specify using the change event, use the exclamation
     <a-duck></a-duck>
     <template 
         be-switched='
-            On when ~ carrotNosedWoman! equals ~ aDuck.
+            On when ~ carrotNosedWoman changes to aDuck.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
 </ways-of-science>
 ```
+
+To use the change event for both lhs and the rhs: [TODO]
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template 
+        be-switched='
+            On when ~ carrotNosedWoman changes and aDuck changes align.
+     '>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+The word "align" is ignored.  Use whatever sounds right to you - converge, match, ===, etc.  Or mix it up to make reading it less boring.
 
 ## Example 2f => 2g[TODO] specify property path to compare 
 
@@ -290,6 +307,8 @@ So instead of example 2e, to specify using the change event, use the exclamation
     </template>
 </ways-of-science>
 ```
+
+Events are not used here, but rather propagating props.
 
 ### Example 2g => 2h[TODO] property path including  single argument methods with string arguments. 
 
