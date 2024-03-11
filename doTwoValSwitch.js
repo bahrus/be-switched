@@ -5,7 +5,7 @@ export async function doTwoValSwitch(self, onOrOff) {
     const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for (const onSwitch of valueSwitches) {
-        const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsSubProp, rhsSubProp } = onSwitch;
+        const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter } = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
         switch (lhsType) {
@@ -33,7 +33,12 @@ export async function doTwoValSwitch(self, onOrOff) {
                 let inputEl;
                 switch (lhsType) {
                     case '@':
-                        inputEl = await findRealm(enhancedElement, ['wf', lhsProp]);
+                        if (lhsPerimeter !== undefined) {
+                            inputEl = await findRealm(enhancedElement, ['wi', lhsPerimeter, `[name="${lhsProp}"]`]);
+                        }
+                        else {
+                            inputEl = await findRealm(enhancedElement, ['wf', lhsProp]);
+                        }
                         break;
                     case '#':
                         inputEl = await findRealm(enhancedElement, ['wrn', '#' + lhsProp]);
@@ -78,7 +83,12 @@ export async function doTwoValSwitch(self, onOrOff) {
                 let inputEl;
                 switch (rhsType) {
                     case '@':
-                        inputEl = await findRealm(enhancedElement, ['wf', rhsProp]);
+                        if (rhsPerimeter !== undefined) {
+                            inputEl = await findRealm(enhancedElement, ['wi', rhsPerimeter, `[name="${rhsProp}"]`]);
+                        }
+                        else {
+                            inputEl = await findRealm(enhancedElement, ['wf', rhsProp]);
+                        }
                         break;
                     case '#':
                         inputEl = await findRealm(enhancedElement, ['wrn', '#' + rhsProp]);

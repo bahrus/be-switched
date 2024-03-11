@@ -8,9 +8,13 @@ const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
 
 const rhsPerimeter = String.raw `\^(?<rhsPerimeter>.*)`;
 
-const lhsOpRhs = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
+const rhsTypeRhsProp = String.raw `(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
 
-const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `\^(?<lhsPerimeter>.*)(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)${rhsPerimeter}(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
+const lhsOpRhs = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)${rhsTypeRhsProp}`;
+
+const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `\^(?<lhsPerimeter>.*)(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)${rhsPerimeter}${rhsTypeRhsProp}`;
+
+const lhsPerimeterLhsOpRhs = String.raw `\^(?<lhsPerimeter>.*)(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)${rhsTypeRhsProp}`;
 
 const eventTypeLhsOpRhs = String.raw `^on(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
 
@@ -19,6 +23,10 @@ const reOnTwoValSwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
         defaultVals:{}
     },
+    {
+        regExp: new RegExp(`^when${lhsPerimeterLhsOpRhs}`),
+        defaultVals: {}
+    }
     {
         regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals:{}

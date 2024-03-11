@@ -7,7 +7,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for(const onSwitch of valueSwitches!){
-        const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsSubProp, rhsSubProp} = onSwitch;
+        const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter} = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
 
@@ -35,7 +35,12 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
                 let inputEl: HTMLInputElement;
                 switch(lhsType){
                     case '@':
-                        inputEl = await findRealm(enhancedElement, ['wf', lhsProp!]) as HTMLInputElement;
+                        if(lhsPerimeter !== undefined){
+                            inputEl = await findRealm(enhancedElement, ['wi', lhsPerimeter, `[name="${lhsProp}"]`]) as HTMLInputElement;
+                        }else{
+                            inputEl = await findRealm(enhancedElement, ['wf', lhsProp!]) as HTMLInputElement;
+                        }
+                        
                         break;
                     case '#':
                         inputEl = await findRealm(enhancedElement, ['wrn', '#' + lhsProp!]) as HTMLInputElement;
@@ -79,7 +84,11 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
                 let inputEl: HTMLInputElement;
                 switch(rhsType){
                     case '@':
-                        inputEl = await findRealm(enhancedElement, ['wf', rhsProp!]) as HTMLInputElement;
+                        if(rhsPerimeter !== undefined){
+                            inputEl = await findRealm(enhancedElement, ['wi', rhsPerimeter, `[name="${rhsProp}"]`]) as HTMLInputElement;
+                        }else{
+                            inputEl = await findRealm(enhancedElement, ['wf', rhsProp!]) as HTMLInputElement;
+                        }
                         break;
                     case '#':
                         inputEl = await findRealm(enhancedElement, ['wrn', '#' + rhsProp!]) as HTMLInputElement;
