@@ -60,6 +60,8 @@ export interface OnTwoValueSwitch{
     rhsSubProp?: string,
     lhsType?: ElTypes,
     rhsType?: ElTypes,
+    lhsPerimeter?: string,
+    rhsPerimeter?: string,
     req?: boolean,
     op?: 'equals',
     lhsSignal?: WeakRef<SignalRefType>,

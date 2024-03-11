@@ -1,8 +1,15 @@
 import { tryParse } from 'be-enhanced/cpu.js';
 const strType = String.raw `\||\#|\@|\/|\%|\~`;
+const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
+const rhsPerimeter = String.raw `\^(?<rhsPerimeter>.*)`;
 const lhsOpRhs = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
+const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `\^(?<lhsPerimeter>.*)(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)${rhsPerimeter}(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
 const eventTypeLhsOpRhs = String.raw `^on(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
 const reOnTwoValSwitchStatements = [
+    {
+        regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
+        defaultVals: {}
+    },
     {
         regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals: {}
@@ -37,6 +44,7 @@ export async function prsOn(self) {
     const onUnion = [...(On || []), ...(on || [])];
     for (const onS of onUnion) {
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
+        console.log({ twoValSwitchTest });
         if (twoValSwitchTest !== null) {
             const { lhsProp, rhsProp } = twoValSwitchTest;
             if (lhsProp?.includes(':')) {

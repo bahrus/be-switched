@@ -18,7 +18,7 @@ be-switched can be used in two modes:
 1.  It can switch the template "on and off" based on comparing two values (lhs and rhs). 
 2.  Or it can switch the template "on and off" based on a single value.
 
-The values to compare can come from peer microdata or form elements, or "boolish" properties coming from the host or peer (custom) elements.
+The values to compare can come from peer microdata or form elements, or "boolish" properties coming from the host or peer (custom) elements, as well as data attributes adorning the template.
 
 We will look at both options closely, starting with...
 
@@ -146,6 +146,8 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 Here, the search for matching names is done within a containing form, and if no form is found, within the root node.
 
 However, if that is not sufficient, we can specify a "scoping" perimeter via an "upSearch" query.  Symbolically, we use the "^" symbol to indicate this [TODO]:
+
+### Example 2c
 
 ```html
 <section>
@@ -332,10 +334,6 @@ Events are not used here, but rather propagating props.
     </template>
 </ways-of-science>
 ```
-
-
-
-
 
 
 [TODO]  Support eq, gt, lt
