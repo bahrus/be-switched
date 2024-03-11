@@ -91,6 +91,7 @@ In the examples below, we will encounter special symbols used in order to keep t
 | %propName    |match based on part attribute   | Listens for input events.                                                            |
 | -prop-name   |Marker indicates prop           | Attaches listeners to getters/setters.                                               | 
 | ~elementName |match based on element name     | Listens for input events.                                                            |
+| $0           |adorned element                 | Useful for specifying constants 
 
 
 "Hostish" means:
@@ -332,6 +333,11 @@ Events are not used here, but rather propagating props.
 </ways-of-science>
 ```
 
+
+
+
+
+
 [TODO]  Support eq, gt, lt
 
 ## And now for something completely different
@@ -370,6 +376,23 @@ The standalone ^ is indicating to just look at the previous element sibling.
     <link itemprop=isHappy href=https://schema.org/True>
 </div>
 ```
+
+### Example 3c Comparison to a constant
+
+```html
+<div itemscope>
+    
+    <label id=lhs>lhs</label>
+    <input name=lhs type=number>
+    
+    <template data-rhs-num=37 be-switched='on when @lhs equals $0:dataset.rhsNum.'>
+        <my-content></my-content>
+    </template>
+    
+</div>
+```
+
+*be-switched* recognizes the suffixes num, int, float, big-int, bool, date, reg-exp, url-pattern(?)
 
 ### Example 3a => 3c [TODO] 
 
