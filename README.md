@@ -332,6 +332,8 @@ Events are not used here, but rather propagating props.
 </ways-of-science>
 ```
 
+[TODO]  Support eq, gt, lt
+
 ## And now for something completely different
 
 Examples 2* all focused on comparing two values.  The reason for focusing first on what is the "harder" case, is simply to suggest why this enhancement was so named.
