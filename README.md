@@ -255,9 +255,9 @@ To specify a different event for each, separate with commas:
 
 ## Example 2f Injecting some script [TODO]
 
-*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything.
+*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything before committing the changes in some way.
 
-
+Doing so allows us to tap into the built-in oninput and onchange events, where we can script away to our heart's pleasure:
 
 ```html
 <ways-of-science itemscope>
