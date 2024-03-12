@@ -145,7 +145,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 
 Here, the search for matching names is done within a containing form, and if no form is found, within the root node.
 
-However, if that is not sufficient, we can specify a "scoping" perimeter via an "upSearch" query.  Symbolically, we use the "^" symbol to indicate this [TODO]:
+However, if that is not sufficient, we can specify a "scoping" perimeter via an "upSearch" query.  Symbolically, we use the "^" symbol to indicate this:
 
 ### Example 2c
 
@@ -167,6 +167,8 @@ However, if that is not sufficient, we can specify a "scoping" perimeter via an 
 ```
 
 "UpSearch" means:  First check for previous siblings that match the selector, then the parent, then previous siblings of the parent, etc.  Stop at the ShadowDOM root.
+
+We can apply such upSearch queries to either the LHS or the HRS, or both, as shown above.
 
 [TODO] Support for down search?
 
