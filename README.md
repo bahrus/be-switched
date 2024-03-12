@@ -78,7 +78,7 @@ be-switched does, however, provide two approaches to compensate for that:
 
 1.  Pass the lhs, rhs via the dataset attribute gateway of the template element: [TODO]
 
-oTemmplate.dataset.rhsNum = '37';
+oTemplate.dataset.rhsNum = '37';
 
 Suffixes Num, Bool, Date are also supported.
 
@@ -273,9 +273,9 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        onload="return event.lhs.weight === event.rhs.weight"
-        oninput="return event.lhs.weight === event.rhs.weight"
-        onchange="return event.lhs.weight ^ 2 === Math.tanh(event.rhs.weight)" 
+        onload="event.val = (event.lhs.weight === event.rhs.weight)"
+        oninput="event.val = (event.lhs.weight === event.rhs.weight)"
+        onchange="event.val = (event.lhs.weight ^ 2 === Math.tanh(event.rhs.weight)" 
         be-switched='
             On depending on carrotNosedWoman and aDuck.
      '>
