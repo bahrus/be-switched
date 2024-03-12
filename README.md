@@ -253,6 +253,28 @@ To specify a different event for each, separate with commas:
 '></template>
 ```
 
+## Example 2f Injecting some script [TODO]
+
+*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything.
+
+
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        oninput="return event.lhs.weight === event.rhs.weight"
+        onchange="return event.lhs.weight ^ 2 === Math.tanh(event.rhs.weight)" 
+        be-switched='
+            On depending on carrotNosedWoman and aDuck.
+     '>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
 
 ## Example 2f => 2g[TODO] specify property path to compare 
 
