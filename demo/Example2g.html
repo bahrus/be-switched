@@ -21,18 +21,13 @@
     </script>
 </head>
 <body>
-    <ways-of-science itemscope>
-        <carrot-nosed-woman aria-valuenow=11></carrot-nosed-woman>
-        <a-duck aria-valuenow=hello></a-duck>
-        <template 
-            be-switched='
-                On when ~ carrotNosedWoman equals ~ aDuck.
-         '>
-            <div>A witch!</div>
-            <div>Burn her!</div>
-        </template>
-    </ways-of-science>
-
+    <label for=lhs>LHS:</label>
+    <input id=lhs>
+    <label for=rhs>RHS:</label>
+    <input id=rhs>
+    <template be-switched='on when #lhs equals #rhs, listening for change,input events.'>
+        <div>LHS === RHS</div>
+    </template>
 
 
     <script type=module>

@@ -277,10 +277,12 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
 </ways-of-science>
 ```
 
-If onload is provided but not oninput and onchange, oninput and onchange will execute onload code.  To say "be neutral" on the comparison, return null.
+"onload" indicates what to evaluate at start up, before any input or change events have fired.
+
+If onload is provided but not oninput and onchange, an internal onchange listener is added, which assumes it needs to apply the logic that is specified in onload, but when either the lhs or the rhs elements fire "change" event.  To say "be neutral" on the comparison, return null.  
 
 
-## Example 2f => 2g[TODO] specify property path to compare 
+## Example 2h specify property path to compare 
 
 ```html
 <ways-of-science>
@@ -298,30 +300,9 @@ If onload is provided but not oninput and onchange, oninput and onchange will ex
 
 Events are not used here, but rather propagating props.
 
-### Example 2g => 2h[TODO] property path including  single argument methods with string arguments. 
-
-```html
-<ways-of-science>
-    <largest-scale>
-        <carrot-nosed-woman></carrot-nosed-woman>
-    </largest-scale>
-    <largest-scale>
-        <a-duck></a-duck>
-    </largest-scale>
-    <template 
-        be-switched='On 
-            when 
-                ^largest-scale~carrotNosedWoman:weight
-            equals 
-                ^largest-scale~aDuck:weight'>
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
 
 
-[TODO]  Support eq, gt, lt
+[TODO]  Support gt, lt
 
 [TODO] Support for down search?
 
