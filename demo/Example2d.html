@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example 2d</title>
+    <title>Document</title>
     <script type=importmap>
         {
             "imports": {
@@ -21,22 +21,33 @@
     </script>
 </head>
 <body>
-    <ways-of-science itemscope>
-        <carrot-nosed-woman aria-valuenow=11></carrot-nosed-woman>
-        <a-duck aria-valuenow=hello></a-duck>
-        <template 
-            be-switched='
-                On when ~ carrotNosedWoman equals ~ aDuck.
-         '>
-            <div>A witch!</div>
-            <div>Burn her!</div>
+    <div itemscope>
+        <span itemprop=lhs contenteditable>I am here</span>
+    
+        <span itemprop=rhs contenteditable>I am here</span>
+        
+        
+        <template be-switched='on when |lhs equals |rhs.'>
+            <div id=equals>LHS === RHS</div>
         </template>
-    </ways-of-science>
+    </div>
 
-
+    <div id=target></div>
 
     <script type=module>
         import '../behivior.js';
     </script>
+        <script>
+            function runTest() {
+                setTimeout(() => {
+                    if (window['equals'] !== undefined) {
+                        target.setAttribute('mark', 'good');
+                    }
+                }, 100);
+            }
+            setTimeout(() => {
+                runTest();
+            }, 2000);
+        </script>
 </body>
 </html>

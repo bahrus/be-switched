@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example 2e</title>
+    <title>Example 2d</title>
     <script type=importmap>
         {
             "imports": {
@@ -21,13 +21,18 @@
     </script>
 </head>
 <body>
-    <label for=lhs>LHS:</label>
-    <input id=lhs>
-    <label for=rhs>RHS:</label>
-    <input id=rhs>
-    <template be-switched='on on change,input when #lhs equals #rhs.'>
-        <div>LHS === RHS</div>
-    </template>
+    <ways-of-science itemscope>
+        <carrot-nosed-woman aria-valuenow=11></carrot-nosed-woman>
+        <a-duck aria-valuenow=hello></a-duck>
+        <template 
+            be-switched='
+                On when ~ carrotNosedWoman equals ~ aDuck.
+         '>
+            <div>A witch!</div>
+            <div>Burn her!</div>
+        </template>
+    </ways-of-science>
+
 
 
     <script type=module>

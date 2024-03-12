@@ -170,11 +170,8 @@ However, if that is not sufficient, we can specify a "scoping" perimeter via an 
 
 We can apply such upSearch queries to either the LHS or the HRS, or both, as shown above.
 
-[TODO] Support for down search?
 
-Use Y.
-
-### Example 2c
+### Example 2d
 
 ```html
 <div itemscope>
@@ -194,7 +191,7 @@ Here the search is done within the nearest itemscope, and if no itemscope is fou
 
 Again, if that proves inadequate, use the ^ character to indicate the closest parent to search within.
 
-### Example 2d
+### Example 2e
 
 ```html
 <ways-of-science itemscope>
@@ -227,7 +224,7 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event, and re-evaluates.
 
-## Example 2e specifying event name(s) [TODO]
+## Example 2f specifying event name(s) [TODO]
 
 
 
@@ -256,46 +253,6 @@ To specify a different event for each, separate with commas:
 '></template>
 ```
 
-
-## Example 2f [TODO]
-
-*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything.
-
-Everything becomes easier that way, and will also make Hemingway's spirit ready to pass on.
-
-So instead of example 2e, to specify using the change event:
-
-```html
-<ways-of-science itemscope>
-    <carrot-nosed-woman></carrot-nosed-woman>
-    <a-duck></a-duck>
-    <template 
-        be-switched='
-            On when ~ carrotNosedWoman changes to aDuck.
-     '>
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
-
-To use the change event for both lhs and the rhs: [TODO]
-
-```html
-<ways-of-science itemscope>
-    <carrot-nosed-woman></carrot-nosed-woman>
-    <a-duck></a-duck>
-    <template 
-        be-switched='
-            On when ~ carrotNosedWoman changes and aDuck changes align.
-     '>
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
-
-The word "align" is ignored.  Use whatever sounds right to you - converge, match, ===, etc.  Or mix it up to make reading it less boring.
 
 ## Example 2f => 2g[TODO] specify property path to compare 
 
@@ -339,6 +296,11 @@ Events are not used here, but rather propagating props.
 
 
 [TODO]  Support eq, gt, lt
+
+[TODO] Support for down search?
+
+Use Y.
+
 
 ## And now for something completely different
 
