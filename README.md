@@ -258,13 +258,14 @@ To specify a different event for each, separate with commas:
 
 *be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything before committing the changes in some way.
 
-Doing so allows us to tap into the built-in oninput and onchange events, where we can script away to our heart's pleasure:
+Doing so allows us to tap into the built-in oninput and onchange events, where we can script away to our heart's content:
 
 ```html
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
+        onload="return event.lhs.weight === event.rhs.weight"
         oninput="return event.lhs.weight === event.rhs.weight"
         onchange="return event.lhs.weight ^ 2 === Math.tanh(event.rhs.weight)" 
         be-switched='
@@ -275,6 +276,8 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
     </template>
 </ways-of-science>
 ```
+
+If onload is provided but not oninput and onchange, oninput and onchange will execute onload code.  To say "be neutral" on the comparison, return null.
 
 
 ## Example 2f => 2g[TODO] specify property path to compare 
