@@ -124,7 +124,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 > The comparison condition is re-evaluated on the input events of the lhs and rhs elements.  See below for how to specify alternate event names
 
 > [!Note]
-> For the power user:  Replace "equals" with eq and impress your friends with your prowess using this library.
+> For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
 
 ### Example 2b
@@ -192,7 +192,7 @@ We can apply such upSearch queries to either the LHS or the HRS, or both, as sho
 
 Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
 
-Again, if that proves inadequate, use the ^ character to indicate the closest parent to search within.
+Again, if that proves inadequate, use the ^ character to indicate the closest upSearch peer/parent to search within.
 
 ### Example 2e
 
@@ -227,9 +227,7 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event, and re-evaluates.
 
-## Example 2f specifying event name(s) [TODO]
-
-
+## Example 2f specifying event name(s)
 
 ```html
 <ways-of-science itemscope>

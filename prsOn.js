@@ -9,7 +9,7 @@ const lhsOpRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
 const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
 const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
 const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
-const eventTypeLhsOpRhs = String.raw `^on(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
+const LhsOpRhsEventNames = String.raw `${lhsOpRhs}(?<!\\)\,ListeningFor(?<eventNames>[\w\-\:\,]+)(?<!\\)Events`;
 const reOnTwoValSwitchStatements = [
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
@@ -24,13 +24,13 @@ const reOnTwoValSwitchStatements = [
         defaultVals: {}
     },
     {
-        regExp: new RegExp(`^when${lhsOpRhs}`),
+        regExp: new RegExp(`^when${LhsOpRhsEventNames}`),
         defaultVals: {}
     },
     {
-        regExp: new RegExp(eventTypeLhsOpRhs),
+        regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals: {}
-    }
+    },
 ];
 const reOnBinarySwitchStatements = [
     {
@@ -57,7 +57,7 @@ export async function prsOn(self) {
     const onUnion = [...(On || []), ...(on || [])];
     for (const onS of onUnion) {
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
-        console.log({ twoValSwitchTest });
+        console.log({ onS, twoValSwitchTest });
         if (twoValSwitchTest !== null) {
             const { lhsProp, rhsProp } = twoValSwitchTest;
             if (lhsProp?.includes(':')) {
