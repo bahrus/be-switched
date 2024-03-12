@@ -212,7 +212,7 @@ Again, if that proves inadequate, use the ^ character to indicate the closest up
 
 What this does:
 
-1.  Finds carrot-nosed-woman within itemscope, and if not found, within root node.  
+1.  Finds carrot-nosed-woman element within itemscope, and if not found, within root node.  
 2.  Waits for customElements.whenDefined('carrot-nosed-woman').
 3.  Attempts to infer the value of the element.
     1.  If 'value' in oCarrotNosedWoman, uses that.
@@ -254,7 +254,7 @@ To specify a different event for each, separate with commas:
 '></template>
 ```
 
-## Example 2f Injecting some script [TODO]
+## Example 2g Injecting some script [TODO]
 
 *be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything before committing the changes in some way.
 
