@@ -1,11 +1,13 @@
 import { tryParse } from 'be-enhanced/cpu.js';
 const strType = String.raw `\||\#|\@|\/|\%|\~`;
 const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
+const lhsTypeLHSProp = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)`;
 const rhsPerimeter = String.raw `\^(?<rhsPerimeter>.*)`;
 const rhsTypeRhsProp = String.raw `(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
-const lhsOpRhs = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)${rhsTypeRhsProp}`;
-const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `\^(?<lhsPerimeter>.*)(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)${rhsPerimeter}${rhsTypeRhsProp}`;
-const lhsPerimeterLhsOpRhs = String.raw `\^(?<lhsPerimeter>.*)(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)(?<!\\)(?<op>Equals)${rhsTypeRhsProp}`;
+const lhsOpRhs = String.raw `${lhsTypeLHSProp}(?<!\\)(?<op>Equals)${rhsTypeRhsProp}`;
+const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}(?<!\\)(?<op>Equals)${rhsPerimeter}${rhsTypeRhsProp}`;
+const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}(?<!\\)(?<op>Equals)${rhsTypeRhsProp}`;
+const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}(?<!\\)(?<op>Equals)${rhsPerimeter}${rhsTypeRhsProp}`;
 const eventTypeLhsOpRhs = String.raw `^on(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
 const reOnTwoValSwitchStatements = [
     {
@@ -14,6 +16,10 @@ const reOnTwoValSwitchStatements = [
     },
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhs}`),
+        defaultVals: {}
+    },
+    {
+        regExp: new RegExp(`^when${lhsOpRhsPerimeterRhs}`),
         defaultVals: {}
     },
     {

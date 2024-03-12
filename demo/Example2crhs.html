@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example 2c LHS</title>
+    <title>Example 2c RHS</title>
     <script type=importmap>
         {
             "imports": {
@@ -23,8 +23,8 @@
 <body>
     These should be ignored:
     <div>
-        <label for=lhs>LHS:</label>
-        <input name=lhs>
+        <label for=rhs>RHS:</label>
+        <input name=rhs>
     </div>
     These should be active:
     <section>
@@ -32,7 +32,7 @@
         <input name=lhs>
         <label for=rhs>RHS:</label>
         <input name=rhs>
-        <template be-switched='on when ^section@lhs equals @rhs.'>
+        <template be-switched='on when @lhs equals ^section@rhs.'>
             <div>LHS === RHS</div>
         </template>
     </section>
