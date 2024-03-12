@@ -74,6 +74,14 @@ All of this is to say, most frameworks probably don't and won't be able to make 
 
 Frameworks fail us, yet again!
 
+be-switched does, however, provide two approaches to compensate for that:
+
+1.  Pass the lhs, rhs via the dataset attribute gateway of the template element: [TODO]
+
+oTemmplate.dataset.rhsNum = '37';
+
+Suffixes Num, Bool, Date are also supported.
+
 For that reason, among others, an alternative way of "pulling in" values to compare is provided via:
 
 ## Hemingway Notation
