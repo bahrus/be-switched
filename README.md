@@ -22,7 +22,7 @@ The values to compare can come from peer microdata or form elements, or "boolish
 
 We will look at both options closely, starting with...
 
-## Comparing two values - JavaScriptObjectNotation
+## Comparing two values via JavaScriptObjectNotation
 
 ### Example 1
 
@@ -122,6 +122,9 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 
 > [!NOTE]
 > The comparison condition is re-evaluated on the input events of the lhs and rhs elements.  See below for how to specify alternate event names
+
+> [!Note]
+> For the power user:  Replace "equals" with eq and impress your friends with your prowess using this library.
 
 
 ### Example 2b

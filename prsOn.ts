@@ -12,13 +12,15 @@ const rhsPerimeter = String.raw `\^(?<rhsPerimeter>.*)`;
 
 const rhsTypeRhsProp = String.raw `(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
 
-const lhsOpRhs = String.raw `${lhsTypeLHSProp}(?<!\\)(?<op>Equals)${rhsTypeRhsProp}`;
+const opEquals = String.raw `(?<!\\)(?<op>(Equals|Eq))`;
 
-const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}(?<!\\)(?<op>Equals)${rhsPerimeter}${rhsTypeRhsProp}`;
+const lhsOpRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
 
-const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}(?<!\\)(?<op>Equals)${rhsTypeRhsProp}`;
+const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
 
-const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}(?<!\\)(?<op>Equals)${rhsPerimeter}${rhsTypeRhsProp}`;
+const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
+
+const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
 
 const eventTypeLhsOpRhs = String.raw `^on(?<eventNames>[\w\-\:\,]+)(?<!\\)When${lhsOpRhs}`;
 
