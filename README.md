@@ -273,9 +273,9 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        onload="event.switch.val = (event.switch.lhs.weight === event.switch.rhs.weight)"
-        oninput="event.switch.val = (event.switch.lhs.weight === event.switch.rhs.weight)"
-        onchange="event.switch.val = (event.switch.lhs.weight ^ 2 === Math.tanh(event.switch.rhs.weight)" 
+        onload="event.switchOn = (event.switch.lhs.weight === event.switch.rhs.weight)"
+        oninput="event.switchOn = (event.switch.lhs.weight === event.switch.rhs.weight)"
+        onchange="event.switchOn = (event.switch.lhs.weight ^ 2 === Math.tanh(event.switch.rhs.weight)" 
         be-switched='
             On depending on carrotNosedWoman and aDuck.
      '>

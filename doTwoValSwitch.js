@@ -178,3 +178,11 @@ async function checkSwitches(self, onOrOff) {
     }
     self.switchesSatisfied = foundOne;
 }
+export class LoadEvent extends Event {
+    data;
+    static EventName = 'load';
+    constructor(data) {
+        super(LoadEvent.EventName);
+        this.data = data;
+    }
+}

@@ -1,8 +1,9 @@
-import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
+import {AP, ProPAP, OnBinaryValueSwitch, PAP, loadEventName, inputEventName, changeEventName, EventForTwoValSwitch} from './types';
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
 import {getSignalVal} from 'be-linked/getSignalVal.js';
 import {getVal} from 'trans-render/lib/getVal.js';
+
 export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
@@ -173,4 +174,13 @@ async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
     }
     
     self.switchesSatisfied = foundOne;
+}
+
+export class LoadEvent extends Event implements EventForTwoValSwitch{
+
+    static EventName: loadEventName = 'load';
+
+    constructor(public data: any){
+        super(LoadEvent.EventName);
+    }
 }

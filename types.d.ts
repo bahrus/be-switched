@@ -92,3 +92,21 @@ export interface Actions{
     onOffBinarySwitches(self: this): Promise<void>;
     offTwoValSwitches(sef: this): Promise<void>;
 }
+
+
+
+// https://github.com/webcomponents-cg/community-protocols/issues/12#issuecomment-872415080
+export type loadEventName = 'load';
+export type inputEventName = 'input';
+export type changeEventName = 'change';
+
+export interface EventForTwoValSwitch {
+    lhs: {
+        val: any,
+        //signal
+    },
+    rhs: {
+        val: any
+    },
+    switchOn?: boolean,
+}
