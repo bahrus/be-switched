@@ -1,8 +1,9 @@
-import {AP, ProPAP, OnBinaryValueSwitch, PAP, loadEventName, inputEventName, changeEventName, EventForTwoValSwitch} from './types';
+import {AP, loadEventName, inputEventName, changeEventName, EventForTwoValSwitch, HS} from './types';
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
 import {getSignalVal} from 'be-linked/getSignalVal.js';
 import {getVal} from 'trans-render/lib/getVal.js';
+import {Side} from './Side.js';
 
 export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
@@ -11,7 +12,14 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
         const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter, dependsOn} = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
-
+        const lhs = new Side(
+            onSwitch, 
+            splitEventNames[0],
+            lhsProp,
+            lhsType,
+            lhsPerimeter
+        );
+        await lhs.do(self, onOrOff, enhancedElement);
         switch(lhsType){
             case '|':
                 const {getItemPropEl} = await import('./getItempropEl.js');
@@ -133,7 +141,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     await checkSwitches(self, onOrOff);
 }
 
-async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
+export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
     const {onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     if(valueSwitches?.length === 0) return;
@@ -180,7 +188,25 @@ export class LoadEvent extends Event implements EventForTwoValSwitch{
 
     static EventName: loadEventName = 'load';
 
-    constructor(public data: any){
+    constructor(public lhs: HS, public rhs: HS, public switchOn: boolean){
         super(LoadEvent.EventName);
+    }
+}
+
+export class InputEvent extends Event implements EventForTwoValSwitch{
+
+    static EventName: inputEventName = 'input';
+
+    constructor(public lhs: HS, public rhs: HS, public switchOn: boolean){
+        super(InputEvent.EventName);
+    }
+}
+
+export class ChangeEvent extends Event implements EventForTwoValSwitch{
+
+    static EventName: changeEventName = 'change';
+
+    constructor(public lhs: HS, public rhs: HS, public switchOn: boolean){
+        super(ChangeEvent.EventName);
     }
 }

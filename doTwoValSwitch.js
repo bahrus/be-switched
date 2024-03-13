@@ -1,6 +1,7 @@
 import { findRealm } from 'trans-render/lib/findRealm.js';
 import { getSignalVal } from 'be-linked/getSignalVal.js';
 import { getVal } from 'trans-render/lib/getVal.js';
+import { Side } from './Side.js';
 export async function doTwoValSwitch(self, onOrOff) {
     const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
@@ -8,6 +9,8 @@ export async function doTwoValSwitch(self, onOrOff) {
         const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter, dependsOn } = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
+        const lhs = new Side(onSwitch, splitEventNames[0], lhsProp, lhsType, lhsPerimeter);
+        await lhs.do(self, onOrOff, enhancedElement);
         switch (lhsType) {
             case '|':
                 const { getItemPropEl } = await import('./getItempropEl.js');
@@ -131,7 +134,7 @@ export async function doTwoValSwitch(self, onOrOff) {
     }
     await checkSwitches(self, onOrOff);
 }
-async function checkSwitches(self, onOrOff) {
+export async function checkSwitches(self, onOrOff) {
     const { onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     if (valueSwitches?.length === 0)
@@ -179,10 +182,38 @@ async function checkSwitches(self, onOrOff) {
     self.switchesSatisfied = foundOne;
 }
 export class LoadEvent extends Event {
-    data;
+    lhs;
+    rhs;
+    switchOn;
     static EventName = 'load';
-    constructor(data) {
+    constructor(lhs, rhs, switchOn) {
         super(LoadEvent.EventName);
-        this.data = data;
+        this.lhs = lhs;
+        this.rhs = rhs;
+        this.switchOn = switchOn;
+    }
+}
+export class InputEvent extends Event {
+    lhs;
+    rhs;
+    switchOn;
+    static EventName = 'input';
+    constructor(lhs, rhs, switchOn) {
+        super(InputEvent.EventName);
+        this.lhs = lhs;
+        this.rhs = rhs;
+        this.switchOn = switchOn;
+    }
+}
+export class ChangeEvent extends Event {
+    lhs;
+    rhs;
+    switchOn;
+    static EventName = 'change';
+    constructor(lhs, rhs, switchOn) {
+        super(ChangeEvent.EventName);
+        this.lhs = lhs;
+        this.rhs = rhs;
+        this.switchOn = switchOn;
     }
 }

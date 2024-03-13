@@ -100,13 +100,12 @@ export type loadEventName = 'load';
 export type inputEventName = 'input';
 export type changeEventName = 'change';
 
+export interface HS {
+    val: any
+}
+
 export interface EventForTwoValSwitch {
-    lhs: {
-        val: any,
-        //signal
-    },
-    rhs: {
-        val: any
-    },
+    lhs: HS,
+    rhs: HS,
     switchOn?: boolean,
 }
