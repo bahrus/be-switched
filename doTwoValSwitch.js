@@ -11,66 +11,6 @@ export async function doTwoValSwitch(self, onOrOff) {
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
         const lhs = new Side(onSwitch, splitEventNames[0], lhsProp, lhsType, lhsPerimeter);
         await lhs.do(self, onOrOff, enhancedElement);
-        switch (lhsType) {
-            case '|':
-                const { getItemPropEl } = await import('./getItempropEl.js');
-                const itempropEl = await getItemPropEl(enhancedElement, lhsProp);
-                if (itempropEl.hasAttribute('contenteditable')) {
-                    onSwitch.lhsSignal = new WeakRef(itempropEl);
-                    itempropEl.addEventListener('input', e => {
-                        checkSwitches(self, onOrOff);
-                    });
-                }
-                else {
-                    import('be-value-added/be-value-added.js');
-                    const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
-                    onSwitch.lhsSignal = new WeakRef(beValueAdded);
-                    beValueAdded.addEventListener('value-changed', e => {
-                        checkSwitches(self, onOrOff);
-                    });
-                }
-                break;
-            case '~':
-            case '@':
-            case '#': {
-                let inputEl;
-                switch (lhsType) {
-                    case '@':
-                        if (lhsPerimeter !== undefined) {
-                            inputEl = await findRealm(enhancedElement, ['wi', lhsPerimeter, `[name="${lhsProp}"]`]);
-                        }
-                        else {
-                            inputEl = await findRealm(enhancedElement, ['wf', lhsProp]);
-                        }
-                        break;
-                    case '#':
-                        inputEl = await findRealm(enhancedElement, ['wrn', '#' + lhsProp]);
-                        break;
-                    case '~':
-                        const { camelToLisp } = await import('trans-render/lib/camelToLisp.js');
-                        const localName = camelToLisp(lhsProp);
-                        inputEl = await findRealm(enhancedElement, ['wis', localName, true]);
-                        break;
-                }
-                if (!inputEl)
-                    throw 404;
-                onSwitch.lhsSignal = new WeakRef(inputEl);
-                if (dependsOn) {
-                    inputEl.addEventListener('input', e => {
-                        enhancedElement.dispatchEvent(new Event('input'));
-                    });
-                    inputEl.addEventListener('change', e => {
-                        enhancedElement.dispatchEvent(new Event('change'));
-                    });
-                }
-                else {
-                    inputEl.addEventListener(splitEventNames[0], e => {
-                        checkSwitches(self, onOrOff);
-                    });
-                }
-                break;
-            }
-        }
         switch (rhsType) {
             case '|':
                 const { getItemPropEl } = await import('./getItempropEl.js');
