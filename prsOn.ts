@@ -24,7 +24,7 @@ const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsPerime
 
 const LhsOpRhsEventNames = String.raw `${lhsOpRhs}(?<!\\)\,ListeningFor(?<eventNames>[\w\-\:\,]+)(?<!\\)(Event|Events)`;
 
-const reOnTwoValSwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
+const reOnTwoValSwitchStatements: RegExpOrRegExpExt<OnTwoValueSwitch>[] = [
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
         defaultVals:{}
@@ -45,7 +45,12 @@ const reOnTwoValSwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
         regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals:{}
     },
-
+    {
+        regExp: new RegExp(`^dependingOn${lhsTypeLHSProp}And${rhsTypeRhsProp}`),
+        defaultVals:{
+            dependsOn: true
+        }
+    }
 ]
 
 const reOnBinarySwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [

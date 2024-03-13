@@ -273,9 +273,9 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        onload="event.val = (event.lhs.weight === event.rhs.weight)"
-        oninput="event.val = (event.lhs.weight === event.rhs.weight)"
-        onchange="event.val = (event.lhs.weight ^ 2 === Math.tanh(event.rhs.weight)" 
+        onload="event.target.val = (event.target.lhs.weight === event.target.rhs.weight)"
+        oninput="event.target.val = (event.target.lhs.weight === event.target.rhs.weight)"
+        onchange="event.target.val = (event.target.lhs.weight ^ 2 === Math.tanh(event.target.rhs.weight)" 
         be-switched='
             On depending on carrotNosedWoman and aDuck.
      '>
@@ -287,7 +287,7 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
 
 "onload" indicates what to evaluate at start up, before any input or change events have fired.
 
-If onload is provided but not oninput and onchange, an internal onchange listener is added, which assumes it needs to apply the logic that is specified in onload, but when either the lhs or the rhs elements fire "change" event.  To say "be neutral" on the comparison, return null.  
+If onload is provided but not oninput and onchange, an internal onchange listener is added, which assumes it needs to apply the logic that is specified in onload, but when either the lhs or the rhs elements fire "change" event.   
 
 
 ## Example 2h specify property path to compare 

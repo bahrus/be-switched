@@ -31,6 +31,12 @@ const reOnTwoValSwitchStatements = [
         regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals: {}
     },
+    {
+        regExp: new RegExp(`^dependingOn${lhsTypeLHSProp}And${rhsTypeRhsProp}`),
+        defaultVals: {
+            dependsOn: true
+        }
+    }
 ];
 const reOnBinarySwitchStatements = [
     {
