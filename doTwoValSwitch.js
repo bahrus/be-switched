@@ -5,7 +5,7 @@ export async function doTwoValSwitch(self, onOrOff) {
     const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for (const onSwitch of valueSwitches) {
-        const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter } = onSwitch;
+        const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter, dependsOn } = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
         switch (lhsType) {
@@ -52,9 +52,19 @@ export async function doTwoValSwitch(self, onOrOff) {
                 if (!inputEl)
                     throw 404;
                 onSwitch.lhsSignal = new WeakRef(inputEl);
-                inputEl.addEventListener(splitEventNames[0], e => {
-                    checkSwitches(self, onOrOff);
-                });
+                if (dependsOn) {
+                    inputEl.addEventListener('input', e => {
+                        enhancedElement.dispatchEvent(new Event('input'));
+                    });
+                    inputEl.addEventListener('change', e => {
+                        enhancedElement.dispatchEvent(new Event('change'));
+                    });
+                }
+                else {
+                    inputEl.addEventListener(splitEventNames[0], e => {
+                        checkSwitches(self, onOrOff);
+                    });
+                }
                 break;
             }
         }
@@ -102,9 +112,19 @@ export async function doTwoValSwitch(self, onOrOff) {
                 if (!inputEl)
                     throw 404;
                 onSwitch.rhsSignal = new WeakRef(inputEl);
-                inputEl.addEventListener(splitEventNames.length > 1 ? splitEventNames[1] : splitEventNames[0], e => {
-                    checkSwitches(self, onOrOff);
-                });
+                if (dependsOn) {
+                    inputEl.addEventListener('input', e => {
+                        enhancedElement.dispatchEvent(new Event('input'));
+                    });
+                    inputEl.addEventListener('change', e => {
+                        enhancedElement.dispatchEvent(new Event('change'));
+                    });
+                }
+                else {
+                    inputEl.addEventListener(splitEventNames.length > 1 ? splitEventNames[1] : splitEventNames[0], e => {
+                        checkSwitches(self, onOrOff);
+                    });
+                }
                 break;
             }
         }
@@ -118,7 +138,9 @@ async function checkSwitches(self, onOrOff) {
         return;
     let foundOne = false;
     for (const onSwitch of valueSwitches) {
-        const { req, lhsSignal, rhsSignal, op, negate, rhsSubProp, lhsSubProp } = onSwitch;
+        const { req, lhsSignal, rhsSignal, op, negate, rhsSubProp, lhsSubProp, dependsOn } = onSwitch;
+        if (dependsOn)
+            continue;
         if (foundOne && !req)
             continue;
         const lhsRef = lhsSignal?.deref();
