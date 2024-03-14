@@ -25,7 +25,7 @@ We will look at both options closely, starting with...
 # Part I  
 
 <details>
-    <summary>Comparing two values via JavaScriptObjectNotation
+    <summary>Comparing two values via JavaScriptObjectNotation</summary>
 
 ## A single lhs/rhs comparison
 
