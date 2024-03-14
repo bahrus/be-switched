@@ -1,18 +1,20 @@
 import { findRealm } from 'trans-render/lib/findRealm.js';
 import { checkSwitches } from './doTwoValSwitch.js';
-export class Side {
+export class Side extends EventTarget {
     tvs;
     eventName;
     prop;
     type;
     perimeter;
     constructor(tvs, eventName, prop, type, perimeter) {
+        super();
         this.tvs = tvs;
         this.eventName = eventName;
         this.prop = prop;
         this.type = type;
         this.perimeter = perimeter;
     }
+    val;
     async do(self, onOrOff, enhancedElement) {
         const { tvs, eventName, prop, type, perimeter } = this;
         const { dependsOn } = tvs;
@@ -63,10 +65,14 @@ export class Side {
                 signal = new WeakRef(inputEl);
                 if (dependsOn) {
                     inputEl.addEventListener('input', e => {
-                        enhancedElement.dispatchEvent(new Event('input'));
+                        const evt = new InputEvent(tvs);
+                        enhancedElement.dispatchEvent(evt);
+                        console.log({ evt });
                     });
                     inputEl.addEventListener('change', e => {
-                        enhancedElement.dispatchEvent(new Event('change'));
+                        const evt = new ChangeEvent(tvs);
+                        enhancedElement.dispatchEvent(evt);
+                        console.log({ evt });
                     });
                 }
                 else {
@@ -78,5 +84,25 @@ export class Side {
             }
         }
         return signal;
+    }
+}
+export class InputEvent extends Event {
+    ctx;
+    switchOn;
+    static EventName = 'input';
+    constructor(ctx, switchOn) {
+        super(InputEvent.EventName);
+        this.ctx = ctx;
+        this.switchOn = switchOn;
+    }
+}
+export class ChangeEvent extends Event {
+    ctx;
+    switchOn;
+    static EventName = 'change';
+    constructor(ctx, switchOn) {
+        super(ChangeEvent.EventName);
+        this.ctx = ctx;
+        this.switchOn = switchOn;
     }
 }

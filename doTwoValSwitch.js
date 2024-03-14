@@ -8,9 +8,9 @@ export async function doTwoValSwitch(self, onOrOff) {
         const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter } = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
-        const lhs = new Side(onSwitch, splitEventNames[0], lhsProp, lhsType, lhsPerimeter);
+        const lhs = onSwitch.lhs = new Side(onSwitch, splitEventNames[0], lhsProp, lhsType, lhsPerimeter);
+        const rhs = onSwitch.rhs = new Side(onSwitch, splitEventNames[1], rhsProp, rhsType, rhsPerimeter);
         onSwitch.lhsSignal = await lhs.do(self, onOrOff, enhancedElement);
-        const rhs = new Side(onSwitch, splitEventNames[1], rhsProp, rhsType, rhsPerimeter);
         onSwitch.rhsSignal = await rhs.do(self, onOrOff, enhancedElement);
     }
     await checkSwitches(self, onOrOff);
@@ -63,38 +63,12 @@ export async function checkSwitches(self, onOrOff) {
     self.switchesSatisfied = foundOne;
 }
 export class LoadEvent extends Event {
-    lhs;
-    rhs;
+    ctx;
     switchOn;
     static EventName = 'load';
-    constructor(lhs, rhs, switchOn) {
+    constructor(ctx, switchOn) {
         super(LoadEvent.EventName);
-        this.lhs = lhs;
-        this.rhs = rhs;
-        this.switchOn = switchOn;
-    }
-}
-export class InputEvent extends Event {
-    lhs;
-    rhs;
-    switchOn;
-    static EventName = 'input';
-    constructor(lhs, rhs, switchOn) {
-        super(InputEvent.EventName);
-        this.lhs = lhs;
-        this.rhs = rhs;
-        this.switchOn = switchOn;
-    }
-}
-export class ChangeEvent extends Event {
-    lhs;
-    rhs;
-    switchOn;
-    static EventName = 'change';
-    constructor(lhs, rhs, switchOn) {
-        super(ChangeEvent.EventName);
-        this.lhs = lhs;
-        this.rhs = rhs;
+        this.ctx = ctx;
         this.switchOn = switchOn;
     }
 }

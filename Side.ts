@@ -1,17 +1,20 @@
 import { ElTypes, SignalRefType } from '../be-linked/types';
 import { BVAAllProps } from '../be-value-added/types';
 import { findRealm } from 'trans-render/lib/findRealm.js';
-import {AP, OnTwoValueSwitch} from './types';
+import {AP, EventForTwoValSwitch, ISide, OnTwoValueSwitch, changeEventName, inputEventName, loadEventName} from './types';
 import {checkSwitches} from './doTwoValSwitch.js';
 
-export class Side{
+export class Side extends EventTarget implements ISide{
     constructor(
         public tvs: OnTwoValueSwitch, 
         public eventName: string,
         public prop?: string,
         public type?: ElTypes,
         public perimeter?: string,
-    ){}
+    ){
+        super();
+    }
+    val: any;
     async do(
         self: AP,
         onOrOff: 'on' | 'off',
@@ -64,10 +67,14 @@ export class Side{
                 signal = new WeakRef(inputEl);
                 if(dependsOn){
                     inputEl.addEventListener('input', e => {
-                        enhancedElement.dispatchEvent(new Event('input'));
+                        const evt = new InputEvent(tvs)
+                        enhancedElement.dispatchEvent(evt);
+                        console.log({evt});
                     });
                     inputEl.addEventListener('change', e => {
-                        enhancedElement.dispatchEvent(new Event('change'));
+                        const evt = new ChangeEvent(tvs);
+                        enhancedElement.dispatchEvent(evt);
+                        console.log({evt});
                     });
                 }else{
                     inputEl.addEventListener(eventName, e => {
@@ -81,3 +88,22 @@ export class Side{
         return signal;
     }
 }
+
+export class InputEvent extends Event implements EventForTwoValSwitch{
+
+    static EventName: inputEventName = 'input';
+
+    constructor(public ctx: OnTwoValueSwitch, public switchOn?: boolean){
+        super(InputEvent.EventName);
+    }
+}
+
+export class ChangeEvent extends Event implements EventForTwoValSwitch{
+
+    static EventName: changeEventName = 'change';
+
+    constructor(public ctx: OnTwoValueSwitch, public switchOn?: boolean){
+        super(ChangeEvent.EventName);
+    }
+}
+

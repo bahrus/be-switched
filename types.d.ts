@@ -69,6 +69,8 @@ export interface OnTwoValueSwitch{
     rhsSignal?: WeakRef<SignalRefType>,
     negate?: boolean,
     eventNames?: string,
+    lhs: ISide,
+    rhs: ISide,
 }
 
 export type AP = AllProps;
@@ -100,12 +102,11 @@ export type loadEventName = 'load';
 export type inputEventName = 'input';
 export type changeEventName = 'change';
 
-export interface HS {
+export interface ISide {
     val: any
 }
 
 export interface EventForTwoValSwitch {
-    lhs: HS,
-    rhs: HS,
+    switch?: OnTwoValueSwitch,
     switchOn?: boolean,
 }

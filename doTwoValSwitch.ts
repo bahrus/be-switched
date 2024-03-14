@@ -1,4 +1,4 @@
-import {AP, loadEventName, inputEventName, changeEventName, EventForTwoValSwitch, HS} from './types';
+import {AP, loadEventName, inputEventName, changeEventName, EventForTwoValSwitch, OnTwoValueSwitch} from './types';
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
 import {getSignalVal} from 'be-linked/getSignalVal.js';
@@ -12,21 +12,21 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
         const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter} = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
-        const lhs = new Side(
+        const lhs = onSwitch.lhs = new Side(
             onSwitch, 
             splitEventNames[0],
             lhsProp,
             lhsType,
             lhsPerimeter
         );
-        onSwitch.lhsSignal = await lhs.do(self, onOrOff, enhancedElement);
-        const rhs = new Side(
+        const rhs = onSwitch.rhs = new Side(
             onSwitch,
             splitEventNames[1],
             rhsProp,
             rhsType,
             rhsPerimeter
         );
+        onSwitch.lhsSignal = await lhs.do(self, onOrOff, enhancedElement);
         onSwitch.rhsSignal = await rhs.do(self, onOrOff, enhancedElement);
     }
     
@@ -80,25 +80,8 @@ export class LoadEvent extends Event implements EventForTwoValSwitch{
 
     static EventName: loadEventName = 'load';
 
-    constructor(public lhs: HS, public rhs: HS, public switchOn: boolean){
+    constructor(public ctx: OnTwoValueSwitch, public switchOn: boolean){
         super(LoadEvent.EventName);
     }
 }
 
-export class InputEvent extends Event implements EventForTwoValSwitch{
-
-    static EventName: inputEventName = 'input';
-
-    constructor(public lhs: HS, public rhs: HS, public switchOn: boolean){
-        super(InputEvent.EventName);
-    }
-}
-
-export class ChangeEvent extends Event implements EventForTwoValSwitch{
-
-    static EventName: changeEventName = 'change';
-
-    constructor(public lhs: HS, public rhs: HS, public switchOn: boolean){
-        super(ChangeEvent.EventName);
-    }
-}
