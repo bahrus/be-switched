@@ -107,6 +107,8 @@ export interface ISide {
 }
 
 export interface EventForTwoValSwitch {
-    switch?: OnTwoValueSwitch,
+    ctx?: OnTwoValueSwitch,
+    lhsTarget?: SignalRefType,
+    rhsTarget?: SignalRefType,
     switchOn?: boolean,
 }

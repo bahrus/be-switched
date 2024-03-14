@@ -67,12 +67,18 @@ export class Side extends EventTarget implements ISide{
                 signal = new WeakRef(inputEl);
                 if(dependsOn){
                     inputEl.addEventListener('input', e => {
-                        const evt = new InputEvent(tvs)
+                        const lhsTarget = this.tvs.lhsSignal?.deref();
+                        if(!lhsTarget) return;
+                        const rhsTarget = this.tvs.rhsSignal?.deref();
+                        if(!rhsTarget) return;
+                        const evt = new InputEvent(tvs, lhsTarget, rhsTarget);
                         enhancedElement.dispatchEvent(evt);
                         console.log({evt});
                     });
                     inputEl.addEventListener('change', e => {
-                        const evt = new ChangeEvent(tvs);
+                        const target =signal?.deref();
+                        if(!target) return;
+                        const evt = new ChangeEvent(tvs, target);
                         enhancedElement.dispatchEvent(evt);
                         console.log({evt});
                     });
@@ -93,7 +99,11 @@ export class InputEvent extends Event implements EventForTwoValSwitch{
 
     static EventName: inputEventName = 'input';
 
-    constructor(public ctx: OnTwoValueSwitch, public switchOn?: boolean){
+    constructor(
+        public ctx: OnTwoValueSwitch, 
+        public lhsTarget: SignalRefType, 
+        public rhsTarget: SignalRefType, 
+        public switchOn?: boolean){
         super(InputEvent.EventName);
     }
 }
@@ -102,7 +112,7 @@ export class ChangeEvent extends Event implements EventForTwoValSwitch{
 
     static EventName: changeEventName = 'change';
 
-    constructor(public ctx: OnTwoValueSwitch, public switchOn?: boolean){
+    constructor(public ctx: OnTwoValueSwitch, public target: SignalRefType, public switchOn?: boolean){
         super(ChangeEvent.EventName);
     }
 }

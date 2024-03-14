@@ -65,12 +65,21 @@ export class Side extends EventTarget {
                 signal = new WeakRef(inputEl);
                 if (dependsOn) {
                     inputEl.addEventListener('input', e => {
-                        const evt = new InputEvent(tvs);
+                        const lhsTarget = this.tvs.lhsSignal?.deref();
+                        if (!lhsTarget)
+                            return;
+                        const rhsTarget = this.tvs.rhsSignal?.deref();
+                        if (!rhsTarget)
+                            return;
+                        const evt = new InputEvent(tvs, lhsTarget, rhsTarget);
                         enhancedElement.dispatchEvent(evt);
                         console.log({ evt });
                     });
                     inputEl.addEventListener('change', e => {
-                        const evt = new ChangeEvent(tvs);
+                        const target = signal?.deref();
+                        if (!target)
+                            return;
+                        const evt = new ChangeEvent(tvs, target);
                         enhancedElement.dispatchEvent(evt);
                         console.log({ evt });
                     });
@@ -88,21 +97,27 @@ export class Side extends EventTarget {
 }
 export class InputEvent extends Event {
     ctx;
+    lhsTarget;
+    rhsTarget;
     switchOn;
     static EventName = 'input';
-    constructor(ctx, switchOn) {
+    constructor(ctx, lhsTarget, rhsTarget, switchOn) {
         super(InputEvent.EventName);
         this.ctx = ctx;
+        this.lhsTarget = lhsTarget;
+        this.rhsTarget = rhsTarget;
         this.switchOn = switchOn;
     }
 }
 export class ChangeEvent extends Event {
     ctx;
+    target;
     switchOn;
     static EventName = 'change';
-    constructor(ctx, switchOn) {
+    constructor(ctx, target, switchOn) {
         super(ChangeEvent.EventName);
         this.ctx = ctx;
+        this.target = target;
         this.switchOn = switchOn;
     }
 }

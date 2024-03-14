@@ -273,8 +273,8 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        onload="event.switchOn = (event.ctx.lhs.weight === event.ctx.rhs.weight)"
-        oninput="event.switchOn = (event.ctx.lhs.weight === event.ctx.rhs.weight)"
+        onload="event.switchOn = (event.lhsTarget.weight === event.rhsTarget.weight)"
+        oninput="event.switchOn = Math.abs(event.lhsTarget.weight -  event.rhsTarget.weight) < 10"
         onchange="event.switchOn = (event.ctx.lhs.weight ^ 2 === Math.tanh(event.ctx.rhs.weight)" 
         be-switched='
             On depending on carrotNosedWoman and aDuck.
