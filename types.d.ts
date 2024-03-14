@@ -63,6 +63,7 @@ export interface OnTwoValueSwitch{
     lhsPerimeter?: string,
     rhsPerimeter?: string,
     dependsOn?: boolean,
+    switchedOn?: boolean,
     req?: boolean,
     op?: 'equals',
     lhsSignal?: WeakRef<SignalRefType>,

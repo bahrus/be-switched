@@ -73,7 +73,9 @@ export class Side extends EventTarget implements ISide{
                         if(!rhsTarget) return;
                         const evt = new InputEvent(tvs, lhsTarget, rhsTarget);
                         enhancedElement.dispatchEvent(evt);
-                        console.log({evt});
+                        tvs.switchedOn = evt.switchOn;
+                        checkSwitches(self, onOrOff);
+                        //console.log({evt});
                     });
                     inputEl.addEventListener('change', e => {
                         const target =signal?.deref();

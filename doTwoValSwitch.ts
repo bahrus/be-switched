@@ -39,9 +39,12 @@ export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
     if(valueSwitches?.length === 0) return;
     let foundOne = false;
     for(const onSwitch of valueSwitches!){
-        const {req, lhsSignal, rhsSignal, op, negate, rhsSubProp, lhsSubProp, dependsOn} = onSwitch;
-        if(dependsOn) continue;
-        if(foundOne && !req) continue; 
+        const {req, lhsSignal, rhsSignal, op, negate, rhsSubProp, lhsSubProp, dependsOn, switchedOn} = onSwitch;
+        if(foundOne && !req) continue;
+        let value = false; 
+        if(dependsOn){
+            value = switchedOn!;
+        }
         const lhsRef = lhsSignal?.deref();
         if(lhsRef === undefined) {
             console.warn({onSwitch, msg: "Out of scope"});
@@ -54,7 +57,7 @@ export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
         } 
         const lhs = lhsSubProp !== undefined ? await getVal({host: lhsRef}, lhsSubProp) :  getSignalVal(lhsRef);
         const rhs = rhsSubProp !== undefined ? await getVal({host:rhsRef}, rhsSubProp) : getSignalVal(rhsRef);
-        let value = false;
+        
         switch(op){
             case 'equals':
                 value = lhs === rhs;
