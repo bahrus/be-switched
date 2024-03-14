@@ -64,27 +64,33 @@ export class Side extends EventTarget {
                     throw 404;
                 signal = new WeakRef(inputEl);
                 if (dependsOn) {
-                    inputEl.addEventListener('input', e => {
-                        const lhsTarget = this.tvs.lhsSignal?.deref();
-                        if (!lhsTarget)
-                            return;
-                        const rhsTarget = this.tvs.rhsSignal?.deref();
-                        if (!rhsTarget)
-                            return;
-                        const evt = new InputEvent(tvs, lhsTarget, rhsTarget);
-                        enhancedElement.dispatchEvent(evt);
-                        tvs.switchedOn = evt.switchOn;
-                        checkSwitches(self, onOrOff);
-                        //console.log({evt});
-                    });
-                    inputEl.addEventListener('change', e => {
-                        const target = signal?.deref();
-                        if (!target)
-                            return;
-                        const evt = new ChangeEvent(tvs, target);
-                        enhancedElement.dispatchEvent(evt);
-                        console.log({ evt });
-                    });
+                    if (enhancedElement.oninput) {
+                        inputEl.addEventListener('input', e => {
+                            const lhsTarget = this.tvs.lhsSignal?.deref();
+                            if (!lhsTarget)
+                                return;
+                            const rhsTarget = this.tvs.rhsSignal?.deref();
+                            if (!rhsTarget)
+                                return;
+                            const evt = new InputEvent(tvs, lhsTarget, rhsTarget);
+                            enhancedElement.dispatchEvent(evt);
+                            tvs.switchedOn = evt.switchOn;
+                            checkSwitches(self, onOrOff);
+                        });
+                    }
+                    if (enhancedElement.onchange) {
+                        inputEl.addEventListener('change', e => {
+                            const lhsTarget = this.tvs.lhsSignal?.deref();
+                            if (!lhsTarget)
+                                return;
+                            const rhsTarget = this.tvs.rhsSignal?.deref();
+                            if (!rhsTarget)
+                                return;
+                            const evt = new ChangeEvent(tvs, lhsTarget, rhsTarget);
+                            enhancedElement.dispatchEvent(evt);
+                            console.log({ evt });
+                        });
+                    }
                 }
                 else {
                     inputEl.addEventListener(eventName, e => {
@@ -95,6 +101,30 @@ export class Side extends EventTarget {
             }
         }
         return signal;
+    }
+    doLoadEvent(enhancedElement) {
+        const ctx = this.tvs;
+        const lhsTarget = ctx.lhsSignal?.deref();
+        if (!lhsTarget)
+            return;
+        const rhsTarget = ctx.rhsSignal?.deref();
+        if (!rhsTarget)
+            return;
+        let event;
+        if (enhancedElement.onload) {
+            event = new LoadEvent(ctx, lhsTarget, rhsTarget);
+        }
+        else if (enhancedElement.oninput) {
+            event = new InputEvent(ctx, lhsTarget, rhsTarget);
+        }
+        else if (enhancedElement.onchange) {
+            event = new ChangeEvent(ctx, lhsTarget, rhsTarget);
+        }
+        if (event !== undefined) {
+            enhancedElement.dispatchEvent(event);
+            ctx.switchedOn = event.switchOn;
+            console.log(event);
+        }
     }
 }
 export class InputEvent extends Event {
@@ -113,13 +143,29 @@ export class InputEvent extends Event {
 }
 export class ChangeEvent extends Event {
     ctx;
-    target;
+    lhsTarget;
+    rhsTarget;
     switchOn;
     static EventName = 'change';
-    constructor(ctx, target, switchOn) {
+    constructor(ctx, lhsTarget, rhsTarget, switchOn) {
         super(ChangeEvent.EventName);
         this.ctx = ctx;
-        this.target = target;
+        this.lhsTarget = lhsTarget;
+        this.rhsTarget = rhsTarget;
+        this.switchOn = switchOn;
+    }
+}
+export class LoadEvent extends Event {
+    ctx;
+    lhsTarget;
+    rhsTarget;
+    switchOn;
+    static EventName = 'load';
+    constructor(ctx, lhsTarget, rhsTarget, switchOn) {
+        super(LoadEvent.EventName);
+        this.ctx = ctx;
+        this.lhsTarget = lhsTarget;
+        this.rhsTarget = rhsTarget;
         this.switchOn = switchOn;
     }
 }

@@ -4,12 +4,13 @@ import {findRealm} from 'trans-render/lib/findRealm.js';
 import {getSignalVal} from 'be-linked/getSignalVal.js';
 import {getVal} from 'trans-render/lib/getVal.js';
 import {Side} from './Side.js';
+import { SignalRefType } from '../be-linked/types';
 
 export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for(const onSwitch of valueSwitches!){
-        const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter} = onSwitch;
+        const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter, dependsOn} = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
         const lhs = onSwitch.lhs = new Side(
@@ -28,6 +29,9 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
         );
         onSwitch.lhsSignal = await lhs.do(self, onOrOff, enhancedElement);
         onSwitch.rhsSignal = await rhs.do(self, onOrOff, enhancedElement);
+        if(dependsOn){
+            lhs.doLoadEvent(enhancedElement);
+        }
     }
     
     await checkSwitches(self, onOrOff);
@@ -44,26 +48,27 @@ export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
         let value = false; 
         if(dependsOn){
             value = switchedOn!;
+        }else{
+            const lhsRef = lhsSignal?.deref();
+            if(lhsRef === undefined) {
+                console.warn({onSwitch, msg: "Out of scope"});
+                continue;
+            } 
+            const rhsRef = rhsSignal?.deref();
+            if(rhsRef === undefined) {
+                console.warn({onSwitch, msg: "Out of scope"});
+                continue;
+            } 
+            const lhs = lhsSubProp !== undefined ? await getVal({host: lhsRef}, lhsSubProp) :  getSignalVal(lhsRef);
+            const rhs = rhsSubProp !== undefined ? await getVal({host:rhsRef}, rhsSubProp) : getSignalVal(rhsRef);
+            
+            switch(op){
+                case 'equals':
+                    value = lhs === rhs;
+                    break;
+            }
+            if(negate) value = !value;
         }
-        const lhsRef = lhsSignal?.deref();
-        if(lhsRef === undefined) {
-            console.warn({onSwitch, msg: "Out of scope"});
-            continue;
-        } 
-        const rhsRef = rhsSignal?.deref();
-        if(rhsRef === undefined) {
-            console.warn({onSwitch, msg: "Out of scope"});
-            continue;
-        } 
-        const lhs = lhsSubProp !== undefined ? await getVal({host: lhsRef}, lhsSubProp) :  getSignalVal(lhsRef);
-        const rhs = rhsSubProp !== undefined ? await getVal({host:rhsRef}, rhsSubProp) : getSignalVal(rhsRef);
-        
-        switch(op){
-            case 'equals':
-                value = lhs === rhs;
-                break;
-        }
-        if(negate) value = !value;
         if(req){
             if(!value){
                 //console.log({lhs, rhs, value, req});
@@ -79,12 +84,5 @@ export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
     self.switchesSatisfied = foundOne;
 }
 
-export class LoadEvent extends Event implements EventForTwoValSwitch{
 
-    static EventName: loadEventName = 'load';
-
-    constructor(public ctx: OnTwoValueSwitch, public switchOn: boolean){
-        super(LoadEvent.EventName);
-    }
-}
 

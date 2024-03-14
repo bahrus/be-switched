@@ -5,13 +5,16 @@ export async function doTwoValSwitch(self, onOrOff) {
     const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for (const onSwitch of valueSwitches) {
-        const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter } = onSwitch;
+        const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter, dependsOn } = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
         const lhs = onSwitch.lhs = new Side(onSwitch, splitEventNames[0], lhsProp, lhsType, lhsPerimeter);
         const rhs = onSwitch.rhs = new Side(onSwitch, splitEventNames[1], rhsProp, rhsType, rhsPerimeter);
         onSwitch.lhsSignal = await lhs.do(self, onOrOff, enhancedElement);
         onSwitch.rhsSignal = await rhs.do(self, onOrOff, enhancedElement);
+        if (dependsOn) {
+            lhs.doLoadEvent(enhancedElement);
+        }
     }
     await checkSwitches(self, onOrOff);
 }
@@ -29,25 +32,27 @@ export async function checkSwitches(self, onOrOff) {
         if (dependsOn) {
             value = switchedOn;
         }
-        const lhsRef = lhsSignal?.deref();
-        if (lhsRef === undefined) {
-            console.warn({ onSwitch, msg: "Out of scope" });
-            continue;
+        else {
+            const lhsRef = lhsSignal?.deref();
+            if (lhsRef === undefined) {
+                console.warn({ onSwitch, msg: "Out of scope" });
+                continue;
+            }
+            const rhsRef = rhsSignal?.deref();
+            if (rhsRef === undefined) {
+                console.warn({ onSwitch, msg: "Out of scope" });
+                continue;
+            }
+            const lhs = lhsSubProp !== undefined ? await getVal({ host: lhsRef }, lhsSubProp) : getSignalVal(lhsRef);
+            const rhs = rhsSubProp !== undefined ? await getVal({ host: rhsRef }, rhsSubProp) : getSignalVal(rhsRef);
+            switch (op) {
+                case 'equals':
+                    value = lhs === rhs;
+                    break;
+            }
+            if (negate)
+                value = !value;
         }
-        const rhsRef = rhsSignal?.deref();
-        if (rhsRef === undefined) {
-            console.warn({ onSwitch, msg: "Out of scope" });
-            continue;
-        }
-        const lhs = lhsSubProp !== undefined ? await getVal({ host: lhsRef }, lhsSubProp) : getSignalVal(lhsRef);
-        const rhs = rhsSubProp !== undefined ? await getVal({ host: rhsRef }, rhsSubProp) : getSignalVal(rhsRef);
-        switch (op) {
-            case 'equals':
-                value = lhs === rhs;
-                break;
-        }
-        if (negate)
-            value = !value;
         if (req) {
             if (!value) {
                 //console.log({lhs, rhs, value, req});
@@ -62,14 +67,4 @@ export async function checkSwitches(self, onOrOff) {
         //console.log({lhs, rhs, value, foundOne});
     }
     self.switchesSatisfied = foundOne;
-}
-export class LoadEvent extends Event {
-    ctx;
-    switchOn;
-    static EventName = 'load';
-    constructor(ctx, switchOn) {
-        super(LoadEvent.EventName);
-        this.ctx = ctx;
-        this.switchOn = switchOn;
-    }
 }

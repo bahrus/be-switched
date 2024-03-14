@@ -287,7 +287,7 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
 
 "onload" indicates what to evaluate at start up, before any input or change events have fired.
 
-If onload is provided but not oninput and onchange, an internal onchange listener is added, which assumes it needs to apply the logic that is specified in onload, but when either the lhs or the rhs elements fire "change" event.   
+If onload is not provide, it will instead opt for oninput, and that is not provided, onchange.   
 
 
 ## Example 2h specify property path to compare 
