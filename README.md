@@ -262,7 +262,7 @@ To specify a different event for each, separate with commas:
 '></template>
 ```
 
-## Example 2g Injecting some script [TODO]
+## Example 2g Injecting some script
 
 *be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything before committing the changes in some way.
 
