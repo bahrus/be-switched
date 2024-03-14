@@ -16,12 +16,13 @@ export class Side {
     async do(self, onOrOff, enhancedElement) {
         const { tvs, eventName, prop, type, perimeter } = this;
         const { dependsOn } = tvs;
+        let signal = undefined;
         switch (type) {
             case '|':
                 const { getItemPropEl } = await import('./getItempropEl.js');
                 const itempropEl = await getItemPropEl(enhancedElement, prop);
                 if (itempropEl.hasAttribute('contenteditable')) {
-                    tvs.lhsSignal = new WeakRef(itempropEl);
+                    signal = new WeakRef(itempropEl);
                     itempropEl.addEventListener('input', e => {
                         checkSwitches(self, onOrOff);
                     });
@@ -29,7 +30,7 @@ export class Side {
                 else {
                     import('be-value-added/be-value-added.js');
                     const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
-                    tvs.lhsSignal = new WeakRef(beValueAdded);
+                    signal = new WeakRef(beValueAdded);
                     beValueAdded.addEventListener('value-changed', e => {
                         checkSwitches(self, onOrOff);
                     });
@@ -59,7 +60,7 @@ export class Side {
                 }
                 if (!inputEl)
                     throw 404;
-                tvs.lhsSignal = new WeakRef(inputEl);
+                signal = new WeakRef(inputEl);
                 if (dependsOn) {
                     inputEl.addEventListener('input', e => {
                         enhancedElement.dispatchEvent(new Event('input'));
@@ -76,5 +77,6 @@ export class Side {
                 break;
             }
         }
+        return signal;
     }
 }

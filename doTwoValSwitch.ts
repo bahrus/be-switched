@@ -9,7 +9,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for(const onSwitch of valueSwitches!){
-        const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter, dependsOn} = onSwitch;
+        const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter} = onSwitch;
         //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
         const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
         const lhs = new Side(
@@ -19,65 +19,15 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
             lhsType,
             lhsPerimeter
         );
-        await lhs.do(self, onOrOff, enhancedElement);
-
-        switch(rhsType){
-            case '|':
-                const {getItemPropEl} = await import('./getItempropEl.js');
-                const itempropEl = await getItemPropEl(enhancedElement, rhsProp!);
-                if(itempropEl.hasAttribute('contenteditable')){
-                    onSwitch.rhsSignal = new WeakRef(itempropEl);
-                    itempropEl.addEventListener('input', e => {
-                        checkSwitches(self, onOrOff);
-                    });
-                }else{
-                    import('be-value-added/be-value-added.js');
-                    const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
-                    onSwitch.rhsSignal = new WeakRef<BVAAllProps>(beValueAdded);
-                    beValueAdded.addEventListener('value-changed', e => {
-                        checkSwitches(self, onOrOff);
-                    });
-                }
-                break;
-            case '~':
-            case '@':
-            case '#':{
-                let inputEl: HTMLInputElement;
-                switch(rhsType){
-                    case '@':
-                        if(rhsPerimeter !== undefined){
-                            inputEl = await findRealm(enhancedElement, ['wi', rhsPerimeter, `[name="${rhsProp}"]`]) as HTMLInputElement;
-                        }else{
-                            inputEl = await findRealm(enhancedElement, ['wf', rhsProp!]) as HTMLInputElement;
-                        }
-                        break;
-                    case '#':
-                        inputEl = await findRealm(enhancedElement, ['wrn', '#' + rhsProp!]) as HTMLInputElement;
-                        break;
-                    case '~':
-                        const {camelToLisp} = await import('trans-render/lib/camelToLisp.js');
-                        const localName = camelToLisp(rhsProp!);
-                        inputEl = await findRealm(enhancedElement, ['wis', localName, true]) as HTMLInputElement;
-                        break;
-                }
-                if(!inputEl) throw 404;
-                onSwitch.rhsSignal = new WeakRef(inputEl);
-                if(dependsOn){
-                    inputEl.addEventListener('input', e => {
-                        enhancedElement.dispatchEvent(new Event('input'));
-                    });
-                    inputEl.addEventListener('change', e => {
-                        enhancedElement.dispatchEvent(new Event('change'));
-                    });
-                }else{
-                    inputEl.addEventListener(splitEventNames.length > 1 ? splitEventNames[1] : splitEventNames[0], e => {
-                        checkSwitches(self, onOrOff);
-                    });
-                }
-
-                break;
-            }
-        }
+        onSwitch.lhsSignal = await lhs.do(self, onOrOff, enhancedElement);
+        const rhs = new Side(
+            onSwitch,
+            splitEventNames[1],
+            rhsProp,
+            rhsType,
+            rhsPerimeter
+        );
+        onSwitch.rhsSignal = await rhs.do(self, onOrOff, enhancedElement);
     }
     
     await checkSwitches(self, onOrOff);

@@ -1,4 +1,4 @@
-import { ElTypes } from '../be-linked/types';
+import { ElTypes, SignalRefType } from '../be-linked/types';
 import { BVAAllProps } from '../be-value-added/types';
 import { findRealm } from 'trans-render/lib/findRealm.js';
 import {AP, OnTwoValueSwitch} from './types';
@@ -15,23 +15,24 @@ export class Side{
     async do(
         self: AP,
         onOrOff: 'on' | 'off',
-        enhancedElement: Element)
+        enhancedElement: Element) : Promise<WeakRef<SignalRefType> | undefined>
     {
         const {tvs, eventName, prop, type, perimeter} = this;
         const {dependsOn} = tvs;
+        let signal: WeakRef<SignalRefType> | undefined = undefined;
         switch(type){
             case '|':
                 const {getItemPropEl} = await import('./getItempropEl.js');
                 const itempropEl = await getItemPropEl(enhancedElement, prop!);
                 if(itempropEl.hasAttribute('contenteditable')){
-                    tvs.lhsSignal = new WeakRef(itempropEl);
+                    signal = new WeakRef(itempropEl);
                     itempropEl.addEventListener('input', e => {
                         checkSwitches(self, onOrOff);
                     });
                 }else{
                     import('be-value-added/be-value-added.js');
                     const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
-                    tvs.lhsSignal = new WeakRef<BVAAllProps>(beValueAdded);
+                    signal = new WeakRef<BVAAllProps>(beValueAdded);
                     beValueAdded.addEventListener('value-changed', e => {
                         checkSwitches(self, onOrOff);
                     });
@@ -60,7 +61,7 @@ export class Side{
                         break;
                 }
                 if(!inputEl) throw 404;
-                tvs.lhsSignal = new WeakRef(inputEl);
+                signal = new WeakRef(inputEl);
                 if(dependsOn){
                     inputEl.addEventListener('input', e => {
                         enhancedElement.dispatchEvent(new Event('input'));
@@ -77,5 +78,6 @@ export class Side{
                 break;
             }
         }
+        return signal;
     }
 }
