@@ -65,7 +65,7 @@ export interface OnTwoValueSwitch{
     dependsOn?: boolean,
     switchedOn?: boolean,
     req?: boolean,
-    op?: 'equals',
+    op?: 'equals' | 'eq',
     lhsSignal?: WeakRef<SignalRefType>,
     rhsSignal?: WeakRef<SignalRefType>,
     negate?: boolean,

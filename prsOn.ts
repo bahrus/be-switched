@@ -81,7 +81,8 @@ export async function prsOn(self: AP) : ProPAP{
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements) as OnTwoValueSwitch;
         console.log({onS, twoValSwitchTest});
         if(twoValSwitchTest !== null){
-            const {lhsProp, rhsProp} = twoValSwitchTest;
+            const {lhsProp, rhsProp, op} = twoValSwitchTest;
+            if(op === 'eq') twoValSwitchTest.op = 'equals';
             if(lhsProp?.includes(':')){
                 const split = lhsProp.split(':');
                 twoValSwitchTest.lhsProp = split[0];

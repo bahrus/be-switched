@@ -74,14 +74,6 @@ All of this is to say, most frameworks probably don't and won't be able to make 
 
 Frameworks fail us, yet again!
 
-be-switched does, however, provide two approaches to compensate for that:
-
-1.  Pass the lhs, rhs via the dataset attribute gateway of the template element: [TODO]
-
-oTemplate.dataset.rhsNum = '37';
-
-Suffixes Num, Bool, Date are also supported.
-
 For that reason, among others, an alternative way of "pulling in" values to compare is provided via:
 
 ## Hemingway Notation
@@ -287,7 +279,23 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
 
 "onload" indicates what to evaluate at start up, before any input or change events have fired.
 
-If onload is not provide, it will instead opt for oninput, and that is not provided, onchange.   
+If onload is not provide, it will instead opt for oninput, and that is not provided, onchange. 
+
+So another simpler example:
+
+```html
+<label for=lhs>LHS:</label>
+<input id=lhs>
+<label for=rhs>RHS:</label>
+<input id=rhs>
+<template
+    oninput="
+        event.switchOn = event.lhsTarget.value === event.rhsTarget.value
+    "
+    be-switched='on depending on #lhs and #rhs.'>
+    <div>LHS === RHS</div>
+</template>
+```
 
 
 ## Example 2h specify property path to compare 
@@ -327,13 +335,13 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
-### Example 3a
+### Example 3a Referring to previous element sibling [TODO]
 
 ```html
 <div itemscope>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
-    <template be-switched='on when ^ is truthy.'>
+    <template be-switched='on when ^.'>
         <my-content></my-content>
     </template>
 </div>
@@ -341,20 +349,35 @@ If all you are trying to do is to instantiate (and then hide, as conditions chan
 
 The standalone ^ is indicating to just look at the previous element sibling.
 
-### Example 3b Down search
+### Example 3b Referring to next element sibling [TODO]
 
 ```html
 <div itemscope>
     ...
     
-    <template be-switched='on when Y is falsy.'>
+    <template be-switched='on when Y.'>
         <my-content></my-content>
     </template>
     <link itemprop=isHappy href=https://schema.org/True>
 </div>
 ```
 
-### Example 3c Comparison to a constant
+### Example 3c Up searching
+
+```html
+<div itemscope>
+    ...
+    <link itemprop=isHappy href=https://schema.org/True>
+    <div></div>
+    <template be-switched='on when ^ |isHappy.'>
+        <my-content></my-content>
+    </template>
+</div>
+```
+
+## Example 3c 
+
+### Example 3c Comparison to a constant [TODO]
 
 ```html
 <div itemscope>
