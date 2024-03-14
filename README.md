@@ -22,9 +22,12 @@ The values to compare can come from peer microdata or form elements, or "boolish
 
 We will look at both options closely, starting with...
 
-## Comparing two values via JavaScriptObjectNotation
+# Part I  
 
-### Example 1
+<details>
+    <summary>Comparing two values via JavaScriptObjectNotation
+
+## A single lhs/rhs comparison
 
 ```html
 <!-- Example 1 -->
@@ -73,6 +76,10 @@ oTemplate.beEnhanced.beSwitched.rhs = 37;
 All of this is to say, most frameworks probably don't and won't be able to make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.  
 
 Frameworks fail us, yet again!
+
+</details>
+
+# Part II
 
 For that reason, among others, an alternative way of "pulling in" values to compare is provided via:
 

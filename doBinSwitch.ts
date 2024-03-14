@@ -36,7 +36,7 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
             case '%':
             case '@':
             case '#':{
-                let editableElement: EventTarget | null = null;
+                let editableElement: EventTarget | null | undefined = null;
                 switch(type){
                     case '@':
                         editableElement = await findRealm(enhancedElement, ['wf', prop!]);
