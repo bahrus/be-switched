@@ -234,7 +234,7 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event, and re-evaluates.
 
-## Example 2f specifying event name(s)
+## Example 2f specifying event name(s) [TODO]
 
 ```html
 <ways-of-science itemscope>
@@ -242,7 +242,7 @@ What this does:
     <a-duck></a-duck>
     <template 
         be-switched='
-            On when ~ carrotNosedWoman equals ~ aDuck, listening for weight-changed event.
+            On when ~ carrotNosedWoman::weight-change equals ~ aDuck::molting.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -250,33 +250,17 @@ What this does:
 </ways-of-science>
 ```
 
-This will listen for "weight-changed" events on both the carrot-nosed-woman and the a-duck elements.
+## Example 2g Injecting some script [WIP]
 
-To specify a different event for each, separate with commas:
-
-```html
-<template 
-    be-switched='
-        On when ~ carrotNosedWoman equals ~ aDuck, listening for weight-changed,molting events.
-'></template>
-```
-
-## Example 2g Injecting some script
-
-*be-switched*, and in fact the entire ecosystem be-switched is a part of, encourages developers who create form associated custom elements, or editable custom elements that recognize the contentEditable attribute, to utilize "change" and "input" for their event names, just as is done for built-in elements.  Maybe "input" events should be used for changes that are intended to be "complete" by a single user action, and "change" used when there are intermediate steps the user wouldn't intend to affect anything before committing the changes in some way.
-
-Doing so allows us to tap into the built-in oninput and onchange events, where we can script away to our heart's content:
 
 ```html
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        onload="event.switchOn = (event.lhsTarget.weight === event.rhsTarget.weight)"
         oninput="event.switchOn = Math.abs(event.lhsTarget.weight -  event.rhsTarget.weight) < 10"
-        onchange="event.switchOn = (event.ctx.lhs.weight ^ 2 === Math.tanh(event.ctx.rhs.weight)" 
         be-switched='
-            On depending on carrotNosedWoman and aDuck.
+            On depending on carrotNosedWoman::weight-change and aDuck::molting.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -284,11 +268,9 @@ Doing so allows us to tap into the built-in oninput and onchange events, where w
 </ways-of-science>
 ```
 
-"onload" indicates what to evaluate at start up, before any input or change events have fired.
 
-If onload is not provide, it will instead opt for oninput, and that is not provided, onchange. 
 
-So another simpler example:
+Remember if that if the event name is not specified, the input event is assumed:
 
 ```html
 <label for=lhs>LHS:</label>

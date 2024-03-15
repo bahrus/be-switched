@@ -1,4 +1,4 @@
-import {AP, loadEventName, inputEventName, changeEventName, EventForTwoValSwitch, OnTwoValueSwitch} from './types';
+import {AP} from './types';
 import {BVAAllProps} from 'be-value-added/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';
 import {getSignalVal} from 'be-linked/getSignalVal.js';

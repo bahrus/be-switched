@@ -1,7 +1,7 @@
 import { ElTypes, SignalRefType } from '../be-linked/types';
 import { BVAAllProps } from '../be-value-added/types';
 import { findRealm } from 'trans-render/lib/findRealm.js';
-import {AP, EventForTwoValSwitch, ISide, OnTwoValueSwitch, changeEventName, inputEventName, loadEventName} from './types';
+import {AP, EventForTwoValSwitch, ISide, OnTwoValueSwitch, inputEventName} from './types';
 import {checkSwitches} from './doTwoValSwitch.js';
 
 export class Side extends EventTarget implements ISide{
@@ -78,17 +78,7 @@ export class Side extends EventTarget implements ISide{
                             checkSwitches(self, onOrOff);
                         });
                     }
-                    if(enhancedElement.onchange){
-                        inputEl.addEventListener('change', e => {
-                            const lhsTarget = this.tvs.lhsSignal?.deref();
-                            if(!lhsTarget) return;
-                            const rhsTarget = this.tvs.rhsSignal?.deref();
-                            if(!rhsTarget) return;
-                            const evt = new ChangeEvent(tvs, lhsTarget, rhsTarget);
-                            enhancedElement.dispatchEvent(evt);
-                            console.log({evt});
-                        });
-                    }
+                    
 
                 }else{
                     inputEl.addEventListener(eventName, e => {
@@ -107,19 +97,13 @@ export class Side extends EventTarget implements ISide{
         if(!lhsTarget) return;
         const rhsTarget = ctx.rhsSignal?.deref();
         if(!rhsTarget) return;
-        let event: EventForTwoValSwitch | undefined;
-        if(enhancedElement.onload){
-            event = new LoadEvent(ctx, lhsTarget, rhsTarget);
-        }else if(enhancedElement.oninput){
-            event = new InputEvent(ctx, lhsTarget, rhsTarget);
-        }else if(enhancedElement.onchange){
-            event = new ChangeEvent(ctx, lhsTarget, rhsTarget);
-        }
-        if(event !== undefined) {
+        if(enhancedElement.oninput){
+            const event = new InputEvent(ctx, lhsTarget, rhsTarget);
             enhancedElement.dispatchEvent(event as Event);
             ctx.switchedOn = event.switchOn;
             console.log(event);
         }
+
     }
 
 }
@@ -137,29 +121,29 @@ export class InputEvent extends Event implements EventForTwoValSwitch{
     }
 }
 
-export class ChangeEvent extends Event implements EventForTwoValSwitch{
+// export class ChangeEvent extends Event implements EventForTwoValSwitch{
 
-    static EventName: changeEventName = 'change';
+//     static EventName: changeEventName = 'change';
 
-    constructor(
-        public ctx: OnTwoValueSwitch, 
-        public lhsTarget: SignalRefType, 
-        public rhsTarget: SignalRefType, 
-        public switchOn?: boolean){
-        super(ChangeEvent.EventName);
-    }
-}
+//     constructor(
+//         public ctx: OnTwoValueSwitch, 
+//         public lhsTarget: SignalRefType, 
+//         public rhsTarget: SignalRefType, 
+//         public switchOn?: boolean){
+//         super(ChangeEvent.EventName);
+//     }
+// }
 
-export class LoadEvent extends Event implements EventForTwoValSwitch{
+// export class LoadEvent extends Event implements EventForTwoValSwitch{
 
-    static EventName: loadEventName = 'load';
+//     static EventName: loadEventName = 'load';
 
-        constructor(
-        public ctx: OnTwoValueSwitch, 
-        public lhsTarget: SignalRefType, 
-        public rhsTarget: SignalRefType, 
-        public switchOn?: boolean){
-        super(LoadEvent.EventName);
-    }
-}
+//         constructor(
+//         public ctx: OnTwoValueSwitch, 
+//         public lhsTarget: SignalRefType, 
+//         public rhsTarget: SignalRefType, 
+//         public switchOn?: boolean){
+//         super(LoadEvent.EventName);
+//     }
+// }
 

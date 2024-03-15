@@ -99,9 +99,9 @@ export interface Actions{
 
 
 // https://github.com/webcomponents-cg/community-protocols/issues/12#issuecomment-872415080
-export type loadEventName = 'load';
+//export type loadEventName = 'load';
 export type inputEventName = 'input';
-export type changeEventName = 'change';
+//export type changeEventName = 'change';
 
 export interface ISide {
     val: any
