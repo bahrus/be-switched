@@ -70,8 +70,8 @@ export interface OnTwoValueSwitch{
     rhsSignal?: WeakRef<SignalRefType>,
     negate?: boolean,
     eventNames?: string,
-    lhs: ISide,
-    rhs: ISide,
+    lhs?: ISide,
+    rhs?: ISide,
 }
 
 export type AP = AllProps;
