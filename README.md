@@ -439,9 +439,68 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 ## Boolean conditions based on peer elements or host
 
-If all you are trying to do is to instantiate (and then hide, as conditions change) a template depending on a single truthy value of a peer element, use the following syntax:
 
-### Example 3a Referring to previous element sibling [TODO]
+### By itemprop 
+
+```html
+<div itemscope>
+    ...
+    <link itemprop=isHappy href=https://schema.org/True>
+    ...
+    <template be-switched='on when | is happy. //or |isHappy.' >
+        <my-content></my-content>
+    </template>
+</div>
+```
+
+Searches within nearest itemscope, else from rootNode.
+
+### By name
+
+Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
+
+```html
+<form>
+    ...
+    <input name=isHappy type=checkbox>
+    ...
+    <template be-switched='on when @ is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
+
+Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input events.
+
+### By id
+
+```html
+<form>
+    ...
+    <input id=isHappy type=checkbox>
+    ...
+    <template be-switched='on when # is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
+
+### By Id with and-like condition
+
+```html
+<form>
+    ...
+    <input id=isHappy>
+    ...
+    <template be-switched='on only when # is happy.'>
+        <my-content></my-content>
+    </template>
+</form>
+```
+
+This is an "and" condition due to the presence of "only"
+
+### Referring to previous element sibling [TODO]
 
 ```html
 <div itemscope>
@@ -468,7 +527,7 @@ The standalone ^ is indicating to just look at the previous element sibling.
 </div>
 ```
 
-### Example 3c Up searching
+### Up searching
 
 ```html
 <div itemscope>
@@ -500,18 +559,7 @@ The standalone ^ is indicating to just look at the previous element sibling.
 
 *be-switched* recognizes the suffixes num, int, float, big-int, bool, date, reg-exp, url-pattern(?)
 
-### Example 3a => 3c [TODO] 
 
-```html
-<div itemscope>
-    ...
-    <link itemprop=isHappy href=https://schema.org/True>
-    ...
-    <template be-switched='on when | is happy. //or |isHappy.' >
-        <my-content></my-content>
-    </template>
-</div>
-```
 
 Can have multiple such statements -- or condition.  Each sentence can begin with "on" or "On", whichever seems more readable.
 
@@ -532,50 +580,13 @@ If no itemscope container is present and there's some ambiguity use [TODO]:
 
 
 
-### Example 3b => 3d [TODO]
 
-Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
 
-```html
-<form>
-    ...
-    <input name=isHappy type=checkbox>
-    ...
-    <template be-switched='on when @ is happy.'>
-        <my-content></my-content>
-    </template>
-</form>
-```
 
-Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input events.
 
-### Example 3c => 3e [TODO]
 
-```html
-<form>
-    ...
-    <input id=isHappy type=checkbox>
-    ...
-    <template be-switched='on when # is happy.'>
-        <my-content></my-content>
-    </template>
-</form>
-```
 
-### Example 3d => 3f [TODO]
 
-```html
-<form>
-    ...
-    <input id=isHappy>
-    ...
-    <template be-switched='on only when # is happy.'>
-        <my-content></my-content>
-    </template>
-</form>
-```
-
-This is an "and" condition due to the presence of "only"
 
 ### Example 3e => 3g [TODO] binding based on part attribute
 
