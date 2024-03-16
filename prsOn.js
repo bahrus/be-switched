@@ -53,8 +53,8 @@ const reOnBinarySwitchStatements = [
 ];
 export async function prsOn(self) {
     const { On, on } = self;
-    const onBinarySwitches = [];
-    const onTwoValueSwitches = [];
+    const oneValueSwitches = [];
+    const twoValueSwitches = [];
     const onUnion = [...(On || []), ...(on || [])];
     for (const onS of onUnion) {
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
@@ -84,16 +84,16 @@ export async function prsOn(self) {
                 twoValSwitchTest.rhsSubProp = '.' + split.slice(1).join('.');
             }
             //twoValSwitchTest.rhsProp = twoValSwitchTest.lhs
-            onTwoValueSwitches.push(twoValSwitchTest);
+            twoValueSwitches.push(twoValSwitchTest);
             continue;
         }
         const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements);
         if (binarySwitchTest === null)
             throw 'PE'; //Parse Error
-        onBinarySwitches.push(binarySwitchTest);
+        oneValueSwitches.push(binarySwitchTest);
     }
     return {
-        onBinarySwitches,
-        onTwoValueSwitches
+        onBinarySwitches: oneValueSwitches,
+        onTwoValueSwitches: twoValueSwitches
     };
 }

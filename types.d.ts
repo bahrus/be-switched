@@ -40,6 +40,7 @@ export interface AllProps extends EndUserProps{
     offTwoValueSwitches?: Array<TwoValueSwitch>,
     //onNValueSwitches?: Array<
     isParsed?: boolean,
+    onNValueSwitches?: Array<NValueScriptSwitch>
 }
 
 export type SwitchStatement = string;
@@ -84,7 +85,7 @@ export interface Dependency{
     event?: string
 }
 
-export interface NValueSwitch{
+export interface NValueScriptSwitch {
     dependencies?: Array<Dependency>
 }
 

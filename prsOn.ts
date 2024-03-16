@@ -68,8 +68,8 @@ const reOnBinarySwitchStatements: RegExpOrRegExpExt<OneValueSwitch>[] = [
 
 export async function prsOn(self: AP) : ProPAP{
     const {On, on} = self;
-    const onBinarySwitches: Array<OneValueSwitch> = [];
-    const onTwoValueSwitches : Array<TwoValueSwitch> = [];
+    const oneValueSwitches: Array<OneValueSwitch> = [];
+    const twoValueSwitches : Array<TwoValueSwitch> = [];
     const onUnion = [...(On || []), ...(on || [])];
     for(const onS of onUnion){
         const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements) as TwoValueSwitch;
@@ -98,16 +98,16 @@ export async function prsOn(self: AP) : ProPAP{
                 twoValSwitchTest.rhsSubProp = '.' + split.slice(1).join('.');
             }
             //twoValSwitchTest.rhsProp = twoValSwitchTest.lhs
-            onTwoValueSwitches.push(twoValSwitchTest);
+            twoValueSwitches.push(twoValSwitchTest);
             continue;
         }
         const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements) as OneValueSwitch;
         if(binarySwitchTest === null) throw 'PE';//Parse Error
-        onBinarySwitches.push(binarySwitchTest);
+        oneValueSwitches.push(binarySwitchTest);
     }
     return {
-        onBinarySwitches,
-        onTwoValueSwitches
+        onBinarySwitches: oneValueSwitches,
+        onTwoValueSwitches: twoValueSwitches
     } as PAP;
 }
 
