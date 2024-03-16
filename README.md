@@ -93,7 +93,7 @@ In the examples below, we will encounter special symbols used in order to keep t
 |--------------|--------------------------------|--------------------------------------------------------------------------------------|
 | /propName    |"Hostish"                       | Attaches listeners to getters/setters.                                               |
 | @propName    |Name attribute                  | Listens for input events.                                                            |
-| |propName    |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
+| \|propName    |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
 | #propName    |Id attribute                    | Listens for input events.                                                            |
 | %propName    |match based on part attribute   | Listens for input events.                                                            |
 | -prop-name   |Marker indicates prop           | Attaches listeners to getters/setters.                                               | 
