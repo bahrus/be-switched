@@ -150,6 +150,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     async doOnBinarySwitches(self: this): Promise<void> {
+        if(self.onBinarySwitches?.length === 0) return;
         const {doBinSwitch} = await import('./doBinSwitch.js');
         doBinSwitch(self, 'on');
     }

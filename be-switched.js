@@ -145,6 +145,8 @@ export class BeSwitched extends BE {
         return structuredClone(parsed);
     }
     async doOnBinarySwitches(self) {
+        if (self.onBinarySwitches?.length === 0)
+            return;
         const { doBinSwitch } = await import('./doBinSwitch.js');
         doBinSwitch(self, 'on');
     }
