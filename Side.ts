@@ -2,7 +2,7 @@ import { ElTypes, SignalRefType } from '../be-linked/types';
 import { BVAAllProps } from '../be-value-added/types';
 import { findRealm } from 'trans-render/lib/findRealm.js';
 import {AP, ISide, SignalAndEvent} from './types';
-import {checkSwitches} from './doTwoValSwitch.js';
+//import {checkSwitches} from './doTwoValSwitch.js';
 
 export class Side extends EventTarget implements ISide{
     constructor(
@@ -53,7 +53,6 @@ export class Side extends EventTarget implements ISide{
             case '~':
             case '@':
             case '#':{
-                //let inputEl: HTMLInputElement;
                 switch(type){
                     case '@':
                         if(perimeter !== undefined){
@@ -74,35 +73,16 @@ export class Side extends EventTarget implements ISide{
                 }
                 if(!signalRef) throw 404;
                 signal = new WeakRef(signalRef);
-                // if(cbso !== undefined){
-                //     if(enhancedElement.oninput){
-                //         inputEl.addEventListener('input', e => {
-                //             const lhsTarget = this.tvs.lhsSignal?.deref();
-                //             if(!lhsTarget) return;
-                //             const rhsTarget = this.tvs.rhsSignal?.deref();
-                //             if(!rhsTarget) return;
-                //             const evt = new InputEvent(tvs, lhsTarget, rhsTarget);
-                //             enhancedElement.dispatchEvent(evt);
-                //             tvs.switchedOn = evt.switchOn;
-                //             checkSwitches(self, onOrOff);
-                //         });
-                //     }
-                    
 
-                // }else{
                 eventSuggestion = eventName || 'input'
-                // if(this.invokeCheckSwitches){
-                //     inputEl.addEventListener(eventSuggestion, e => {
-                //         checkSwitches(self, onOrOff);
-                //     });
-                // }
 
                 break;
             }
             
         }
         if(this.invokeCheckSwitches && signalRef !== undefined && eventSuggestion !== undefined){
-            signalRef.addEventListener(eventSuggestion, e=> {
+            const {checkSwitches} = await import('./doTwoValSwitch.js');
+            signalRef.addEventListener(eventSuggestion, e => {
                 checkSwitches(self, onOrOff);
             })
         }

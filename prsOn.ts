@@ -77,7 +77,6 @@ export async function prsOn(self: AP) : ProPAP{
     const onUnion = [...(On || []), ...(on || [])];
     for(const onS of onUnion){
         const nValSwitchTest = tryParse(onS, reNValueSwitchStatements) as NValueScriptSwitch;
-        console.log(nValSwitchTest);
         if(nValSwitchTest !== null){
             const {prsNValue} = await import('./prsNVal.js');
             prsNValue(nValSwitchTest);
@@ -85,7 +84,6 @@ export async function prsOn(self: AP) : ProPAP{
             continue;
         }
         const twoValSwitchTest = tryParse(onS, reTwoValSwitchStatements) as TwoValueSwitch;
-        console.log({onS, twoValSwitchTest});
         if(twoValSwitchTest !== null){
             let {lhsProp, rhsProp, op} = twoValSwitchTest;
             if(op === 'eq') twoValSwitchTest.op = 'equals';
@@ -117,6 +115,7 @@ export async function prsOn(self: AP) : ProPAP{
         if(binarySwitchTest === null) throw 'PE';//Parse Error
         oneValueSwitches.push(binarySwitchTest);
     }
+    console.log({oneValueSwitches, twoValueSwitches, nValueScriptSwitches});
     return {
         onBinarySwitches: oneValueSwitches,
         onTwoValueSwitches: twoValueSwitches,

@@ -157,10 +157,14 @@ export class BeSwitched extends BE {
         doTwoValSwitch(self, 'on');
     }
     async doOffBinarySwitches(self) {
+        if (self.onBinarySwitches?.length === 0)
+            return;
         const { doBinSwitch } = await import('./doBinSwitch.js');
         doBinSwitch(self, 'off');
     }
     async doOffTwoValSwitches(self) {
+        if (self.onTwoValueSwitches?.length === 0)
+            return;
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'off');
     }
