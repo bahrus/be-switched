@@ -51,6 +51,9 @@ export async function checkSwitches(self, onOrOff) {
                 case 'lt':
                     value = lhs < rhs;
                     break;
+                case 'gt':
+                    value = lhs > rhs;
+                    break;
             }
             if (negate)
                 value = !value;
