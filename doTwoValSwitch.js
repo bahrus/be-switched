@@ -5,11 +5,9 @@ export async function doTwoValSwitch(self, onOrOff) {
     const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for (const onSwitch of valueSwitches) {
-        const { lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter, dependsOn } = onSwitch;
-        //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
-        const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
-        const lhs = onSwitch.lhs = new Side(onSwitch, splitEventNames[0], lhsProp, lhsType, lhsPerimeter);
-        const rhs = onSwitch.rhs = new Side(onSwitch, splitEventNames[1], rhsProp, rhsType, rhsPerimeter);
+        const { lhsProp, rhsProp, lhsType, rhsType, lhsPerimeter, rhsPerimeter, lhsEvent, rhsEvent, dependsOn } = onSwitch;
+        const lhs = onSwitch.lhs = new Side(onSwitch, lhsEvent, lhsProp, lhsType, lhsPerimeter);
+        const rhs = onSwitch.rhs = new Side(onSwitch, rhsEvent, rhsProp, rhsType, rhsPerimeter);
         onSwitch.lhsSignal = await lhs.do(self, onOrOff, enhancedElement);
         onSwitch.rhsSignal = await rhs.do(self, onOrOff, enhancedElement);
         if (dependsOn) {

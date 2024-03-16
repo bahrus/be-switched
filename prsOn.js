@@ -9,7 +9,7 @@ const lhsOpRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
 const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
 const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
 const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
-const LhsOpRhsEventNames = String.raw `${lhsOpRhs}(?<!\\)\,ListeningFor(?<eventNames>[\w\-\:\,]+)(?<!\\)(Event|Events)`;
+//const LhsOpRhsEventNames = String.raw `${lhsOpRhs}(?<!\\)\,ListeningFor(?<eventNames>[\w\-\:\,]+)(?<!\\)(Event|Events)`;
 const reOnTwoValSwitchStatements = [
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
@@ -23,10 +23,10 @@ const reOnTwoValSwitchStatements = [
         regExp: new RegExp(`^when${lhsOpRhsPerimeterRhs}`),
         defaultVals: {}
     },
-    {
-        regExp: new RegExp(`^when${LhsOpRhsEventNames}`),
-        defaultVals: {}
-    },
+    // {
+    //     regExp: new RegExp(`^when${LhsOpRhsEventNames}`),
+    //     defaultVals: {}
+    // },
     {
         regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals: {}

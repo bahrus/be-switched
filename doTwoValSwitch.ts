@@ -10,19 +10,27 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for(const onSwitch of valueSwitches!){
-        const {lhsProp, rhsProp, lhsType, rhsType, eventNames, lhsPerimeter, rhsPerimeter, dependsOn} = onSwitch;
-        //console.log({eventNames, lhsProp, rhsProp, lhsType, rhsType, lhsSubProp, rhsSubProp});
-        const splitEventNames = eventNames === undefined ? ['input', 'input'] : eventNames.split(',');
+        const {
+            lhsProp, 
+            rhsProp, 
+            lhsType, 
+            rhsType, 
+            lhsPerimeter, 
+            rhsPerimeter,
+            lhsEvent,
+            rhsEvent,
+            dependsOn
+        } = onSwitch;
         const lhs = onSwitch.lhs = new Side(
             onSwitch, 
-            splitEventNames[0],
+            lhsEvent,
             lhsProp,
             lhsType,
             lhsPerimeter
         );
         const rhs = onSwitch.rhs = new Side(
             onSwitch,
-            splitEventNames[1],
+            rhsEvent,
             rhsProp,
             rhsType,
             rhsPerimeter

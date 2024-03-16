@@ -7,7 +7,7 @@ import {checkSwitches} from './doTwoValSwitch.js';
 export class Side extends EventTarget implements ISide{
     constructor(
         public tvs: OnTwoValueSwitch, 
-        public eventName: string,
+        public eventName?: string,
         public prop?: string,
         public type?: ElTypes,
         public perimeter?: string,
@@ -81,7 +81,7 @@ export class Side extends EventTarget implements ISide{
                     
 
                 }else{
-                    inputEl.addEventListener(eventName, e => {
+                    inputEl.addEventListener(eventName || 'input', e => {
                         checkSwitches(self, onOrOff);
                     });
                 }
@@ -121,29 +121,4 @@ export class InputEvent extends Event implements EventForTwoValSwitch{
     }
 }
 
-// export class ChangeEvent extends Event implements EventForTwoValSwitch{
-
-//     static EventName: changeEventName = 'change';
-
-//     constructor(
-//         public ctx: OnTwoValueSwitch, 
-//         public lhsTarget: SignalRefType, 
-//         public rhsTarget: SignalRefType, 
-//         public switchOn?: boolean){
-//         super(ChangeEvent.EventName);
-//     }
-// }
-
-// export class LoadEvent extends Event implements EventForTwoValSwitch{
-
-//     static EventName: loadEventName = 'load';
-
-//         constructor(
-//         public ctx: OnTwoValueSwitch, 
-//         public lhsTarget: SignalRefType, 
-//         public rhsTarget: SignalRefType, 
-//         public switchOn?: boolean){
-//         super(LoadEvent.EventName);
-//     }
-// }
 

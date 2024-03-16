@@ -80,7 +80,7 @@ export class Side extends EventTarget {
                     }
                 }
                 else {
-                    inputEl.addEventListener(eventName, e => {
+                    inputEl.addEventListener(eventName || 'input', e => {
                         checkSwitches(self, onOrOff);
                     });
                 }
@@ -119,23 +119,3 @@ export class InputEvent extends Event {
         this.switchOn = switchOn;
     }
 }
-// export class ChangeEvent extends Event implements EventForTwoValSwitch{
-//     static EventName: changeEventName = 'change';
-//     constructor(
-//         public ctx: OnTwoValueSwitch, 
-//         public lhsTarget: SignalRefType, 
-//         public rhsTarget: SignalRefType, 
-//         public switchOn?: boolean){
-//         super(ChangeEvent.EventName);
-//     }
-// }
-// export class LoadEvent extends Event implements EventForTwoValSwitch{
-//     static EventName: loadEventName = 'load';
-//         constructor(
-//         public ctx: OnTwoValueSwitch, 
-//         public lhsTarget: SignalRefType, 
-//         public rhsTarget: SignalRefType, 
-//         public switchOn?: boolean){
-//         super(LoadEvent.EventName);
-//     }
-// }
