@@ -213,9 +213,9 @@ We can depend on any number of peer elements in our calculations:
 
 However, there is one restriction -- There can only be one active sentence contained in the be-switched attribute that starts with "on depending on".  This seems reasonable, as the JavaScript logic can be as complex as we want it to be, applying whatever rules make sense to the various factors.
 
-## Bye JavaScript, nice knowing you
+## Bye JavaScript, nice knowin' ya!
 
-What follows moves outside the domain of JavaScript, so if JS is your only game, you have passed the course and are ready to code to your heart's content!
+What follows quickly moves outside the domain of JavaScript, so if JS is your only game, you have passed the course and are ready to code to your heart's content!  Supporting the declarative bindings as described below won't be loaded unless actually used, so little to no harm do if you don't choose to use what follows.
 
 We start by looking at pairs of comparisons between the "lhs" (left hand side) and the "rhs" (right hand side).
 
