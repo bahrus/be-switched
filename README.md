@@ -83,7 +83,7 @@ Frameworks fail us, yet again!
 
 \* Expand section above for what that reason is.
 
-# Part II = Hemingway Notation
+# Part II - Hemingway Notation
 
 ## Special Symbols
 
