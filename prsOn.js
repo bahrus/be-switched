@@ -103,6 +103,7 @@ export async function prsOn(self) {
     }
     return {
         onBinarySwitches: oneValueSwitches,
-        onTwoValueSwitches: twoValueSwitches
+        onTwoValueSwitches: twoValueSwitches,
+        onNValueSwitches: nValueScriptSwitches,
     };
 }

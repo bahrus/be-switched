@@ -119,7 +119,8 @@ export async function prsOn(self: AP) : ProPAP{
     }
     return {
         onBinarySwitches: oneValueSwitches,
-        onTwoValueSwitches: twoValueSwitches
+        onTwoValueSwitches: twoValueSwitches,
+        onNValueSwitches: nValueScriptSwitches,
     } as PAP;
 }
 

@@ -33,6 +33,8 @@ export function prsNValue(nvalSwitch) {
         const test = tryParse(nonEventPart, reDependencyStatements);
         if (test === null)
             throw 'PE'; //Parsing error
-        Object.assign(dependency, test);
+        console.log({ test });
+        dependencies.push(test);
     }
+    nvalSwitch.dependencies = dependencies;
 }
