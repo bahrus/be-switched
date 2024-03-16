@@ -137,7 +137,25 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
 
 What this is saying:  
 
->Find peer elements carrot-nosed-woman and a-duck within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the oninput attribute.  If switchOn is set to true, display the contents within the template.  If set to false, hide it.
+> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the oninput attribute.  If switchOn is set to true, display the contents within the template.  If set to false, hide it.  Also, do this check on initialization.
+
+Here is another, less cinematic example:
+
+```html
+<label for=lhs>LHS:</label>
+<input id=lhs>
+<label for=rhs>RHS:</label>
+<input id=rhs>
+<template
+    oninput="
+        const {factors} = event;
+        const {lhs, rhs} = factors;
+        event.switchOn = lhs.value === rhs.value;
+    "
+    be-switched='on depending on #lhs and #rhs.'>
+    <div>LHS === RHS</div>
+</template>
+```
 
 ### ID Referencing
 
