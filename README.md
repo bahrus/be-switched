@@ -157,7 +157,7 @@ Here, the search for matching names is done within a containing form, and if no 
 
 However, if that is not sufficient, we can specify a "scoping" perimeter via an "upSearch" query.  Symbolically, we use the "^" symbol to indicate this:
 
-### Example
+### Up Search Scoping
 
 ```html
 These should be ignored:
@@ -209,7 +209,7 @@ Here the search is done within the nearest itemscope, and if no itemscope is fou
 
 Again, if that proves inadequate, use the ^ character to indicate the closest upSearch peer/parent to search within.
 
-### By tag name
+### By ~ tagName
 
 In the brave new world that custom elements has opened up, we can make our markup beautifully expressive, and tap into that with our binding expressions.
 
