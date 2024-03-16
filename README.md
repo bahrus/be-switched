@@ -297,7 +297,7 @@ So for a simpler illustration of invoking script:
 ```
 
 
-## Example 2h specify property path to compare 
+## Example - specify property path to compare 
 
 Use a single semicolon for specifying a property path.
 
@@ -321,9 +321,21 @@ Also, note that this can actually be a chain of accessors (that automatically in
 
 
 
-[TODO]  Support gt, lt
+## Example - specify less than
 
-[TODO] Support for down search?
+This is now supported:
+
+```html
+<label for=lhs>LHS:</label>
+<input type=number id=lhs>
+<label for=rhs>RHS:</label>
+<input type=number id=rhs>
+<template be-switched='on when #lhs lt #rhs.'>
+    <div>LHS &lt; RHS</div>
+</template>
+```
+
+## Example - specify greater than [TODO]
 
 Use Y.
 

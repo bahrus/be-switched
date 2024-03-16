@@ -76,7 +76,7 @@ export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
                     value = lhs === rhs;
                     break;
                 case 'lt':
-                    console.log({lhs, rhs});
+                    value = lhs < rhs;
                     break;
             }
             if(negate) value = !value;

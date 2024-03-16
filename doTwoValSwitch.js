@@ -49,7 +49,7 @@ export async function checkSwitches(self, onOrOff) {
                     value = lhs === rhs;
                     break;
                 case 'lt':
-                    console.log({ lhs, rhs });
+                    value = lhs < rhs;
                     break;
             }
             if (negate)
