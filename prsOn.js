@@ -1,5 +1,5 @@
 import { tryParse } from 'be-enhanced/cpu.js';
-const strType = String.raw `\||\#|\@|\/|\%|\~`;
+export const strType = String.raw `\||\#|\@|\/|\%|\~`;
 const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
 const lhsTypeLHSProp = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)`;
 const rhsPerimeter = String.raw `\^(?<rhsPerimeter>.*)`;
@@ -9,7 +9,13 @@ const lhsOpRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
 const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
 const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
 const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
-const reOnTwoValSwitchStatements = [
+const reNValueSwitchStatements = [
+    {
+        regExp: new RegExp(String.raw `^dependingOn(?<dependsOn>.*)`),
+        defaultVals: {}
+    }
+];
+const reTwoValSwitchStatements = [
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
         defaultVals: {}
@@ -26,14 +32,8 @@ const reOnTwoValSwitchStatements = [
         regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals: {}
     },
-    {
-        regExp: new RegExp(`^dependingOn${lhsTypeLHSProp}And${rhsTypeRhsProp}`),
-        defaultVals: {
-            dependsOn: true
-        }
-    }
 ];
-const reOnBinarySwitchStatements = [
+const reOneValSwitchStatements = [
     {
         regExp: new RegExp(String.raw `^onlyWhen(?<type>${strType})(?<prop>[\w]+)`),
         defaultVals: {
@@ -55,10 +55,19 @@ export async function prsOn(self) {
     const { On, on } = self;
     const oneValueSwitches = [];
     const twoValueSwitches = [];
+    const nValueScriptSwitches = [];
     const onUnion = [...(On || []), ...(on || [])];
     for (const onS of onUnion) {
-        const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements);
-        console.log({ onS, twoValSwitchTest });
+        const nValSwitchTest = tryParse(onS, reNValueSwitchStatements);
+        console.log(nValSwitchTest);
+        if (nValSwitchTest !== null) {
+            const { prsNValue } = await import('./prsNVal.js');
+            prsNValue(nValSwitchTest);
+            nValueScriptSwitches.push(nValSwitchTest);
+            continue;
+        }
+        const twoValSwitchTest = tryParse(onS, reTwoValSwitchStatements);
+        //console.log({onS, twoValSwitchTest});
         if (twoValSwitchTest !== null) {
             let { lhsProp, rhsProp, op } = twoValSwitchTest;
             if (op === 'eq')
@@ -87,7 +96,7 @@ export async function prsOn(self) {
             twoValueSwitches.push(twoValSwitchTest);
             continue;
         }
-        const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements);
+        const binarySwitchTest = tryParse(onS, reOneValSwitchStatements);
         if (binarySwitchTest === null)
             throw 'PE'; //Parse Error
         oneValueSwitches.push(binarySwitchTest);

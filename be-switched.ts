@@ -154,7 +154,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         doBinSwitch(self, 'on');
     }
 
-    async onTwoValSwitches(self: this): Promise<void> {
+    async onOnTwoValSwitches(self: this): Promise<void> {
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'on');
     }
@@ -168,6 +168,8 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'off');
     }
+
+    
 }
 
 const styleMap = new WeakSet<Node>();
@@ -250,7 +252,7 @@ const xe = new XE<AP, Actions>({
                 ifAtLeastOneOf: ['Off', 'off'],
             },
             onOnBinarySwitches: 'onBinarySwitches',
-            onTwoValSwitches: 'onTwoValueSwitches',
+            onOnTwoValSwitches: 'onTwoValueSwitches',
             onOffBinarySwitches: 'offBinarySwitches',
             offTwoValSwitches: 'offTwoValueSwitches',
         }

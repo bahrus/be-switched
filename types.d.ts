@@ -38,7 +38,6 @@ export interface AllProps extends EndUserProps{
     onTwoValueSwitches?: Array<TwoValueSwitch>,
     offBinarySwitches?: Array<OneValueSwitch>,
     offTwoValueSwitches?: Array<TwoValueSwitch>,
-    //onNValueSwitches?: Array<
     isParsed?: boolean,
     onNValueSwitches?: Array<NValueScriptSwitch>
 }
@@ -86,6 +85,7 @@ export interface Dependency{
 }
 
 export interface NValueScriptSwitch {
+    dependsOn?: string,
     dependencies?: Array<Dependency>
 }
 
@@ -106,7 +106,7 @@ export interface Actions{
     onOn(self: this): ProPAP;
     onOff(self: this): ProPAP;
     onOnBinarySwitches(self: this): Promise<void>;
-    onTwoValSwitches(self: this): Promise<void>;
+    onOnTwoValSwitches(self: this): Promise<void>;
     onOffBinarySwitches(self: this): Promise<void>;
     offTwoValSwitches(sef: this): Promise<void>;
 }

@@ -1,8 +1,8 @@
-import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch} from './types';
+import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch} from './types';
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
 import {arr, tryParse} from 'be-enhanced/cpu.js';
 
-const strType = String.raw `\||\#|\@|\/|\%|\~`;
+export const strType = String.raw `\||\#|\@|\/|\%|\~`;
 
 const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
 
@@ -22,7 +22,15 @@ const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEqu
 
 const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
 
-const reOnTwoValSwitchStatements: RegExpOrRegExpExt<TwoValueSwitch>[] = [
+const reNValueSwitchStatements: RegExpOrRegExpExt<NValueScriptSwitch>[] = [
+    {
+        regExp: new RegExp(String.raw `^dependingOn(?<dependsOn>.*)`),
+        defaultVals:{
+        }
+    }
+];
+
+const reTwoValSwitchStatements: RegExpOrRegExpExt<TwoValueSwitch>[] = [
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
         defaultVals:{}
@@ -39,15 +47,10 @@ const reOnTwoValSwitchStatements: RegExpOrRegExpExt<TwoValueSwitch>[] = [
         regExp: new RegExp(`^when${lhsOpRhs}`),
         defaultVals:{}
     },
-    {
-        regExp: new RegExp(`^dependingOn${lhsTypeLHSProp}And${rhsTypeRhsProp}`),
-        defaultVals:{
-            dependsOn: true
-        }
-    }
+
 ]
 
-const reOnBinarySwitchStatements: RegExpOrRegExpExt<OneValueSwitch>[] = [
+const reOneValSwitchStatements: RegExpOrRegExpExt<OneValueSwitch>[] = [
     {
         regExp: new RegExp(String.raw `^onlyWhen(?<type>${strType})(?<prop>[\w]+)`),
         defaultVals:{
@@ -70,10 +73,19 @@ export async function prsOn(self: AP) : ProPAP{
     const {On, on} = self;
     const oneValueSwitches: Array<OneValueSwitch> = [];
     const twoValueSwitches : Array<TwoValueSwitch> = [];
+    const nValueScriptSwitches: Array<NValueScriptSwitch> = [];
     const onUnion = [...(On || []), ...(on || [])];
     for(const onS of onUnion){
-        const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements) as TwoValueSwitch;
-        console.log({onS, twoValSwitchTest});
+        const nValSwitchTest = tryParse(onS, reNValueSwitchStatements) as NValueScriptSwitch;
+        console.log(nValSwitchTest);
+        if(nValSwitchTest !== null){
+            const {prsNValue} = await import('./prsNVal.js');
+            prsNValue(nValSwitchTest);
+            nValueScriptSwitches.push(nValSwitchTest);
+            continue;
+        }
+        const twoValSwitchTest = tryParse(onS, reTwoValSwitchStatements) as TwoValueSwitch;
+        //console.log({onS, twoValSwitchTest});
         if(twoValSwitchTest !== null){
             let {lhsProp, rhsProp, op} = twoValSwitchTest;
             if(op === 'eq') twoValSwitchTest.op = 'equals';
@@ -101,7 +113,7 @@ export async function prsOn(self: AP) : ProPAP{
             twoValueSwitches.push(twoValSwitchTest);
             continue;
         }
-        const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements) as OneValueSwitch;
+        const binarySwitchTest = tryParse(onS, reOneValSwitchStatements) as OneValueSwitch;
         if(binarySwitchTest === null) throw 'PE';//Parse Error
         oneValueSwitches.push(binarySwitchTest);
     }
