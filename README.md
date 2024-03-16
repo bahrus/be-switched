@@ -219,7 +219,7 @@ What follows moves outside the domain of JavaScript, so if JS is your only game,
 
 We start by looking at pairs of comparisons between the "lhs" (left hand side) and the "rhs" (right hand side).
 
-These statements don't invoke the oninput event at all, and are purely declarative.  But we can list a number of comparisons, some of which add to an "or" statement, others to an "and", others can act as a negation, etc.  So will get much the same power as we get with JavaScript, but declaratively, with no possible side effects (and less prone to catastrophic errors).
+These statements don't invoke the oninput event at all, and are purely declarative.  But we can list a number of comparisons, some of which add to an "or" statement, others to an "and" condition, others can act as a negation, etc.  So we will get much the same power as we get with JavaScript, but declaratively, with no possible side effects (and be less prone to catastrophic errors).
 
 ### ID Referencing
 
