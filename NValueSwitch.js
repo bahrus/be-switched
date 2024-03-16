@@ -11,7 +11,6 @@ export class NValueSwitch {
             throw 'NI';
         const nValueSwitch = onNValueSwitches[0];
         this.#nValueSwitch = nValueSwitch;
-        console.log({ nValueSwitch });
         const { dependencies } = nValueSwitch;
         const { enhancedElement } = self;
         for (const dependency of dependencies) {
