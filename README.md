@@ -375,22 +375,6 @@ What this does:
 
 Remember that if the event name is not specified, the input event is assumed, when elements are found by name or by id or by tag name, and if no prop name is specified (see below).  Regardless of the event names specified, the developer uses the built in "oninput" attribute to provide a custom script to evaluate whether the condition is met.
 
-For a simpler illustration of invoking script:
-
-```html
-<label for=lhs>LHS:</label>
-<input id=lhs>
-<label for=rhs>RHS:</label>
-<input id=rhs>
-<template
-    oninput="
-        event.switchOn = event.lhsTarget.value === event.rhsTarget.value
-    "
-    be-switched='on depending on #lhs and #rhs.'>
-    <div>LHS === RHS</div>
-</template>
-```
-
 
 ## Specify property path to compare 
 
