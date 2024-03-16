@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example 2g</title>
+    <title>change and input</title>
     <script type=importmap>
         {
             "imports": {
@@ -25,11 +25,7 @@
     <input id=lhs>
     <label for=rhs>RHS:</label>
     <input id=rhs>
-    <template
-        oninput="
-            event.switchOn = event.lhsTarget.value === event.rhsTarget.value
-        "
-        be-switched='on depending on #lhs and #rhs.'>
+    <template be-switched='on when #lhs::change equals #rhs::input.'>
         <div>LHS === RHS</div>
     </template>
 
