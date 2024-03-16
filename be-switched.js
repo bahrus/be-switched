@@ -149,6 +149,8 @@ export class BeSwitched extends BE {
         doBinSwitch(self, 'on');
     }
     async doOnTwoValSwitches(self) {
+        if (self.onTwoValueSwitches?.length === 0)
+            return;
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'on');
     }
@@ -161,8 +163,10 @@ export class BeSwitched extends BE {
         doTwoValSwitch(self, 'off');
     }
     async doOnNValSwitches(self) {
-        const { doNValueSwitch } = await import('./doNValueSwitch.js');
-        doNValueSwitch(self);
+        if (self.onNValueSwitches?.length === 0)
+            return;
+        const { NValueSwitch } = await import('./NValueSwitch.js');
+        new NValueSwitch(self);
     }
 }
 const styleMap = new WeakSet();

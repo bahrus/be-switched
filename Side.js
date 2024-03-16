@@ -1,14 +1,14 @@
 import { findRealm } from 'trans-render/lib/findRealm.js';
 import { checkSwitches } from './doTwoValSwitch.js';
 export class Side extends EventTarget {
-    tvs;
+    invokeCheckSwitches;
     eventName;
     prop;
     type;
     perimeter;
-    constructor(tvs, eventName, prop, type, perimeter) {
+    constructor(invokeCheckSwitches, eventName, prop, type, perimeter) {
         super();
-        this.tvs = tvs;
+        this.invokeCheckSwitches = invokeCheckSwitches;
         this.eventName = eventName;
         this.prop = prop;
         this.type = type;
@@ -16,106 +16,91 @@ export class Side extends EventTarget {
     }
     val;
     async do(self, onOrOff, enhancedElement) {
-        const { tvs, eventName, prop, type, perimeter } = this;
-        const { dependsOn } = tvs;
+        const { eventName, prop, type, perimeter } = this;
         let signal = undefined;
+        let eventSuggestion = undefined;
+        let signalRef = undefined;
         switch (type) {
             case '|':
                 const { getItemPropEl } = await import('./getItempropEl.js');
-                const itempropEl = await getItemPropEl(enhancedElement, prop);
-                if (itempropEl.hasAttribute('contenteditable')) {
-                    signal = new WeakRef(itempropEl);
-                    itempropEl.addEventListener('input', e => {
-                        checkSwitches(self, onOrOff);
-                    });
+                signalRef = await getItemPropEl(enhancedElement, prop);
+                if (signalRef.hasAttribute('contenteditable')) {
+                    signal = new WeakRef(signalRef);
+                    eventSuggestion = 'input';
+                    // if(this.invokeCheckSwitches){
+                    //     itempropEl.addEventListener('input', e => {
+                    //         checkSwitches(self, onOrOff);
+                    //     });
+                    // }
                 }
                 else {
                     import('be-value-added/be-value-added.js');
-                    const beValueAdded = await itempropEl.beEnhanced.whenResolved('be-value-added');
-                    signal = new WeakRef(beValueAdded);
-                    beValueAdded.addEventListener('value-changed', e => {
-                        checkSwitches(self, onOrOff);
-                    });
+                    signalRef = await signalRef.beEnhanced.whenResolved('be-value-added');
+                    signal = new WeakRef(signalRef);
+                    eventSuggestion = 'value-changed';
+                    // if(this.invokeCheckSwitches){
+                    //     beValueAdded.addEventListener(eventSuggestion, e => {
+                    //         checkSwitches(self, onOrOff);
+                    //     });
+                    // }
                 }
                 break;
             case '~':
             case '@':
             case '#': {
-                let inputEl;
+                //let inputEl: HTMLInputElement;
                 switch (type) {
                     case '@':
                         if (perimeter !== undefined) {
-                            inputEl = await findRealm(enhancedElement, ['wi', perimeter, `[name="${prop}"]`]);
+                            signalRef = await findRealm(enhancedElement, ['wi', perimeter, `[name="${prop}"]`]);
                         }
                         else {
-                            inputEl = await findRealm(enhancedElement, ['wf', prop]);
+                            signalRef = await findRealm(enhancedElement, ['wf', prop]);
                         }
                         break;
                     case '#':
-                        inputEl = await findRealm(enhancedElement, ['wrn', '#' + prop]);
+                        signalRef = await findRealm(enhancedElement, ['wrn', '#' + prop]);
                         break;
                     case '~':
                         const { camelToLisp } = await import('trans-render/lib/camelToLisp.js');
                         const localName = camelToLisp(prop);
-                        inputEl = await findRealm(enhancedElement, ['wis', localName, true]);
+                        signalRef = await findRealm(enhancedElement, ['wis', localName, true]);
                         break;
                 }
-                if (!inputEl)
+                if (!signalRef)
                     throw 404;
-                signal = new WeakRef(inputEl);
-                if (dependsOn) {
-                    if (enhancedElement.oninput) {
-                        inputEl.addEventListener('input', e => {
-                            const lhsTarget = this.tvs.lhsSignal?.deref();
-                            if (!lhsTarget)
-                                return;
-                            const rhsTarget = this.tvs.rhsSignal?.deref();
-                            if (!rhsTarget)
-                                return;
-                            const evt = new InputEvent(tvs, lhsTarget, rhsTarget);
-                            enhancedElement.dispatchEvent(evt);
-                            tvs.switchedOn = evt.switchOn;
-                            checkSwitches(self, onOrOff);
-                        });
-                    }
-                }
-                else {
-                    inputEl.addEventListener(eventName || 'input', e => {
-                        checkSwitches(self, onOrOff);
-                    });
-                }
+                signal = new WeakRef(signalRef);
+                // if(cbso !== undefined){
+                //     if(enhancedElement.oninput){
+                //         inputEl.addEventListener('input', e => {
+                //             const lhsTarget = this.tvs.lhsSignal?.deref();
+                //             if(!lhsTarget) return;
+                //             const rhsTarget = this.tvs.rhsSignal?.deref();
+                //             if(!rhsTarget) return;
+                //             const evt = new InputEvent(tvs, lhsTarget, rhsTarget);
+                //             enhancedElement.dispatchEvent(evt);
+                //             tvs.switchedOn = evt.switchOn;
+                //             checkSwitches(self, onOrOff);
+                //         });
+                //     }
+                // }else{
+                eventSuggestion = eventName || 'input';
+                // if(this.invokeCheckSwitches){
+                //     inputEl.addEventListener(eventSuggestion, e => {
+                //         checkSwitches(self, onOrOff);
+                //     });
+                // }
                 break;
             }
         }
-        return signal;
-    }
-    doLoadEvent(enhancedElement) {
-        const ctx = this.tvs;
-        const lhsTarget = ctx.lhsSignal?.deref();
-        if (!lhsTarget)
-            return;
-        const rhsTarget = ctx.rhsSignal?.deref();
-        if (!rhsTarget)
-            return;
-        if (enhancedElement.oninput) {
-            const event = new InputEvent(ctx, lhsTarget, rhsTarget);
-            enhancedElement.dispatchEvent(event);
-            ctx.switchedOn = event.switchOn;
-            console.log(event);
+        if (this.invokeCheckSwitches && signalRef !== undefined && eventSuggestion !== undefined) {
+            signalRef.addEventListener(eventSuggestion, e => {
+                checkSwitches(self, onOrOff);
+            });
         }
-    }
-}
-export class InputEvent extends Event {
-    ctx;
-    lhsTarget;
-    rhsTarget;
-    switchOn;
-    static EventName = 'input';
-    constructor(ctx, lhsTarget, rhsTarget, switchOn) {
-        super(InputEvent.EventName);
-        this.ctx = ctx;
-        this.lhsTarget = lhsTarget;
-        this.rhsTarget = rhsTarget;
-        this.switchOn = switchOn;
+        return {
+            signal,
+            eventSuggestion
+        };
     }
 }

@@ -65,8 +65,7 @@ export interface TwoValueSwitch{
     rhsPerimeter?: string,
     lhsEvent?: string,
     rhsEvent?: string,
-    dependsOn?: boolean,
-    switchedOn?: boolean,
+    //dependsOn?: boolean,
     req?: boolean,
     op?: 'equals' | 'eq' | 'lt' | 'gt',
     lhsSignal?: WeakRef<SignalRefType>,
@@ -84,9 +83,13 @@ export interface Dependency{
     event?: string
 }
 
-export interface NValueScriptSwitch {
+export interface CanBeSwitchedOn {
+    switchedOn?: boolean,
+}
+
+export interface NValueScriptSwitch extends CanBeSwitchedOn {
     dependsOn?: string,
-    dependencies?: Array<Dependency>
+    dependencies?: Array<Dependency>,
 }
 
 export type AP = AllProps;
@@ -128,4 +131,9 @@ export interface EventForTwoValSwitch {
     lhsTarget?: SignalRefType,
     rhsTarget?: SignalRefType,
     switchOn?: boolean,
+}
+
+export interface SignalAndEvent {
+    signal?: WeakRef<SignalRefType>,
+    eventSuggestion?: string
 }

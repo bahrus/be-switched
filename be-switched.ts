@@ -155,6 +155,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     async doOnTwoValSwitches(self: this): Promise<void> {
+        if(self.onTwoValueSwitches?.length === 0) return;
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'on');
     }
@@ -170,8 +171,9 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     async doOnNValSwitches(self: this): Promise<void> {
-        const {doNValueSwitch} = await import('./doNValueSwitch.js');
-        doNValueSwitch(self);
+        if(self.onNValueSwitches?.length === 0) return;
+        const {NValueSwitch} = await import('./NValueSwitch.js');
+        new NValueSwitch(self);
     }
     
 }

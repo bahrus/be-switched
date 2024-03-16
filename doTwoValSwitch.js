@@ -5,32 +5,42 @@ export async function doTwoValSwitch(self, onOrOff) {
     const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for (const onSwitch of valueSwitches) {
-        const { lhsProp, rhsProp, lhsType, rhsType, lhsPerimeter, rhsPerimeter, lhsEvent, rhsEvent, dependsOn } = onSwitch;
-        const lhs = onSwitch.lhs = new Side(onSwitch, lhsEvent, lhsProp, lhsType, lhsPerimeter);
-        const rhs = onSwitch.rhs = new Side(onSwitch, rhsEvent, rhsProp, rhsType, rhsPerimeter);
-        onSwitch.lhsSignal = await lhs.do(self, onOrOff, enhancedElement);
-        onSwitch.rhsSignal = await rhs.do(self, onOrOff, enhancedElement);
-        if (dependsOn) {
-            lhs.doLoadEvent(enhancedElement);
-        }
+        const { lhsProp, rhsProp, lhsType, rhsType, lhsPerimeter, rhsPerimeter, lhsEvent, rhsEvent,
+        //dependsOn
+         } = onSwitch;
+        const lhs = onSwitch.lhs = new Side(true, lhsEvent, lhsProp, lhsType, lhsPerimeter);
+        const rhs = onSwitch.rhs = new Side(true, rhsEvent, rhsProp, rhsType, rhsPerimeter);
+        const lhsReturnObj = await lhs.do(self, onOrOff, enhancedElement);
+        onSwitch.lhsSignal = lhsReturnObj?.signal;
+        const rhsReturnObj = await rhs.do(self, onOrOff, enhancedElement);
+        onSwitch.rhsSignal = rhsReturnObj?.signal;
+        // if(dependsOn){
+        //     lhs.doLoadEvent(enhancedElement);
+        // }
     }
     await checkSwitches(self, onOrOff);
 }
 export async function checkSwitches(self, onOrOff) {
-    const { onTwoValueSwitches, offTwoValueSwitches } = self;
-    const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
-    if (valueSwitches?.length === 0)
-        return;
+    const { onTwoValueSwitches, offTwoValueSwitches, onNValueSwitches } = self;
     let foundOne = false;
+    if (onNValueSwitches !== undefined) {
+        for (const nvalSwitch of onNValueSwitches) {
+            if (nvalSwitch.switchedOn) {
+                foundOne = true;
+            }
+        }
+    }
+    const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
+    if (valueSwitches?.length === 0) {
+        self.switchesSatisfied = foundOne;
+        return;
+    }
     for (const onSwitch of valueSwitches) {
-        const { req, lhsSignal, rhsSignal, op, negate, rhsSubProp, lhsSubProp, dependsOn, switchedOn } = onSwitch;
+        const { req, lhsSignal, rhsSignal, op, negate, rhsSubProp, lhsSubProp } = onSwitch;
         if (foundOne && !req)
             continue;
         let value = false;
-        if (dependsOn) {
-            value = switchedOn;
-        }
-        else {
+        {
             const lhsRef = lhsSignal?.deref();
             if (lhsRef === undefined) {
                 console.warn({ onSwitch, msg: "Out of scope" });
