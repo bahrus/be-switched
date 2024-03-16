@@ -44,8 +44,12 @@ export async function checkSwitches(self, onOrOff) {
             const lhs = lhsSubProp !== undefined ? await getVal({ host: lhsRef }, lhsSubProp) : getSignalVal(lhsRef);
             const rhs = rhsSubProp !== undefined ? await getVal({ host: rhsRef }, rhsSubProp) : getSignalVal(rhsRef);
             switch (op) {
+                case 'eq':
                 case 'equals':
                     value = lhs === rhs;
+                    break;
+                case 'lt':
+                    console.log({ lhs, rhs });
                     break;
             }
             if (negate)
