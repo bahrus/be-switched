@@ -45,11 +45,11 @@ const reOneValSwitchStatements = [
         }
     },
 ];
-export async function prsOnLt3(self) {
-    const { On, on } = self;
+export async function prsOnLt3(self, negate = false) {
+    const { On, on, Off, off } = self;
     const oneValueSwitches = [];
     const twoValueSwitches = [];
-    const onUnion = [...(On || []), ...(on || [])];
+    const onUnion = negate ? [...(Off || []), ...(off || [])] : [...(On || []), ...(on || [])];
     for (const onS of onUnion) {
         const twoValSwitchTest = tryParse(onS, reTwoValSwitchStatements);
         if (twoValSwitchTest !== null) {
@@ -76,7 +76,7 @@ export async function prsOnLt3(self) {
                 twoValSwitchTest.rhsProp = split[0];
                 twoValSwitchTest.rhsSubProp = '.' + split.slice(1).join('.');
             }
-            //twoValSwitchTest.rhsProp = twoValSwitchTest.lhs
+            twoValSwitchTest.negate = negate;
             twoValueSwitches.push(twoValSwitchTest);
             continue;
         }

@@ -138,8 +138,8 @@ export class BeSwitched extends BE {
         const { parsedFrom } = self;
         let parsed = prsOffCache.get(parsedFrom);
         if (parsed === undefined) {
-            const { prsOff } = await import('./prsOff.js');
-            parsed = await prsOff(self);
+            const { prsOn } = await import('./prsOn.js');
+            parsed = await prsOn(self, true);
             prsOffCache.set(parsedFrom, parsed);
         }
         return structuredClone(parsed);

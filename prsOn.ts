@@ -16,10 +16,10 @@ const reNValueSwitchStatements: RegExpOrRegExpExt<NValueScriptSwitch>[] = [
 
 
 
-export async function prsOn(self: AP) : ProPAP{
-    const {On, on} = self;
+export async function prsOn(self: AP, negate = false) : ProPAP{
+    const {On, on, Off, off} = self;
     const nValueScriptSwitches: Array<NValueScriptSwitch> = [];
-    const onUnion = [...(On || []), ...(on || [])];
+    const onUnion = negate ? [...(Off || []), ...(off || [])] : [...(On || []), ...(on || [])];
     let foundNonNValSwitch = false;
     for(const onS of onUnion){
         const nValSwitchTest = tryParse(onS, reNValueSwitchStatements) as NValueScriptSwitch;
@@ -37,7 +37,7 @@ export async function prsOn(self: AP) : ProPAP{
     let Lt3: PAP = {};
     if(foundNonNValSwitch){
         const {prsOnLt3} = await import('./prsOnLt3.js');
-        Lt3 = await prsOnLt3(self);
+        Lt3 = await prsOnLt3(self, negate);
     }
     
     return {

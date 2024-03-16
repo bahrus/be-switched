@@ -6,10 +6,10 @@ const reNValueSwitchStatements = [
         defaultVals: {}
     }
 ];
-export async function prsOn(self) {
-    const { On, on } = self;
+export async function prsOn(self, negate = false) {
+    const { On, on, Off, off } = self;
     const nValueScriptSwitches = [];
-    const onUnion = [...(On || []), ...(on || [])];
+    const onUnion = negate ? [...(Off || []), ...(off || [])] : [...(On || []), ...(on || [])];
     let foundNonNValSwitch = false;
     for (const onS of onUnion) {
         const nValSwitchTest = tryParse(onS, reNValueSwitchStatements);
@@ -26,7 +26,7 @@ export async function prsOn(self) {
     let Lt3 = {};
     if (foundNonNValSwitch) {
         const { prsOnLt3 } = await import('./prsOnLt3.js');
-        Lt3 = await prsOnLt3(self);
+        Lt3 = await prsOnLt3(self, negate);
     }
     return {
         ...Lt3,
