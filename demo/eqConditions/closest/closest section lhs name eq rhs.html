@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example 2c</title>
+    <title>closest section lhs name eq rhs</title>
     <script type=importmap>
         {
             "imports": {
-                "be-enhanced/": "/node_modules/be-enhanced/",
-                "be-hive/":  "/node_modules/be-hive/",
-                "be-linked/": "/node_modules/be-linked/",
-                "be-propagating/": "/node_modules/be-propagating/",
-                "be-value-added/": "/node_modules/be-value-added/",
-                "mount-observer/": "/node_modules/mount-observer/",
-                "trans-render/": "/node_modules/trans-render/",
-                "xtal-element/": "/node_modules/xtal-element/"
+                "be-enhanced/": "../node_modules/be-enhanced/",
+                "be-hive/":  "../node_modules/be-hive/",
+                "be-linked/": "../node_modules/be-linked/",
+                "be-propagating/": "../node_modules/be-propagating/",
+                "be-value-added/": "../node_modules/be-value-added/",
+                "mount-observer/": "../node_modules/mount-observer/",
+                "trans-render/": "../trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/"
             }
         }
     </script>
@@ -25,8 +25,6 @@
     <div>
         <label for=lhs>LHS:</label>
         <input name=lhs>
-        <label for=rhs>RHS:</label>
-        <input name=rhs>
     </div>
     These should be active:
     <section>
@@ -34,7 +32,7 @@
         <input name=lhs>
         <label for=rhs>RHS:</label>
         <input name=rhs>
-        <template be-switched='on when ^section@lhs equals ^section@rhs.'>
+        <template be-switched='on when ^section@lhs equals @rhs.'>
             <div>LHS === RHS</div>
         </template>
     </section>
@@ -42,7 +40,7 @@
 
 
     <script type=module>
-        import '/behivior.js';
+        import '../behivior.js';
     </script>
 </body>
 </html>

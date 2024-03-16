@@ -12,7 +12,7 @@ const rhsPerimeter = String.raw `\^(?<rhsPerimeter>.*)`;
 
 const rhsTypeRhsProp = String.raw `(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
 
-const opEquals = String.raw `(?<!\\)(?<op>(Equals|Eq))`;
+const opEquals = String.raw `(?<!\\)(?<op>(Equals|Eq|Lt))`;
 
 const lhsOpRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
 
