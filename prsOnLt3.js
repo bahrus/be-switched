@@ -1,30 +1,18 @@
-import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch} from './types';
-import {RegExpOrRegExpExt} from 'be-enhanced/types';
-import {tryParse} from 'be-enhanced/cpu.js';
+import { tryParse } from 'be-enhanced/cpu.js';
 import { strType } from './prsOn.js';
-
 const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
-
 const lhsTypeLHSProp = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)`;
-
 const rhsPerimeter = String.raw `\^(?<rhsPerimeter>.*)`;
-
 const rhsTypeRhsProp = String.raw `(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
-
 const opEquals = String.raw `(?<!\\)(?<op>(Equals|Eq|Lt|Gt))`;
-
 const lhsOpRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
-
 const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
-
 const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEquals}${rhsTypeRhsProp}`;
-
 const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
-
-const reTwoValSwitchStatements: RegExpOrRegExpExt<TwoValueSwitch>[] = [
+const reTwoValSwitchStatements = [
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
-        defaultVals:{}
+        defaultVals: {}
     },
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhs}`),
@@ -36,56 +24,54 @@ const reTwoValSwitchStatements: RegExpOrRegExpExt<TwoValueSwitch>[] = [
     },
     {
         regExp: new RegExp(`^when${lhsOpRhs}`),
-        defaultVals:{}
+        defaultVals: {}
     },
-
-]
-
-const reOneValSwitchStatements: RegExpOrRegExpExt<OneValueSwitch>[] = [
+];
+const reOneValSwitchStatements = [
     {
         regExp: new RegExp(String.raw `^onlyWhen(?<type>${strType})(?<prop>[\w]+)`),
-        defaultVals:{
+        defaultVals: {
             req: true
-        } as OneValueSwitch
+        }
     },
     {
         regExp: new RegExp(String.raw `^when(?<type>${strType})(?<prop>[\w]+)`),
-        defaultVals:{}
+        defaultVals: {}
     },
     {
         regExp: new RegExp(String.raw `^when(?<prop>[\w]+)`),
-        defaultVals:{
+        defaultVals: {
             type: '/'
         }
     },
 ];
-
-export async function prsOnLt3(self: AP) : ProPAP{
-    const {On, on} = self;
-    const oneValueSwitches: Array<OneValueSwitch> = [];
-    const twoValueSwitches : Array<TwoValueSwitch> = [];
+export async function prsOnLt3(self) {
+    const { On, on } = self;
+    const oneValueSwitches = [];
+    const twoValueSwitches = [];
     const onUnion = [...(On || []), ...(on || [])];
-    for(const onS of onUnion){
-        const twoValSwitchTest = tryParse(onS, reTwoValSwitchStatements) as TwoValueSwitch;
-        if(twoValSwitchTest !== null){
-            let {lhsProp, rhsProp, op} = twoValSwitchTest;
-            if(op === 'eq') twoValSwitchTest.op = 'equals';
+    for (const onS of onUnion) {
+        const twoValSwitchTest = tryParse(onS, reTwoValSwitchStatements);
+        if (twoValSwitchTest !== null) {
+            let { lhsProp, rhsProp, op } = twoValSwitchTest;
+            if (op === 'eq')
+                twoValSwitchTest.op = 'equals';
             const lhsEventSplit = lhsProp?.split('::');
-            if(lhsEventSplit?.length === 2){
+            if (lhsEventSplit?.length === 2) {
                 lhsProp = twoValSwitchTest.lhsProp = lhsEventSplit[0];
                 twoValSwitchTest.lhsEvent = lhsEventSplit[1];
             }
-            if(lhsProp?.includes(':')){
+            if (lhsProp?.includes(':')) {
                 const split = lhsProp.split(':');
                 twoValSwitchTest.lhsProp = split[0];
                 twoValSwitchTest.lhsSubProp = '.' + split.slice(1).join('.');
             }
             const rhsEventSplit = rhsProp?.split('::');
-            if(rhsEventSplit?.length === 2){
+            if (rhsEventSplit?.length === 2) {
                 rhsProp = twoValSwitchTest.rhsProp = rhsEventSplit[0];
                 twoValSwitchTest.rhsEvent = rhsEventSplit[1];
             }
-            if(rhsProp?.includes(':')){
+            if (rhsProp?.includes(':')) {
                 const split = rhsProp.split(':');
                 twoValSwitchTest.rhsProp = split[0];
                 twoValSwitchTest.rhsSubProp = '.' + split.slice(1).join('.');
@@ -94,12 +80,13 @@ export async function prsOnLt3(self: AP) : ProPAP{
             twoValueSwitches.push(twoValSwitchTest);
             continue;
         }
-        const binarySwitchTest = tryParse(onS, reOneValSwitchStatements) as OneValueSwitch;
-        if(binarySwitchTest === null) throw 'PE';//Parse Error
+        const binarySwitchTest = tryParse(onS, reOneValSwitchStatements);
+        if (binarySwitchTest === null)
+            throw 'PE'; //Parse Error
         oneValueSwitches.push(binarySwitchTest);
     }
     return {
         onBinarySwitches: oneValueSwitches,
         onTwoValueSwitches: twoValueSwitches,
-    }
+    };
 }
