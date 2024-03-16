@@ -79,11 +79,11 @@ Frameworks fail us, yet again!
 
 </details>
 
-# Part II
+... And for that reason*, among others, an alternative way of "pulling in" values to compare is provided via:
 
-For that reason, among others, an alternative way of "pulling in" values to compare is provided via:
+\* Expand section above for what that reason is.
 
-## Hemingway Notation
+# Part II = Hemingway Notation
 
 ## Special Symbols
 
