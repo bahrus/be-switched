@@ -1,7 +1,7 @@
 import { ElTypes, SignalRefType } from '../be-linked/types';
 import { BVAAllProps } from '../be-value-added/types';
 import { findRealm } from 'trans-render/lib/findRealm.js';
-import {AP, EventForTwoValSwitch, ISide, TwoValueSwitch, CanBeSwitchedOn, inputEventName, SignalAndEvent} from './types';
+import {AP, ISide, SignalAndEvent} from './types';
 import {checkSwitches} from './doTwoValSwitch.js';
 
 export class Side extends EventTarget implements ISide{

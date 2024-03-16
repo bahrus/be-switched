@@ -268,7 +268,10 @@ What this does:
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        oninput="event.switchOn = Math.abs(event.carrotNosedWoman.weight -  event.aDuck.weight) < 10"
+        oninput="
+            const {factors} = event;
+            const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
+            event.switchOn = Math.abs(lhs.weight -  rhs.weight) < 10"
         be-switched='
             On depending on carrotNosedWoman::weight-change and aDuck::molting.
      '>

@@ -126,11 +126,14 @@ export interface ISide {
     val: any
 }
 
-export interface EventForTwoValSwitch {
-    ctx?: TwoValueSwitch,
-    lhsTarget?: SignalRefType,
-    rhsTarget?: SignalRefType,
+export interface EventForNValueSwitch {
+    ctx: NValueScriptSwitch,
+    factors: {[key: string] : SignalRefType},
     switchOn?: boolean,
+    elevate?:{
+        val: any,
+        to: string,
+    }
 }
 
 export interface SignalAndEvent {
