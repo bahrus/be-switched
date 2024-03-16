@@ -149,26 +149,30 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         return structuredClone(parsed);
     }
 
-    async onOnBinarySwitches(self: this): Promise<void> {
+    async doOnBinarySwitches(self: this): Promise<void> {
         const {doBinSwitch} = await import('./doBinSwitch.js');
         doBinSwitch(self, 'on');
     }
 
-    async onOnTwoValSwitches(self: this): Promise<void> {
+    async doOnTwoValSwitches(self: this): Promise<void> {
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'on');
     }
 
-    async onOffBinarySwitches(self: this): Promise<void> {
+    async doOffBinarySwitches(self: this): Promise<void> {
         const {doBinSwitch} = await import('./doBinSwitch.js');
         doBinSwitch(self, 'off');
     }
 
-    async offTwoValSwitches(self: this): Promise<void> {
+    async doOffTwoValSwitches(self: this): Promise<void> {
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'off');
     }
 
+    async doOnNValSwitches(self: this): Promise<void> {
+        const {doNValueSwitch} = await import('./doNValueSwitch.js');
+        doNValueSwitch(self);
+    }
     
 }
 
@@ -251,10 +255,11 @@ const xe = new XE<AP, Actions>({
                 ifAllOf: ['isParsed'],
                 ifAtLeastOneOf: ['Off', 'off'],
             },
-            onOnBinarySwitches: 'onBinarySwitches',
-            onOnTwoValSwitches: 'onTwoValueSwitches',
-            onOffBinarySwitches: 'offBinarySwitches',
-            offTwoValSwitches: 'offTwoValueSwitches',
+            doOnBinarySwitches: 'onBinarySwitches',
+            doOnTwoValSwitches: 'onTwoValueSwitches',
+            doOffBinarySwitches: 'offBinarySwitches',
+            doOffTwoValSwitches: 'offTwoValueSwitches',
+            doOnNValSwitches: 'onNValueSwitches',
         }
     },
     superclass: BeSwitched

@@ -144,21 +144,25 @@ export class BeSwitched extends BE {
         }
         return structuredClone(parsed);
     }
-    async onOnBinarySwitches(self) {
+    async doOnBinarySwitches(self) {
         const { doBinSwitch } = await import('./doBinSwitch.js');
         doBinSwitch(self, 'on');
     }
-    async onOnTwoValSwitches(self) {
+    async doOnTwoValSwitches(self) {
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'on');
     }
-    async onOffBinarySwitches(self) {
+    async doOffBinarySwitches(self) {
         const { doBinSwitch } = await import('./doBinSwitch.js');
         doBinSwitch(self, 'off');
     }
-    async offTwoValSwitches(self) {
+    async doOffTwoValSwitches(self) {
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self, 'off');
+    }
+    async doOnNValSwitches(self) {
+        const { doNValueSwitch } = await import('./doNValueSwitch.js');
+        doNValueSwitch(self);
     }
 }
 const styleMap = new WeakSet();
@@ -235,10 +239,11 @@ const xe = new XE({
                 ifAllOf: ['isParsed'],
                 ifAtLeastOneOf: ['Off', 'off'],
             },
-            onOnBinarySwitches: 'onBinarySwitches',
-            onOnTwoValSwitches: 'onTwoValueSwitches',
-            onOffBinarySwitches: 'offBinarySwitches',
-            offTwoValSwitches: 'offTwoValueSwitches',
+            doOnBinarySwitches: 'onBinarySwitches',
+            doOnTwoValSwitches: 'onTwoValueSwitches',
+            doOffBinarySwitches: 'offBinarySwitches',
+            doOffTwoValSwitches: 'offTwoValueSwitches',
+            doOnNValSwitches: 'onNValueSwitches',
         }
     },
     superclass: BeSwitched
