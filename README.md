@@ -112,7 +112,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event.  
 
 
-### Example 2a
+### Example
 
 ```html
 <label for=lhs>LHS:</label>
@@ -134,7 +134,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
 
-### Example 2b
+### Example
 
 ```html
 <form>
@@ -157,9 +157,17 @@ Here, the search for matching names is done within a containing form, and if no 
 
 However, if that is not sufficient, we can specify a "scoping" perimeter via an "upSearch" query.  Symbolically, we use the "^" symbol to indicate this:
 
-### Example 2c
+### Example
 
 ```html
+These should be ignored:
+<div>
+    <label for=lhs>LHS:</label>
+    <input name=lhs>
+    <label for=rhs>RHS:</label>
+    <input name=rhs>
+</div>
+These should be active:
 <section>
     <label>
         LHS:
@@ -234,7 +242,7 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event, and re-evaluates.
 
-## Example 2f specifying event name(s) [TODO]
+## Example 2f specifying event name(s)
 
 ```html
 <ways-of-science itemscope>
@@ -250,7 +258,7 @@ What this does:
 </ways-of-science>
 ```
 
-## Example 2g Injecting some script [WIP]
+## Example 2g Injecting some script
 
 
 ```html
@@ -270,7 +278,9 @@ What this does:
 
 
 
-Remember if that if the event name is not specified, the input event is assumed:
+Remember that if the event name is not specified, the input event is assumed, when elements are found by name or by id without a prop specifier (see below).
+
+So for a simpler illustration of invoking script:
 
 ```html
 <label for=lhs>LHS:</label>
@@ -289,6 +299,8 @@ Remember if that if the event name is not specified, the input event is assumed:
 
 ## Example 2h specify property path to compare 
 
+Use a single semicolon for specifying a property path.
+
 ```html
 <ways-of-science>
     <carrot-nosed-woman></carrot-nosed-woman>
@@ -304,6 +316,8 @@ Remember if that if the event name is not specified, the input event is assumed:
 ```
 
 Events are not used here, but rather propagating props.
+
+Also, note that this can actually be a chain of accessors (that automatically inserts a chaining operator ?. without requiring the extra ? character).  
 
 
 
