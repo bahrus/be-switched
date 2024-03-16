@@ -13,14 +13,15 @@ It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) famil
 
 ##  The basic functionality
 
-be-switched can be used in two modes:  
+be-switched can be used in three modes:  
 
-1.  It can switch the template "on and off" based on comparing two values (lhs and rhs). 
-2.  Or it can switch the template "on and off" based on a single value.
-
+1.  It can switch the template "on and off" based on comparing two values (lhs and rhs), or multiple such comparisons, declaratively.
+2.  Or it can switch the template "on and off" based on a single value.  Or multiple such binary conditions.
+3.  Or with the help of JavaScript we can evaluate a complex expression that is automatically recalculated anytime any of its n dependencies change, where n can be as high as needed.
+   
 The values to compare can come from peer microdata or form elements, or "boolish" properties coming from the host or peer (custom) elements, as well as data attributes adorning the template.
 
-We will look at both options closely, starting with...
+We will look at all three options closely, starting with...
 
 # Part I  
 
