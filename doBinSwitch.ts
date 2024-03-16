@@ -1,5 +1,5 @@
 //import { BeValueAdded } from 'be-value-added/be-value-added.js';
-import {AP, ProPAP, OnBinaryValueSwitch, PAP} from './types';
+import {AP, ProPAP, OneValueSwitch, PAP} from './types';
 import {BVAAllProps} from 'be-value-added/types';
 import {Actions as BPActions} from 'be-propagating/types';
 import {findRealm} from 'trans-render/lib/findRealm.js';

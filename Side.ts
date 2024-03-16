@@ -1,12 +1,12 @@
 import { ElTypes, SignalRefType } from '../be-linked/types';
 import { BVAAllProps } from '../be-value-added/types';
 import { findRealm } from 'trans-render/lib/findRealm.js';
-import {AP, EventForTwoValSwitch, ISide, OnTwoValueSwitch, inputEventName} from './types';
+import {AP, EventForTwoValSwitch, ISide, TwoValueSwitch, inputEventName} from './types';
 import {checkSwitches} from './doTwoValSwitch.js';
 
 export class Side extends EventTarget implements ISide{
     constructor(
-        public tvs: OnTwoValueSwitch, 
+        public tvs: TwoValueSwitch, 
         public eventName?: string,
         public prop?: string,
         public type?: ElTypes,
@@ -113,7 +113,7 @@ export class InputEvent extends Event implements EventForTwoValSwitch{
     static EventName: inputEventName = 'input';
 
     constructor(
-        public ctx: OnTwoValueSwitch, 
+        public ctx: TwoValueSwitch, 
         public lhsTarget: SignalRefType, 
         public rhsTarget: SignalRefType, 
         public switchOn?: boolean){

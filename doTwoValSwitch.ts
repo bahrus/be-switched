@@ -1,10 +1,7 @@
 import {AP} from './types';
-import {BVAAllProps} from 'be-value-added/types';
-import {findRealm} from 'trans-render/lib/findRealm.js';
 import {getSignalVal} from 'be-linked/getSignalVal.js';
 import {getVal} from 'trans-render/lib/getVal.js';
 import {Side} from './Side.js';
-import { SignalRefType } from '../be-linked/types';
 
 export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;

@@ -1,4 +1,4 @@
-import {AP, ProPAP, OnBinaryValueSwitch, PAP, OnTwoValueSwitch} from './types';
+import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch} from './types';
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
 import {arr, tryParse} from 'be-enhanced/cpu.js';
 
@@ -22,7 +22,7 @@ const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${opEqu
 
 const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${opEquals}${rhsPerimeter}${rhsTypeRhsProp}`;
 
-const reOnTwoValSwitchStatements: RegExpOrRegExpExt<OnTwoValueSwitch>[] = [
+const reOnTwoValSwitchStatements: RegExpOrRegExpExt<TwoValueSwitch>[] = [
     {
         regExp: new RegExp(`^when${lhsPerimeterLhsOpRhsPerimeterRhs}`),
         defaultVals:{}
@@ -47,12 +47,12 @@ const reOnTwoValSwitchStatements: RegExpOrRegExpExt<OnTwoValueSwitch>[] = [
     }
 ]
 
-const reOnBinarySwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
+const reOnBinarySwitchStatements: RegExpOrRegExpExt<OneValueSwitch>[] = [
     {
         regExp: new RegExp(String.raw `^onlyWhen(?<type>${strType})(?<prop>[\w]+)`),
         defaultVals:{
             req: true
-        } as OnBinaryValueSwitch
+        } as OneValueSwitch
     },
     {
         regExp: new RegExp(String.raw `^when(?<type>${strType})(?<prop>[\w]+)`),
@@ -68,11 +68,11 @@ const reOnBinarySwitchStatements: RegExpOrRegExpExt<OnBinaryValueSwitch>[] = [
 
 export async function prsOn(self: AP) : ProPAP{
     const {On, on} = self;
-    const onBinarySwitches: Array<OnBinaryValueSwitch> = [];
-    const onTwoValueSwitches : Array<OnTwoValueSwitch> = [];
+    const onBinarySwitches: Array<OneValueSwitch> = [];
+    const onTwoValueSwitches : Array<TwoValueSwitch> = [];
     const onUnion = [...(On || []), ...(on || [])];
     for(const onS of onUnion){
-        const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements) as OnTwoValueSwitch;
+        const twoValSwitchTest = tryParse(onS, reOnTwoValSwitchStatements) as TwoValueSwitch;
         console.log({onS, twoValSwitchTest});
         if(twoValSwitchTest !== null){
             let {lhsProp, rhsProp, op} = twoValSwitchTest;
@@ -101,7 +101,7 @@ export async function prsOn(self: AP) : ProPAP{
             onTwoValueSwitches.push(twoValSwitchTest);
             continue;
         }
-        const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements) as OnBinaryValueSwitch;
+        const binarySwitchTest = tryParse(onS, reOnBinarySwitchStatements) as OneValueSwitch;
         if(binarySwitchTest === null) throw 'PE';//Parse Error
         onBinarySwitches.push(binarySwitchTest);
     }

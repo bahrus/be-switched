@@ -1,4 +1,4 @@
-import {AP, ProPAP, OnBinaryValueSwitch as BinaryValueSwitch, PAP, OnTwoValueSwitch as TwoValueSwitch} from './types';
+import {AP, ProPAP, OneValueSwitch as BinaryValueSwitch, PAP, TwoValueSwitch as TwoValueSwitch} from './types';
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
 import {arr, tryParse} from 'be-enhanced/cpu.js';
 

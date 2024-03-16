@@ -34,17 +34,18 @@ export interface AllProps extends EndUserProps{
     val: boolean,
     switchesSatisfied?: boolean,
     echoVal: boolean,
-    onBinarySwitches?: Array<OnBinaryValueSwitch>,
-    onTwoValueSwitches?: Array<OnTwoValueSwitch>,
-    offBinarySwitches?: Array<OnBinaryValueSwitch>,
-    offTwoValueSwitches?: Array<OnTwoValueSwitch>,
+    onBinarySwitches?: Array<OneValueSwitch>,
+    onTwoValueSwitches?: Array<TwoValueSwitch>,
+    offBinarySwitches?: Array<OneValueSwitch>,
+    offTwoValueSwitches?: Array<TwoValueSwitch>,
+    //onNValueSwitches?: Array<
     isParsed?: boolean,
 }
 
 export type SwitchStatement = string;
 
 
-export interface OnBinaryValueSwitch{
+export interface OneValueSwitch{
     prop?: string,
     type?: ElTypes,
     req?: boolean,
@@ -53,7 +54,7 @@ export interface OnBinaryValueSwitch{
     
 }
 
-export interface OnTwoValueSwitch{
+export interface TwoValueSwitch{
     lhsProp?: string,
     rhsProp?: string,
     lhsSubProp?: string,
@@ -74,6 +75,17 @@ export interface OnTwoValueSwitch{
     //eventNames?: string,
     lhs?: ISide,
     rhs?: ISide,
+}
+
+export interface Dependency{
+    prop?: string,
+    elType?: ElTypes,
+    perimeter?: string,
+    event?: string
+}
+
+export interface NValueSwitch{
+    dependencies?: Array<Dependency>
 }
 
 export type AP = AllProps;
@@ -110,7 +122,7 @@ export interface ISide {
 }
 
 export interface EventForTwoValSwitch {
-    ctx?: OnTwoValueSwitch,
+    ctx?: TwoValueSwitch,
     lhsTarget?: SignalRefType,
     rhsTarget?: SignalRefType,
     switchOn?: boolean,

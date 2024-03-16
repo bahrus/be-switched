@@ -83,7 +83,7 @@ Frameworks fail us, yet again!
 
 \* Expand section above for what that reason is.
 
-# Part II - Hemingway Notation
+# Part II - Comparing two values with Hemingway Notation
 
 ## Special Symbols
 
@@ -335,7 +335,19 @@ This is now supported:
 </template>
 ```
 
-## Specify greater than [TODO]
+## Specify greater than
+
+This is supported:
+
+```html
+<label for=lhs>LHS:</label>
+<input type=number id=lhs>
+<label for=rhs>RHS:</label>
+<input type=number id=rhs>
+<template be-switched='on when #lhs gt #rhs.'>
+    <div>LHS &lt; RHS</div>
+</template>
+```
 
 ## Down search using Y character.
 
