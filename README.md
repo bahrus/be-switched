@@ -355,7 +355,7 @@ What this does:
 7.  Compares the values.
 8.  Listens for input event (by default, but see below for custom event names), and re-evaluates.
 
-## Specifying event name(s)
+### Specifying event name(s)
 
 ```html
 <ways-of-science itemscope>
@@ -376,7 +376,7 @@ What this does:
 Remember that if the event name is not specified, the input event is assumed, when elements are found by name or by id or by tag name, and if no prop name is specified (see below).  Regardless of the event names specified, the developer uses the built in "oninput" attribute to provide a custom script to evaluate whether the condition is met.
 
 
-## Specify property path to compare 
+### Specify property path to compare 
 
 Use a single semicolon for specifying a property path.
 
@@ -400,7 +400,7 @@ Also, note that this can actually be a chain of accessors (that automatically in
 
 
 
-## Specify less than
+### Specify less than
 
 This is now supported:
 
@@ -414,7 +414,7 @@ This is now supported:
 </template>
 ```
 
-## Specify greater than
+### Specify greater than
 
 This is supported:
 
@@ -428,14 +428,14 @@ This is supported:
 </template>
 ```
 
-## Down search using Y character.
+### Down search using Y character. [TODO]
 
 
 ## And now for something completely different
 
-Examples 2* all focused on comparing two values.  The reason for focusing first on what is the "harder" case, is simply to suggest why this enhancement was so named.
+The previous group of examples all focused on comparing two values.  
 
-But what if we just want to lazy load content when a single value goes from "false" to "true"?  This package supports that as well.
+But what if we just want to lazy load content when a single value goes from "falsy" to "truthy"?  This package supports that as well.
 
 ## Boolean conditions based on peer elements or host
 
