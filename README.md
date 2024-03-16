@@ -109,8 +109,35 @@ In the examples below, we will encounter special symbols used in order to keep t
 We are often (but not always in the case of 2. below) making some assumptions about the elements we are comparing -- 
 
 1.  The value of the elements we are comparing are primitive JS types that are either inferrable, or specified by a property path.
-2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event.  
+2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
 
+We will take a bit of unusual path during this document -- we will document "harder" cases, leading to simpler and simpler cases, as this enhancement takes the view that the [rule of least power](https://en.wikipedia.org/wiki/Rule_of_least_power) is the surest way to heaven.  If you get anxious from complex code-centric overkill, feat not, the examples will only get easier as you read through, so enjoy the liberating feeling that comes with that.
+
+To those with other philosophical bents
+
+## With XOXO's to the Reactionary JS-firsters
+
+To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The full power of JavaScript is at your disposal, without having to leave the confines of the HTML markup (I'm sure you find this as thrilling as I do!)
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        oninput="
+            const {factors} = event;
+            const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
+            event.switchOn = Math.abs(lhs.weight -  rhs.weight) < 10"
+        be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+What this is saying:  
+
+>Find peer elements carrot-nosed-woman and a-duck within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the oninput attribute.  If switchOn is set to true, display the contents within the template.  If set to false, hide it.
 
 ### ID Referencing
 
@@ -260,26 +287,7 @@ What this does:
 </ways-of-science>
 ```
 
-## Injecting some script
 
-
-```html
-<ways-of-science itemscope>
-    <carrot-nosed-woman></carrot-nosed-woman>
-    <a-duck></a-duck>
-    <template
-        oninput="
-            const {factors} = event;
-            const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
-            event.switchOn = Math.abs(lhs.weight -  rhs.weight) < 10"
-        be-switched='
-            On depending on carrotNosedWoman::weight-change and aDuck::molting.
-     '>
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
 
 Remember that if the event name is not specified, the input event is assumed, when elements are found by name or by id or by tag name, and if no prop name is specified (see below).  Regardless of the event names specified, the developer uses the built in "oninput" attribute to provide a custom script to evaluate whether the condition is met.
 
