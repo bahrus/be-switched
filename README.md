@@ -112,7 +112,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event.  
 
 
-### Example
+### ID Referencing
 
 ```html
 <label for=lhs>LHS:</label>
@@ -134,7 +134,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
 
-### Example
+### By N@me
 
 ```html
 <form>
@@ -178,7 +178,7 @@ These should be active:
         <input name=rhs>
     </label>
     
-    <template be-switched='on when ^section@lhs equals ^section@rhs.'>
+    <template be-switched='on when ^section@lhs eq ^section@rhs.'>
         <div>LHS === RHS</div>
     </template>
 </section>
@@ -186,10 +186,10 @@ These should be active:
 
 "UpSearch" means:  First check for previous siblings that match the selector, then the parent, then previous siblings of the parent, etc.  Stop at the ShadowDOM root.
 
-We can apply such upSearch queries to either the LHS or the HRS, or both, as shown above.
+We can apply such upSearch queries to either the LHS or the RHS, or both, as shown above.
 
 
-### Example 2d
+### By the itemprop microdata attribute
 
 ```html
 <div itemscope>
@@ -209,7 +209,9 @@ Here the search is done within the nearest itemscope, and if no itemscope is fou
 
 Again, if that proves inadequate, use the ^ character to indicate the closest upSearch peer/parent to search within.
 
-### Example 2e
+### By tag name
+
+In the brave new world that custom elements has opened up, we can make our markup beautifully expressive, and tap into that with our binding expressions.
 
 ```html
 <ways-of-science itemscope>
@@ -217,7 +219,7 @@ Again, if that proves inadequate, use the ^ character to indicate the closest up
     <a-duck></a-duck>
     <template 
         be-switched='
-            On when ~ carrotNosedWoman equals ~ aDuck.
+            On when ~ carrotNosedWoman eq ~ aDuck.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -230,19 +232,19 @@ What this does:
 1.  Finds carrot-nosed-woman element within itemscope, and if not found, within root node.  
 2.  Waits for customElements.whenDefined('carrot-nosed-woman').
 3.  Attempts to infer the value of the element.
-    1.  If 'value' in oCarrotNosedWoman, uses that.
-    2.  ariaValueNow.
-    3.  If 'checked' in oCarrotNosedWoman, uses that.
-    4.  ariaChecked.
-    5.  If 'href' in oCarrotNosedWoman, uses that.
-    6.  textContent
+    1.  If 'value' in oCarrotNosedWoman, use that.
+    2.  If not, use ariaValueNow if present.
+    3.  If not, check if 'checked' in oCarrotNosedWoman, use that.
+    4.  Try ariaChecked.
+    5.  Check if 'href' in oCarrotNosedWoman, use that.
+    6.  As a last resort guess at mind reading, use the string obtained from textContent.
 4.  Finds element a-duck.
 5.  Waits for customElements.whenDefined('a-duck').
 6.  Attempts to infer the value of the element, same as 3 above.
 7.  Compares the values.
-8.  Listens for input event, and re-evaluates.
+8.  Listens for input event (by default, but see below for custom event names), and re-evaluates.
 
-## Example 2f specifying event name(s)
+## Specifying event name(s)
 
 ```html
 <ways-of-science itemscope>
@@ -258,7 +260,7 @@ What this does:
 </ways-of-science>
 ```
 
-## Example 2g Injecting some script
+## Injecting some script
 
 
 ```html
@@ -276,11 +278,9 @@ What this does:
 </ways-of-science>
 ```
 
+Remember that if the event name is not specified, the input event is assumed, when elements are found by name or by id or by tag name, and if no prop name is specified (see below).  Regardless of the event names specified, the developer uses the built in "oninput" attribute to provide a custom script to evaluate whether the condition is met.
 
-
-Remember that if the event name is not specified, the input event is assumed, when elements are found by name or by id without a prop specifier (see below).
-
-So for a simpler illustration of invoking script:
+For a simpler illustration of invoking script:
 
 ```html
 <label for=lhs>LHS:</label>
@@ -297,7 +297,7 @@ So for a simpler illustration of invoking script:
 ```
 
 
-## Example - specify property path to compare 
+## Specify property path to compare 
 
 Use a single semicolon for specifying a property path.
 
@@ -321,7 +321,7 @@ Also, note that this can actually be a chain of accessors (that automatically in
 
 
 
-## Example - specify less than
+## Specify less than
 
 This is now supported:
 
@@ -335,9 +335,9 @@ This is now supported:
 </template>
 ```
 
-## Example - specify greater than [TODO]
+## Specify greater than [TODO]
 
-Use Y.
+## Down search using Y character.
 
 
 ## And now for something completely different
