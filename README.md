@@ -83,7 +83,7 @@ Frameworks fail us, yet again!
 
 \* Expand section above for what that reason is.
 
-# Part II - Comparing two values with Hemingway Notation
+# Part II - Comparing multiple values with Hemingway Notation
 
 ## Special Symbols
 
@@ -111,11 +111,11 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 1.  The value of the elements we are comparing are primitive JS types that are either inferrable, or specified by a property path.
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
 
-We will take a bit of unusual path during this document -- we will document "harder" cases, leading to simpler and simpler cases, as this enhancement takes the view that the [rule of least power](https://en.wikipedia.org/wiki/Rule_of_least_power) is the surest way to heaven.  If you get anxious from complex code-centric overkill, feat not, the examples will only get easier as you read through, so enjoy the liberating feeling that comes with that.
+We will take a bit of unusual path during this document -- we will document "harder" cases, leading to simpler and simpler cases, as this enhancement takes the view that the [rule of least power](https://en.wikipedia.org/wiki/Rule_of_least_power) is the surest way to heaven.  If you get anxious from complex code-centric overkill, fear not, the examples will only get easier as you read through, so enjoy the liberating feeling that comes with that.
 
-To those with other philosophical bents
+To those with other philosophical bents, we begin...
 
-## With XOXO's to the Reactionary JS-firsters
+## With XOXO's to the Reactive JS-firsters
 
 To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The full power of JavaScript is at your disposal, without having to leave the confines of the HTML markup (I'm sure you find this as thrilling as I do!)
 
@@ -157,7 +157,72 @@ Here is another, less cinematic example:
 </template>
 ```
 
+## Elevating a computed value [TODO]
+
+While we are getting our hands dirty with unfettered JavaScript, we can take the opportunity to pass such calculated values up to the host:
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        oninput="
+            const {factors} = event;
+            const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
+            const weightsAreSimilar = Math.abs(lhs.weight -  rhs.weight) < 10;
+            event.switchOn = weightsAreSimilar;
+            event.elevate = {
+                to: `isMadeOfWood`,
+                val: weightsAreSimilar
+            };
+        be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+What we've seen so far is we can take matters into our hands, and employ free form scripting to calculate whether to display the contents of the template (and other things like setting host properties).
+
+We can depend on any number of peer elements in our calculations:
+
+```html
+<old-man-and-the-sea itemscope>
+    <label>
+        Today is a new day.
+        <input type=checkbox name=isANewDay>
+    </label>
+    <input aria-label="I could be lucky" type=checkbox id=luckyIAm>
+    <input aria-label="Would rather be" type=checkbox name=ready>
+    <link itemprop=luckHasCome href=https://shema.org/true>
+    <template be-switched="on depending on @isANewDay and #lucky and #ready and |luckHasCome"
+        oninput="
+            const {factors} = event;
+            const {isANewDay, beLucky, ratherBe, luckHasCome} = factors;
+            event.switchOn = 
+                isANewDay.checked  
+                && (ready.checked || luckyIAm.checked)
+                &&  luckHasCome.value
+        "
+    >
+        I am ready to benefit from such good luck.
+    </template>
+</old-man-and-the-sea>
+```
+
+However, there is one restriction -- There can only be one active sentence contained in the be-switched attribute that starts with "on depending on".  This seems reasonable, as the JavaScript logic can be as complex as we want it to be, applying whatever rules make sense to the various factors.
+
+## Bye JavaScript, nice knowing you
+
+What follows moves outside the domain of JavaScript, so if JS is your only game, you have passed the course and are ready to code to your heart's content!
+
+We start by looking at pairs of comparisons between the "lhs" (left hand side) and the "rhs" (right hand side).
+
+These statements don't invoke the oninput event at all, and are purely declarative.  But we can list a number of comparisons, some of which add to an "or" statement, others to an "and", others can act as a negation, etc.  So will get much the same power as we get with JavaScript, but declaratively, with no possible side effects (and less prone to catastrophic errors).
+
 ### ID Referencing
+
+Let's start with the most elementary two value switch:
 
 ```html
 <label for=lhs>LHS:</label>
