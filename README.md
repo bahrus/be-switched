@@ -84,31 +84,7 @@ Frameworks fail us, yet again!
 
 # Part II - Comparing multiple values with Hemingway Notation
 
-## Special Symbols
 
-In the examples below, we will encounter special symbols used in order to keep the statements small:
-
-| Symbol       | Meaning                        | Notes                                                                                |
-|--------------|--------------------------------|--------------------------------------------------------------------------------------|
-| /propName    |"Hostish"                       | Attaches listeners to getters/setters.                                               |
-| @propName    |Name attribute                  | Listens for input events.                                                            |
-| \|propName    |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
-| #propName    |Id attribute                    | Listens for input events.                                                            |
-| %propName    |match based on part attribute   | Listens for input events.                                                            |
-| -prop-name   |Marker indicates prop           | Attaches listeners to getters/setters.                                               | 
-| ~elementName |match based on element name     | Listens for input events.                                                            |
-| $0           |adorned element                 | Useful for specifying constants 
-
-
-"Hostish" means:
-
-1.  First, do a "closest" for an element with attribute itemscope, where the tag name has a dash in it.  Do that search recursively.  
-2.  If no match found, use getRootNode().host.
-
-We are often (but not always in the case of 2. below) making some assumptions about the elements we are comparing -- 
-
-1.  The value of the elements we are comparing are primitive JS types that are either inferrable, or specified by a property path.
-2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
 
 We will take a bit of unusual path during this document -- we will document "harder" cases, leading to simpler and simpler cases, as this enhancement takes the view that the [rule of least power](https://en.wikipedia.org/wiki/Rule_of_least_power) is the surest way to heaven.  If you get anxious from complex code-centric overkill, fear not, the examples will only get easier as you read through, so enjoy the liberating feeling that comes with that.
 
@@ -124,7 +100,7 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
     <a-duck></a-duck>
     <template
         be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        oninput="
+        onInput="
             const {factors} = event;
             const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
             event.switchOn = Math.abs(lhs.weight -  rhs.weight) < 10"
@@ -153,6 +129,35 @@ Here is another, less cinematic example:
     <div>LHS === RHS</div>
 </template>
 ```
+
+As you have probably noticed, we are starting to introduce special symbols for finding peer elements.  The full specification for our syntax is shown below:
+
+## Special Symbols
+
+In the examples below, we will encounter special symbols used in order to keep the statements small:
+
+| Symbol       | Meaning                        | Notes                                                                                |
+|--------------|--------------------------------|--------------------------------------------------------------------------------------|
+| /propName    |"Hostish"                       | Attaches listeners to getters/setters.                                               |
+| @propName    |Name attribute                  | Listens for input events.                                                            |
+| \|propName    |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
+| #propName    |Id attribute                    | Listens for input events.                                                            |
+| %propName    |match based on part attribute   | Listens for input events.                                                            |
+| -prop-name   |Marker indicates prop           | Attaches listeners to getters/setters.                                               | 
+| ~elementName |match based on element name     | Listens for input events.                                                            |
+| $0           |adorned element                 | Useful for specifying constants 
+
+
+"Hostish" means:
+
+1.  First, do a "closest" for an element with attribute itemscope, where the tag name has a dash in it.  Do that search recursively.  
+2.  If no match found, use getRootNode().host.
+
+We are often (but not always in the case of 2. below) making some assumptions about the elements we are comparing -- 
+
+1.  The value of the elements we are comparing are primitive JS types that are either inferrable, or specified by a property path.
+2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
+
 
 ## Elevating a computed value [TODO]
 

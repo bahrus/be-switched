@@ -26,7 +26,7 @@
     <label for=rhs>RHS:</label>
     <input id=rhs>
     <template
-        oninput="
+        onInput="
             const {factors} = event;
             const {lhs, rhs} = factors;
             event.switchOn = lhs.value === rhs.value;
