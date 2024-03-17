@@ -54,6 +54,14 @@ export interface OneValueSwitch{
     
 }
 
+export type Op = 'equals' | 'eq' | 'lt' | 'gt';
+
+export interface TwoPartOpStatement{
+    lhsPart: string,
+    op: Op,
+    rhsPart: string,
+}
+
 export interface TwoValueSwitch{
     lhsProp?: string,
     rhsProp?: string,
@@ -67,7 +75,7 @@ export interface TwoValueSwitch{
     rhsEvent?: string,
     //dependsOn?: boolean,
     req?: boolean,
-    op?: 'equals' | 'eq' | 'lt' | 'gt',
+    op?: Op,
     lhsSignal?: WeakRef<SignalRefType>,
     rhsSignal?: WeakRef<SignalRefType>,
     negate?: boolean,
