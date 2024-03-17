@@ -84,7 +84,7 @@ Frameworks fail us, yet again!
 
 # Part II - Comparing multiple values with Hemingway Notation
 
-We will take a bit of unusual approach for explaining this enhancement -- we will document "harder" cases first, leading to simpler and simpler cases, as you continue reading below.
+We will take a bit of an unusual approach to our explication -- we will document "harder" cases first, leading to simpler and simpler cases, as you continue reading below.
 
 This enhancement takes the view that the [rule of least power](https://en.wikipedia.org/wiki/Rule_of_least_power) is the surest way to heaven.  If you get anxious from complex code-centric overkill, fear not, the examples will only get easier as you read through, so enjoy the liberating feeling that comes with that.
 
