@@ -1,4 +1,4 @@
-# be-switched [WIP]
+# be-switched
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
