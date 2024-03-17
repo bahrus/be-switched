@@ -125,11 +125,12 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
+        be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         oninput="
             const {factors} = event;
             const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
             event.switchOn = Math.abs(lhs.weight -  rhs.weight) < 10"
-        be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'>
+    >
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
@@ -148,25 +149,27 @@ Here is another, less cinematic example:
 <label for=rhs>RHS:</label>
 <input id=rhs>
 <template
+    be-switched='on depending on #lhs and #rhs.'
     oninput="
         const {factors} = event;
         const {lhs, rhs} = factors;
         event.switchOn = lhs.value === rhs.value;
     "
-    be-switched='on depending on #lhs and #rhs.'>
+>
     <div>LHS === RHS</div>
 </template>
 ```
 
 ## Elevating a computed value [TODO]
 
-While we are getting our hands dirty with unfettered JavaScript, we can take the opportunity to pass such calculated values up to the host:
+While we are getting our hands dirty with unfettered JavaScript, we can take the opportunity sneak in some side effects, and pass such calculated values up to the host (or peer elements):
 
 ```html
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
+        be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         oninput="
             const {factors} = event;
             const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
@@ -177,12 +180,14 @@ While we are getting our hands dirty with unfettered JavaScript, we can take the
                 val: weightsAreSimilar
             };
         "
-        be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'>
+    >
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
 </ways-of-science>
 ```
+
+If the val sub property of event.elevate is not specified, but the to is specified, then this library passes the value of event.switchOn.
 
 What we've seen so far is we can take matters into our hands, and employ free form scripting to calculate whether to display the contents of the template (and other things like setting host properties).
 
