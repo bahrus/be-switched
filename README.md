@@ -176,6 +176,7 @@ While we are getting our hands dirty with unfettered JavaScript, we can take the
                 to: `isMadeOfWood`,
                 val: weightsAreSimilar
             };
+        "
         be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'>
         <div>A witch!</div>
         <div>Burn her!</div>
