@@ -1,14 +1,6 @@
 import { tryParse } from 'trans-render/lib/prs/tryParse.js';
 import { strType, prsElO } from 'trans-render/lib/prs/prsElO.js';
-const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
-const lhsTypeLHSProp = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)`;
-const rhsPerimeter = String.raw `\^(?<rhsPerimeter>.*)`;
-const rhsTypeRhsProp = String.raw `(?<rhsType>${strType})(?<rhsProp>[\w\-\:\|]+)`;
 const op = String.raw `(?<!\\)(?<op>(Equals|Eq|Lt|Gt))`;
-const lhsOpRhs = String.raw `${lhsTypeLHSProp}${op}${rhsTypeRhsProp}`;
-const lhsPerimeterLhsOpRhsPerimeterRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${op}${rhsPerimeter}${rhsTypeRhsProp}`;
-const lhsPerimeterLhsOpRhs = String.raw `${lhsPerimeter}${lhsTypeLHSProp}${op}${rhsTypeRhsProp}`;
-const lhsOpRhsPerimeterRhs = String.raw `${lhsTypeLHSProp}${op}${rhsPerimeter}${rhsTypeRhsProp}`;
 const lhsPartOpRhsPart = String.raw `(?<lhsPart>.*)${op}(?<rhsPart>.*)`;
 const reTwoPartStatements = [
     {
