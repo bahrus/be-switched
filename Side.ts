@@ -78,6 +78,10 @@ export class Side extends EventTarget implements ISide{
 
                 break;
             }
+            case '/':
+                signalRef = await findRealm(enhancedElement, ['corn', '[itemscope]']) as HTMLInputElement;
+                signal = new WeakRef(signalRef);
+                break;
             
         }
         if(this.invokeCheckSwitches && signalRef !== undefined && eventSuggestion !== undefined){

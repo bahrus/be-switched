@@ -72,6 +72,10 @@ export class Side extends EventTarget {
                 eventSuggestion = eventName || 'input';
                 break;
             }
+            case '/':
+                signalRef = await findRealm(enhancedElement, ['corn', '[itemscope]']);
+                signal = new WeakRef(signalRef);
+                break;
         }
         if (this.invokeCheckSwitches && signalRef !== undefined && eventSuggestion !== undefined) {
             const { checkSwitches } = await import('./doTwoValSwitch.js');

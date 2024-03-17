@@ -27,12 +27,14 @@
         <label for=rhs>RHS:</label>
         <input id=rhs>
         <template
+            be-switched='on depending on #lhs and #rhs.'
             oninput="
-                const {factors} = event;
-                const {lhs, rhs} = factors;
-                event.switchOn = lhs.value === rhs.value;
+                event.switchOn = event.factors.lhs.value === event.factors.rhs.value;
+                event.elevate = {
+                    to: 'dataset:isMadeOfWood'
+                }
             "
-            be-switched='on depending on #lhs and #rhs.'>
+            >
             <div>LHS === RHS</div>
         </template>
     </my-host-element>
