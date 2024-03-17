@@ -6,7 +6,7 @@ const reTwoPartStatements = [
     {
         regExp: new RegExp(String.raw `^when${lhsPartOpRhsPart}`),
         defaultVals: {}
-    }
+    },
 ];
 const reOneValSwitchStatements = [
     {
@@ -56,6 +56,7 @@ export async function prsOnLt3(self, negate = false) {
             twoValueSwitches.push(tvs);
             continue;
         }
+        //TODO, leverage same approach for binary, with extra support (events, subprops, etc)
         const binarySwitchTest = tryParse(onS, reOneValSwitchStatements);
         if (binarySwitchTest === null)
             throw 'PE'; //Parse Error

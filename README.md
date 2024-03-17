@@ -82,8 +82,6 @@ Frameworks fail us, yet again!
 
 ... And for that reason*, among others, an alternative way of "pulling in" values to compare is provided via:
 
-\* Expand section above for what that reason is.
-
 # Part II - Comparing multiple values with Hemingway Notation
 
 ## Special Symbols
@@ -185,7 +183,7 @@ While we are getting our hands dirty with unfettered JavaScript, we can take the
 
 If the val sub property of event.elevate is not specified, but the to is specified, then this library passes the value of event.switchOn.
 
-What we've seen so far is we can take matters into our hands, and employ free form scripting to calculate whether to display the contents of the template (and other things like setting host properties).
+## n factors
 
 We can depend on any number of peer elements in our calculations:
 
@@ -212,6 +210,8 @@ We can depend on any number of peer elements in our calculations:
     </template>
 </old-man-and-the-sea>
 ```
+
+What we've seen so far is we can take matters into our hands, and employ free form scripting to calculate whether to display the contents of the template (and other things like setting host properties).
 
 However, there is one restriction -- There can only be one active sentence contained in the be-switched attribute that starts with "on depending on".  This seems reasonable, as the JavaScript logic can be as complex as we want it to be, applying whatever rules make sense to the various factors.
 
@@ -762,4 +762,6 @@ In addition to "if" boolean checks, and equality checks using lhs and rhs keys, 
 ## Lazy Loading / Hibernating [Untested]
 
 be-switched can "go to sleep" when the template it adorns goes out of view, if the template is also decorated by [be-oosoom](https://github.com/be-oosoom).  *be-switched* provides an option to toggle the inert property when the conditions become false, in lieu of deleting the content.
+
+\* Expand section above for what that reason is.
 

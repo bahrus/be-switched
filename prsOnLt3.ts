@@ -11,7 +11,7 @@ const reTwoPartStatements: RegExpOrRegExpExt<TwoPartOpStatement>[] = [
     {
         regExp: new RegExp(String.raw `^when${lhsPartOpRhsPart}`),
         defaultVals: {}
-    }
+    },
 ]
 
 const reOneValSwitchStatements: RegExpOrRegExpExt<OneValueSwitch>[] = [
@@ -63,6 +63,7 @@ export async function prsOnLt3(self: AP, negate = false) : ProPAP{
             twoValueSwitches.push(tvs);
             continue;
         }
+        //TODO, leverage same approach for binary, with extra support (events, subprops, etc)
         const binarySwitchTest = tryParse(onS, reOneValSwitchStatements) as OneValueSwitch;
         if(binarySwitchTest === null) throw 'PE';//Parse Error
         oneValueSwitches.push(binarySwitchTest);

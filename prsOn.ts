@@ -2,9 +2,6 @@ import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch} fro
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
 import {tryParse} from 'trans-render/lib/prs/tryParse.js';
 
-
-
-
 const reNValueSwitchStatements: RegExpOrRegExpExt<NValueScriptSwitch>[] = [
     {
         regExp: new RegExp(String.raw `^dependingOn(?<dependsOn>.*)`),
