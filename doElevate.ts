@@ -1,0 +1,32 @@
+import {AP, Elevate} from './types';
+
+export async function doElevate(self: AP, elevate: Elevate, switchOn: boolean | undefined){
+    const {enhancedElement} = self;
+    const {to, val} = elevate;
+    if(to !== undefined){
+        const {prsElO} = await import('trans-render/lib/prs/prsElO.js');
+        const parsed = prsElO(to);
+        const {prop, elType, subProp} = parsed;
+        const {Side} = await import('./Side.js');
+        const s = new Side(
+            false,
+            undefined,
+            prop,
+            elType,
+        );
+        const signalAndEvent = await s.do(self, 'on', enhancedElement);
+        if(signalAndEvent === undefined) throw 404;
+        const {signal} = signalAndEvent;
+        const ref = signal?.deref() as any;
+        if(ref === undefined) return;
+        const valToSet = typeof val === 'undefined' ? switchOn : val;
+        if(subProp !== undefined){
+            const {setProp} = await import('trans-render/lib/setProp.js');
+            setProp(ref, `${prop}.${subProp}`, valToSet);
+        }else{
+            ref[prop!] = valToSet
+        }
+        
+    }
+
+}

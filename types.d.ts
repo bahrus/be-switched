@@ -134,14 +134,16 @@ export interface ISide {
     val: any
 }
 
+export interface Elevate {
+    val: any,
+    to: string
+}
+
 export interface EventForNValueSwitch {
     ctx: NValueScriptSwitch,
     factors: {[key: string] : SignalRefType},
     switchOn?: boolean,
-    elevate?:{
-        val: any,
-        to: string,
-    }
+    elevate?: Elevate
 }
 
 export interface SignalAndEvent {
