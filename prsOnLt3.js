@@ -1,4 +1,4 @@
-import { tryParse } from 'be-enhanced/cpu.js';
+import { tryParse } from 'trans-render/lib/prs/tryParse.js';
 import { strType } from 'trans-render/lib/prs/prsElO.js';
 const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
 const lhsTypeLHSProp = String.raw `(?<lhsType>${strType})(?<lhsProp>[\w\-\:\|]+)`;
