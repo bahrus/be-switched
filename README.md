@@ -251,6 +251,9 @@ Let's start with the most elementary two value switch:
 > [!Note]
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
+> [!Note]
+> If the name you are binding to has the letters "eq" or "equals" or "lt" or "gt" in the name, it is safest to escape such strings: "on when my\Equity eq your\Equity"
+
 
 ### By N@me
 
