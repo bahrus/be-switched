@@ -1,5 +1,4 @@
-import { tryParse } from 'be-enhanced/cpu.js';
-export const strType = String.raw `\||\#|\@|\/|\%|\~`;
+import { tryParse } from 'trans-render/lib/prs/tryParse.js';
 const reNValueSwitchStatements = [
     {
         regExp: new RegExp(String.raw `^dependingOn(?<dependsOn>.*)`),

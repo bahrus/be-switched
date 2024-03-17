@@ -1,7 +1,7 @@
 import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch} from './types';
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
 import {tryParse} from 'be-enhanced/cpu.js';
-import { strType } from './prsOn.js';
+import { strType } from 'trans-render/lib/prs/prsElO.js';
 
 const lhsPerimeter = String.raw `\^(?<lhsPerimeter>.*)`;
 

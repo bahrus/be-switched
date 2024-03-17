@@ -29,7 +29,7 @@
     "be-linked": "0.0.78",
     "be-propagating": "0.0.33",
     "be-value-added": "0.0.23",
-    "trans-render": "0.0.744",
+    "trans-render": "0.0.745",
     "xtal-element": "0.0.598"
   },
   "devDependencies": {

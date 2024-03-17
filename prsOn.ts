@@ -1,8 +1,7 @@
 import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch} from './types';
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
-import {tryParse} from 'be-enhanced/cpu.js';
+import {tryParse} from 'trans-render/lib/prs/tryParse.js';
 
-export const strType = String.raw `\||\#|\@|\/|\%|\~`;
 
 
 
