@@ -159,7 +159,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
 
 
-## Elevating a computed value [TODO]
+## Elevating a computed value
 
 While we are getting our hands dirty with unfettered JavaScript, we can take the opportunity sneak in some side effects, and pass such calculated values up to the host (or peer elements):
 
