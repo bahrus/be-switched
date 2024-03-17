@@ -150,11 +150,7 @@ Here is another, less cinematic example:
 <input id=rhs>
 <template
     be-switched='on depending on #lhs and #rhs.'
-    oninput="
-        const {factors} = event;
-        const {lhs, rhs} = factors;
-        event.switchOn = lhs.value === rhs.value;
-    "
+    oninput="event.switchOn = event.factors.lhs.value === event.factors.rhs.value"
 >
     <div>LHS === RHS</div>
 </template>
