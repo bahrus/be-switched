@@ -5,8 +5,8 @@ export async function doElevate(self, elevate, switchOn) {
         const { prsElO } = await import('trans-render/lib/prs/prsElO.js');
         const parsed = prsElO(to);
         const { prop, elType, subProp } = parsed;
-        const { Side: Seeker } = await import('./Side.js');
-        const s = new Side(false, undefined, prop, elType);
+        const { Seeker } = await import('./Side.js');
+        const s = new Seeker(false, undefined, prop, elType);
         const signalAndEvent = await s.do(self, 'on', enhancedElement);
         if (signalAndEvent === undefined)
             throw 404;
