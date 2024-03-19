@@ -4,7 +4,7 @@ import {AP, ISide, SignalAndEvent} from './types.js';
 
 export class SideSeeker extends EventTarget implements ISide{
     constructor(
-        public invokeCheckSwitches?: boolean,
+        public doCallback?: boolean,
         public eventName?: string,
         public prop?: string,
         public type?: ElTypes,
@@ -29,10 +29,7 @@ export class SideSeeker extends EventTarget implements ISide{
                     signal = new WeakRef(signalRef);
                     eventSuggestion = 'input';
                 }else{
-                    import('be-value-added/be-value-added.js');
-                    signalRef = await  (<any>signalRef).beEnhanced.whenResolved('be-value-added') as HTMLInputElement;
-                    signal = new WeakRef(signalRef);
-                    eventSuggestion = 'value-changed';
+                    [signalRef, signal, eventSuggestion] = await this.addValue(signalRef);
                 }
                 break;
             case '~':
@@ -69,11 +66,8 @@ export class SideSeeker extends EventTarget implements ISide{
                 break;
             
         }
-        if(this.invokeCheckSwitches && signalRef !== undefined && eventSuggestion !== undefined){
-            const {checkSwitches} = await import('./doTwoValSwitch.js');
-            signalRef.addEventListener(eventSuggestion, e => {
-                checkSwitches(self, onOrOff);
-            })
+        if(this.doCallback && signalRef !== undefined && eventSuggestion !== undefined){
+            await this.callback(self, signalRef, eventSuggestion, onOrOff);
         }
         return {
             signal,
@@ -81,6 +75,19 @@ export class SideSeeker extends EventTarget implements ISide{
         };
     }
 
+    async callback(self: AP, signalRef: HTMLInputElement, eventSuggestion: string, onOrOff: 'on' | 'off'){
+        const {checkSwitches} = await import('./doTwoValSwitch.js');
+        signalRef.addEventListener(eventSuggestion, e => {
+            checkSwitches(self, onOrOff);
+        })
+    }
+
+    async addValue(signalRef: HTMLInputElement) : Promise<[HTMLInputElement, WeakRef<SignalRefType>, string]>{
+        import('be-value-added/be-value-added.js');
+        const newSignalRef = await  (<any>signalRef).beEnhanced.whenResolved('be-value-added') as HTMLInputElement;
+        const signal = new WeakRef(signalRef);
+        return [newSignalRef, signal, 'value-changed'];
+    }
 
 }
 

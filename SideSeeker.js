@@ -1,13 +1,13 @@
 import { findRealm } from 'trans-render/lib/findRealm.js';
 export class SideSeeker extends EventTarget {
-    invokeCheckSwitches;
+    doCallback;
     eventName;
     prop;
     type;
     perimeter;
-    constructor(invokeCheckSwitches, eventName, prop, type, perimeter) {
+    constructor(doCallback, eventName, prop, type, perimeter) {
         super();
-        this.invokeCheckSwitches = invokeCheckSwitches;
+        this.doCallback = doCallback;
         this.eventName = eventName;
         this.prop = prop;
         this.type = type;
@@ -27,10 +27,7 @@ export class SideSeeker extends EventTarget {
                     eventSuggestion = 'input';
                 }
                 else {
-                    import('be-value-added/be-value-added.js');
-                    signalRef = await signalRef.beEnhanced.whenResolved('be-value-added');
-                    signal = new WeakRef(signalRef);
-                    eventSuggestion = 'value-changed';
+                    [signalRef, signal, eventSuggestion] = await this.addValue(signalRef);
                 }
                 break;
             case '~':
@@ -65,15 +62,24 @@ export class SideSeeker extends EventTarget {
                 signal = new WeakRef(signalRef);
                 break;
         }
-        if (this.invokeCheckSwitches && signalRef !== undefined && eventSuggestion !== undefined) {
-            const { checkSwitches } = await import('./doTwoValSwitch.js');
-            signalRef.addEventListener(eventSuggestion, e => {
-                checkSwitches(self, onOrOff);
-            });
+        if (this.doCallback && signalRef !== undefined && eventSuggestion !== undefined) {
+            await this.callback(self, signalRef, eventSuggestion, onOrOff);
         }
         return {
             signal,
             eventSuggestion
         };
+    }
+    async callback(self, signalRef, eventSuggestion, onOrOff) {
+        const { checkSwitches } = await import('./doTwoValSwitch.js');
+        signalRef.addEventListener(eventSuggestion, e => {
+            checkSwitches(self, onOrOff);
+        });
+    }
+    async addValue(signalRef) {
+        import('be-value-added/be-value-added.js');
+        const newSignalRef = await signalRef.beEnhanced.whenResolved('be-value-added');
+        const signal = new WeakRef(signalRef);
+        return [newSignalRef, signal, 'value-changed'];
     }
 }
