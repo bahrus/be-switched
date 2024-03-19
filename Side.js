@@ -1,6 +1,5 @@
 import { findRealm } from 'trans-render/lib/findRealm.js';
-//import {checkSwitches} from './doTwoValSwitch.js';
-export class Side extends EventTarget {
+export class Seeker extends EventTarget {
     invokeCheckSwitches;
     eventName;
     prop;
