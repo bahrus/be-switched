@@ -1,5 +1,5 @@
 import { findRealm } from 'trans-render/lib/findRealm.js';
-export class Seeker extends EventTarget {
+export class SideSeeker extends EventTarget {
     invokeCheckSwitches;
     eventName;
     prop;

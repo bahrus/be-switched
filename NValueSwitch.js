@@ -1,4 +1,4 @@
-import { Seeker } from './SideSeeker.js';
+import { SideSeeker } from './SideSeeker.js';
 export class NValueSwitch {
     constructor(self) {
         this.do(self);
@@ -15,7 +15,7 @@ export class NValueSwitch {
         const { enhancedElement } = self;
         for (const dependency of dependencies) {
             const { perimeter, prop, elType, event } = dependency;
-            const side = new Seeker(false, event, prop, elType, perimeter);
+            const side = new SideSeeker(false, event, prop, elType, perimeter);
             const res = await side.do(self, 'on', enhancedElement);
             const { eventSuggestion, signal } = res;
             this.#signals.set(prop, signal);

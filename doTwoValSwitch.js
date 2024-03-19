@@ -1,6 +1,6 @@
 import { getSignalVal } from 'be-linked/getSignalVal.js';
 import { getVal } from 'trans-render/lib/getVal.js';
-import { Seeker } from './SideSeeker.js';
+import { SideSeeker } from './SideSeeker.js';
 export async function doTwoValSwitch(self, onOrOff) {
     const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
@@ -8,8 +8,8 @@ export async function doTwoValSwitch(self, onOrOff) {
         const { lhsProp, rhsProp, lhsType, rhsType, lhsPerimeter, rhsPerimeter, lhsEvent, rhsEvent,
         //dependsOn
          } = onSwitch;
-        const lhs = onSwitch.lhs = new Seeker(true, lhsEvent, lhsProp, lhsType, lhsPerimeter);
-        const rhs = onSwitch.rhs = new Seeker(true, rhsEvent, rhsProp, rhsType, rhsPerimeter);
+        const lhs = onSwitch.lhs = new SideSeeker(true, lhsEvent, lhsProp, lhsType, lhsPerimeter);
+        const rhs = onSwitch.rhs = new SideSeeker(true, rhsEvent, rhsProp, rhsType, rhsPerimeter);
         const lhsReturnObj = await lhs.do(self, onOrOff, enhancedElement);
         onSwitch.lhsSignal = lhsReturnObj?.signal;
         const rhsReturnObj = await rhs.do(self, onOrOff, enhancedElement);

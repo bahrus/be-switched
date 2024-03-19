@@ -1,5 +1,5 @@
 import { AP, EventForNValueSwitch, NValueScriptSwitch, inputEventName } from './types';
-import {Seeker} from './SideSeeker.js';
+import {SideSeeker} from './SideSeeker.js';
 import { SignalRefType } from 'be-linked/types';
 
 export class NValueSwitch{
@@ -23,7 +23,7 @@ export class NValueSwitch{
                 elType,
                 event
             } = dependency
-            const side = new Seeker(
+            const side = new SideSeeker(
                 false,
                 event,
                 prop,

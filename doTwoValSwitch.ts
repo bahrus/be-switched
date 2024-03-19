@@ -1,7 +1,7 @@
 import {AP} from './types';
 import {getSignalVal} from 'be-linked/getSignalVal.js';
 import {getVal} from 'trans-render/lib/getVal.js';
-import {Seeker} from './SideSeeker.js';
+import {SideSeeker} from './SideSeeker.js';
 
 export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
     const {enhancedElement, onTwoValueSwitches, offTwoValueSwitches} = self;
@@ -18,14 +18,14 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
             rhsEvent,
             //dependsOn
         } = onSwitch;
-        const lhs = onSwitch.lhs = new Seeker(
+        const lhs = onSwitch.lhs = new SideSeeker(
             true, 
             lhsEvent,
             lhsProp,
             lhsType,
             lhsPerimeter
         );
-        const rhs = onSwitch.rhs = new Seeker(
+        const rhs = onSwitch.rhs = new SideSeeker(
             true,
             rhsEvent,
             rhsProp,
