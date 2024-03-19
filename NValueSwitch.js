@@ -1,4 +1,4 @@
-import { Seeker } from './Side.js';
+import { Seeker } from './SideSeeker.js';
 export class NValueSwitch {
     constructor(self) {
         this.do(self);

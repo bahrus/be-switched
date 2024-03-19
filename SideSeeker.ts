@@ -1,6 +1,6 @@
-import { ElTypes, SignalRefType } from '../be-linked/types';
+import { ElTypes, SignalRefType } from '../be-linked/types.js';
 import { findRealm } from 'trans-render/lib/findRealm.js';
-import {AP, ISide, SignalAndEvent} from './types';
+import {AP, ISide, SignalAndEvent} from './types.js';
 
 export class Seeker extends EventTarget implements ISide{
     constructor(

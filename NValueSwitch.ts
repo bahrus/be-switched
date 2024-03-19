@@ -1,5 +1,5 @@
 import { AP, EventForNValueSwitch, NValueScriptSwitch, inputEventName } from './types';
-import {Seeker} from './Side.js';
+import {Seeker} from './SideSeeker.js';
 import { SignalRefType } from 'be-linked/types';
 
 export class NValueSwitch{

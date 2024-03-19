@@ -7,7 +7,7 @@ export async function doElevate(self: AP, elevate: Elevate, switchOn: boolean | 
         const {prsElO} = await import('trans-render/lib/prs/prsElO.js');
         const parsed = prsElO(to);
         const {prop, elType, subProp} = parsed;
-        const {Seeker} = await import('./Side.js');
+        const {Seeker} = await import('./SideSeeker.js');
         const s = new Seeker(
             false,
             undefined,
