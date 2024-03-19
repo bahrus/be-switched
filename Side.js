@@ -22,27 +22,16 @@ export class Side extends EventTarget {
         let signalRef = undefined;
         switch (type) {
             case '|':
-                const { getItemPropEl } = await import('./getItempropEl.js');
-                signalRef = await getItemPropEl(enhancedElement, prop);
+                signalRef = await findRealm(enhancedElement, ['wis', prop]);
                 if (signalRef.hasAttribute('contenteditable')) {
                     signal = new WeakRef(signalRef);
                     eventSuggestion = 'input';
-                    // if(this.invokeCheckSwitches){
-                    //     itempropEl.addEventListener('input', e => {
-                    //         checkSwitches(self, onOrOff);
-                    //     });
-                    // }
                 }
                 else {
                     import('be-value-added/be-value-added.js');
                     signalRef = await signalRef.beEnhanced.whenResolved('be-value-added');
                     signal = new WeakRef(signalRef);
                     eventSuggestion = 'value-changed';
-                    // if(this.invokeCheckSwitches){
-                    //     beValueAdded.addEventListener(eventSuggestion, e => {
-                    //         checkSwitches(self, onOrOff);
-                    //     });
-                    // }
                 }
                 break;
             case '~':

@@ -26,28 +26,15 @@ export class Side extends EventTarget implements ISide{
         let signalRef: HTMLInputElement | undefined = undefined;
         switch(type){
             case '|':
-                const {getItemPropEl} = await import('./getItempropEl.js');
-                signalRef = await getItemPropEl(enhancedElement, prop!) as HTMLInputElement;
+                signalRef = await findRealm(enhancedElement, ['wis', prop!])  as HTMLInputElement;
                 if(signalRef.hasAttribute('contenteditable')){
                     signal = new WeakRef(signalRef);
                     eventSuggestion = 'input';
-                    // if(this.invokeCheckSwitches){
-                    //     itempropEl.addEventListener('input', e => {
-                    //         checkSwitches(self, onOrOff);
-                    //     });
-                    // }
-
                 }else{
                     import('be-value-added/be-value-added.js');
                     signalRef = await  (<any>signalRef).beEnhanced.whenResolved('be-value-added') as HTMLInputElement;
                     signal = new WeakRef(signalRef);
                     eventSuggestion = 'value-changed';
-                    // if(this.invokeCheckSwitches){
-                    //     beValueAdded.addEventListener(eventSuggestion, e => {
-                    //         checkSwitches(self, onOrOff);
-                    //     });
-                    // }
-
                 }
                 break;
             case '~':
@@ -95,20 +82,7 @@ export class Side extends EventTarget implements ISide{
             eventSuggestion
         };
     }
-    // doLoadEvent(enhancedElement: HTMLTemplateElement){
-    //     const ctx = this.tvs;
-    //     const lhsTarget = ctx.lhsSignal?.deref();
-    //     if(!lhsTarget) return;
-    //     const rhsTarget = ctx.rhsSignal?.deref();
-    //     if(!rhsTarget) return;
-    //     if(enhancedElement.oninput){
-    //         const event = new InputEvent(ctx, lhsTarget, rhsTarget);
-    //         enhancedElement.dispatchEvent(event as Event);
-    //         ctx.switchedOn = event.switchOn;
-    //         console.log(event);
-    //     }
 
-    // }
 
 }
 
