@@ -2,7 +2,7 @@ import { ElTypes, SignalRefType } from '../be-linked/types.js';
 import { findRealm } from 'trans-render/lib/findRealm.js';
 import {AP, ISide, SignalAndEvent} from './types.js';
 
-export class SideSeeker extends EventTarget implements ISide{
+export class SideSeeker<TSelf = AP, TCtx = 'on' | 'off'> extends EventTarget implements ISide{
     constructor(
         public doCallback?: boolean,
         public eventName?: string,
@@ -13,9 +13,9 @@ export class SideSeeker extends EventTarget implements ISide{
         super();
     }
     val: any;
-    async do(
-        self: AP,
-        onOrOff: 'on' | 'off',
+    async do<TSelf, TCtx>(
+        self: TSelf,
+        onOrOff: TCtx,
         enhancedElement: HTMLTemplateElement) : Promise<SignalAndEvent | undefined>
     {
         const {eventName, prop, type, perimeter} = this;
@@ -75,10 +75,10 @@ export class SideSeeker extends EventTarget implements ISide{
         };
     }
 
-    async callback(self: AP, signalRef: HTMLInputElement, eventSuggestion: string, onOrOff: 'on' | 'off'){
+    async callback<TSelf, TCtx>(self: TSelf, signalRef: HTMLInputElement, eventSuggestion: string, onOrOff: TCtx){
         const {checkSwitches} = await import('./doTwoValSwitch.js');
         signalRef.addEventListener(eventSuggestion, e => {
-            checkSwitches(self, onOrOff);
+            checkSwitches(self as AP, onOrOff as 'on' | 'off');
         })
     }
 
