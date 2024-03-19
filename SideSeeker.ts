@@ -1,14 +1,16 @@
-import { ElTypes, SignalRefType } from '../be-linked/types.js';
+import { SignalRefType } from '../be-linked/types.js';
 import { findRealm } from 'trans-render/lib/findRealm.js';
 import {AP, ISide, SignalAndEvent} from './types.js';
+import {ElTypes, ElO} from 'trans-render/lib/prs/types';
 
 export class SideSeeker<TSelf = AP, TCtx = 'on' | 'off'> extends EventTarget implements ISide{
     constructor(
+        public elO: ElO,
         public doCallback?: boolean,
-        public eventName?: string,
-        public prop?: string,
-        public type?: ElTypes,
-        public perimeter?: string,
+        // public eventName?: string,
+        // public prop?: string,
+        // public type?: ElTypes,
+        // public perimeter?: string,
     ){
         super();
     }
@@ -18,11 +20,12 @@ export class SideSeeker<TSelf = AP, TCtx = 'on' | 'off'> extends EventTarget imp
         onOrOff: TCtx,
         enhancedElement: HTMLTemplateElement) : Promise<SignalAndEvent | undefined>
     {
-        const {eventName, prop, type, perimeter} = this;
+        const {elO} = this;
+        const {event, prop, elType, perimeter} = elO;
         let signal: WeakRef<SignalRefType> | undefined = undefined;
         let eventSuggestion: string | undefined = undefined;
         let signalRef: HTMLInputElement | undefined = undefined;
-        switch(type){
+        switch(elType){
             case '|':
                 signalRef = await findRealm(enhancedElement, ['wis', prop!])  as HTMLInputElement;
                 if(signalRef.hasAttribute('contenteditable')){
@@ -35,7 +38,7 @@ export class SideSeeker<TSelf = AP, TCtx = 'on' | 'off'> extends EventTarget imp
             case '~':
             case '@':
             case '#':{
-                switch(type){
+                switch(elType){
                     case '@':
                         if(perimeter !== undefined){
                             signalRef = await findRealm(enhancedElement, ['wi', perimeter, `[name="${prop}"]`]) as HTMLInputElement;
@@ -56,7 +59,7 @@ export class SideSeeker<TSelf = AP, TCtx = 'on' | 'off'> extends EventTarget imp
                 if(!signalRef) throw 404;
                 signal = new WeakRef(signalRef);
 
-                eventSuggestion = eventName || 'input'
+                eventSuggestion = event || 'input'
 
                 break;
             }

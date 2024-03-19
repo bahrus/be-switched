@@ -15,7 +15,12 @@ export class NValueSwitch {
         const { enhancedElement } = self;
         for (const dependency of dependencies) {
             const { perimeter, prop, elType, event } = dependency;
-            const side = new SideSeeker(false, event, prop, elType, perimeter);
+            const side = new SideSeeker({
+                event,
+                elType,
+                perimeter,
+                prop,
+            }, false);
             const res = await side.do(self, 'on', enhancedElement);
             const { eventSuggestion, signal } = res;
             this.#signals.set(prop, signal);

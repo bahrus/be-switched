@@ -8,8 +8,18 @@ export async function doTwoValSwitch(self, onOrOff) {
         const { lhsProp, rhsProp, lhsType, rhsType, lhsPerimeter, rhsPerimeter, lhsEvent, rhsEvent,
         //dependsOn
          } = onSwitch;
-        const lhs = onSwitch.lhs = new SideSeeker(true, lhsEvent, lhsProp, lhsType, lhsPerimeter);
-        const rhs = onSwitch.rhs = new SideSeeker(true, rhsEvent, rhsProp, rhsType, rhsPerimeter);
+        const lhs = onSwitch.lhs = new SideSeeker({
+            prop: lhsProp,
+            elType: lhsType,
+            perimeter: lhsPerimeter,
+            event: lhsEvent,
+        }, true);
+        const rhs = onSwitch.rhs = new SideSeeker({
+            prop: rhsProp,
+            elType: rhsType,
+            perimeter: rhsPerimeter,
+            event: rhsEvent
+        }, true);
         const lhsReturnObj = await lhs.do(self, onOrOff, enhancedElement);
         onSwitch.lhsSignal = lhsReturnObj?.signal;
         const rhsReturnObj = await rhs.do(self, onOrOff, enhancedElement);

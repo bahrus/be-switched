@@ -24,11 +24,14 @@ export class NValueSwitch{
                 event
             } = dependency
             const side = new SideSeeker(
+                {
+                    event,
+                    elType,
+                    perimeter,
+                    prop,
+                },
                 false,
-                event,
-                prop,
-                elType,
-                perimeter
+               
             );
             const res = await side.do(self, 'on', enhancedElement);
             const {eventSuggestion, signal} = res!;

@@ -1,25 +1,20 @@
 import { findRealm } from 'trans-render/lib/findRealm.js';
 export class SideSeeker extends EventTarget {
+    elO;
     doCallback;
-    eventName;
-    prop;
-    type;
-    perimeter;
-    constructor(doCallback, eventName, prop, type, perimeter) {
+    constructor(elO, doCallback) {
         super();
+        this.elO = elO;
         this.doCallback = doCallback;
-        this.eventName = eventName;
-        this.prop = prop;
-        this.type = type;
-        this.perimeter = perimeter;
     }
     val;
     async do(self, onOrOff, enhancedElement) {
-        const { eventName, prop, type, perimeter } = this;
+        const { elO } = this;
+        const { event, prop, elType, perimeter } = elO;
         let signal = undefined;
         let eventSuggestion = undefined;
         let signalRef = undefined;
-        switch (type) {
+        switch (elType) {
             case '|':
                 signalRef = await findRealm(enhancedElement, ['wis', prop]);
                 if (signalRef.hasAttribute('contenteditable')) {
@@ -33,7 +28,7 @@ export class SideSeeker extends EventTarget {
             case '~':
             case '@':
             case '#': {
-                switch (type) {
+                switch (elType) {
                     case '@':
                         if (perimeter !== undefined) {
                             signalRef = await findRealm(enhancedElement, ['wi', perimeter, `[name="${prop}"]`]);
@@ -54,7 +49,7 @@ export class SideSeeker extends EventTarget {
                 if (!signalRef)
                     throw 404;
                 signal = new WeakRef(signalRef);
-                eventSuggestion = eventName || 'input';
+                eventSuggestion = event || 'input';
                 break;
             }
             case '/':

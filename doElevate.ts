@@ -9,10 +9,12 @@ export async function doElevate(self: AP, elevate: Elevate, switchOn: boolean | 
         const {prop, elType, subProp} = parsed;
         const {SideSeeker} = await import('./SideSeeker.js');
         const s = new SideSeeker(
-            false,
+            {
+                prop,
+                elType
+            },
             undefined,
-            prop,
-            elType,
+            
         );
         const signalAndEvent = await s.do(self, 'on', enhancedElement);
         if(signalAndEvent === undefined) throw 404;
