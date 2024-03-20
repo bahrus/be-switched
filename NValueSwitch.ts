@@ -76,6 +76,6 @@ export class InputEvent extends Event implements EventForNValueSwitch{
             to: string
         }
         ){
-        super(InputEvent.EventName, {bubbles: true});
+        super(InputEvent.EventName/*, {bubbles: true}*/);
     }
 }

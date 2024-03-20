@@ -56,7 +56,7 @@ export class InputEvent extends Event {
     elevate;
     static EventName = 'input';
     constructor(ctx, factors, switchOn, elevate) {
-        super(InputEvent.EventName, { bubbles: true });
+        super(InputEvent.EventName /*, {bubbles: true}*/);
         this.ctx = ctx;
         this.factors = factors;
         this.switchOn = switchOn;
