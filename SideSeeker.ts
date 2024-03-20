@@ -7,10 +7,6 @@ export class SideSeeker<TSelf = AP, TCtx = 'on' | 'off'> extends EventTarget imp
     constructor(
         public elO: ElO,
         public doCallback?: boolean,
-        // public eventName?: string,
-        // public prop?: string,
-        // public type?: ElTypes,
-        // public perimeter?: string,
     ){
         super();
     }
