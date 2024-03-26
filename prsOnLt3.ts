@@ -38,6 +38,7 @@ export async function prsOnLt3(self: AP, negate = false) : ProPAP{
     const oneValueSwitches: Array<OneValueSwitch> = [];
     const twoValueSwitches : Array<TwoValueSwitch> = [];
     const onUnion = negate ? [...(Off || []), ...(off || [])] : [...(On || []), ...(on || [])];
+    
     for(const onS of onUnion){
         const twoPartStatementTest = tryParse(onS, reTwoPartStatements) as TwoPartOpStatement;
         if(twoPartStatementTest !== null){
@@ -50,12 +51,14 @@ export async function prsOnLt3(self: AP, negate = false) : ProPAP{
                 lhsProp: lhs.prop,
                 lhsSubProp: lhs.subProp,
                 lhsType: lhs.elType,
+                lhsScope: lhs.scope,
                 op,
                 rhsEvent: rhs.event,
                 rhsPerimeter: rhs.perimeter,
                 rhsProp: rhs.prop,
                 rhsSubProp: rhs.subProp,
                 rhsType: lhs.elType,
+                rhsScope: rhs.scope,
                 negate,
             };
             if(tvs.op === 'eq') tvs.op = 'equals';

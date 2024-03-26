@@ -16,6 +16,8 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
             rhsPerimeter,
             lhsEvent,
             rhsEvent,
+            lhsScope,
+            rhsScope,
             //dependsOn
         } = onSwitch;
         const lhs = onSwitch.lhs = new SideSeeker(
@@ -24,6 +26,7 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
                 elType: lhsType,
                 perimeter: lhsPerimeter,
                 event: lhsEvent,
+                scope: lhsScope
             },
             true, 
             
@@ -33,7 +36,8 @@ export async function doTwoValSwitch(self: AP, onOrOff: 'on' | 'off'){
                 prop: rhsProp,
                 elType: rhsType,
                 perimeter: rhsPerimeter,
-                event: rhsEvent
+                event: rhsEvent,
+                scope: rhsScope,
             },
             true,
         );

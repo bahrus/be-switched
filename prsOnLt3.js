@@ -43,12 +43,14 @@ export async function prsOnLt3(self, negate = false) {
                 lhsProp: lhs.prop,
                 lhsSubProp: lhs.subProp,
                 lhsType: lhs.elType,
+                lhsScope: lhs.scope,
                 op,
                 rhsEvent: rhs.event,
                 rhsPerimeter: rhs.perimeter,
                 rhsProp: rhs.prop,
                 rhsSubProp: rhs.subProp,
                 rhsType: lhs.elType,
+                rhsScope: rhs.scope,
                 negate,
             };
             if (tvs.op === 'eq')

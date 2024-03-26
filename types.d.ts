@@ -4,6 +4,7 @@ import {BVAAllProps} from 'be-value-added/types';
 import {AP as BPAP, ISignal, Actions as BPActions} from 'be-propagating/types';
 import {ElTypes, SignalRefType} from 'be-linked/types';
 import { Propagator } from "../trans-render/froop/PropSvc";
+import { Scope } from "./trans-render/lib/types";
 
 export interface EndUserProps extends IBE<HTMLTemplateElement>{
     lhs?: any,
@@ -73,6 +74,8 @@ export interface TwoValueSwitch{
     rhsPerimeter?: string,
     lhsEvent?: string,
     rhsEvent?: string,
+    lhsScope?: Scope,
+    rhsScope?: Scope,
     //dependsOn?: boolean,
     req?: boolean,
     op?: Op,
