@@ -132,7 +132,7 @@ Here is another, less cinematic example:
 
 As you have probably noticed, we are starting to introduce special symbols for finding peer elements. 
 
-We call this syntax Directed Scopied Specifiers, or DSS, inspired by, but not to be confused with CSS.  It is optimized for the problem at hand -- binding to peer elements (or the host)
+We call this syntax Directed Scoped Specifiers, or DSS, inspired by, but not to be confused with CSS.  It is optimized for the problem at hand -- binding to peer elements (or the host)
 
 A still evolving summary of DSS is shown below:
 
