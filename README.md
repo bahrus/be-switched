@@ -132,24 +132,25 @@ Here is another, less cinematic example:
 
 As you have probably noticed, we are starting to introduce special symbols for finding peer elements. 
 
-We call this syntax Directed Scoping Specifiers or DSS, inspired by, but not to be confused with CSS.  It is optimized for the problem at hand -- binding to peer elements (or the host)
+We call this syntax Directed Scopied Specifiers, or DSS, inspired by, but not to be confused with CSS.  It is optimized for the problem at hand -- binding to peer elements (or the host)
 
-A still evolving summary of  is shown below:
+A still evolving summary of DSS is shown below:
 
 ## Special Symbols
 
 In the examples below, we will encounter special symbols used in order to keep the statements small:
 
-| Symbol       | Meaning                        | Notes                                                                                |
-|--------------|--------------------------------|--------------------------------------------------------------------------------------|
-| /propName    |"Hostish"                       | Attaches listeners to "propagator" EventTarget.                                      |
-| @propName    |Name attribute                  | Listens for input events by default.                                                            |
-| \|propName   |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
-| #propName    |Id attribute                    | Listens for input events.                                                            |
-| %propName    |match based on part attribute   | Listens for input events.                                                            |
-| -prop-name   |Marker indicates prop           | Attaches listeners to getters/setters.                                               | 
-| ~elementName |match based on element name     | Listens for input events.                                                            |
-| $0           |adorned element                 | Useful for specifying constants 
+| Symbol       | Meaning                        | Notes                                                                                             |
+|--------------|--------------------------------|---------------------------------------------------------------------------------------------------|
+| /propName    |"Hostish"                       | Attaches listeners to "propagator" EventTarget.                                                   |
+| @propName    |Name attribute                  | Listens for input events by default.                                                              |
+| \|propName   |Itemprop attribute              | If contenteditible, listens for input events by default.  Otherwise, uses be-value-added.         |
+| #propName    |Id attribute                    | Listens for input events by default.                                                              |
+| %propName    |match based on part attribute   | Listens for input events by default.                                                              |
+| -prop-name   |Marker indicates prop           | Attaches listeners to "propagator" EventTarget.                                                   | 
+| ~elementName |match based on element name     | Listens for input events by default.                                                              |
+| $0           |adorned element                 | Useful for specifying constants (TODO)                                                            |
+| ::eventName  |name of event to listen for     |                                                                                                   |
 
 
 "Hostish" means:
