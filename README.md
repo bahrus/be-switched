@@ -113,7 +113,7 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
 
 What this is saying:  
 
-> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the oninput attribute.  If switchOn is set to true, display the contents within the template.  If set to false, hide it.  Also, do this check on initialization.
+> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the onInput attribute.  If switchOn is set to true, display the contents within the template.  If switchOn is set to false, hide it.  Also, do this check on initialization.
 
 Here is another, less cinematic example:
 
@@ -130,7 +130,11 @@ Here is another, less cinematic example:
 </template>
 ```
 
-As you have probably noticed, we are starting to introduce special symbols for finding peer elements.  The full specification for our syntax is shown below:
+As you have probably noticed, we are starting to introduce special symbols for finding peer elements. 
+
+We call this syntax Directed Scoping Specifiers or DSS, inspired by, but not to be confused with CSS.  It is optimized for the problem at hand -- binding to peer elements (or the host)
+
+A still evolving summary of  is shown below:
 
 ## Special Symbols
 
@@ -138,9 +142,9 @@ In the examples below, we will encounter special symbols used in order to keep t
 
 | Symbol       | Meaning                        | Notes                                                                                |
 |--------------|--------------------------------|--------------------------------------------------------------------------------------|
-| /propName    |"Hostish"                       | Attaches listeners to getters/setters.                                               |
-| @propName    |Name attribute                  | Listens for input events.                                                            |
-| \|propName    |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
+| /propName    |"Hostish"                       | Attaches listeners to "propagator" EventTarget.                                      |
+| @propName    |Name attribute                  | Listens for input events by default.                                                            |
+| \|propName   |Itemprop attribute              | If contenteditible, listens for input events.  Otherwise, uses be-value-added.       |
 | #propName    |Id attribute                    | Listens for input events.                                                            |
 | %propName    |match based on part attribute   | Listens for input events.                                                            |
 | -prop-name   |Marker indicates prop           | Attaches listeners to getters/setters.                                               | 
@@ -358,7 +362,7 @@ What this does:
     3.  If not, check if 'checked' in oCarrotNosedWoman, use that.
     4.  Try ariaChecked.
     5.  Check if 'href' in oCarrotNosedWoman, use that.
-    6.  As a last resort guess at mind reading, use the string obtained from textContent.
+    6.  As a last resort attempt at mind reading, use the string obtained from textContent.
 4.  Finds element a-duck.
 5.  Waits for customElements.whenDefined('a-duck').
 6.  Attempts to infer the value of the element, same as 3 above.
@@ -434,12 +438,19 @@ This is supported:
 <label for=rhs>RHS:</label>
 <input type=number id=rhs>
 <template be-switched='on when #lhs gt #rhs.'>
-    <div>LHS &lt; RHS</div>
+    <div>LHS &gt; RHS</div>
 </template>
 ```
 
 ### Down search using Y character. [TODO]
 
+```html
+<input type=number>
+<template be-switched='on when ^ gt Y.'>
+    <div>Previous input &gt; RHS</div>
+</template>
+<input type=number>
+```
 
 ## And now for something completely different
 
