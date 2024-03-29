@@ -8,7 +8,7 @@ export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
     for(const binSwitch of switches!){
         const {specifier} = binSwitch;
         const seeker = new BinSeeker(specifier, true);
-        const obj = await seeker.do(self, undefined, enhancedElement);
+        const obj = await seeker.do(self, onOrOff, enhancedElement);
         binSwitch.signal = obj?.signal;
     }
     await checkSwitches(self, onOrOff);
