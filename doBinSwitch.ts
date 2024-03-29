@@ -1,96 +1,34 @@
-//import { BeValueAdded } from 'be-value-added/be-value-added.js';
+import { BinSeeker } from './BinSeeker.js';
 import {AP, ProPAP, OneValueSwitch, PAP} from './types';
 import {BVAAllProps} from 'be-value-added/types';
-import {Actions as BPActions} from 'be-propagating/types';
-import {findRealm} from 'trans-render/lib/findRealm.js';
-//almost identical to be-itemized/#addMicrodataElement -- share?
+
 export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
-    const {enhancedElement, onBinarySwitches, offBinarySwitches} = self;
-    const binarySwitches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
-    for(const onSwitch of binarySwitches!){
-        const {prop, type} = onSwitch;
-        switch(type){
-            case '|':
-                const {getItemPropEl} = await import('./getItempropEl.js');
-                const itempropEl = await getItemPropEl(enhancedElement, prop!);
-                import('be-value-added/be-value-added.js');
-                const beValueAdded = await  (<any>itempropEl).beEnhanced.whenResolved('be-value-added') as BVAAllProps & EventTarget;
-                onSwitch.signal = new WeakRef<BVAAllProps>(beValueAdded);
-                beValueAdded.addEventListener('value-changed', e => {
-                    checkSwitches(self, onOrOff);
-                })
-                break;
-            case '/':{
-                    const host = await findRealm(enhancedElement, 'hostish');
-                    if(!host) throw 404;
-                    import('be-propagating/be-propagating.js');
-                    const bePropagating = await (<any>host).beEnhanced.whenResolved('be-propagating') as BPActions;
-                    const signal = await bePropagating.getSignal(prop!);
-                    signal.addEventListener('value-changed', e => {
-                        checkSwitches(self, onOrOff);
-                    });
-                    onSwitch.signal = new WeakRef(signal);
-                }
-                break;
-            case '~':
-            case '%':
-            case '@':
-            case '#':{
-                let editableElement: EventTarget | null | undefined = null;
-                switch(type){
-                    case '@':
-                        editableElement = await findRealm(enhancedElement, ['wf', prop!]);
-                        break;
-
-                    case '#':
-                        editableElement = await findRealm(enhancedElement, ['wrn', '#' + prop!]);
-                        break;
-                    case '%':
-                        editableElement = await findRealm(enhancedElement, ['wrn', `[part~="${prop}"]`]);
-                        break;
-                    case '~':
-                        throw 'NI';
-                        editableElement = await findRealm(enhancedElement, ['wis', ``])
-                }
-                onSwitch.signal = new WeakRef(editableElement as HTMLInputElement);
-                editableElement?.addEventListener('input', e => {
-                    checkSwitches(self, onOrOff);
-                });
-                break;
-            }
-            // case '@':{
-            //     const inputEl = await findRealm(enhancedElement, ['wf', prop!]) as HTMLInputElement;
-            //     if(!inputEl) throw 404;
-                
-            // }
-            // case '#':{
-            //     const inputEl = await findRealm(enhancedElement, ['wrn', '#' + prop!]) as HTMLInputElement;
-            //     if(!inputEl) throw 404;
-            //     onSwitch.signal = new WeakRef(inputEl);
-            //     inputEl.addEventListener('input', e => {
-            //         checkSwitches(self, onOrOff);
-            //     });
-            //     break;
-            // }
-
-        }
-        
-        
-
+    const {onBinarySwitches, offBinarySwitches, enhancedElement} = self;
+    const switches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
+    for(const binSwitch of switches!){
+        const {specifier} = binSwitch;
+        const seeker = new BinSeeker(specifier, true);
+        const obj = await seeker.do(self, undefined, enhancedElement);
+        binSwitch.signal = obj?.signal;
     }
-    checkSwitches(self, onOrOff);
-
+    await checkSwitches(self, onOrOff);
 }
 
-const symLookup = new Map(
-    []
-);
-
-function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
-    const {onBinarySwitches, offBinarySwitches} = self;
+export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
+    const {onBinarySwitches, offBinarySwitches, onNValueSwitches} = self;
     const binarySwitches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
-    if(binarySwitches?.length === 0) return;
     let foundOne = false;
+    if(onNValueSwitches !== undefined){
+        for(const nvalSwitch of onNValueSwitches){
+            if(nvalSwitch.switchedOn){
+                foundOne = true;
+            }
+        }
+    }
+    if(binarySwitches?.length === 0){
+        self.switchesSatisfied = foundOne;
+        return;
+    }
     for(const onSwitch of binarySwitches!){
         const {req} = onSwitch;
         if(foundOne && !req) continue;

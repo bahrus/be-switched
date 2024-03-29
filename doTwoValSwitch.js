@@ -5,30 +5,15 @@ export async function doTwoValSwitch(self, onOrOff) {
     const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
     const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
     for (const onSwitch of valueSwitches) {
-        const { lhsProp, rhsProp, lhsType, rhsType, lhsPerimeter, rhsPerimeter, lhsEvent, rhsEvent, lhsScope, rhsScope,
+        const { lhsSpecifier, rhsSpecifier
         //dependsOn
          } = onSwitch;
-        const lhs = onSwitch.lhs = new SideSeeker({
-            prop: lhsProp,
-            elType: lhsType,
-            perimeter: lhsPerimeter,
-            event: lhsEvent,
-            scope: lhsScope
-        }, true);
-        const rhs = onSwitch.rhs = new SideSeeker({
-            prop: rhsProp,
-            elType: rhsType,
-            perimeter: rhsPerimeter,
-            event: rhsEvent,
-            scope: rhsScope,
-        }, true);
+        const lhs = onSwitch.lhs = new SideSeeker(lhsSpecifier, true);
+        const rhs = onSwitch.rhs = new SideSeeker(rhsSpecifier, true);
         const lhsReturnObj = await lhs.do(self, onOrOff, enhancedElement);
         onSwitch.lhsSignal = lhsReturnObj?.signal;
         const rhsReturnObj = await rhs.do(self, onOrOff, enhancedElement);
         onSwitch.rhsSignal = rhsReturnObj?.signal;
-        // if(dependsOn){
-        //     lhs.doLoadEvent(enhancedElement);
-        // }
     }
     await checkSwitches(self, onOrOff);
 }
@@ -48,11 +33,13 @@ export async function checkSwitches(self, onOrOff) {
         return;
     }
     for (const onSwitch of valueSwitches) {
-        const { req, lhsSignal, rhsSignal, op, negate, rhsSubProp, lhsSubProp } = onSwitch;
+        const { req, lhsSignal, rhsSignal, op, negate, lhsSpecifier, rhsSpecifier } = onSwitch;
         if (foundOne && !req)
             continue;
         let value = false;
         {
+            const { path: lhsSubProp } = lhsSpecifier;
+            const { path: rhsSubProp } = rhsSpecifier;
             const lhsRef = lhsSignal?.deref();
             if (lhsRef === undefined) {
                 console.warn({ onSwitch, msg: "Out of scope" });

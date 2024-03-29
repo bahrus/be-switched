@@ -1,7 +1,8 @@
 import { tryParse } from 'trans-render/lib/prs/tryParse.js';
-import { strType, prsElO } from 'trans-render/lib/prs/prsElO.js';
+import { parse } from 'trans-render/dss/parse.js';
 const op = String.raw `(?<!\\)(?<op>(Equals|Eq|Lt|Gt))`;
 const lhsPartOpRhsPart = String.raw `(?<lhsPart>.*)${op}(?<rhsPart>.*)`;
+const ifPart = String.raw `(?<ifPart>.*)`;
 const reTwoPartStatements = [
     {
         regExp: new RegExp(String.raw `^when${lhsPartOpRhsPart}`),
@@ -10,21 +11,9 @@ const reTwoPartStatements = [
 ];
 const reOneValSwitchStatements = [
     {
-        regExp: new RegExp(String.raw `^onlyWhen(?<type>${strType})(?<prop>[\w]+)`),
-        defaultVals: {
-            req: true
-        }
-    },
-    {
-        regExp: new RegExp(String.raw `^when(?<type>${strType})(?<prop>[\w]+)`),
+        regExp: new RegExp(String.raw `^when${ifPart}`),
         defaultVals: {}
-    },
-    {
-        regExp: new RegExp(String.raw `^when(?<prop>[\w]+)`),
-        defaultVals: {
-            type: '/'
-        }
-    },
+    }
 ];
 export async function prsOnLt3(self, negate = false) {
     const { On, on, Off, off } = self;
@@ -35,22 +24,12 @@ export async function prsOnLt3(self, negate = false) {
         const twoPartStatementTest = tryParse(onS, reTwoPartStatements);
         if (twoPartStatementTest !== null) {
             const { lhsPart, rhsPart, op } = twoPartStatementTest;
-            const lhs = prsElO(lhsPart);
-            const rhs = prsElO(rhsPart);
+            const lhs = await parse(lhsPart);
+            const rhs = await parse(rhsPart);
             const tvs = {
-                lhsEvent: lhs.event,
-                lhsPerimeter: lhs.perimeter,
-                lhsProp: lhs.prop,
-                lhsSubProp: lhs.subProp,
-                lhsType: lhs.elType,
-                lhsScope: lhs.scope,
+                lhsSpecifier: lhs,
                 op,
-                rhsEvent: rhs.event,
-                rhsPerimeter: rhs.perimeter,
-                rhsProp: rhs.prop,
-                rhsSubProp: rhs.subProp,
-                rhsType: lhs.elType,
-                rhsScope: rhs.scope,
+                rhsSpecifier: rhs,
                 negate,
             };
             if (tvs.op === 'eq')
@@ -62,6 +41,9 @@ export async function prsOnLt3(self, negate = false) {
         const binarySwitchTest = tryParse(onS, reOneValSwitchStatements);
         if (binarySwitchTest === null)
             throw 'PE'; //Parse Error
+        const { ifPart } = binarySwitchTest;
+        const specifier = await parse(ifPart);
+        binarySwitchTest.specifier = specifier;
         oneValueSwitches.push(binarySwitchTest);
     }
     return {

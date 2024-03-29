@@ -3,8 +3,8 @@ import {IBE} from 'be-enhanced/types';
 import {BVAAllProps} from 'be-value-added/types';
 import {AP as BPAP, ISignal, Actions as BPActions} from 'be-propagating/types';
 import {ElTypes, SignalRefType} from 'be-linked/types';
-import { Propagator } from "../trans-render/froop/PropSvc";
-import { Scope } from "./trans-render/lib/types";
+//import { Propagator } from "../trans-render/froop/PropSvc";
+import {Specifier} from 'trans-render/dss/types';
 
 export interface EndUserProps extends IBE<HTMLTemplateElement>{
     lhs?: any,
@@ -47,12 +47,10 @@ export type SwitchStatement = string;
 
 
 export interface OneValueSwitch{
-    prop?: string,
-    type?: ElTypes,
-    req?: boolean,
+    ifPart: string,
+    specifier: Specifier,
     signal?: WeakRef<SignalRefType>,
-    negate?: boolean,
-    
+    req?: boolean,
 }
 
 export type Op = 'equals' | 'eq' | 'lt' | 'gt';
@@ -64,19 +62,8 @@ export interface TwoPartOpStatement{
 }
 
 export interface TwoValueSwitch{
-    lhsProp?: string,
-    rhsProp?: string,
-    lhsSubProp?: string,
-    rhsSubProp?: string,
-    lhsType?: ElTypes,
-    rhsType?: ElTypes,
-    lhsPerimeter?: string,
-    rhsPerimeter?: string,
-    lhsEvent?: string,
-    rhsEvent?: string,
-    lhsScope?: Scope,
-    rhsScope?: Scope,
-    //dependsOn?: boolean,
+    lhsSpecifier?: Specifier,
+    rhsSpecifier?: Specifier,
     req?: boolean,
     op?: Op,
     lhsSignal?: WeakRef<SignalRefType>,
