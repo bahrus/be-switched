@@ -14,7 +14,7 @@ export async function prsOn(self, negate = false) {
         const nValSwitchTest = tryParse(onS, reNValueSwitchStatements);
         if (nValSwitchTest !== null) {
             const { prsNValue } = await import('./prsNVal.js');
-            prsNValue(nValSwitchTest);
+            await prsNValue(nValSwitchTest);
             nValueScriptSwitches.push(nValSwitchTest);
             continue;
         }

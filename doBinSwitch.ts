@@ -30,20 +30,20 @@ export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
         return;
     }
     for(const onSwitch of binarySwitches!){
-        const {req} = onSwitch;
+        const {req, specifier} = onSwitch;
         if(foundOne && !req) continue;
         const ref = onSwitch.signal?.deref();
         if(ref === undefined) {
             console.warn({onSwitch, msg: "Out of scope"});
             continue;
         }
+        const {prop, host} = specifier;
         let value = false;
-        if((<HTMLInputElement>ref).checked !== undefined){
-            value = (<HTMLInputElement>ref).checked;
-        }else if(ref instanceof Element && ref.hasAttribute('aria-checked')){
-            value = ref.getAttribute('aria-checked') === 'true';
+        if(host && prop){
+            value = (<any>ref)[prop];
         }else{
-            value = (ref as BVAAllProps).value as boolean;
+            const {getSignalVal} = await import('be-linked/getSignalVal.js');
+            value = getSignalVal(ref);
         }
         if(req){
             if(!value){

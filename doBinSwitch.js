@@ -26,7 +26,7 @@ export async function checkSwitches(self, onOrOff) {
         return;
     }
     for (const onSwitch of binarySwitches) {
-        const { req } = onSwitch;
+        const { req, specifier } = onSwitch;
         if (foundOne && !req)
             continue;
         const ref = onSwitch.signal?.deref();
@@ -34,15 +34,14 @@ export async function checkSwitches(self, onOrOff) {
             console.warn({ onSwitch, msg: "Out of scope" });
             continue;
         }
+        const { prop, host } = specifier;
         let value = false;
-        if (ref.checked !== undefined) {
-            value = ref.checked;
-        }
-        else if (ref instanceof Element && ref.hasAttribute('aria-checked')) {
-            value = ref.getAttribute('aria-checked') === 'true';
+        if (host && prop) {
+            value = ref[prop];
         }
         else {
-            value = ref.value;
+            const { getSignalVal } = await import('be-linked/getSignalVal.js');
+            value = getSignalVal(ref);
         }
         if (req) {
             if (!value) {

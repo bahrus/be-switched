@@ -74,12 +74,7 @@ export interface TwoValueSwitch{
     rhs?: ISide,
 }
 
-export interface Dependency{
-    prop?: string,
-    elType?: ElTypes,
-    perimeter?: string,
-    event?: string
-}
+export interface Dependency extends Specifier{}
 
 export interface CanBeSwitchedOn {
     switchedOn?: boolean,

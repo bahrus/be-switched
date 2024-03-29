@@ -17,24 +17,15 @@ export class NValueSwitch{
         const {dependencies} = nValueSwitch;
         const {enhancedElement} = self;
         for(const dependency of dependencies!){
-            const {
-                perimeter,
-                prop,
-                elType,
-                event
-            } = dependency
+            
             const side = new SideSeeker(
-                {
-                    event,
-                    elType,
-                    perimeter,
-                    prop,
-                },
+                dependency,
                 false,
                
             );
             const res = await side.do(self, 'on', enhancedElement);
             const {eventSuggestion, signal} = res!;
+            const {prop} = dependency;
             this.#signals.set(prop!, signal!);
             const ref = signal!.deref();
             ref?.addEventListener(eventSuggestion!, e => {
