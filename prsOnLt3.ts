@@ -21,7 +21,13 @@ const reOneValSwitchStatements: RegExpOrRegExpExt<OneValueSwitch>[] = [
     {
         regExp: new RegExp(String.raw `^when${ifPart}`),
         defaultVals:{}
-    }
+    },
+    {
+        regExp: new RegExp(String.raw `^onlyWhen${ifPart}`),
+        defaultVals:{
+            req: true
+        }
+    },
 ];
 
 export async function prsOnLt3(self: AP, negate = false) : ProPAP{

@@ -13,7 +13,13 @@ const reOneValSwitchStatements = [
     {
         regExp: new RegExp(String.raw `^when${ifPart}`),
         defaultVals: {}
-    }
+    },
+    {
+        regExp: new RegExp(String.raw `^onlyWhen${ifPart}`),
+        defaultVals: {
+            req: true
+        }
+    },
 ];
 export async function prsOnLt3(self, negate = false) {
     const { On, on, Off, off } = self;
