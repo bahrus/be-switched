@@ -251,7 +251,7 @@ Let's start with the most elementary two value switch:
 > For id based matches (which is what we have above), the search is done within the root node of the element.  
 
 > [!NOTE]
-> The comparison condition is re-evaluated on the input events of the lhs and rhs elements.  See below for how to specify alternate event names
+> The comparison condition is re-evaluated on the input events of the lhs and rhs elements by default.  See below for how to specify alternate event names
 
 > [!Note]
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
@@ -283,7 +283,7 @@ Here, the search for matching names is done within a containing form, and if no 
 
 However, if that is not sufficient, we can specify a "scoping" perimeter via an "upSearch" query.  Symbolically, we use the "^" symbol to indicate this:
 
-### Up Search Scoping
+### "Closest" Scoping
 
 ```html
 These should be ignored:
@@ -310,9 +310,9 @@ These should be active:
 </section>
 ```
 
-"UpSearch" means:  First check for previous siblings that match the selector, then the parent, then previous siblings of the parent, etc.  Stop at the ShadowDOM root.
 
-We can apply such upSearch queries to either the LHS or the RHS, or both, as shown above.
+
+We can apply such closest queries to either the LHS or the RHS, or both, as shown above.
 
 
 ### By the itemprop microdata attribute
@@ -352,6 +352,7 @@ In the brave new world that custom elements has opened up, we can make our marku
     </template>
 </ways-of-science>
 ```
+
 
 What this does:
 
@@ -443,11 +444,12 @@ This is supported:
 </template>
 ```
 
+
 ### Down search using Y character. [TODO]
 
 ```html
 <input type=number>
-<template be-switched='on when ^ gt Y.'>
+<template be-switched='on when ^* gt Y.'>
     <div>Previous input &gt; RHS</div>
 </template>
 <input type=number>
@@ -469,11 +471,13 @@ But what if we just want to lazy load content when a single value goes from "fal
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched='on when | is happy. //or |isHappy.' >
+    <template be-switched='on when |is happy. //or |isHappy.' >
         <my-content></my-content>
     </template>
 </div>
 ```
+
+Note that if a space is placed between | and "is", it will only match for itemprop="IsHappy" with a capital I.
 
 Searches within nearest itemscope, else from rootNode.
 
@@ -486,7 +490,7 @@ Can also reference form element, or [form associated custom elements](https://be
     ...
     <input name=isHappy type=checkbox>
     ...
-    <template be-switched='on when @ is happy.'>
+    <template be-switched='on when @is happy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -501,7 +505,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
     ...
     <input id=isHappy type=checkbox>
     ...
-    <template be-switched='on when # is happy.'>
+    <template be-switched='on when #is happy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -514,7 +518,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
     ...
     <input id=isHappy>
     ...
-    <template be-switched='on only when # is happy.'>
+    <template be-switched='on only when #is happy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -528,13 +532,13 @@ This is an "and" condition due to the presence of "only"
 <div itemscope>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
-    <template be-switched='on when ^.'>
+    <template be-switched='on when ^*.'>
         <my-content></my-content>
     </template>
 </div>
 ```
 
-The standalone ^ is indicating to just look at the previous element sibling.
+The standalone ^* is indicating to just look at the previous element sibling.
 
 ### Example 3b Referring to next element sibling [TODO]
 
@@ -549,14 +553,14 @@ The standalone ^ is indicating to just look at the previous element sibling.
 </div>
 ```
 
-### Up searching
+### Up searching [TODO]
 
 ```html
 <div itemscope>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     <div></div>
-    <template be-switched='on when ^ |isHappy.'>
+    <template be-switched='on when ^* |isHappy.'>
         <my-content></my-content>
     </template>
 </div>
