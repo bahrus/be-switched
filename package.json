@@ -1,5 +1,6 @@
 {
   "name": "be-switched",
+  "type": "module",
   "version": "0.0.103",
   "keywords": [
     "web-components",
@@ -24,16 +25,15 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.75",
-    "be-hive": "0.0.143",
-    "be-linked": "0.0.91",
-    "be-propagating": "0.0.37",
-    "be-value-added": "0.0.27",
-    "trans-render": "0.0.756",
-    "xtal-element": "0.0.602"
+    "be-enhanced": "0.0.89",
+    "be-hive": "0.0.160",
+    "be-linked": "0.0.93",
+    "be-propagating": "0.0.39",
+    "be-value-added": "0.0.30",
+    "trans-render": "0.0.769"
   },
   "devDependencies": {
-    "@playwright/test": "1.42.1",
+    "@playwright/test": "1.44.1",
     "may-it-serve": "0.0.6"
   },
   "scripts": {
