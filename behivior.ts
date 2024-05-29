@@ -5,8 +5,8 @@ import {AP} from './types'
 const base = 'be-switched';
 const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
 
-const onWhenLhsPartOpRhsPart = String.raw `^on when (?<lhsPart>.*)${op}(?<rhsPart>.*)`;
-const offWhenLhsPartOpRhsPart = String.raw `^off when (?<lhsPart>.*)${op}(?<rhsPart>.*)`;
+const onWhenLhsPartOpRhsPart = String.raw `^on when (?<lhsPart>.*) ${op} (?<rhsPart>.*)`;
+const offWhenLhsPartOpRhsPart = String.raw `^off when (?<lhsPart>.*) ${op} (?<rhsPart>.*)`;
 export const emc: EnhancementMountCnfg<AP> = {
     base,
     map: {

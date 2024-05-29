@@ -1,12 +1,12 @@
 import { ActionOnEventConfigs } from "trans-render/froop/types";
-import {IBE} from 'be-enhanced/types';
+import {IEnhancement} from 'trans-render/be/types';
 import {BVAAllProps} from 'be-value-added/types';
 import {AP as BPAP, ISignal, Actions as BPActions} from 'be-propagating/types';
 import {ElTypes, SignalRefType} from 'be-linked/types';
 //import { Propagator } from "../trans-render/froop/PropSvc";
 import {Specifier} from 'trans-render/dss/types';
 
-export interface EndUserProps extends IBE<HTMLTemplateElement>{
+export interface EndUserProps extends IEnhancement<HTMLTemplateElement>{
     lhs?: any,
     rhs?: any,
     ifMediaMatches?: string,
@@ -25,10 +25,10 @@ export interface EndUserProps extends IBE<HTMLTemplateElement>{
      * Works with beOosoom decorator, so becomes inert when out of view
      */
     beOosoom?: string;
-    On?: Array<SwitchStatement>;
-    on?: Array<SwitchStatement>;
-    Off?: Array<SwitchStatement>;
-    off?: Array<SwitchStatement>;
+    // On?: Array<SwitchStatement>;
+    // on?: Array<SwitchStatement>;
+    // Off?: Array<SwitchStatement>;
+    // off?: Array<SwitchStatement>;
 }
 
 export interface AllProps extends EndUserProps{
@@ -100,10 +100,10 @@ export interface Actions{
     // onFalse(self: this): Promise<void>;
     // addMediaListener(self: this): POA;
     // chkMedia(self: this, e: MediaQueryListEvent): PAP;
-    onOn(self: this): ProPAP;
-    onOff(self: this): ProPAP;
+    // onOn(self: this): ProPAP;
+    // onOff(self: this): ProPAP;
     // doOnBinarySwitches(self: this): Promise<void>;
-    // doOnTwoValSwitches(self: this): Promise<void>;
+    onTwoValSwitches(self: this): Promise<void>;
     // doOffBinarySwitches(self: this): Promise<void>;
     // doOffTwoValSwitches(sef: this): Promise<void>;
     // doOnNValSwitches(self: this): Promise<void>;
