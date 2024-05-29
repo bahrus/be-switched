@@ -1,17 +1,104 @@
+import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
 export class BeSwitched extends BE {
     static config = {
         propInfo: {
+            ...beCnfg.propInfo,
             twoValueSwitches: {},
+            switchesSatisfied: {},
+            val: {},
+            echoVal: {},
         },
+        // compacts:{
+        //     echo_val_to_echoVal: 20,
+        // },
         actions: {
+            onTrue: {
+                //ifEquals: ['val', 'echoVal'],
+                ifAllOf: ['val']
+            },
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
-            }
+            },
+            calcVal: {
+                ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
+            },
         }
     };
     async onTwoValSwitches(self) {
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self);
+    }
+    calcVal(self) {
+        const { lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches } = self;
+        //console.log({switchesSatisfied});
+        if (twoValueSwitches !== undefined) {
+            return {
+                val: switchesSatisfied,
+                resolved: true,
+            };
+        }
+        if (beBoolish && typeof lhs === 'boolean' || typeof rhs === 'boolean') {
+            let lhsIsh = !!lhs;
+            let rhsIsh = !!rhs;
+            if (checkIfNonEmptyArray) {
+                if (typeof lhs !== 'boolean') {
+                    lhsIsh = !Array.isArray(lhs) || lhs.length === 0;
+                }
+                if (typeof rhs !== 'boolean') {
+                    rhsIsh = !Array.isArray(rhs) || rhs.length === 0;
+                }
+            }
+            return {
+                val: lhsIsh === rhsIsh,
+                resolved: true
+            };
+        }
+        if (checkIfNonEmptyArray) {
+            if (!Array.isArray(lhs) || lhs.length === 0)
+                return {
+                    val: false,
+                    resolved: true,
+                };
+        }
+        return {
+            val: lhs === rhs,
+            resolved: true,
+        };
+    }
+    async onTrue(self) {
+        const { enhancedElement, toggleInert: toggleDisabled, deferRendering } = self;
+        const itemref = enhancedElement.getAttribute('itemref');
+        if (itemref === null) {
+            const keys = [];
+            const clone = enhancedElement.content.cloneNode(true);
+            for (const child of clone.children) {
+                if (!child.id) {
+                    child.id = 'a' + crypto.randomUUID();
+                }
+                keys.push(child.id);
+            }
+            enhancedElement.setAttribute('itemref', keys.join(' '));
+            if (!enhancedElement.hasAttribute('itemscope'))
+                enhancedElement.setAttribute('itemscope', '');
+            enhancedElement.after(clone);
+        }
+        else {
+            if (deferRendering) {
+                self.deferRendering = false;
+                return;
+            }
+            const rn = enhancedElement.getRootNode();
+            const keys = itemref.split(' ');
+            for (const key of keys) {
+                const child = rn.getElementById(key);
+                if (child === null)
+                    continue;
+                child.classList.remove('be-switched-hide');
+                if (toggleDisabled && child.disabled === false) {
+                    child.disabled = true;
+                }
+            }
+        }
     }
 }

@@ -95,8 +95,8 @@ export type ProPAP = Promise<PAP>;
 export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
 
 export interface Actions{
-    // calcVal(self: this): PAP;
-    // onTrue(self: this): Promise<void>;
+    calcVal(self: this): PAP;
+    onTrue(self: this): Promise<void>;
     // onFalse(self: this): Promise<void>;
     // addMediaListener(self: this): POA;
     // chkMedia(self: this, e: MediaQueryListEvent): PAP;

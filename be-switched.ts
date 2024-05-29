@@ -4,21 +4,108 @@ import {Actions, AllProps, AP, PAP, ProPAP} from './types';
 import { Positractions, PropInfo } from 'trans-render/froop/types';
 import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
 
-export class BeSwitched extends BE<HTMLTemplateElement> implements Actions{
+export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
         propInfo:{
+            ...beCnfg.propInfo,
             twoValueSwitches: {},
+            switchesSatisfied: {},
+            val: {},
+            echoVal: {},
         },
+        // compacts:{
+        //     echo_val_to_echoVal: 20,
+        // },
         actions:{
+            onTrue: {
+                //ifEquals: ['val', 'echoVal'],
+                ifAllOf: ['val']
+            },
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
-            }
+            },
+            calcVal: {
+                ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
+            },
         }
     }
+
+
 
     async onTwoValSwitches(self: this){
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self);
+    }
+
+    calcVal(self: this): PAP {
+        const {lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches} = self;
+        //console.log({switchesSatisfied});
+        if(twoValueSwitches !== undefined){
+            return {
+                val: switchesSatisfied,
+                resolved: true,
+            }
+        }
+        if(beBoolish && typeof lhs === 'boolean' || typeof rhs === 'boolean'){
+            let lhsIsh = !!lhs;
+            let rhsIsh = !!rhs;
+            if(checkIfNonEmptyArray){
+                if(typeof lhs !== 'boolean'){
+                    lhsIsh = !Array.isArray(lhs) || lhs.length === 0;
+                }
+                if(typeof rhs !== 'boolean'){
+                    rhsIsh = !Array.isArray(rhs) || rhs.length === 0;
+                }
+            }
+            return {
+                val: lhsIsh === rhsIsh,
+                resolved: true
+            }
+        }
+        if(checkIfNonEmptyArray){
+            
+            if(!Array.isArray(lhs) || lhs.length === 0) return {
+                val: false,
+                resolved: true,
+            }
+        }
+        return {
+            val: lhs === rhs,
+            resolved: true,
+        }
+    }
+
+    async onTrue(self: this) {
+        const {enhancedElement, toggleInert: toggleDisabled, deferRendering} = self;
+        const itemref= enhancedElement.getAttribute('itemref');
+        if(itemref === null){
+            const keys : string[] = [];
+            const clone = enhancedElement.content.cloneNode(true);
+            for(const child of clone.children){
+                if(!child.id){
+                    child.id = 'a' + crypto.randomUUID();
+                }
+                keys.push(child.id);
+            }
+            enhancedElement.setAttribute('itemref', keys.join(' '));
+            if(!enhancedElement.hasAttribute('itemscope')) enhancedElement.setAttribute('itemscope', '');
+            enhancedElement.after(clone);
+        }else{
+            if(deferRendering){
+                self.deferRendering = false;
+                return;
+            }
+            const rn = enhancedElement.getRootNode() as DocumentFragment;
+            const keys = itemref.split(' ');
+            for(const key of keys){
+                const child = rn.getElementById(key);
+                if(child === null) continue;
+                child.classList.remove('be-switched-hide');
+                if(toggleDisabled && (<any>child).disabled === false){
+                    (<any>child).disabled = true;
+                }
+            }
+        }
     }
     
 }
