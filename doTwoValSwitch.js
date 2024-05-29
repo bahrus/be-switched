@@ -1,24 +1,21 @@
 import { getSignalVal } from 'be-linked/getSignalVal.js';
 import { getVal } from 'trans-render/lib/getVal.js';
 import { SideSeeker } from './SideSeeker.js';
-export async function doTwoValSwitch(self, onOrOff) {
-    const { enhancedElement, onTwoValueSwitches, offTwoValueSwitches } = self;
-    const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
-    for (const onSwitch of valueSwitches) {
-        const { lhsSpecifier, rhsSpecifier
-        //dependsOn
-         } = onSwitch;
+export async function doTwoValSwitch(self) {
+    const { enhancedElement, twoValueSwitches } = self;
+    for (const onSwitch of twoValueSwitches) {
+        const { lhsSpecifier, rhsSpecifier, negate } = onSwitch;
         const lhs = onSwitch.lhs = new SideSeeker(lhsSpecifier, true);
         const rhs = onSwitch.rhs = new SideSeeker(rhsSpecifier, true);
-        const lhsReturnObj = await lhs.do(self, onOrOff, enhancedElement);
+        const lhsReturnObj = await lhs.do(self, negate, enhancedElement);
         onSwitch.lhsSignal = lhsReturnObj?.signal;
-        const rhsReturnObj = await rhs.do(self, onOrOff, enhancedElement);
+        const rhsReturnObj = await rhs.do(self, negate, enhancedElement);
         onSwitch.rhsSignal = rhsReturnObj?.signal;
     }
-    await checkSwitches(self, onOrOff);
+    await checkSwitches(self);
 }
-export async function checkSwitches(self, onOrOff) {
-    const { onTwoValueSwitches, offTwoValueSwitches, onNValueSwitches } = self;
+export async function checkSwitches(self) {
+    const { twoValueSwitches, onNValueSwitches } = self;
     let foundOne = false;
     if (onNValueSwitches !== undefined) {
         for (const nvalSwitch of onNValueSwitches) {
@@ -27,12 +24,11 @@ export async function checkSwitches(self, onOrOff) {
             }
         }
     }
-    const valueSwitches = onOrOff === 'on' ? onTwoValueSwitches : offTwoValueSwitches;
-    if (valueSwitches?.length === 0) {
+    if (twoValueSwitches?.length === 0) {
         self.switchesSatisfied = foundOne;
         return;
     }
-    for (const onSwitch of valueSwitches) {
+    for (const onSwitch of twoValueSwitches) {
         const { req, lhsSignal, rhsSignal, op, negate, lhsSpecifier, rhsSpecifier } = onSwitch;
         if (foundOne && !req)
             continue;

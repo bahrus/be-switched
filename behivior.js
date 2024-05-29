@@ -14,11 +14,13 @@ export const emc = {
                 twoValueSwitches: [
                     {
                         regExp: onWhenLhsPartOpRhsPart,
-                        defaultVals: {}
+                        defaultVals: {},
+                        dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
                     },
                     {
                         regExp: offWhenLhsPartOpRhsPart,
-                        defaultVals: { negate: true }
+                        defaultVals: { negate: true },
+                        dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
                     }
                 ]
             }

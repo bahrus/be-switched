@@ -7,10 +7,6 @@ import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
 export class BeSwitched extends BE<HTMLTemplateElement> implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
         propInfo:{
-            // on: {},
-            // On: {},
-            // off: {},
-            // Off: {}
             twoValueSwitches: {},
         },
         actions:{
@@ -21,8 +17,8 @@ export class BeSwitched extends BE<HTMLTemplateElement> implements Actions{
     }
 
     async onTwoValSwitches(self: this){
-        const {twoValueSwitches} = self;
-        console.log({twoValueSwitches});
+        const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
+        doTwoValSwitch(self);
     }
     
 }
