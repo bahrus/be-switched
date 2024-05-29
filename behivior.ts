@@ -1,8 +1,41 @@
-import {register} from 'be-hive/register.js';
-import {tagName } from './be-switched.js';
-import './be-switched.js';
+import {BeHive, EnhancementMountCnfg} from 'be-hive/be-hive.js';
+import {MountObserver, MOSE} from 'mount-observer/MountObserver.js';
+import {AP} from './types'
 
-const ifWantsToBe = 'switched';
-const upgrade = '*';
+const base = 'be-switched';
+const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
 
-register(ifWantsToBe, upgrade, tagName);
+const onWhenLhsPartOpRhsPart = String.raw `^on when (?<lhsPart>.*)${op}(?<rhsPart>.*)`;
+const offWhenLhsPartOpRhsPart = String.raw `^off when (?<lhsPart>.*)${op}(?<rhsPart>.*)`;
+export const emc: EnhancementMountCnfg<AP> = {
+    base,
+    map: {
+        '0.0': {
+            instanceOf: 'Object$entences',
+            objValMapsTo: '.',
+            regExpExts: {
+                twoValueSwitches: [
+                    {
+                        regExp: onWhenLhsPartOpRhsPart,
+                        defaultVals:{}
+                    },
+                    {
+                        regExp: offWhenLhsPartOpRhsPart,
+                        defaultVals:{negate: true}
+                    }
+                ]
+            }
+        }
+    },
+    enhPropKey: 'beSwitched',
+    importEnh: async () => {
+        const {BeSwitched} = await import('./behance.js');
+        return BeSwitched;
+    }
+};
+
+const mose = document.createElement('script') as MOSE<EnhancementMountCnfg>;
+mose.id = base;
+mose.synConfig = emc;
+
+MountObserver.synthesize(document, BeHive, mose);

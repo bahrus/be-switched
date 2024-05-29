@@ -36,9 +36,10 @@ export interface AllProps extends EndUserProps{
     switchesSatisfied?: boolean,
     echoVal: boolean,
     onBinarySwitches?: Array<OneValueSwitch>,
-    onTwoValueSwitches?: Array<TwoValueSwitch>,
+    twoValueSwitches?: Array<TwoValueSwitch>,
+    //?: Array<TwoValueSwitch>,
     offBinarySwitches?: Array<OneValueSwitch>,
-    offTwoValueSwitches?: Array<TwoValueSwitch>,
+    //offTwoValueSwitches?: Array<TwoValueSwitch>,
     isParsed?: boolean,
     onNValueSwitches?: Array<NValueScriptSwitch>
 }
@@ -94,18 +95,18 @@ export type ProPAP = Promise<PAP>;
 export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
 
 export interface Actions{
-    calcVal(self: this): PAP;
-    onTrue(self: this): Promise<void>;
-    onFalse(self: this): Promise<void>;
-    addMediaListener(self: this): POA;
-    chkMedia(self: this, e: MediaQueryListEvent): PAP;
+    // calcVal(self: this): PAP;
+    // onTrue(self: this): Promise<void>;
+    // onFalse(self: this): Promise<void>;
+    // addMediaListener(self: this): POA;
+    // chkMedia(self: this, e: MediaQueryListEvent): PAP;
     onOn(self: this): ProPAP;
     onOff(self: this): ProPAP;
-    doOnBinarySwitches(self: this): Promise<void>;
-    doOnTwoValSwitches(self: this): Promise<void>;
-    doOffBinarySwitches(self: this): Promise<void>;
-    doOffTwoValSwitches(sef: this): Promise<void>;
-    doOnNValSwitches(self: this): Promise<void>;
+    // doOnBinarySwitches(self: this): Promise<void>;
+    // doOnTwoValSwitches(self: this): Promise<void>;
+    // doOffBinarySwitches(self: this): Promise<void>;
+    // doOffTwoValSwitches(sef: this): Promise<void>;
+    // doOnNValSwitches(self: this): Promise<void>;
 }
 
 
