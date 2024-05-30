@@ -4,6 +4,8 @@ export class BeSwitched extends BE {
     static config = {
         propDefaults: {
             hiddenStyle: 'display:none',
+            lhs: false,
+            rhs: true,
         },
         propInfo: {
             ...beCnfg.propInfo,

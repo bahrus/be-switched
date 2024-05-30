@@ -8,6 +8,8 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
         propDefaults:{
             hiddenStyle: 'display:none',
+            lhs: false,
+            rhs: true,
         },
         propInfo:{
             ...beCnfg.propInfo,
