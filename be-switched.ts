@@ -15,7 +15,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             switchesSatisfied: {},
             val: {},
             echoVal: {},
-            nValueSwitch: {},
+            nValueSwitches: {},
         },
         compacts:{
             echo_val_to_echoVal: 20,
@@ -32,6 +32,9 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
             },
+            onNValSwitches:{
+                ifAllOf: ['nValueSwitches']
+            },
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
@@ -43,6 +46,11 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     async onTwoValSwitches(self: this){
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self);
+    }
+
+    async onNValSwitches(self: this){
+        const {NValueSwitch} = await import('./NValueSwitch.js');
+        new NValueSwitch(self);
     }
 
     calcVal(self: this): PAP {

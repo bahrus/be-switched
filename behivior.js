@@ -24,7 +24,7 @@ export const emc = {
                         dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
                     }
                 ],
-                nValueSwitch: [
+                nValueSwitches: [
                     {
                         regExp: onDependencies,
                         defaultVals: {},

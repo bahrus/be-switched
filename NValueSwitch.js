@@ -6,10 +6,10 @@ export class NValueSwitch {
     #signals = new Map();
     #nValueSwitch;
     async do(self) {
-        const { onNValueSwitches } = self;
-        if (onNValueSwitches === undefined || onNValueSwitches.length > 1)
+        const { nValueSwitches } = self;
+        if (nValueSwitches === undefined || nValueSwitches.length > 1)
             throw 'NI';
-        const nValueSwitch = onNValueSwitches[0];
+        const nValueSwitch = nValueSwitches[0];
         this.#nValueSwitch = nValueSwitch;
         const { dependencies } = nValueSwitch;
         const { enhancedElement } = self;

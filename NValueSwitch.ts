@@ -10,9 +10,9 @@ export class NValueSwitch{
     #signals: Map<string, WeakRef<SignalRefType>> = new Map();
     #nValueSwitch: NValueScriptSwitch | undefined;
     async do(self: AP){
-        const {onNValueSwitches} = self;
-        if(onNValueSwitches === undefined || onNValueSwitches.length > 1) throw 'NI';
-        const nValueSwitch = onNValueSwitches[0];
+        const {nValueSwitches} = self;
+        if(nValueSwitches === undefined || nValueSwitches.length > 1) throw 'NI';
+        const nValueSwitch = nValueSwitches[0];
         this.#nValueSwitch = nValueSwitch;
         const {dependencies} = nValueSwitch;
         const {enhancedElement} = self;

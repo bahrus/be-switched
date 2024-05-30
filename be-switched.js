@@ -11,7 +11,7 @@ export class BeSwitched extends BE {
             switchesSatisfied: {},
             val: {},
             echoVal: {},
-            nValueSwitch: {},
+            nValueSwitches: {},
         },
         compacts: {
             echo_val_to_echoVal: 20,
@@ -28,6 +28,9 @@ export class BeSwitched extends BE {
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
             },
+            onNValSwitches: {
+                ifAllOf: ['nValueSwitches']
+            },
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
@@ -36,6 +39,10 @@ export class BeSwitched extends BE {
     async onTwoValSwitches(self) {
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self);
+    }
+    async onNValSwitches(self) {
+        const { NValueSwitch } = await import('./NValueSwitch.js');
+        new NValueSwitch(self);
     }
     calcVal(self) {
         const { lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches } = self;
