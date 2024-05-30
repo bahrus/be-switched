@@ -20,9 +20,11 @@ export class NValueSwitch {
             const { prop } = dependency;
             this.#signals.set(prop, signal);
             const ref = signal.deref();
-            ref?.addEventListener(eventSuggestion, e => {
-                this.#invokeInputEvent(self);
-            });
+            if (ref instanceof EventTarget) {
+                ref.addEventListener(eventSuggestion, e => {
+                    this.#invokeInputEvent(self);
+                });
+            }
         }
         this.#invokeInputEvent(self);
     }
