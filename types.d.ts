@@ -33,14 +33,15 @@ export interface EndUserProps extends IEnhancement<HTMLTemplateElement>{
 
 export interface AllProps extends EndUserProps{
     val: boolean,
+    singleValSwitchesSatisifed?: boolean,
+    singleValSwitchNoGo?: boolean,
+    twoValSwitchesSatisified?: boolean,
+    twoValSwitchNoGo?: boolean,
     switchesSatisfied?: boolean,
     echoVal: boolean,
-    onBinarySwitches?: Array<OneValueSwitch>,
+    singleValSwitches?: Array<OneValueSwitch>,
     twoValueSwitches?: Array<TwoValueSwitch>,
-    //?: Array<TwoValueSwitch>,
     offBinarySwitches?: Array<OneValueSwitch>,
-    //offTwoValueSwitches?: Array<TwoValueSwitch>,
-    isParsed?: boolean,
     nValueSwitches?: Array<NValueScriptSwitch>
     rawStatements?: Array<string>
 }
@@ -96,17 +97,16 @@ export type ProPAP = Promise<PAP>;
 export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
 
 export interface Actions{
+    calcSwitchesSatisfied(self: this): PAP;
     calcVal(self: this): PAP;
     onTrue(self: this): Promise<void>;
     onFalse(self: this): Promise<void>;
     // addMediaListener(self: this): POA;
     // chkMedia(self: this, e: MediaQueryListEvent): PAP;
-    // onOn(self: this): ProPAP;
-    // onOff(self: this): ProPAP;
+    
     // doOnBinarySwitches(self: this): Promise<void>;
+    onSingleValSwitches(self: this): Promise<void>;
     onTwoValSwitches(self: this): Promise<void>;
-    // doOffBinarySwitches(self: this): Promise<void>;
-    // doOffTwoValSwitches(sef: this): Promise<void>;
     onNValSwitches(self: this): Promise<void>;
     onRawStatements(self: this): void;
 }

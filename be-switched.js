@@ -6,6 +6,10 @@ export class BeSwitched extends BE {
             hiddenStyle: 'display:none',
             lhs: false,
             rhs: true,
+            singleValSwitchesSatisifed: false,
+            singleValSwitchNoGo: false,
+            twoValSwitchesSatisified: false,
+            twoValSwitchNoGo: false,
         },
         propInfo: {
             ...beCnfg.propInfo,
@@ -15,6 +19,7 @@ export class BeSwitched extends BE {
             echoVal: {},
             nValueSwitches: {},
             rawStatements: {},
+            singleValSwitches: {},
         },
         compacts: {
             echo_val_to_echoVal: 20,
@@ -34,6 +39,9 @@ export class BeSwitched extends BE {
             onNValSwitches: {
                 ifAllOf: ['nValueSwitches']
             },
+            calcSwitchesSatisfied: {
+                ifKeyIn: ['singleValSwitchNoGo', 'singleValSwitchesSatisifed', 'twoValSwitchNoGo', 'twoValSwitchesSatisified']
+            },
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
@@ -42,6 +50,10 @@ export class BeSwitched extends BE {
             }
         }
     };
+    async onSingleValSwitches(self) {
+        const { doSingleValSwitch } = await import('./doSingleValSwitch.js');
+        doSingleValSwitch(self);
+    }
     async onTwoValSwitches(self) {
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
         doTwoValSwitch(self);
@@ -85,6 +97,12 @@ export class BeSwitched extends BE {
         return {
             val: lhs === rhs,
             resolved: true,
+        };
+    }
+    calcSwitchesSatisfied(self) {
+        const { singleValSwitchNoGo, singleValSwitchesSatisifed, twoValSwitchNoGo, twoValSwitchesSatisified } = self;
+        return {
+            switchesSatisfied: !singleValSwitchNoGo && !twoValSwitchNoGo && (singleValSwitchesSatisifed || twoValSwitchesSatisified),
         };
     }
     async onTrue(self) {

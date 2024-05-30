@@ -1,22 +1,20 @@
 import { BinSeeker } from './BinSeeker.js';
-import {AP, ProPAP, OneValueSwitch, PAP} from './types';
+import {AP, ProPAP, OneValueSwitch, PAP} from './types.js';
 import {BVAAllProps} from 'be-value-added/types';
 
-export async function doBinSwitch(self: AP, onOrOff: 'on' | 'off'){
-    const {onBinarySwitches, offBinarySwitches, enhancedElement} = self;
-    const switches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
-    for(const binSwitch of switches!){
-        const {specifier} = binSwitch;
+export async function doSingleValSwitch(self: AP){
+    const {singleValSwitches, enhancedElement} = self;
+    for(const svs of singleValSwitches!){
+        const {specifier} = svs;
         const seeker = new BinSeeker(specifier, true);
-        const obj = await seeker.do(self, onOrOff, enhancedElement);
-        binSwitch.signal = obj?.signal;
+        const obj = await seeker.do(self, null,  enhancedElement);
+        svs.signal = obj?.signal;
     }
-    await checkSwitches(self, onOrOff);
+    await checkSwitches(self);
 }
 
-export async function checkSwitches(self: AP, onOrOff: 'on' | 'off'){
-    const {onBinarySwitches, offBinarySwitches, onNValueSwitches} = self;
-    const binarySwitches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
+export async function checkSwitches(self: AP){
+    const {singleValSwitches} = self;
     let foundOne = false;
     if(onNValueSwitches !== undefined){
         for(const nvalSwitch of onNValueSwitches){

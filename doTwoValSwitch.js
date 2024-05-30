@@ -15,15 +15,8 @@ export async function doTwoValSwitch(self) {
     await checkSwitches(self);
 }
 export async function checkSwitches(self) {
-    const { twoValueSwitches, onNValueSwitches } = self;
+    const { twoValueSwitches } = self;
     let foundOne = false;
-    if (onNValueSwitches !== undefined) {
-        for (const nvalSwitch of onNValueSwitches) {
-            if (nvalSwitch.switchedOn) {
-                foundOne = true;
-            }
-        }
-    }
     if (twoValueSwitches?.length === 0) {
         self.switchesSatisfied = foundOne;
         return;
@@ -66,7 +59,7 @@ export async function checkSwitches(self) {
         if (req) {
             if (!value) {
                 //console.log({lhs, rhs, value, req});
-                self.switchesSatisfied = false;
+                self.twoValSwitchNoGo = true;
                 return;
             }
         }
@@ -76,5 +69,6 @@ export async function checkSwitches(self) {
         }
         //console.log({lhs, rhs, value, foundOne});
     }
-    self.switchesSatisfied = foundOne;
+    self.twoValSwitchNoGo = false;
+    self.twoValSwitchesSatisified = foundOne;
 }

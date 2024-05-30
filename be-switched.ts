@@ -10,6 +10,10 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             hiddenStyle: 'display:none',
             lhs: false,
             rhs: true,
+            singleValSwitchesSatisifed: false,
+            singleValSwitchNoGo: false,
+            twoValSwitchesSatisified: false,
+            twoValSwitchNoGo: false,
         },
         propInfo:{
             ...beCnfg.propInfo,
@@ -19,6 +23,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             echoVal: {},
             nValueSwitches: {},
             rawStatements: {},
+            singleValSwitches: {},
         },
         compacts:{
             echo_val_to_echoVal: 20,
@@ -38,6 +43,9 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             onNValSwitches:{
                 ifAllOf: ['nValueSwitches']
             },
+            calcSwitchesSatisfied:{
+                ifKeyIn: ['singleValSwitchNoGo', 'singleValSwitchesSatisifed', 'twoValSwitchNoGo', 'twoValSwitchesSatisified']
+            },
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
@@ -47,7 +55,10 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         }
     }
 
-
+    async onSingleValSwitches(self: this): Promise<void> {
+        const {doSingleValSwitch} = await import('./doSingleValSwitch.js');
+        doSingleValSwitch(self);
+    }
 
     async onTwoValSwitches(self: this){
         const {doTwoValSwitch} = await import('./doTwoValSwitch.js');
@@ -97,6 +108,13 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         return {
             val: lhs === rhs,
             resolved: true,
+        }
+    }
+
+    calcSwitchesSatisfied(self: this): Partial<AllProps> {
+        const {singleValSwitchNoGo, singleValSwitchesSatisifed, twoValSwitchNoGo, twoValSwitchesSatisified} = self;
+        return {
+            switchesSatisfied: !singleValSwitchNoGo && !twoValSwitchNoGo && (singleValSwitchesSatisifed || twoValSwitchesSatisified),
         }
     }
 

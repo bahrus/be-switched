@@ -1,18 +1,16 @@
 import { BinSeeker } from './BinSeeker.js';
-export async function doBinSwitch(self, onOrOff) {
-    const { onBinarySwitches, offBinarySwitches, enhancedElement } = self;
-    const switches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
-    for (const binSwitch of switches) {
-        const { specifier } = binSwitch;
+export async function doSingleValSwitch(self) {
+    const { singleValSwitches, enhancedElement } = self;
+    for (const svs of singleValSwitches) {
+        const { specifier } = svs;
         const seeker = new BinSeeker(specifier, true);
-        const obj = await seeker.do(self, onOrOff, enhancedElement);
-        binSwitch.signal = obj?.signal;
+        const obj = await seeker.do(self, null, enhancedElement);
+        svs.signal = obj?.signal;
     }
-    await checkSwitches(self, onOrOff);
+    await checkSwitches(self);
 }
-export async function checkSwitches(self, onOrOff) {
-    const { onBinarySwitches, offBinarySwitches, onNValueSwitches } = self;
-    const binarySwitches = onOrOff === 'on' ? onBinarySwitches : offBinarySwitches;
+export async function checkSwitches(self) {
+    const { singleValSwitches } = self;
     let foundOne = false;
     if (onNValueSwitches !== undefined) {
         for (const nvalSwitch of onNValueSwitches) {
