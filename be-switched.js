@@ -2,6 +2,9 @@ import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
 export class BeSwitched extends BE {
     static config = {
+        propDefaults: {
+            hiddenStyle: 'display:none',
+        },
         propInfo: {
             ...beCnfg.propInfo,
             twoValueSwitches: {},
@@ -16,6 +19,10 @@ export class BeSwitched extends BE {
             onTrue: {
                 //ifEquals: ['val', 'echoVal'],
                 ifAllOf: ['val']
+            },
+            onFalse: {
+                //ifEquals: ['val', 'echoVal'],
+                ifNoneOf: ['val']
             },
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
@@ -100,5 +107,48 @@ export class BeSwitched extends BE {
                 }
             }
         }
+    }
+    async onFalse(self) {
+        const { enhancedElement, toggleInert, minMem } = self;
+        const itemref = enhancedElement.getAttribute('itemref');
+        if (itemref === null)
+            return;
+        addStyle(self);
+        const rn = enhancedElement.getRootNode();
+        const keys = itemref.split(' ');
+        for (const key of keys) {
+            const child = rn.getElementById(key);
+            if (child === null)
+                continue;
+            if (minMem) {
+                child.remove();
+            }
+            else {
+                child.classList.add('be-switched-hide');
+                if (toggleInert && !child.inert) {
+                    child.inert = true;
+                }
+            }
+        }
+        if (minMem)
+            enhancedElement.removeAttribute('itemref');
+    }
+}
+const styleMap = new WeakSet();
+function addStyle(ap) {
+    const { enhancedElement, hiddenStyle } = ap;
+    let rootNode = enhancedElement.getRootNode();
+    if (rootNode.host === undefined) {
+        rootNode = document.head;
+    }
+    if (!styleMap.has(rootNode)) {
+        styleMap.add(rootNode);
+        const style = document.createElement('style');
+        style.innerHTML = /* css */ `
+            .be-switched-hide{
+                ${hiddenStyle}
+            }
+        `;
+        rootNode.appendChild(style);
     }
 }

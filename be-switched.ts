@@ -6,6 +6,9 @@ import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
 
 export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
+        propDefaults:{
+            hiddenStyle: 'display:none',
+        },
         propInfo:{
             ...beCnfg.propInfo,
             twoValueSwitches: {},
@@ -20,6 +23,10 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             onTrue: {
                 //ifEquals: ['val', 'echoVal'],
                 ifAllOf: ['val']
+            },
+            onFalse: {
+                //ifEquals: ['val', 'echoVal'],
+                ifNoneOf: ['val']
             },
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
@@ -107,7 +114,50 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             }
         }
     }
+
+    async onFalse(self: this){
+        const {enhancedElement, toggleInert, minMem} = self;
+        const itemref = enhancedElement.getAttribute('itemref');
+        if(itemref === null) return;
+        addStyle(self);
+        const rn = enhancedElement.getRootNode() as DocumentFragment;
+        const keys = itemref.split(' ');
+        for(const key of keys){
+            const child = rn.getElementById(key);
+            if(child === null) continue;
+            if(minMem) {
+                child.remove();
+            }else{
+                child.classList.add('be-switched-hide');
+                if(toggleInert && !child.inert){
+                    child.inert = true;
+                }
+            }
+
+        }
+        if(minMem) enhancedElement.removeAttribute('itemref');
+    }
     
+}
+
+const styleMap = new WeakSet<Node>();
+
+function addStyle(ap: AP){
+    const {enhancedElement, hiddenStyle} = ap;
+    let rootNode = enhancedElement.getRootNode();
+    if ((<any>rootNode).host === undefined) {
+        rootNode = document.head;
+    }
+    if (!styleMap.has(rootNode)) {
+        styleMap.add(rootNode);
+        const style = document.createElement('style');
+        style.innerHTML = /* css */`
+            .be-switched-hide{
+                ${hiddenStyle}
+            }
+        `;
+        rootNode.appendChild(style);
+    }
 }
 
 export interface BeSwitched extends AllProps{}
