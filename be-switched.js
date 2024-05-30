@@ -14,6 +14,7 @@ export class BeSwitched extends BE {
             val: {},
             echoVal: {},
             nValueSwitches: {},
+            rawStatements: {},
         },
         compacts: {
             echo_val_to_echoVal: 20,
@@ -36,6 +37,9 @@ export class BeSwitched extends BE {
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
+            onRawStatements: {
+                ifAllOf: ['rawStatements']
+            }
         }
     };
     async onTwoValSwitches(self) {
@@ -142,6 +146,10 @@ export class BeSwitched extends BE {
         }
         if (minMem)
             enhancedElement.removeAttribute('itemref');
+    }
+    onRawStatements(self) {
+        const { rawStatements } = self;
+        console.error('The following statements could not be parsed.', rawStatements);
     }
 }
 const styleMap = new WeakSet();

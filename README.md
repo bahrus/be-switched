@@ -206,7 +206,7 @@ We can depend on any number of peer elements in our calculations:
     <input aria-label="I could be lucky" type=checkbox id=luckyIAm>
     <input aria-label="Would rather be" type=checkbox name=ready>
     <link itemprop=luckHasCome href=https://shema.org/true>
-    <template be-switched="on depending on @isANewDay and #lucky and #ready and |luckHasCome"
+    <template be-switched="on depending on @isANewDay and #lucky and #ready and |luckHasCome."
         oninput="
             const {factors} = event;
             const {isANewDay, beLucky, ratherBe, luckHasCome} = factors;
@@ -345,7 +345,7 @@ In the brave new world that custom elements has opened up, we can make our marku
     <a-duck></a-duck>
     <template 
         be-switched='
-            On when ~ carrotNosedWoman eq ~ aDuck.
+            On when ~carrotNosedWoman eq ~aDuck.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -379,7 +379,7 @@ What this does:
     <a-duck></a-duck>
     <template 
         be-switched='
-            On when ~ carrotNosedWoman::weight-change equals ~ aDuck::molting.
+            On when ~carrotNosedWoman::weight-change equals ~aDuck::molting.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -402,7 +402,7 @@ Use a single semicolon for specifying a property path.
     <a-duck></a-duck>
     <template 
         be-switched='
-            On when ~ carrotNosedWoman:weight equals ~ aDuck:weight.
+            On when ~carrotNosedWoman:weight equals ~aDuck:weight.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -471,7 +471,7 @@ But what if we just want to lazy load content when a single value goes from "fal
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched='on when |is happy. //or |isHappy.' >
+    <template be-switched='on when |isHappy.' >
         <my-content></my-content>
     </template>
 </div>

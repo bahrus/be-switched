@@ -42,6 +42,7 @@ export interface AllProps extends EndUserProps{
     //offTwoValueSwitches?: Array<TwoValueSwitch>,
     isParsed?: boolean,
     nValueSwitches?: Array<NValueScriptSwitch>
+    rawStatements?: Array<string>
 }
 
 export type SwitchStatement = string;
@@ -107,6 +108,7 @@ export interface Actions{
     // doOffBinarySwitches(self: this): Promise<void>;
     // doOffTwoValSwitches(sef: this): Promise<void>;
     onNValSwitches(self: this): Promise<void>;
+    onRawStatements(self: this): void;
 }
 
 

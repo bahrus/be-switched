@@ -18,6 +18,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             val: {},
             echoVal: {},
             nValueSwitches: {},
+            rawStatements: {},
         },
         compacts:{
             echo_val_to_echoVal: 20,
@@ -40,6 +41,9 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
+            onRawStatements: {
+                ifAllOf:  ['rawStatements']
+            }
         }
     }
 
@@ -150,6 +154,12 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
 
         }
         if(minMem) enhancedElement.removeAttribute('itemref');
+    }
+
+    onRawStatements(self: this): void {
+        const {rawStatements} = self;
+        console.error('The following statements could not be parsed.', rawStatements);
+        
     }
     
 }
