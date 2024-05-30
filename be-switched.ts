@@ -15,17 +15,18 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             switchesSatisfied: {},
             val: {},
             echoVal: {},
+
         },
-        // compacts:{
-        //     echo_val_to_echoVal: 20,
-        // },
+        compacts:{
+            echo_val_to_echoVal: 20,
+        },
         actions:{
             onTrue: {
-                //ifEquals: ['val', 'echoVal'],
+                ifEquals: ['val', 'echoVal'],
                 ifAllOf: ['val']
             },
             onFalse: {
-                //ifEquals: ['val', 'echoVal'],
+                ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
             },
             onTwoValSwitches: {

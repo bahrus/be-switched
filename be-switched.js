@@ -12,9 +12,9 @@ export class BeSwitched extends BE {
             val: {},
             echoVal: {},
         },
-        // compacts:{
-        //     echo_val_to_echoVal: 20,
-        // },
+        compacts: {
+            echo_val_to_echoVal: 20,
+        },
         actions: {
             onTrue: {
                 //ifEquals: ['val', 'echoVal'],
