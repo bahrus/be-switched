@@ -16,18 +16,7 @@ export async function doSingleValSwitch(self: AP){
 export async function checkSwitches(self: AP){
     const {singleValSwitches} = self;
     let foundOne = false;
-    if(onNValueSwitches !== undefined){
-        for(const nvalSwitch of onNValueSwitches){
-            if(nvalSwitch.switchedOn){
-                foundOne = true;
-            }
-        }
-    }
-    if(binarySwitches?.length === 0){
-        self.switchesSatisfied = foundOne;
-        return;
-    }
-    for(const onSwitch of binarySwitches!){
+    for(const onSwitch of singleValSwitches!){
         const {req, specifier} = onSwitch;
         if(foundOne && !req) continue;
         const ref = onSwitch.signal?.deref();
@@ -46,7 +35,7 @@ export async function checkSwitches(self: AP){
         if(req){
             if(!value){
                 //console.log({value, foundOne, req});
-                self.switchesSatisfied = false;
+                self.singleValSwitchNoGo = true;
                 return;
             }else{
                 foundOne = true;
@@ -57,5 +46,6 @@ export async function checkSwitches(self: AP){
         //console.log({value, foundOne, req});
     }
     //console.log({foundOne, onBinarySwitches});
-    self.switchesSatisfied = foundOne;
+    self.singleValSwitchNoGo = false;
+    self.singleValSwitchesSatisifed = foundOne;
 }
