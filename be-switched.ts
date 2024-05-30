@@ -54,9 +54,12 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     calcVal(self: this): PAP {
-        const {lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches} = self;
+        const {
+            lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches,
+            nValueSwitches
+        } = self;
         //console.log({switchesSatisfied});
-        if(twoValueSwitches !== undefined){
+        if(twoValueSwitches !== undefined || nValueSwitches !== undefined){
             return {
                 val: switchesSatisfied,
                 resolved: true,

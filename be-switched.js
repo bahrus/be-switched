@@ -45,9 +45,9 @@ export class BeSwitched extends BE {
         new NValueSwitch(self);
     }
     calcVal(self) {
-        const { lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches } = self;
+        const { lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches, nValueSwitches } = self;
         //console.log({switchesSatisfied});
-        if (twoValueSwitches !== undefined) {
+        if (twoValueSwitches !== undefined || nValueSwitches !== undefined) {
             return {
                 val: switchesSatisfied,
                 resolved: true,
