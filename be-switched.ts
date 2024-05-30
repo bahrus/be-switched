@@ -15,7 +15,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             switchesSatisfied: {},
             val: {},
             echoVal: {},
-
+            nValueSwitch: {},
         },
         compacts:{
             echo_val_to_echoVal: 20,
@@ -88,7 +88,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
         const itemref= enhancedElement.getAttribute('itemref');
         if(itemref === null){
             const keys : string[] = [];
-            const clone = enhancedElement.content.cloneNode(true);
+            const clone = enhancedElement.content.cloneNode(true) as DocumentFragment;
             for(const child of clone.children){
                 if(!child.id){
                     child.id = 'a' + crypto.randomUUID();

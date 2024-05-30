@@ -4,6 +4,7 @@ const base = 'be-switched';
 const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
 const onWhenLhsPartOpRhsPart = String.raw `^on when (?<lhsPart>.*) ${op} (?<rhsPart>.*)`;
 const offWhenLhsPartOpRhsPart = String.raw `^off when (?<lhsPart>.*) ${op} (?<rhsPart>.*)`;
+const onDependencies = String.raw `^on depending on (?<dependencyPart>.*)`;
 export const emc = {
     base,
     map: {
@@ -21,6 +22,13 @@ export const emc = {
                         regExp: offWhenLhsPartOpRhsPart,
                         defaultVals: { negate: true },
                         dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
+                    }
+                ],
+                nValueSwitch: [
+                    {
+                        regExp: onDependencies,
+                        defaultVals: {},
+                        dssKeys: [['dependencyPart', 'dependencies[]']]
                     }
                 ]
             }

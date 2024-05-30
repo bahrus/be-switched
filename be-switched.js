@@ -11,17 +11,18 @@ export class BeSwitched extends BE {
             switchesSatisfied: {},
             val: {},
             echoVal: {},
+            nValueSwitch: {},
         },
         compacts: {
             echo_val_to_echoVal: 20,
         },
         actions: {
             onTrue: {
-                //ifEquals: ['val', 'echoVal'],
+                ifEquals: ['val', 'echoVal'],
                 ifAllOf: ['val']
             },
             onFalse: {
-                //ifEquals: ['val', 'echoVal'],
+                ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
             },
             onTwoValSwitches: {
