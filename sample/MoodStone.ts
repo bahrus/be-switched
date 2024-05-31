@@ -20,10 +20,7 @@ export class MoodStone extends HTMLElement{
                 <my-content></my-content>
             </template>
 
-            <h3>Example 4b</h3>
-            <template be-switched='on when /isHappy.'>
-                <my-content-2></my-content-2>
-            </template>
+            
             <be-hive></be-hive>
         `;
     }
