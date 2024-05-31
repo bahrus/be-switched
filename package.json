@@ -27,9 +27,9 @@
   "dependencies": {
     "be-enhanced": "0.0.94",
     "be-hive": "0.0.167",
-    "be-linked": "0.0.93",
+    "be-linked": "0.0.94",
     "be-propagating": "0.0.39",
-    "be-value-added": "0.0.30",
+    "be-value-added": "0.0.31",
     "trans-render": "0.0.776"
   },
   "devDependencies": {
