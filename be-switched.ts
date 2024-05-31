@@ -10,9 +10,9 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
             hiddenStyle: 'display:none',
             lhs: false,
             rhs: true,
-            singleValSwitchesSatisifed: false,
+            singleValSwitchesSatisfied: false,
             singleValSwitchNoGo: false,
-            twoValSwitchesSatisified: false,
+            twoValSwitchesSatisfied: false,
             twoValSwitchNoGo: false,
         },
         propInfo:{
@@ -47,7 +47,7 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
                 ifAllOf: ['nValueSwitches']
             },
             calcSwitchesSatisfied:{
-                ifKeyIn: ['singleValSwitchNoGo', 'singleValSwitchesSatisifed', 'twoValSwitchNoGo', 'twoValSwitchesSatisified']
+                ifKeyIn: ['singleValSwitchNoGo', 'singleValSwitchesSatisfied', 'twoValSwitchNoGo', 'twoValSwitchesSatisfied']
             },
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
@@ -76,10 +76,10 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     calcVal(self: this): PAP {
         const {
             lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches,
-            nValueSwitches
+            nValueSwitches, singleValSwitches
         } = self;
         //console.log({switchesSatisfied});
-        if(twoValueSwitches !== undefined || nValueSwitches !== undefined){
+        if(twoValueSwitches !== undefined || nValueSwitches !== undefined || singleValSwitches !== undefined){
             return {
                 val: switchesSatisfied,
                 resolved: true,
@@ -115,9 +115,9 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
     }
 
     calcSwitchesSatisfied(self: this): Partial<AllProps> {
-        const {singleValSwitchNoGo, singleValSwitchesSatisifed, twoValSwitchNoGo, twoValSwitchesSatisified} = self;
+        const {singleValSwitchNoGo, singleValSwitchesSatisfied, twoValSwitchNoGo, twoValSwitchesSatisfied} = self;
         return {
-            switchesSatisfied: !singleValSwitchNoGo && !twoValSwitchNoGo && (singleValSwitchesSatisifed || twoValSwitchesSatisified),
+            switchesSatisfied: !singleValSwitchNoGo && !twoValSwitchNoGo && (singleValSwitchesSatisfied || twoValSwitchesSatisfied),
         }
     }
 

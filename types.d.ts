@@ -33,9 +33,9 @@ export interface EndUserProps extends IEnhancement<HTMLTemplateElement>{
 
 export interface AllProps extends EndUserProps{
     val: boolean,
-    singleValSwitchesSatisifed?: boolean,
+    singleValSwitchesSatisfied?: boolean,
     singleValSwitchNoGo?: boolean,
-    twoValSwitchesSatisified?: boolean,
+    twoValSwitchesSatisfied?: boolean,
     twoValSwitchNoGo?: boolean,
     switchesSatisfied?: boolean,
     echoVal: boolean,

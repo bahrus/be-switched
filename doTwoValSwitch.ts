@@ -84,7 +84,7 @@ export async function checkSwitches(self: BeSwitched){
         //console.log({lhs, rhs, value, foundOne});
     }
     self.twoValSwitchNoGo = false;
-    self.twoValSwitchesSatisified = foundOne;
+    self.twoValSwitchesSatisfied = foundOne;
 }
 
 

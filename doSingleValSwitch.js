@@ -48,5 +48,5 @@ export async function checkSwitches(self) {
     }
     //console.log({foundOne, onBinarySwitches});
     self.singleValSwitchNoGo = false;
-    self.singleValSwitchesSatisifed = foundOne;
+    self.singleValSwitchesSatisfied = foundOne;
 }
