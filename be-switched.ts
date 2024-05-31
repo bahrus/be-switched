@@ -37,6 +37,9 @@ export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements 
                 ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
             },
+            onSingleValSwitches: {
+                ifAllOf: ['singleValSwitches']
+            },
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
             },

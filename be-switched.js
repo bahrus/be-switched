@@ -33,6 +33,9 @@ export class BeSwitched extends BE {
                 ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
             },
+            onSingleValSwitches: {
+                ifAllOf: ['singleValSwitches']
+            },
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
             },
