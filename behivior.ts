@@ -9,6 +9,7 @@ const onWhenLhsPartOpRhsPart = String.raw `^on when (?<lhsPart>.*) ${op} (?<rhsP
 const offWhenLhsPartOpRhsPart = String.raw `^off when (?<lhsPart>.*) ${op} (?<rhsPart>.*)`;
 const onDependencies = String.raw `^on depending on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
+const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
 export const emc: EnhancementMountCnfg<AP> = {
     base,
     map: {
@@ -39,6 +40,11 @@ export const emc: EnhancementMountCnfg<AP> = {
                     {
                         regExp: onWhenIfPart,
                         defaultVals: {},
+                        dssKeys: [['ifPart', 'specifier']]
+                    },
+                    {
+                        regExp: onOnlyWhenIfPart,
+                        defaultVals: {req: true},
                         dssKeys: [['ifPart', 'specifier']]
                     }
                 ]
