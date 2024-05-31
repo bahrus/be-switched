@@ -256,9 +256,6 @@ Let's start with the most elementary two value switch:
 > [!Note]
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
-> [!Note]
-> If the name you are binding to has the letters "eq" or "equals" or "lt" or "gt" in the name, it is safest to escape such strings: "on when my\Equity eq your\Equity"
-
 
 ### By N@me
 
@@ -490,7 +487,7 @@ Can also reference form element, or [form associated custom elements](https://be
     ...
     <input name=isHappy type=checkbox>
     ...
-    <template be-switched='on when @is happy.'>
+    <template be-switched='on when @isHappy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -505,7 +502,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
     ...
     <input id=isHappy type=checkbox>
     ...
-    <template be-switched='on when #is happy.'>
+    <template be-switched='on when #isHappy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -518,7 +515,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
     ...
     <input id=isHappy>
     ...
-    <template be-switched='on only when #is happy.'>
+    <template be-switched='on only when #isHappy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -640,7 +637,7 @@ After staring at my keyboard for several hours, I have decided that maybe this i
 ```html
 <mood-stone>
     #shadow
-    <template be-switched='on when / is happy.'>
+    <template be-switched='on when /isHappy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
@@ -650,17 +647,6 @@ After staring at my keyboard for several hours, I have decided that maybe this i
 
 This also works: 
 
-### Example 4b
-
-```html
-<mood-stone>
-    #shadow
-    <template be-switched='on when /isHappy.'>
-        <my-content></my-content>
-    </template>
-    <be-hive></be-hive>
-</mood-stone>
-```
 
 / is considered the "default" symbol, so it actually doesn't need to be specified:
 
@@ -669,7 +655,7 @@ This also works:
 ```html
 <mood-stone>
     #shadow
-    <template be-switched='on when is happy.'>
+    <template be-switched='on when isHappy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
