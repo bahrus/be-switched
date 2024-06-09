@@ -1,4 +1,4 @@
-import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch} from './types';
+import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch} from '../types.js';
 import {RegExpOrRegExpExt} from 'be-enhanced/types';
 import {tryParse} from 'trans-render/lib/prs/tryParse.js';
 

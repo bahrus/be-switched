@@ -1,4 +1,4 @@
-import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch, TwoPartOpStatement} from './types';
+import {AP, ProPAP, OneValueSwitch, PAP, TwoValueSwitch, NValueScriptSwitch, TwoPartOpStatement} from '../types';
 import { tryParse } from 'trans-render/lib/prs/tryParse.js';
 import {parse} from 'trans-render/dss/parse.js';
 //import { strType, prsElO } from 'trans-render/lib/prs/prsElO.js';

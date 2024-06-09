@@ -1,4 +1,4 @@
-import { Dependency, NValueScriptSwitch } from './types';
+import { Dependency, NValueScriptSwitch } from '../types';
 import {parse} from 'trans-render/dss/parse.js';
 
 
