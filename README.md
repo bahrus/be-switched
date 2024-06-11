@@ -100,10 +100,11 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
     <a-duck></a-duck>
     <template
         be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        onInput="
+        onInput="{
             const {factors} = event;
             const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
-            event.switchOn = Math.abs(lhs.weight -  rhs.weight) < 10"
+            event.switchOn = Math.abs(lhs.weight -  rhs.weight) < 10
+        }"
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -114,6 +115,8 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
 What this is saying:  
 
 > Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the onInput attribute.  If switchOn is set to true, display the contents within the template.  If switchOn is set to false, hide it.  Also, do this check on initialization.
+
+Don't forget to wrap everything inside braces (to prevent leakage into the global namespace)!
 
 Here is another, less cinematic example:
 
@@ -174,7 +177,7 @@ While we are getting our hands dirty with unfettered JavaScript, we can take the
     <a-duck></a-duck>
     <template
         be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        oninput="
+        oninput="{
             const {factors} = event;
             const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
             const weightsAreSimilar = Math.abs(lhs.weight -  rhs.weight) < 10;
@@ -183,7 +186,7 @@ While we are getting our hands dirty with unfettered JavaScript, we can take the
                 to: `isMadeOfWood`,
                 val: weightsAreSimilar
             };
-        "
+        }"
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -207,14 +210,14 @@ We can depend on any number of peer elements in our calculations:
     <input aria-label="Would rather be" type=checkbox name=ready>
     <link itemprop=luckHasCome href=https://shema.org/true>
     <template be-switched="on depending on @isANewDay and #lucky and #ready and |luckHasCome."
-        oninput="
+        oninput="{
             const {factors} = event;
             const {isANewDay, beLucky, ratherBe, luckHasCome} = factors;
             event.switchOn = 
                 isANewDay.checked  
                 && (ready.checked || luckyIAm.checked)
                 &&  luckHasCome.value
-        "
+        }"
     >
         I am ready to benefit from such good luck.
     </template>
