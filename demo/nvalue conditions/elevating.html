@@ -28,12 +28,12 @@
         <input id=rhs>
         <template
             be-switched='on depending on #lhs and #rhs.'
-            oninput="
+            oninput="{
                 event.switchOn = event.factors.lhs.value === event.factors.rhs.value;
                 event.elevate = {
                     to: 'dataset:isMadeOfWood'
                 }
-            "
+            }"
             >
             <div>LHS === RHS</div>
         </template>
