@@ -10,7 +10,8 @@
             "imports": {
                 "be-enhanced/": "/node_modules/be-enhanced/",
                 "be-hive/":  "/node_modules/be-hive/",
-                "be-value-added/": "/node_modules/be-value-added/",
+                "be-linked/": "/node_modules/be-linked/",
+                "mount-observer/": "/node_modules/mount-observer/",
                 "trans-render/": "/node_modules/trans-render/",
                 "xtal-element/": "/node_modules/xtal-element/"
             }
@@ -20,12 +21,12 @@
 <body>
     <form>
         <input name=isHappy type="checkbox">
-        <template be-switched='on when @ is happy.'>
+        <template be-switched='on when @isHappy.'>
             <my-content></my-content>
         </template>
     </form>
     <script type=module>
-        import '/be-switched.js';
+        import '/behivior.js';
     </script>
 </body>
 </html>

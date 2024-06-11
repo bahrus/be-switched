@@ -1,4 +1,4 @@
-import { BeHive } from 'be-hive/be-hive.js';
+import { BeHive, seed } from 'be-hive/be-hive.js';
 import { MountObserver } from 'mount-observer/MountObserver.js';
 const base = 'be-switched';
 const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
@@ -54,7 +54,5 @@ export const emc = {
         return BeSwitched;
     }
 };
-const mose = document.createElement('script');
-mose.id = base;
-mose.synConfig = emc;
+const mose = seed(emc);
 MountObserver.synthesize(document, BeHive, mose);

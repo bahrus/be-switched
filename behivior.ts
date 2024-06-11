@@ -1,4 +1,4 @@
-import {BeHive, EnhancementMountCnfg} from 'be-hive/be-hive.js';
+import {BeHive, EMC, seed} from 'be-hive/be-hive.js';
 import {MountObserver, MOSE} from 'mount-observer/MountObserver.js';
 import {AP} from './types'
 
@@ -10,7 +10,7 @@ const offWhenLhsPartOpRhsPart = String.raw `^off when (?<lhsPart>.*) ${op} (?<rh
 const onDependencies = String.raw `^on depending on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
 const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
-export const emc: EnhancementMountCnfg<AP> = {
+export const emc: EMC<AP> = {
     base,
     map: {
         '0.0': {
@@ -58,8 +58,6 @@ export const emc: EnhancementMountCnfg<AP> = {
     }
 };
 
-const mose = document.createElement('script') as MOSE<EnhancementMountCnfg>;
-mose.id = base;
-mose.synConfig = emc;
+const mose = seed(emc);
 
 MountObserver.synthesize(document, BeHive, mose);
