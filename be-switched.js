@@ -1,6 +1,6 @@
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
-export class BeSwitched extends BE {
+class BeSwitched extends BE {
     static config = {
         propDefaults: {
             hiddenStyle: 'display:none',
@@ -191,3 +191,5 @@ function addStyle(ap) {
         rootNode.appendChild(style);
     }
 }
+await BeSwitched.bootUp();
+export { BeSwitched };

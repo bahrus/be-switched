@@ -50,7 +50,7 @@ export const emc = {
     },
     enhPropKey: 'beSwitched',
     importEnh: async () => {
-        const { BeSwitched } = await import('./behance.js');
+        const { BeSwitched } = await import('./be-switched.js');
         return BeSwitched;
     }
 };

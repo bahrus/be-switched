@@ -4,7 +4,7 @@ import {Actions, AllProps, AP, PAP, ProPAP} from './types';
 import { Positractions, PropInfo } from 'trans-render/froop/types';
 import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
 
-export class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
+class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
         propDefaults:{
             hiddenStyle: 'display:none',
@@ -205,4 +205,8 @@ function addStyle(ap: AP){
     }
 }
 
-export interface BeSwitched extends AllProps{}
+interface BeSwitched extends AllProps{}
+
+await BeSwitched.bootUp();
+
+export {BeSwitched}
