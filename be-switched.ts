@@ -126,7 +126,10 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
         const itemref= enhancedElement.getAttribute('itemref');
         if(itemref === null){
             const keys : string[] = [];
-            const clone = enhancedElement.content.cloneNode(true) as DocumentFragment;
+            let templToClone = enhancedElement;
+            const externalRefId = templToClone.dataset.blowDryTemplRef;
+            if(externalRefId) templToClone = (<any>window)[externalRefId];
+            const clone = templToClone.content.cloneNode(true) as DocumentFragment;
             for(const child of clone.children){
                 if(!child.id){
                     child.id = 'a' + crypto.randomUUID();

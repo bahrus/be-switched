@@ -113,7 +113,11 @@ class BeSwitched extends BE {
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null) {
             const keys = [];
-            const clone = enhancedElement.content.cloneNode(true);
+            let templToClone = enhancedElement;
+            const externalRefId = templToClone.dataset.blowDryTemplRef;
+            if (externalRefId)
+                templToClone = window[externalRefId];
+            const clone = templToClone.content.cloneNode(true);
             for (const child of clone.children) {
                 if (!child.id) {
                     child.id = 'a' + crypto.randomUUID();
