@@ -749,6 +749,13 @@ In this scenario, repeating the content inside the template is unnecessary, unle
 
 An option, minMem, allows for completely wiping away content derived from the template when conditions are no longer met.  This *might* be better on a low memory device, especially if the content has no support for be-oosoom (see below).
 
+> [!NOTE]
+> This enhancements shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
+
+
+
+
+
 ## Additional conditions be-switched supports
 
 In addition to "if" boolean checks, and equality checks using lhs and rhs keys, some additional "if" checks can be made:
