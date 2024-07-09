@@ -8,7 +8,7 @@
 		"strict": true,
 	},
 	"files": [
-		"behivior.ts",
+		"🎚️.ts",
 		"sample/MoodStone.ts"
 	],
 	"exclude":[
