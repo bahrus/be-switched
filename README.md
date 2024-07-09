@@ -1,4 +1,4 @@
-# be-switched
+# be-switched ( 🎚️ )
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -117,7 +117,7 @@ What this is saying:
 > Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the onInput attribute.  If switchOn is set to true, display the contents within the template.  If switchOn is set to false, hide it.  Also, do this check on initialization.
 
 > [!NOTE]
-> VSCode, while trying to be helpful, can actually cause unnecessary panic here.  If two onInput expressions define the same constant, VSCode falsely accuses the code of "redeclaring block scope variable".  In fact, each such onINput expression is evaluated within a a non visible block scope.  But to avoid alarming the next developer who may not know this, just wrap the expression inside curly braces just to appease VS Code.  We will do so in the following examples
+> VSCode, while trying to be helpful, can actually cause unnecessary panic here.  If two onInput expressions  of two different template elements (in this case) define the same constant, VSCode falsely accuses the code of "redeclaring block scope variable".  In fact, each such onInput expression is evaluated within a a non visible block scope.  But to avoid alarming the next developer who may not know this, just wrap the expression inside curly braces just to appease VS Code.  We will do so in the following examples
 
 Here is another, less cinematic example:
 
@@ -170,7 +170,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 
 ## Elevating a computed value
 
-While we are getting our hands dirty with unfettered JavaScript, we can take the opportunity sneak in some side effects, and pass such calculated values up to the host (or peer elements):
+While we are getting our hands dirty with unfettered JavaScript, we can take the opportunity to sneak in some side effects, and pass such calculated values up to the host (or peer elements):
 
 ```html
 <ways-of-science itemscope>
@@ -178,7 +178,7 @@ While we are getting our hands dirty with unfettered JavaScript, we can take the
     <a-duck></a-duck>
     <template
         be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        oninput="{
+        onInput="{
             const {factors} = event;
             const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
             const weightsAreSimilar = Math.abs(lhs.weight -  rhs.weight) < 10;
@@ -231,7 +231,7 @@ However, there is one restriction -- There can only be one active sentence conta
 
 ## Bye JavaScript, nice knowin' ya!
 
-What follows quickly moves outside the domain of JavaScript, so if JS is your only game, you have passed the course and are ready to code to your heart's content!  Supporting the declarative bindings as described below won't be loaded unless actually used, so little to no harm do if you don't choose to use what follows.
+What follows quickly moves outside the domain of JavaScript, so if JS is your only game, you have passed the course and are ready to code to your heart's content!  Supporting the declarative bindings as described below won't be loaded unless actually used, so little to no harm done if you don't choose to use what follows.
 
 We start by looking at pairs of comparisons between the "lhs" (left hand side) and the "rhs" (right hand side).
 
