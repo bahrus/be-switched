@@ -2,8 +2,9 @@ import {config as beCnfg} from 'be-enhanced/config.js';
 import {BE, BEConfig} from 'be-enhanced/BE.js';
 import {Actions, AllProps, AP, PAP, ProPAP} from './types';
 import { Positractions, PropInfo } from 'trans-render/froop/types';
-import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
+import {IEnhancement,  BEAllProps, EnhancementInfo} from 'trans-render/be/types';
 
+let cnt = 0;
 class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
         propDefaults:{
@@ -57,7 +58,11 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
             }
         }
     }
-
+    #enhKey: string | undefined;
+    override async attach(el: HTMLTemplateElement, enhancementInfo: EnhancementInfo){
+        this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
+        super.attach(el, enhancementInfo);
+    }
     async onSingleValSwitches(self: this): Promise<void> {
         const {doSingleValSwitch} = await import('./doSingleValSwitch.js');
         doSingleValSwitch(self);
@@ -132,7 +137,8 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
             const clone = templToClone.content.cloneNode(true) as DocumentFragment;
             for(const child of clone.children){
                 if(!child.id){
-                    child.id = 'a' + crypto.randomUUID();
+                    child.id = `${this.#enhKey}_${cnt}`;
+                    cnt++;
                 }
                 keys.push(child.id);
             }

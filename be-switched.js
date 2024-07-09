@@ -1,5 +1,6 @@
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
+let cnt = 0;
 class BeSwitched extends BE {
     static config = {
         propDefaults: {
@@ -53,6 +54,11 @@ class BeSwitched extends BE {
             }
         }
     };
+    #enhKey;
+    async attach(el, enhancementInfo) {
+        this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
+        super.attach(el, enhancementInfo);
+    }
     async onSingleValSwitches(self) {
         const { doSingleValSwitch } = await import('./doSingleValSwitch.js');
         doSingleValSwitch(self);
@@ -120,7 +126,8 @@ class BeSwitched extends BE {
             const clone = templToClone.content.cloneNode(true);
             for (const child of clone.children) {
                 if (!child.id) {
-                    child.id = 'a' + crypto.randomUUID();
+                    child.id = `${this.#enhKey}_${cnt}`;
+                    cnt++;
                 }
                 keys.push(child.id);
             }
