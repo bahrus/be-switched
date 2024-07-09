@@ -102,8 +102,7 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
         be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         onInput="
             const {factors} = event;
-            const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
-            event.switchOn = Math.abs(lhs.weight -  rhs.weight) < 10
+            event.switchOn = Math.abs(factors.carrotNosedWoman.weight -  factors.aDuck.weight) < 10
         "
     >
         <div>A witch!</div>
@@ -136,31 +135,8 @@ Here is another, less cinematic example:
 
 As you have probably noticed, we are starting to introduce special symbols for finding peer elements. 
 
-We call this syntax [Directed Scoped Specifiers, or DSS](https://github.com/bahrus/trans-render/tree/baseline/dss#readme), inspired by, but not to be confused with, CSS selectors.  It is optimized for the problem at hand -- binding to peer elements (or the host), with an eye towards encouraging semantic HTML markup.  
+We call this syntax [Directed Scoped Specifiers, or DSS](https://github.com/bahrus/trans-render/tree/baseline/dss#readme), inspired by, but not to be confused with, CSS selectors.  It is optimized for the problem at hand -- binding to nearby, relative elements (or the host), with an eye towards encouraging semantic HTML markup.  
 
-A still evolving summary of DSS is shown below:
-
-## Special Symbols
-
-In the examples below, we will encounter special symbols used in order to keep the statements small:
-
-| Symbol       | Meaning                        | Notes                                                                                             |
-|--------------|--------------------------------|---------------------------------------------------------------------------------------------------|
-| /propName    |"Hostish"                       | Attaches listeners to "propagator" EventTarget.                                                   |
-| @propName    |Name attribute                  | Listens for input events by default.                                                              |
-| \|propName   |Itemprop attribute              | If contenteditible, listens for input events by default.  Otherwise, uses be-value-added.         |
-| #propName    |Id attribute                    | Listens for input events by default.                                                              |
-| %propName    |match based on part attribute   | Listens for input events by default.                                                              |
-| -prop-name   |Marker indicates prop           | Attaches listeners to "propagator" EventTarget.                                                   | 
-| ~elementName |match based on element name     | Listens for input events by default.                                                              |
-| $0           |adorned element                 | Useful for specifying constants (TODO)                                                            |
-| ::eventName  |name of event to listen for     |                                                                                                   |
-
-
-"Hostish" means:
-
-1.  First, do a "closest" for an element with attribute itemscope, where the tag name has a dash in it.  Do that search recursively.  
-2.  If no match found, use getRootNode().host.
 
 We are often (but not always in the case of 2. below) making some assumptions about the elements we are comparing -- 
 
@@ -180,8 +156,7 @@ While we are getting our hands dirty with unfettered JavaScript, we can take the
         be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         onInput="{
             const {factors} = event;
-            const {carrotNosedWoman: lhs, aDuck: rhs} = factors;
-            const weightsAreSimilar = Math.abs(lhs.weight -  rhs.weight) < 10;
+            const weightsAreSimilar = Math.abs(factors.carrotNosedWoman.weight -  factors.aDuck.weight) < 10;
             event.switchOn = weightsAreSimilar;
             event.elevate = {
                 to: `isMadeOfWood`,
@@ -252,7 +227,7 @@ Let's start with the most elementary two value switch:
 ```
 
 > [!NOTE]
-> For id based matches (which is what we have above), the search is done within the root node of the element.  
+> For id based matches (which is what we have above), the search is done within the root node of the element, i.e. the ShadowDOM container or the document if outside any ShadowDOM.  
 
 > [!NOTE]
 > The comparison condition is re-evaluated on the input events of the lhs and rhs elements by default.  See below for how to specify alternate event names
@@ -263,7 +238,7 @@ Let's start with the most elementary two value switch:
 
 In applications that use be-switched frequently, where concerns about clashing with already registered packages in npm isn't a concern, it might make development more productive to utilize a shorter name.  The best alternative name is probably "turn", and it does seem unlikely to me that the platform would ever add attribute "turn" to the template element, but you never know, I guess.
 
-This package does provide on alternative name you can use:  🎚️ via the file [TODO].
+This package does provide an alternative name you can use, which seems quite future-proof and succinct:  🎚️ via the file [TODO].
 
 I think you will agree, looking at the file how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
 
