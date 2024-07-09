@@ -261,6 +261,14 @@ Let's start with the most elementary two value switch:
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
 
+In applications that use be-switched frequently, where concerns about clashing with already registered packages in npm isn't a concern, it might make development more productive to utilize a shorter name.  The best alternative name is probably "turn", and it does seem unlikely to me that the platform would ever add attribute "turn" to the template element, but you never know, I guess.
+
+This package does provide on alternative name you can use:  🎚️ via the file [TODO].
+
+I think you will agree, looking at the file how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
+
+The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" in your mind when you see it below.
+
 ### By N@me
 
 ```html
@@ -274,7 +282,7 @@ Let's start with the most elementary two value switch:
         <input name=rhs>
     </label>
     
-    <template be-switched='on when @lhs equals @rhs.'>
+    <template 🎚️='on when @lhs equals @rhs.'>
         <div>LHS === RHS</div>
     </template>
 </form>
@@ -305,7 +313,7 @@ These should be active:
         <input name=rhs>
     </label>
     
-    <template be-switched='on when ^section@lhs eq ^section@rhs.'>
+    <template 🎚️='on when ^{section}@lhs eq ^section@rhs.'>
         <div>LHS === RHS</div>
     </template>
 </section>
@@ -326,7 +334,7 @@ We can apply such closest queries to either the LHS or the RHS, or both, as show
     <span itemprop=rhs contenteditable></span>
     
     
-    <template be-switched='on when |lhs equals |rhs.'>
+    <template 🎚️='on when |lhs equals |rhs.'>
         <div>LHS === RHS</div>
     </template>
 </div>
@@ -345,7 +353,7 @@ In the brave new world that custom elements has opened up, we can make our marku
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template 
-        be-switched='
+        🎚️='
             On when ~carrotNosedWoman eq ~aDuck.
      '>
         <div>A witch!</div>
@@ -379,7 +387,7 @@ What this does:
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template 
-        be-switched='
+        🎚️='
             On when ~carrotNosedWoman::weight-change equals ~aDuck::molting.
      '>
         <div>A witch!</div>
@@ -402,7 +410,7 @@ Use a single semicolon for specifying a property path.
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template 
-        be-switched='
+        🎚️='
             On when ~carrotNosedWoman:weight equals ~aDuck:weight.
      '>
         <div>A witch!</div>
@@ -426,7 +434,7 @@ This is now supported:
 <input type=number id=lhs>
 <label for=rhs>RHS:</label>
 <input type=number id=rhs>
-<template be-switched='on when #lhs lt #rhs.'>
+<template 🎚️='on when #lhs lt #rhs.'>
     <div>LHS &lt; RHS</div>
 </template>
 ```
@@ -440,7 +448,7 @@ This is supported:
 <input type=number id=lhs>
 <label for=rhs>RHS:</label>
 <input type=number id=rhs>
-<template be-switched='on when #lhs gt #rhs.'>
+<template 🎚️='on when #lhs gt #rhs.'>
     <div>LHS &gt; RHS</div>
 </template>
 ```
@@ -450,7 +458,7 @@ This is supported:
 
 ```html
 <input type=number>
-<template be-switched='on when ^* gt Y.'>
+<template 🎚️='on when ^* gt Y.'>
     <div>Previous input &gt; RHS</div>
 </template>
 <input type=number>
@@ -472,13 +480,11 @@ But what if we just want to lazy load content when a single value goes from "fal
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched='on when |isHappy.' >
+    <template 🎚️='on when |isHappy.' >
         <my-content></my-content>
     </template>
 </div>
 ```
-
-Note that if a space is placed between | and "is", it will only match for itemprop="IsHappy" with a capital I.
 
 Searches within nearest itemscope, else from rootNode.
 
@@ -491,7 +497,7 @@ Can also reference form element, or [form associated custom elements](https://be
     ...
     <input name=isHappy type=checkbox>
     ...
-    <template be-switched='on when @isHappy.'>
+    <template 🎚️='on when @isHappy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -506,7 +512,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
     ...
     <input id=isHappy type=checkbox>
     ...
-    <template be-switched='on when #isHappy.'>
+    <template 🎚️='on when #isHappy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -519,7 +525,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
     ...
     <input id=isHappy>
     ...
-    <template be-switched='on only when #isHappy.'>
+    <template 🎚️='on only when #isHappy.'>
         <my-content></my-content>
     </template>
 </form>
@@ -533,7 +539,7 @@ This is an "and" condition due to the presence of "only"
 <div itemscope>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
-    <template be-switched='on when ^*.'>
+    <template 🎚️='on when ^*.'>
         <my-content></my-content>
     </template>
 </div>
@@ -547,7 +553,7 @@ The standalone ^* is indicating to just look at the previous element sibling.
 <div itemscope>
     ...
     
-    <template be-switched='on when Y.'>
+    <template 🎚️='on when Y.'>
         <my-content></my-content>
     </template>
     <link itemprop=isHappy href=https://schema.org/True>
@@ -561,7 +567,7 @@ The standalone ^* is indicating to just look at the previous element sibling.
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     <div></div>
-    <template be-switched='on when ^* |isHappy.'>
+    <template 🎚️='on when ^* |isHappy.'>
         <my-content></my-content>
     </template>
 </div>
@@ -577,7 +583,7 @@ The standalone ^* is indicating to just look at the previous element sibling.
     <label id=lhs>lhs</label>
     <input name=lhs type=number>
     
-    <template data-rhs-num=37 be-switched='on when @lhs equals $0:dataset.rhsNum.'>
+    <template data-rhs-num=37 🎚️='on when @lhs equals $0:dataset.rhsNum.'>
         <my-content></my-content>
     </template>
     
