@@ -244,6 +244,16 @@ I think you will agree, looking at the file how easy it is to define your own na
 
 The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" in your mind when you see it below.
 
+### Type casting
+
+<label for=lhs>LHS:</label>
+<input id=lhs type=number>
+<label for=rhs>RHS:</label>
+<input id=rhs>
+<template be-switched='on when #lhs equals #rhs as number.'>
+    <div>LHS === RHS</div>
+</template>
+
 ### By N@me
 
 ```html
@@ -429,11 +439,15 @@ This is supported:
 ```
 
 
+
+
+
+
 ### Up and down searches using ^() Y() expressions. [TODO]
 
 ```html
 <input type=number>
-<template 🎚️='on when ^(*) gt Y(*).'>
+<template 🎚️='on when ^{(*)} gt Y{*}.'>
     <div>Previous input &gt; RHS</div>
 </template>
 <input type=number>
@@ -548,7 +562,7 @@ This also works:
 <div itemscope>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
-    <template 🎚️='on when ^(*).'>
+    <template 🎚️='on when ^{(*)}.'>
         <my-content></my-content>
     </template>
 </div>
@@ -562,7 +576,7 @@ The standalone ^(*) is indicating to just look at the previous element sibling.
 <div itemscope>
     ...
     
-    <template 🎚️='on when Y(*).'>
+    <template 🎚️='on when Y{*}.'>
         <my-content></my-content>
     </template>
     <link itemprop=isHappy href=https://schema.org/True>
@@ -576,7 +590,7 @@ The standalone ^(*) is indicating to just look at the previous element sibling.
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     <div></div>
-    <template 🎚️='on when ^* |isHappy.'>
+    <template 🎚️='on when ^{(link)}.'>
         <my-content></my-content>
     </template>
 </div>
@@ -592,14 +606,14 @@ The standalone ^(*) is indicating to just look at the previous element sibling.
     <label id=lhs>lhs</label>
     <input name=lhs type=number>
     
-    <template data-rhs-num=37 🎚️='on when @lhs equals $0:dataset.rhsNum.'>
+    <template data-rhs=37 🎚️='on when @lhs eq $0:dataset:rhs as number.'>
         <my-content></my-content>
     </template>
     
 </div>
 ```
 
-*be-switched* recognizes the suffixes num, int, float, big-int, bool, date, reg-exp, url-pattern(?)
+
 
 
 

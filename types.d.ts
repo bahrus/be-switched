@@ -75,6 +75,8 @@ export interface TwoValueSwitch{
     //eventNames?: string,
     lhs?: ISide,
     rhs?: ISide,
+    //lhsType?: 'number' | 'boolean',
+    rhsType?: 'number' | 'boolean' | 'string',
 }
 
 export interface Dependency extends Specifier{}

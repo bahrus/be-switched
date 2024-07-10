@@ -22,7 +22,7 @@ export async function checkSwitches(self) {
         return;
     }
     for (const onSwitch of twoValueSwitches) {
-        const { req, lhsSignal, rhsSignal, op, negate, lhsSpecifier, rhsSpecifier } = onSwitch;
+        const { req, lhsSignal, rhsSignal, op, negate, lhsSpecifier, rhsSpecifier, rhsType } = onSwitch;
         if (foundOne && !req)
             continue;
         let value = false;
@@ -40,7 +40,17 @@ export async function checkSwitches(self) {
                 continue;
             }
             const lhs = lhsSubProp !== undefined ? await getVal({ host: lhsRef }, lhsSubProp) : getSignalVal(lhsRef);
-            const rhs = rhsSubProp !== undefined ? await getVal({ host: rhsRef }, rhsSubProp) : getSignalVal(rhsRef);
+            let rhs = rhsSubProp !== undefined ? await getVal({ host: rhsRef }, rhsSubProp) : getSignalVal(rhsRef);
+            if (rhsType !== undefined) {
+                console.log({ rhsType });
+                switch (rhsType) {
+                    case 'number':
+                        rhs = Number(rhs);
+                        break;
+                    default:
+                        throw 'NI';
+                }
+            }
             switch (op) {
                 case 'eq':
                 case 'equals':

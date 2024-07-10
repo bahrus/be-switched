@@ -2,8 +2,12 @@ import { BeHive, seed } from 'be-hive/be-hive.js';
 import { MountObserver } from 'mount-observer/MountObserver.js';
 const base = 'be-switched';
 const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
-const onWhenLhsPartOpRhsPart = String.raw `^on when (?<lhsPart>.*) ${op} (?<rhsPart>.*)`;
-const offWhenLhsPartOpRhsPart = String.raw `^off when (?<lhsPart>.*) ${op} (?<rhsPart>.*)`;
+const whenLHSPart = String.raw `when (?<lhsPart>.*)`;
+const rhsPart = String.raw `(?<rhsPart>.*)`;
+const rhsPartAsRhsType = String.raw `${rhsPart} as (?<rhsType>(number|boolean|string))`;
+const onWhenLhsPartOpRhsPart = String.raw `^on ${whenLHSPart} ${op} ${rhsPart}`;
+const onWhenLhsPartOpRhsPartAsRhsType = String.raw `^on ${whenLHSPart} ${op} ${rhsPartAsRhsType}`;
+const offWhenLhsPartOpRhsPart = String.raw `^off ${whenLHSPart} ${op} ${rhsPart}`;
 const onDependencies = String.raw `^on depending on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
 const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
@@ -15,6 +19,11 @@ export const emc = {
             objValMapsTo: '.',
             regExpExts: {
                 twoValueSwitches: [
+                    {
+                        regExp: onWhenLhsPartOpRhsPartAsRhsType,
+                        defaultVals: {},
+                        dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
+                    },
                     {
                         regExp: onWhenLhsPartOpRhsPart,
                         defaultVals: {},
