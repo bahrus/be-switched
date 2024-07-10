@@ -614,9 +614,23 @@ If no itemscope container is present and there's some ambiguity use [TODO]:
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched='on when ^%myPart|isHappy.'>
+    <template be-switched="on when ^%{myPart}|isHappy.">
         <my-content></my-content>
     </template>
+</section>
+```
+
+```html
+<section itemscope itemprop=mySubObject>
+    ...
+    <link itemprop=isHappy href=https://schema.org/True>
+    ...
+    <section itemscope itemprop=mySubSubObject>
+        <template be-switched="on when ^${mySubObject}|isHappy.">
+            <my-content></my-content>
+        </template>
+    </section>
+
 </section>
 ```
 
