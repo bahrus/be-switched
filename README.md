@@ -433,7 +433,7 @@ This is supported:
 
 ```html
 <input type=number>
-<template 🎚️='on when ^* gt Y.'>
+<template 🎚️='on when ^{*} gt Y{*}.'>
     <div>Previous input &gt; RHS</div>
 </template>
 <input type=number>
@@ -507,6 +507,40 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 ```
 
 This is an "and" condition due to the presence of "only"
+
+### Condition coming from host
+
+### With / symbol
+
+"/" refers to the host.
+
+```html
+<mood-stone>
+    #shadow
+    <template be-switched='on when /isHappy.'>
+        <my-content></my-content>
+    </template>
+    <be-hive></be-hive>
+</mood-stone>
+```
+
+
+This also works: 
+
+
+/ is considered the "default" symbol, so it actually doesn't need to be specified:
+
+### The bare specifier
+
+```html
+<mood-stone>
+    #shadow
+    <template be-switched='on when isHappy.'>
+        <my-content></my-content>
+    </template>
+    <be-hive></be-hive>
+</mood-stone>
+```
 
 ### Referring to previous element sibling [TODO]
 
@@ -615,37 +649,7 @@ So this is where we have a clash between Hemingway and CSS.  The most natural sy
 
 After staring at my keyboard for several hours, I have decided that maybe this is for the best.  Using css classes for purposes of binding may cross a barrier into "hackish" territory, especially when there are so many attractive alternatives that we've discussed above.  The part attribute is already skating on thin ice, but I think, in the context of a web component, may make sense to use sometimes, as the purpose of the part is more "public" and I think will tend to be more semantic as far as the nature of the element it adorns.
 
-### Example 4a
 
-"/" refers to the host.
-
-```html
-<mood-stone>
-    #shadow
-    <template be-switched='on when /isHappy.'>
-        <my-content></my-content>
-    </template>
-    <be-hive></be-hive>
-</mood-stone>
-```
-
-
-This also works: 
-
-
-/ is considered the "default" symbol, so it actually doesn't need to be specified:
-
-### Example 4c
-
-```html
-<mood-stone>
-    #shadow
-    <template be-switched='on when isHappy.'>
-        <my-content></my-content>
-    </template>
-    <be-hive></be-hive>
-</mood-stone>
-```
 
 ### Example !2a - !4a [Not Fully Tested]
 

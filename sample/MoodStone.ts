@@ -15,7 +15,7 @@ export class MoodStone extends HTMLElement{
     connectedCallback(){
         this.shadowRoot!.innerHTML = String.raw `
             <div id=target2></div>
-            <h3>Example 4a</h3>
+            <h3>Conditional Display based on host property</h3>
             <template 🎚️='on when /isHappy.'>
                 <div> What a beautiful day!</div>
             </template>
