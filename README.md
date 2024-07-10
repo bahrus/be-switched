@@ -614,11 +614,13 @@ If no itemscope container is present and there's some ambiguity use [TODO]:
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched="on when ^%{myPart}|isHappy.">
+    <template be-switched="on when ^[%myPart]|isHappy.">
         <my-content></my-content>
     </template>
 </section>
 ```
+
+^[%myPart] vs ^{[part~=myPart]}
 
 ```html
 <section itemscope itemprop=mySubObject>
@@ -626,7 +628,7 @@ If no itemscope container is present and there's some ambiguity use [TODO]:
     <link itemprop=isHappy href=https://schema.org/True>
     ...
     <section itemscope itemprop=mySubSubObject>
-        <template be-switched="on when ^${mySubObject}|isHappy.">
+        <template be-switched="on when ^[$mySubObject]|isHappy.">
             <my-content></my-content>
         </template>
     </section>
