@@ -15,8 +15,8 @@ export class MoodStone extends HTMLElement {
         this.shadowRoot.innerHTML = String.raw `
             <div id=target2></div>
             <h3>Example 4a</h3>
-            <template be-switched='on when /isHappy.'>
-                <my-content></my-content>
+            <template 🎚️='on when /isHappy.'>
+                <div> What a beautiful day!</div>
             </template>
 
             
