@@ -24,14 +24,14 @@
     <mood-stone id=moodStone></mood-stone>
     <div id=target></div>
     <script type=module>
-        import '../behivior.js';
-        import '../sample/MoodStone.js';
+        import '/🎚️.js';
+        import '/sample/MoodStone.js';
     </script>
     <script>
         function runTest() {
             moodStone.isHappy = true;
             setTimeout(() => {
-                if(moodStone.shadowRoot.querySelector('my-content') !== null){
+                if(moodStone.shadowRoot.querySelector('#day') !== null){
                     target.setAttribute('mark', 'good');
                 }
             }, 100);
