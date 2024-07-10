@@ -429,11 +429,11 @@ This is supported:
 ```
 
 
-### Down search using Y character. [TODO]
+### Up and down searches using ^() Y() expressions. [TODO]
 
 ```html
 <input type=number>
-<template 🎚️='on when ^{*} gt Y{*}.'>
+<template 🎚️='on when ^(*) gt Y(*).'>
     <div>Previous input &gt; RHS</div>
 </template>
 <input type=number>
@@ -548,21 +548,21 @@ This also works:
 <div itemscope>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
-    <template 🎚️='on when ^*.'>
+    <template 🎚️='on when ^(*).'>
         <my-content></my-content>
     </template>
 </div>
 ```
 
-The standalone ^* is indicating to just look at the previous element sibling.
+The standalone ^(*) is indicating to just look at the previous element sibling.
 
-### Example 3b Referring to next element sibling [TODO]
+### Example 3b Referring to next element sibling with yertdrift symbol [TODO]
 
 ```html
 <div itemscope>
     ...
     
-    <template 🎚️='on when Y.'>
+    <template 🎚️='on when Y(*).'>
         <my-content></my-content>
     </template>
     <link itemprop=isHappy href=https://schema.org/True>
@@ -635,7 +635,7 @@ If no itemscope container is present and there's some ambiguity use [TODO]:
 ```html
 <form>
     <input part=isHappy type="checkbox">
-    <template be-switched='on when % is happy.'>
+    <template be-switched='on when %isHappy.'>
         <my-content id=myContent></my-content>
     </template>
 </form>
