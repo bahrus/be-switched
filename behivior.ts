@@ -41,7 +41,7 @@ export const emc: EMC<AP> = {
                     {
                         regExp: onDependencies,
                         defaultVals: {},
-                        dssKeys: [['dependencyPart', 'dependencies[]']]
+                        dssArrayKeys: [['dependencyPart', 'dependencies']]
                     }
                 ],
                 singleValSwitches: [

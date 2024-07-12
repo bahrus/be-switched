@@ -26,10 +26,11 @@
   "types": "types.d.ts",
   "dependencies": {
     "be-enhanced": "0.0.110",
-    "be-hive": "0.0.187",
+    "be-hive": "0.0.189",
     "be-linked": "0.0.108",
     "be-propagating": "0.0.51",
     "be-value-added": "0.0.43",
+    "mount-observer": "0.0.29",
     "trans-render": "0.0.794"
   },
   "devDependencies": {
