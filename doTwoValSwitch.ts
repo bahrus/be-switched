@@ -39,12 +39,12 @@ export async function checkSwitches(self: BeSwitched){
     
 
     for(const onSwitch of twoValueSwitches!){
-        const {req, lhsSignal, rhsSignal, op, negate, lhsSpecifier, rhsSpecifier, rhsType} = onSwitch;
+        const {req, lhsSignal, rhsSignal, op, negate, lhsSpecifier, rhsSpecifier} = onSwitch;
         if(foundOne && !req) continue;
         let value = false; 
         {
             const {path: lhsSubProp} = lhsSpecifier!;
-            const {path: rhsSubProp} = rhsSpecifier!;
+            const {path: rhsSubProp, as: rhsType} = rhsSpecifier!;
             const lhsRef = lhsSignal?.deref();
             if(lhsRef === undefined) {
                 console.warn({onSwitch, msg: "Out of scope"});
@@ -60,7 +60,7 @@ export async function checkSwitches(self: BeSwitched){
             if(rhsType !== undefined){
                 console.log({rhsType});
                 switch(rhsType){
-                    case 'number':
+                    case 'Number':
                         rhs = Number(rhs);
                         break;
                     default:

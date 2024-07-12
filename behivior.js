@@ -4,9 +4,9 @@ const base = 'be-switched';
 const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
 const whenLHSPart = String.raw `when (?<lhsPart>.*)`;
 const rhsPart = String.raw `(?<rhsPart>.*)`;
-const rhsPartAsRhsType = String.raw `${rhsPart} as (?<rhsType>(number|boolean|string))`;
+//const rhsPartAsRhsType = String.raw `${rhsPart} as (?<rhsType>(number|boolean|string))`;
 const onWhenLhsPartOpRhsPart = String.raw `^on ${whenLHSPart} ${op} ${rhsPart}`;
-const onWhenLhsPartOpRhsPartAsRhsType = String.raw `^on ${whenLHSPart} ${op} ${rhsPartAsRhsType}`;
+//const onWhenLhsPartOpRhsPartAsRhsType = String.raw `^on ${whenLHSPart} ${op} ${rhsPartAsRhsType}`;
 const offWhenLhsPartOpRhsPart = String.raw `^off ${whenLHSPart} ${op} ${rhsPart}`;
 const onDependencies = String.raw `^on depending on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
@@ -19,11 +19,11 @@ export const emc = {
             objValMapsTo: '.',
             regExpExts: {
                 twoValueSwitches: [
-                    {
-                        regExp: onWhenLhsPartOpRhsPartAsRhsType,
-                        defaultVals: {},
-                        dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
-                    },
+                    // {
+                    //     regExp: onWhenLhsPartOpRhsPartAsRhsType,
+                    //     defaultVals:{},
+                    //     dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
+                    // },
                     {
                         regExp: onWhenLhsPartOpRhsPart,
                         defaultVals: {},
