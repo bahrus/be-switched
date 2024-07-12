@@ -25,16 +25,16 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.109",
-    "be-hive": "0.0.186",
+    "be-enhanced": "0.0.110",
+    "be-hive": "0.0.187",
     "be-linked": "0.0.108",
     "be-propagating": "0.0.51",
     "be-value-added": "0.0.43",
-    "trans-render": "0.0.792"
+    "trans-render": "0.0.794"
   },
   "devDependencies": {
     "@playwright/test": "1.45.1",
-    "may-it-serve": "0.0.7"
+    "may-it-serve": "0.0.8"
   },
   "scripts": {
     "serve": "node node_modules/may-it-serve",

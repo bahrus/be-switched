@@ -448,7 +448,7 @@ This is supported:
 ```html
 <input type=number>
 <template 🎚️='on when ^{(*)} gt Y{*}.'>
-    <div>Previous input &gt; RHS</div>
+    <div>Previous input &gt; next input</div>
 </template>
 <input type=number>
 ```
