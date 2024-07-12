@@ -601,16 +601,13 @@ The standalone ^(*) is indicating to just look at the previous element sibling.
 ### Example 3c Comparison to a constant [TODO]
 
 ```html
-<div itemscope>
+<label for=lhs>lhs</label>
+<input id=lhs name=lhs type=number>
+
+<template data-rhs=37 🎚️='on when @lhs eq $0:dataset:rhs as number.'>
+    <my-content></my-content>
+</template>
     
-    <label id=lhs>lhs</label>
-    <input name=lhs type=number>
-    
-    <template data-rhs=37 🎚️='on when @lhs eq $0:dataset:rhs as number.'>
-        <my-content></my-content>
-    </template>
-    
-</div>
 ```
 
 
