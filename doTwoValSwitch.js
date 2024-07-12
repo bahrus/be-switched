@@ -43,8 +43,8 @@ export async function checkSwitches(self) {
             let rhs = rhsSubProp !== undefined ? await getVal({ host: rhsRef }, rhsSubProp) : getSignalVal(rhsRef);
             if (rhsType !== undefined) {
                 console.log({ rhsType });
-                switch (rhsType) {
-                    case 'Number':
+                switch (rhsType.toLowerCase()) {
+                    case 'number':
                         rhs = Number(rhs);
                         break;
                     default:
