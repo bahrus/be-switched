@@ -4,15 +4,13 @@ export async function doElevate(self: AP, elevate: Elevate, switchOn: boolean | 
     const {enhancedElement} = self;
     const {to, val} = elevate;
     if(to !== undefined){
-        const {prsElO} = await import('trans-render/lib/prs/prsElO.js');
-        const parsed = prsElO(to);
-        const {prop, elType, subProp} = parsed;
+        const {parse} = await import('trans-render/dss/parse.js');
+        const parsed = await parse(to);
+        const {prop, path} = parsed;
+        //const {prop, elType, subProp} = parsed;
         const {SideSeeker} = await import('./SideSeeker.js');
         const s = new SideSeeker(
-            {
-                prop,
-                elType
-            },
+            parsed,
             undefined,
             
         );
@@ -22,9 +20,9 @@ export async function doElevate(self: AP, elevate: Elevate, switchOn: boolean | 
         const ref = signal?.deref() as any;
         if(ref === undefined) return;
         const valToSet = typeof val === 'undefined' ? switchOn : val;
-        if(subProp !== undefined){
+        if(path !== undefined){
             const {setProp} = await import('trans-render/lib/setProp.js');
-            setProp(ref, `${prop}.${subProp}`, valToSet);
+            setProp(ref, `${prop}.${path}`, valToSet);
         }else{
             ref[prop!] = valToSet
         }

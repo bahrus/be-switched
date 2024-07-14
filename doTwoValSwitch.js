@@ -42,7 +42,6 @@ export async function checkSwitches(self) {
             const lhs = lhsSubProp !== undefined ? await getVal({ host: lhsRef }, lhsSubProp) : getSignalVal(lhsRef);
             let rhs = rhsSubProp !== undefined ? await getVal({ host: rhsRef }, rhsSubProp) : getSignalVal(rhsRef);
             if (rhsType !== undefined) {
-                console.log({ rhsType });
                 switch (rhsType.toLowerCase()) {
                     case 'number':
                         rhs = Number(rhs);
@@ -68,7 +67,6 @@ export async function checkSwitches(self) {
         }
         if (req) {
             if (!value) {
-                //console.log({lhs, rhs, value, req});
                 self.twoValSwitchNoGo = true;
                 return;
             }
@@ -77,7 +75,6 @@ export async function checkSwitches(self) {
             if (value)
                 foundOne = true;
         }
-        //console.log({lhs, rhs, value, foundOne});
     }
     self.twoValSwitchNoGo = false;
     self.twoValSwitchesSatisfied = foundOne;
