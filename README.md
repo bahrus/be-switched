@@ -598,7 +598,7 @@ The standalone ^(*) is indicating to just look at the previous element sibling.
 
 ## Example 3c 
 
-### Example 3c Comparison to a constant [TODO]
+### Example 3c Comparison to a constant
 
 ```html
 <label for=lhs>lhs</label>
