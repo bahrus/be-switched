@@ -242,7 +242,7 @@ This package does provide an alternative name you can use, which seems quite fut
 
 I think you will agree, looking at the file how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
 
-The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" in your mind when you see it below.
+The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" or "switch" in your mind when you see it below.  Note that on Windows, to select this emoji, type flying window + . and search for sli.  It should retain in memory for a while after that once you use it.
 
 ### Type casting
 
@@ -250,7 +250,7 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 <input id=lhs type=number>
 <label for=rhs>RHS:</label>
 <input id=rhs>
-<template be-switched='on when #lhs equals #rhs as number.'>
+<template 🎚️='on when #lhs equals #rhs as number.'>
     <div>LHS === RHS</div>
 </template>
 
@@ -350,20 +350,21 @@ In the brave new world that custom elements has opened up, we can make our marku
 
 What this does:
 
-1.  Finds carrot-nosed-woman element within itemscope, and if not found, within root node.  
-2.  Waits for customElements.whenDefined('carrot-nosed-woman').
-3.  Attempts to infer the value of the element.
+1.  Finds carrot-nosed-woman element within itemscope, and if not found, within root node. 
+2.  If not found within root node, see if the host element has a property with name carrotNosedWoman that is an instance of eventTarget. [TODO: verify this is still working] 
+3.  Waits for customElements.whenDefined('carrot-nosed-woman') if applicable.
+4.  Attempts to infer the value of the element.
     1.  If 'value' in oCarrotNosedWoman, use that.
     2.  If not, use ariaValueNow if present.
     3.  If not, check if 'checked' in oCarrotNosedWoman, use that.
     4.  Try ariaChecked.
     5.  Check if 'href' in oCarrotNosedWoman, use that.
     6.  As a last resort attempt at mind reading, use the string obtained from textContent.
-4.  Finds element a-duck.
-5.  Waits for customElements.whenDefined('a-duck').
-6.  Attempts to infer the value of the element, same as 3 above.
-7.  Compares the values.
-8.  Listens for input event (by default, but see below for custom event names), and re-evaluates.
+5.  Finds element a-duck, same as above.
+6.  Waits for customElements.whenDefined('a-duck') if applicable.
+7.  Attempts to infer the value of the element, same as 4 above.
+8.  Compares the values.
+9.  Listens for input event (by default, but see below for custom event names), and re-evaluates (skipping some steps if found in weak reference based cache).
 
 ### Specifying event name(s)
 
@@ -720,11 +721,11 @@ P.S.
 
 
 
-## Compatibility with server-side-rendering [TODO]
+## Compatibility with server-side-rendering
 
 *be-switched* is compatible with server-side-rendering if the following approach is used:
 
-If during the time the SSR is taking place, the desire is not to display the content, but rely on the client to lazy load when conditions warrant, then the syntax above is exactly what the SSR should generate.
+If, during the time the SSR is taking place, the desire is not to display the content, but rely on the client to lazy load when conditions warrant, then the syntax above is exactly what the SSR should generate.
 
 If, however, the content should display initially, but we want the client-side JavaScript to be able to hide / disable the content when conditions in the browser change, the server should render the contents adjacent to the template, and leverage standard microdata attributes, to establish artificial hierarchies.
 
@@ -736,7 +737,7 @@ If, however, the content should display initially, but we want the client-side J
     <largest-scale>
         <a-duck></a-duck>
     </largest-scale>
-    <template itemscope itemref="witch burn-her" 
+    <template blow-dry itemscope itemref="witch burn-her" 
         be-switched='
         Off when value property of previous largest-scale element 
         having inner woman-with-carrot-attached-to-nose element 
