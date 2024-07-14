@@ -515,7 +515,7 @@ Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for inp
 </form>
 ```
 
-This is an "and" condition due to the presence of "only"
+This is an "and" condition due to the presence of "only".
 
 ### Condition coming from host
 
@@ -526,7 +526,7 @@ This is an "and" condition due to the presence of "only"
 ```html
 <mood-stone>
     #shadow
-    <template be-switched='on when /isHappy.'>
+    <template 🎚️='on when /isHappy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
@@ -544,7 +544,7 @@ This also works:
 ```html
 <mood-stone>
     #shadow
-    <template be-switched='on when isHappy.'>
+    <template 🎚️='on when isHappy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
@@ -563,7 +563,7 @@ This also works:
 </div>
 ```
 
-The standalone ^(*) is indicating to just look at the previous element sibling.
+The standalone ^{(*)} is indicating to just look at the previous element sibling.
 
 ### Example 3b Referring to next element sibling with yertdrift symbol [TODO]
 
@@ -606,9 +606,6 @@ The standalone ^(*) is indicating to just look at the previous element sibling.
 ```
 
 
-
-
-
 Can have multiple such statements -- or condition.  Each sentence can begin with "on" or "On", whichever seems more readable.
 
 
@@ -626,7 +623,7 @@ If no itemscope container is present and there's some ambiguity use [TODO]:
 </section>
 ```
 
-^[%myPart] vs ^{[part~=myPart]}
+^[%myPart] vs ^{[part~=myPart]} -- is it worth it?
 
 ```html
 <section itemscope itemprop=mySubObject>
