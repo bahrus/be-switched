@@ -767,6 +767,8 @@ An option, minMem, allows for completely wiping away content derived from the te
             ...
         </template>
         ...
+        <be-hive></be-hive>
+        <xtal-element></xtal-element>
     </template>
 </my-web-component>
 ```
