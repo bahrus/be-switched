@@ -382,8 +382,6 @@ What this does:
 </ways-of-science>
 ```
 
-
-
 Remember that if the event name is not specified, the input event is assumed, when elements are found by name or by id or by tag name, and if no prop name is specified (see below).  Regardless of the event names specified, the developer uses the built in "oninput" attribute to provide a custom script to evaluate whether the condition is met.
 
 
@@ -440,11 +438,7 @@ This is supported:
 ```
 
 
-
-
-
-
-### Up and down searches using ^() Y() expressions. [TODO]
+### Up and down searches using ^{()} Y{} expressions. [TODO]
 
 ```html
 <input type=number>
