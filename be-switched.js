@@ -26,6 +26,7 @@ class BeSwitched extends BE {
             echo_val_to_echoVal: 20,
             when_singleValSwitches_changes_invoke_onSingleValSwitches: 0,
             when_twoValueSwitches_changes_invoke_onTwoValSwitches: 0,
+            when_rawStatements_changes_invoke_onRawStatements: 0,
         },
         actions: {
             onTrue: {
@@ -45,9 +46,6 @@ class BeSwitched extends BE {
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
-            onRawStatements: {
-                ifAllOf: ['rawStatements']
-            }
         }
     };
     #enhKey;
