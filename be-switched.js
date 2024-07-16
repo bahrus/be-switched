@@ -24,6 +24,7 @@ class BeSwitched extends BE {
         },
         compacts: {
             echo_val_to_echoVal: 20,
+            when_singleValSwitches_changes_invoke_onSingleValSwitches: 0
         },
         actions: {
             onTrue: {
@@ -34,9 +35,9 @@ class BeSwitched extends BE {
                 ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
             },
-            onSingleValSwitches: {
-                ifAllOf: ['singleValSwitches']
-            },
+            // onSingleValSwitches: {
+            //     ifAllOf: ['singleValSwitches']
+            // },
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
             },
@@ -120,7 +121,7 @@ class BeSwitched extends BE {
         if (itemref === null) {
             const keys = [];
             let templToClone = enhancedElement;
-            const externalRefId = templToClone.dataset.blowDryTemplRef;
+            const externalRefId = templToClone.dataset.blowDryRef;
             if (externalRefId)
                 templToClone = window[externalRefId];
             const clone = templToClone.content.cloneNode(true);

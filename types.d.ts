@@ -1,4 +1,4 @@
-import { ActionOnEventConfigs } from "trans-render/froop/types";
+//import { ActionOnEventConfigs } from "trans-render/froop/types";
 import {IEnhancement} from 'trans-render/be/types';
 import {BVAAllProps} from 'be-value-added/types';
 import {AP as BPAP, ISignal, Actions as BPActions} from 'be-propagating/types';

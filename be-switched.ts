@@ -28,6 +28,7 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
         },
         compacts:{
             echo_val_to_echoVal: 20,
+            when_singleValSwitches_changes_invoke_onSingleValSwitches: 0
         },
         actions:{
             onTrue: {
@@ -38,9 +39,9 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
                 ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
             },
-            onSingleValSwitches: {
-                ifAllOf: ['singleValSwitches']
-            },
+            // onSingleValSwitches: {
+            //     ifAllOf: ['singleValSwitches']
+            // },
             onTwoValSwitches: {
                 ifAllOf: ['twoValueSwitches']
             },
@@ -132,7 +133,7 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
         if(itemref === null){
             const keys : string[] = [];
             let templToClone = enhancedElement;
-            const externalRefId = templToClone.dataset.blowDryTemplRef;
+            const externalRefId = templToClone.dataset.blowDryRef;
             if(externalRefId) templToClone = (<any>window)[externalRefId];
             const clone = templToClone.content.cloneNode(true) as DocumentFragment;
             for(const child of clone.children){
