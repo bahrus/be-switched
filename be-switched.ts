@@ -31,6 +31,7 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
             when_singleValSwitches_changes_invoke_onSingleValSwitches: 0,
             when_twoValueSwitches_changes_invoke_onTwoValSwitches: 0,
             when_rawStatements_changes_invoke_onRawStatements: 0,
+            when_nValueSwitches_changes_invoke_onNValSwitches: 0,
         },
         actions:{
             onTrue: {
@@ -40,9 +41,6 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
             onFalse: {
                 ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
-            },
-            onNValSwitches:{
-                ifAllOf: ['nValueSwitches']
             },
             calcSwitchesSatisfied:{
                 ifKeyIn: ['singleValSwitchNoGo', 'singleValSwitchesSatisfied', 'twoValSwitchNoGo', 'twoValSwitchesSatisfied']
