@@ -49,7 +49,10 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
 
-        }
+        },
+        positractions: [
+            ...beCnfg.positractions!,
+        ]
     }
     #enhKey: string | undefined;
     override async attach(el: HTMLTemplateElement, enhancementInfo: EnhancementInfo){

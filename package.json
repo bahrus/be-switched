@@ -17,7 +17,9 @@
   "module": "be-switched.js",
   "exports": {
     ".": "./be-switched.js",
-    "./be-switched.js": "./be-switched.js"
+    "./be-switched.js": "./be-switched.js",
+    "./behivior.js": "./behivior.js",
+    "./🎚️.js": "./🎚️.js"
   },
   "files": [
     "*.js",
@@ -31,10 +33,10 @@
     "be-propagating": "0.0.54",
     "be-value-added": "0.0.46",
     "mount-observer": "0.0.29",
-    "trans-render": "0.0.797"
+    "trans-render": "0.0.800"
   },
   "devDependencies": {
-    "@playwright/test": "1.45.1",
+    "@playwright/test": "1.45.2",
     "may-it-serve": "0.0.8"
   },
   "scripts": {
