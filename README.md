@@ -246,6 +246,7 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 
 ### Type casting
 
+```html
 <label for=lhs>LHS:</label>
 <input id=lhs type=number>
 <label for=rhs>RHS:</label>
@@ -253,6 +254,7 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 <template 🎚️='on when #lhs equals #rhs as number.'>
     <div>LHS === RHS</div>
 </template>
+```
 
 ### By N@me
 
