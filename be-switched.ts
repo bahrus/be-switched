@@ -126,6 +126,7 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
         const {enhancedElement, toggleInert: toggleDisabled, deferRendering} = self;
         const itemref= enhancedElement.getAttribute('itemref');
         if(itemref === null){
+            //TODO: switch to trans-render/lib/insertTempl
             const keys : string[] = [];
             let templToClone = enhancedElement;
             const externalRefId = templToClone.dataset.blowDryRef;
@@ -149,6 +150,7 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
             const rn = enhancedElement.getRootNode() as DocumentFragment;
             const keys = itemref.split(' ');
             for(const key of keys){
+                //TODO use trans-render/lib/insertTempl/getDep
                 const child = rn.getElementById(key);
                 if(child === null) continue;
                 child.classList.remove('be-switched-hide');

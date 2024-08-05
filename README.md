@@ -448,6 +448,31 @@ This is supported:
 <input type=number>
 ```
 
+### Grouping sibling selectors [TODO]
+
+```html
+<table>
+    <tbody>
+        <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
+        <tr aria-rowindex=10>
+            <td colspan=2>
+                <template 🎚️="on when ^{tr|[aria-rowindex=$0:ariaRowIndex]}@lhs">
+                lhs == rhs
+                </template>
+            </td>
+        </tr>
+        <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
+        <tr aria-rowindex=11>
+            <template 🎚️="on when ^{tr|[aria-rowindex=$0:ariaRowIndex]}@lhs">
+                <td>lhs == </td><td>rhs</td>
+            </template>
+        </tr>
+    </tbody>
+</table>
+```
+
+
+
 ## And now for something completely different
 
 The previous group of examples all focused on comparing two values.  
