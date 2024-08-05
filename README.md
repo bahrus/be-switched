@@ -465,9 +465,12 @@ This is supported:
         </tr>
         <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
         <tr aria-rowindex=11>
-            <template 🎚️="on when ^{tr|[aria-rowindex=$0:ariaRowIndex]}@lhs">
-                <td>lhs == </td><td>rhs</td>
-            </template>
+            <td colspan=2>
+                <template 🎚️="on when ^{tr|[aria-rowindex=$0:ariaRowIndex]}@lhs">
+                lhs == rhs
+                </template>
+            </td>
+
         </tr>
     </tbody>
 </table>
