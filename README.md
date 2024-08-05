@@ -116,7 +116,7 @@ What this is saying:
 > Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the onInput attribute.  If switchOn is set to true, display the contents within the template.  If switchOn is set to false, hide it.  Also, do this check on initialization.
 
 > [!NOTE]
-> VSCode, while trying to be helpful, can actually cause unnecessary panic here.  If two onInput expressions  of two different template elements (in this case) define the same constant, VSCode falsely accuses the code of "redeclaring block scope variable".  In fact, each such onInput expression is evaluated within a a non visible block scope.  But to avoid alarming the next developer who may not know this, just wrap the expression inside curly braces just to appease VS Code.  We will do so in the following examples
+> VSCode, while trying to be helpful, can actually cause unnecessary panic here.  If two onInput expressions  of two different template elements (in this case) define the same constant, VSCode falsely accuses the code of "redeclaring block scope variable".  In fact, each such onInput expression is evaluated within a a non visible block scope.  But to avoid alarming the next developer who may not know this, just wrap the expression inside curly braces just to appease VS Code.  We will do so in the following examples.
 
 Here is another, less cinematic example:
 
@@ -240,7 +240,7 @@ In applications that use be-switched frequently, where concerns about clashing w
 
 This package does provide an alternative name you can use, which seems quite future-proof and succinct:  🎚️ via the [file](https://github.com/bahrus/be-switched/blob/baseline/%F0%9F%8E%9A%EF%B8%8F.ts).
 
-I think you will agree, looking at the file how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
+I think you will agree, looking at that file, how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
 
 The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" or "switch" in your mind when you see it below.  Note that on Windows, to select this emoji, type flying window + . and search for sli.  It should retain in memory for a while after that once you use it.
 
@@ -389,7 +389,7 @@ Remember that if the event name is not specified, the input event is assumed, wh
 
 ### Specify property path to compare 
 
-Use a single semicolon for specifying a property path.
+Use a single colon for specifying a property path.
 
 ```html
 <ways-of-science>
@@ -409,11 +409,11 @@ Events are not used here, but rather propagating props.
 
 Also, note that this can actually be a chain of accessors (that automatically inserts a chaining operator ?. without requiring the extra ? character).  
 
-
+The colon symbol is used instead of the period, since we are using periods to separate potentially multiple sentences contained within the attribute.  *be-switched* supports multiple statements (or condition by default, unless the word "only" is inserted).
 
 ### Specify less than
 
-This is now supported:
+"Less than" is supported:
 
 ```html
 <label for=lhs>LHS:</label>
@@ -450,7 +450,7 @@ This is supported:
 <input type=number>
 ```
 
-### Grouping sibling selectors [TODO]
+### Grouping previous sibling selectors [TODO]
 
 ```html
 <table>
