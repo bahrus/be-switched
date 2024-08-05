@@ -450,7 +450,7 @@ This is supported:
 <input type=number>
 ```
 
-### Grouping previous sibling selectors [TODO]
+### Grouping previous element sibling selectors [TODO]
 
 ```html
 <table>
@@ -472,6 +472,34 @@ This is supported:
             </td>
 
         </tr>
+    </tbody>
+</table>
+```
+
+### Grouping next element sibling selectors [TODO]
+
+```html
+<table>
+    <tbody>
+        <tr aria-rowindex=10 🎚️="Y{(template)} on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
+            <td colspan=2>
+                <template>
+                lhs == rhs
+                </template>
+            </td>
+        </tr>
+        <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
+
+        <tr aria-rowindex=11 🎚️="Y{(template)} on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
+            <td colspan=2>
+                <template>
+                lhs == rhs
+                </template>
+            </td>
+
+        </tr>
+        <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
+
     </tbody>
 </table>
 ```
