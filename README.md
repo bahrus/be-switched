@@ -517,16 +517,16 @@ so DSS needs to have special logic for '$0 through ' to replace
     <tbody>
         <tr aria-rowindex=10 >
             <td colspan=2>
-                <template 🎚️-peer-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
+                <template data-idx=10 🎚️-peer-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:dataset-idx]}@lhs">
                 lhs == rhs
                 </template>
             </td>
         </tr>
         <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
 
-        <tr aria-rowindex=11 🎚️="Y{(template)} on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
+        <tr aria-rowindex=11>
             <td colspan=2>
-                <template>
+                <template data-idx=10 🎚️-peer-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:daset-idx]}@lhs">
                 lhs == rhs
                 </template>
             </td>
