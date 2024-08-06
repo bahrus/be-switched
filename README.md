@@ -478,12 +478,14 @@ This is supported:
 </table>
 ```
 
+so DSS needs to have special logic for "=$0" through "]" to replace 
+
 ### Grouping next element sibling selectors [TODO]
 
 ```html
 <table>
     <tbody>
-        <tr aria-rowindex=10 🎚️="Y{(template)} on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
+        <tr aria-rowindex=10 🎚️="on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
             <td colspan=2>
                 <template>
                 lhs == rhs
@@ -505,6 +507,8 @@ This is supported:
     </tbody>
 </table>
 ```
+
+If *be-switched* doesn't adorn the template element, find the first template within the tag, and apply to that element.
 
 
 
