@@ -517,7 +517,7 @@ so DSS needs to have special logic for '$0 through ' to replace
     <tbody>
         <tr aria-rowindex=10 >
             <td colspan=2>
-                <template 🎚️-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
+                <template 🎚️-peer-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
                 lhs == rhs
                 </template>
             </td>
