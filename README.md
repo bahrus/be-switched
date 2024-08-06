@@ -454,13 +454,16 @@ This is supported:
 
 ### Grouping previous element sibling selectors [TODO]
 
+Prepare yourself for some turbulence ahead:
+
+
 ```html
 <table>
     <tbody>
         <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
         <tr aria-rowindex=10>
             <td colspan=2>
-                <template data-idx=10 🎚️="on when ^{(tr[aria-rowindex=$0:dataset:idx]}@lhs">
+                <template data-idx=10 🎚️="on when ^{(tr[aria-rowindex=$0:dataset:idx])}@lhs">
                 lhs == rhs
                 </template>
             </td>
