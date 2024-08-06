@@ -452,10 +452,35 @@ This is supported:
 <input type=number>
 ```
 
-### Grouping previous element sibling selectors [TODO]
+### Grouping previous element sibling selectors [WIP]
 
 Prepare yourself for some turbulence ahead:
 
+With hard coded indexes in the expression:
+
+```html
+<table>
+    <tbody>
+        <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
+        <tr aria-rowindex=10>
+            <td colspan=2>
+                <template data-idx=10 🎚️="on when ^{(tr[aria-rowindex='10'])}@lhs eq ^{(tr[aria-rowindex='10'])}@rhs">
+                    <div>lhs == rhs</div>
+                </template>
+            </td>
+        </tr>
+        <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
+        <tr aria-rowindex=11>
+            <td colspan=2>
+                <template data-idx=11 🎚️="on when ^{(tr[aria-rowindex='11'])}@lhs  eq ^{(tr[aria-rowindex='11'])}@rhs">
+                    <div>lhs == rhs</div>
+                </template>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+```
 
 ```html
 <table>
