@@ -482,22 +482,24 @@ With hard coded indexes in the expression:
 </table>
 ```
 
+With dynamic expressions
+
 ```html
 <table>
     <tbody>
         <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
         <tr aria-rowindex=10>
             <td colspan=2>
-                <template data-idx=10 🎚️="on when ^{(tr[aria-rowindex=$0:dataset:idx])}@lhs">
-                lhs == rhs
+                <template data-idx=10 🎚️="on when ^{(tr[aria-rowindex='$0:dataset:idx'])}@lhs eq ^{(tr[aria-rowindex='$0:dataset:idx'])}@rhs">
+                    <div>lhs == rhs</div>
                 </template>
             </td>
         </tr>
         <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
         <tr aria-rowindex=11>
             <td colspan=2>
-                <template data-idx=11 🎚️="on when ^{(tr[aria-rowindex=$0:dataset:idx])}@lhs">
-                lhs == rhs
+                <template data-idx=11 🎚️="on when ^{(tr[aria-rowindex='$0:dataset:idx'])}@lhs  eq ^{(tr[aria-rowindex='$0:dataset:idx'])}@rhs">
+                    <div>lhs == rhs</div>
                 </template>
             </td>
 
@@ -506,16 +508,16 @@ With hard coded indexes in the expression:
 </table>
 ```
 
-so DSS needs to have special logic for "=$0" through "]" to replace 
+so DSS needs to have special logic for '$0 through ' to replace 
 
 ### Grouping next element sibling selectors [TODO]
 
 ```html
 <table>
     <tbody>
-        <tr aria-rowindex=10 🎚️="on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
+        <tr aria-rowindex=10 >
             <td colspan=2>
-                <template>
+                <template 🎚️-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:aria-rowindex]}@lhs">
                 lhs == rhs
                 </template>
             </td>
