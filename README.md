@@ -312,6 +312,35 @@ These should be active:
 
 We can apply such closest queries to either the LHS or the RHS, or both, as shown above.
 
+If  we use the same closest query for both, we can reduce typing / increase readability and reduce the amount of DOM traversing thusly:
+
+## W/I (within) scoping [TODO]
+
+
+```html
+These should be ignored:
+<div>
+    <label for=lhs>LHS:</label>
+    <input name=lhs>
+    <label for=rhs>RHS:</label>
+    <input name=rhs>
+</div>
+These should be active:
+<section>
+    <label>
+        LHS:
+        <input name=lhs>
+    </label>
+    
+    <label>RHS:
+        <input name=rhs>
+    </label>
+    
+    <template 🎚️='on when @lhs eq @rhs w/i ^{section}.'>
+        <div>LHS === RHS</div>
+    </template>
+</section>
+```
 
 ### By the itemprop microdata attribute
 
@@ -452,7 +481,7 @@ This is supported:
 <input type=number>
 ```
 
-### Grouping previous element sibling selectors [WIP]
+### Grouping previous element sibling selectors
 
 Prepare yourself for some turbulence ahead:
 
@@ -490,7 +519,7 @@ With hard coded indexes in the expression:
         <tr aria-rowindex=10><td><input name=lhs></td></tr>
         <tr aria-rowindex=10>
             <td>
-                <template 🎚️="on when @lhs eq @rhs within %[aria-rowindex]">
+                <template 🎚️="on when @lhs eq @rhs w/i %[aria-rowindex].">
                     <div>lhs == rhs</div>
                 </template>
             </td>
@@ -499,7 +528,7 @@ With hard coded indexes in the expression:
         <tr aria-rowindex=11><td><input name=lhs></td></tr>
         <tr aria-rowindex=11>
             <td>
-                <template 🎚️="on when @lhs eq @rhs within %[aria-rowindex]">
+                <template 🎚️="on when @lhs eq @rhs w/i %[aria-rowindex].">
                     <div>lhs == rhs</div>
                 </template>
             </td>
