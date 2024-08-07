@@ -482,28 +482,29 @@ With hard coded indexes in the expression:
 </table>
 ```
 
-With dynamic expressions
+##  Simpler, more powerful syntax [TODO]:
 
 ```html
 <table>
     <tbody>
-        <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
+        <tr aria-rowindex=10><td><input name=lhs></td></tr>
         <tr aria-rowindex=10>
-            <td colspan=2>
-                <template data-idx=10 🎚️="on when ^{(tr[aria-rowindex='$0:dataset:idx'])}@lhs eq ^{(tr[aria-rowindex='$0:dataset:idx'])}@rhs">
+            <td>
+                <template 🎚️="on when @lhs eq @rhs within %[aria-rowindex]">
                     <div>lhs == rhs</div>
                 </template>
             </td>
         </tr>
-        <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
+        <tr aria-rowindex=10><td><input name=rhs></td></tr>
+        <tr aria-rowindex=11><td><input name=lhs></td></tr>
         <tr aria-rowindex=11>
-            <td colspan=2>
-                <template data-idx=11 🎚️="on when ^{(tr[aria-rowindex='$0:dataset:idx'])}@lhs  eq ^{(tr[aria-rowindex='$0:dataset:idx'])}@rhs">
+            <td>
+                <template 🎚️="on when @lhs eq @rhs within %[aria-rowindex]">
                     <div>lhs == rhs</div>
                 </template>
             </td>
-
         </tr>
+        <tr aria-rowindex=11><td><input name=rhs></td></tr>
     </tbody>
 </table>
 ```
@@ -517,8 +518,8 @@ so DSS needs to have special logic for '$0 through ' to replace
     <tbody>
         <tr aria-rowindex=10 >
             <td colspan=2>
-                <template data-idx=10 🎚️-peer-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:dataset-idx]}@lhs">
-                lhs == rhs
+                <template data-idx=10 🎚️="on when @lhs eq @rhs within %[aria-index].">
+                <div>lhs == rhs</div>
                 </template>
             </td>
         </tr>
@@ -527,7 +528,7 @@ so DSS needs to have special logic for '$0 through ' to replace
         <tr aria-rowindex=11>
             <td colspan=2>
                 <template data-idx=10 🎚️-peer-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:daset-idx]}@lhs">
-                lhs == rhs
+                <div>lhs == rhs</div>
                 </template>
             </td>
 
