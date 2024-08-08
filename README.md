@@ -511,7 +511,7 @@ With hard coded indexes in the expression:
 </table>
 ```
 
-##  Simpler, more powerful syntax [TODO]:
+##  Simpler, more powerful syntax:
 
 ```html
 <table>
