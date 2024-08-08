@@ -4,12 +4,17 @@ import { SideSeeker } from './SideSeeker.js';
 export async function doTwoValSwitch(self) {
     const { enhancedElement, twoValueSwitches } = self;
     for (const onSwitch of twoValueSwitches) {
-        const { lhsSpecifier, rhsSpecifier, negate } = onSwitch;
+        const { lhsSpecifier, rhsSpecifier, negate, withinSpecifier } = onSwitch;
+        let within;
+        if (withinSpecifier !== undefined) {
+            const { find } = await import('trans-render/dss/find.js');
+            within = await find(enhancedElement, withinSpecifier);
+        }
         const lhs = onSwitch.lhs = new SideSeeker(lhsSpecifier, true);
         const rhs = onSwitch.rhs = new SideSeeker(rhsSpecifier, true);
-        const lhsReturnObj = await lhs.do(self, negate, enhancedElement);
+        const lhsReturnObj = await lhs.do(self, negate, enhancedElement, within);
         onSwitch.lhsSignal = lhsReturnObj?.signal;
-        const rhsReturnObj = await rhs.do(self, negate, enhancedElement);
+        const rhsReturnObj = await rhs.do(self, negate, enhancedElement, within);
         onSwitch.rhsSignal = rhsReturnObj?.signal;
     }
     await checkSwitches(self);
