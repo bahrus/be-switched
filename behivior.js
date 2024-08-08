@@ -6,6 +6,7 @@ const whenLHSPart = String.raw `when (?<lhsPart>.*)`;
 const rhsPart = String.raw `(?<rhsPart>.*)`;
 //const rhsPartAsRhsType = String.raw `${rhsPart} as (?<rhsType>(number|boolean|string))`;
 const onWhenLhsPartOpRhsPart = String.raw `^on ${whenLHSPart} ${op} ${rhsPart}`;
+const onWhenLhsPartOpRhsPartWithin = String.raw `${onWhenLhsPartOpRhsPart} w/i (?<within>.*)`;
 //const onWhenLhsPartOpRhsPartAsRhsType = String.raw `^on ${whenLHSPart} ${op} ${rhsPartAsRhsType}`;
 const offWhenLhsPartOpRhsPart = String.raw `^off ${whenLHSPart} ${op} ${rhsPart}`;
 const onDependencies = String.raw `^on depending on (?<dependencyPart>.*)`;
@@ -19,11 +20,11 @@ export const emc = {
             objValMapsTo: '.',
             regExpExts: {
                 twoValueSwitches: [
-                    // {
-                    //     regExp: onWhenLhsPartOpRhsPartAsRhsType,
-                    //     defaultVals:{},
-                    //     dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
-                    // },
+                    {
+                        regExp: onWhenLhsPartOpRhsPartWithin,
+                        defaultVals: {},
+                        dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier'], ['within', 'withinSpecifier']]
+                    },
                     {
                         regExp: onWhenLhsPartOpRhsPart,
                         defaultVals: {},

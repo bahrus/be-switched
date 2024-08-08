@@ -44,7 +44,10 @@ class BeSwitched extends BE {
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
-        }
+        },
+        positractions: [
+            ...beCnfg.positractions,
+        ]
     };
     #enhKey;
     async attach(el, enhancementInfo) {
@@ -110,6 +113,7 @@ class BeSwitched extends BE {
         const { enhancedElement, toggleInert: toggleDisabled, deferRendering } = self;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null) {
+            //TODO: switch to trans-render/lib/insertTempl
             const keys = [];
             let templToClone = enhancedElement;
             const externalRefId = templToClone.dataset.blowDryRef;
@@ -136,6 +140,7 @@ class BeSwitched extends BE {
             const rn = enhancedElement.getRootNode();
             const keys = itemref.split(' ');
             for (const key of keys) {
+                //TODO use trans-render/lib/insertTempl/getDep
                 const child = rn.getElementById(key);
                 if (child === null)
                     continue;

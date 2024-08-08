@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>equality conditions > upsearch > hardcoded</title>
+    <title>equality conditions > modulo > table</title>
     <script type=importmap>
         {
             "imports": {
@@ -22,23 +22,24 @@
 <body>
     <table>
         <tbody>
-            <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
+            <tr aria-rowindex=10><td><input name=lhs></td></tr>
             <tr aria-rowindex=10>
-                <td colspan=2>
-                    <template data-idx=10 🎚️="on when ^{(tr[aria-rowindex='10'])}@lhs eq ^{(tr[aria-rowindex='10'])}@rhs">
+                <td>
+                    <template 🎚️="on when @lhs eq @rhs w/i %[aria-rowindex].">
                         <div>lhs == rhs</div>
                     </template>
                 </td>
             </tr>
-            <!-- <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
+            <tr aria-rowindex=10><td><input name=rhs></td></tr>
+            <tr aria-rowindex=11><td><input name=lhs></td></tr>
             <tr aria-rowindex=11>
-                <td colspan=2>
-                    <template data-idx=11 🎚️="on when ^{(tr[aria-rowindex='11'])}@lhs  eq ^{(tr[aria-rowindex='11'])}@rhs">
+                <td>
+                    <template 🎚️="on when @lhs eq @rhs w/i %[aria-rowindex].">
                         <div>lhs == rhs</div>
                     </template>
                 </td>
-    
-            </tr> -->
+            </tr>
+            <tr aria-rowindex=11><td><input name=rhs></td></tr>
         </tbody>
     </table>
 

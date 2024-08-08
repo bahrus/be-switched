@@ -62,11 +62,13 @@ export interface TwoPartOpStatement{
     lhsPart: string,
     op: Op,
     rhsPart: string,
+    within: string,
 }
 
 export interface TwoValueSwitch{
     lhsSpecifier?: Specifier,
     rhsSpecifier?: Specifier,
+    withinSpecifier?: Specifier,
     req?: boolean,
     op?: Op,
     lhsSignal?: WeakRef<SignalRefType>,
