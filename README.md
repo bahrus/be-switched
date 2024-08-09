@@ -2,8 +2,6 @@
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
-In rare, [obscure cases](https://github.com/bahrus/be-switched?tab=readme-ov-file#grouping-next-element-sibling-selectors-todo), it may make more sense to adorn non-template elements [TODO].
-
 It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of enhancements, that can "cast spells" on server rendered content, but also apply the same logic quietly during template instantiation. 
 
 
