@@ -118,6 +118,9 @@ What this is saying:
 > [!NOTE]
 > VSCode, while trying to be helpful, can actually cause unnecessary panic here.  If two onInput expressions  of two different template elements (in this case) define the same constant, VSCode falsely accuses the code of "redeclaring block scope variable".  In fact, each such onInput expression is evaluated within a a non visible block scope.  But to avoid alarming the next developer who may not know this, just wrap the expression inside curly braces just to appease VS Code.  We will do so in the following examples.
 
+> [!NOTE]
+> This enhancements shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
+
 Here is another, less cinematic example:
 
 ```html
@@ -877,8 +880,7 @@ An option, minMem, allows for completely wiping away content derived from the te
 
 ## NBs
 
-> [!NOTE]
-> This enhancements shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
+
 
 > [!NOTE]
 > If using this enhancement as part of a repeating [*xtal-element*](https://github.com/bahrus/xtal-element) web component, my performance experiments indicate it is best to extract the contents of the template into a shared location, rather than cloning the template within each web component template instance. This is accomplished by adding attribute *blow-dry* or *data-blow-dry* to the template element:
