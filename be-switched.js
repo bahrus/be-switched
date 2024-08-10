@@ -113,24 +113,13 @@ class BeSwitched extends BE {
         const { enhancedElement, toggleInert: toggleDisabled, deferRendering } = self;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null) {
-            //TODO: switch to trans-render/lib/insertTempl
             const keys = [];
             let templToClone = enhancedElement;
             const externalRefId = templToClone.dataset.blowDryRef;
             if (externalRefId)
                 templToClone = window[externalRefId];
-            const clone = templToClone.content.cloneNode(true);
-            for (const child of clone.children) {
-                if (!child.id) {
-                    child.id = `${this.#enhKey}_${cnt}`;
-                    cnt++;
-                }
-                keys.push(child.id);
-            }
-            enhancedElement.setAttribute('itemref', keys.join(' '));
-            if (!enhancedElement.hasAttribute('itemscope'))
-                enhancedElement.setAttribute('itemscope', '');
-            enhancedElement.after(clone);
+            const { tagTempl } = await import('trans-render/dss/tref/tagTempl.js');
+            tagTempl(templToClone, this.#enhKey);
         }
         else {
             if (deferRendering) {

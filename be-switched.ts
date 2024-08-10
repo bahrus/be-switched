@@ -126,22 +126,12 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
         const {enhancedElement, toggleInert: toggleDisabled, deferRendering} = self;
         const itemref= enhancedElement.getAttribute('itemref');
         if(itemref === null){
-            //TODO: switch to trans-render/lib/insertTempl
             const keys : string[] = [];
             let templToClone = enhancedElement;
             const externalRefId = templToClone.dataset.blowDryRef;
             if(externalRefId) templToClone = (<any>window)[externalRefId];
-            const clone = templToClone.content.cloneNode(true) as DocumentFragment;
-            for(const child of clone.children){
-                if(!child.id){
-                    child.id = `${this.#enhKey}_${cnt}`;
-                    cnt++;
-                }
-                keys.push(child.id);
-            }
-            enhancedElement.setAttribute('itemref', keys.join(' '));
-            if(!enhancedElement.hasAttribute('itemscope')) enhancedElement.setAttribute('itemscope', '');
-            enhancedElement.after(clone);
+            const {tagTempl} = await import('trans-render/dss/tref/tagTempl.js');
+            tagTempl(templToClone, this.#enhKey!);
         }else{
             if(deferRendering){
                 self.deferRendering = false;
