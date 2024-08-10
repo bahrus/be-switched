@@ -126,13 +126,9 @@ class BeSwitched extends BE {
                 self.deferRendering = false;
                 return;
             }
-            const rn = enhancedElement.getRootNode();
-            const keys = itemref.split(' ');
-            for (const key of keys) {
-                //TODO use trans-render/lib/insertTempl/getDep
-                const child = rn.getElementById(key);
-                if (child === null)
-                    continue;
+            const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
+            const children = getChildren(enhancedElement, enhancedElement.getAttribute('itemref'));
+            for (const child of children) {
                 child.classList.remove('be-switched-hide');
                 if (toggleDisabled && child.disabled === false) {
                     child.disabled = true;
