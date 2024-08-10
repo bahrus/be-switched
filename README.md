@@ -233,7 +233,7 @@ Let's start with the most elementary two value switch:
 > For id based matches (which is what we have above), the search is done within the root node of the element, i.e. the ShadowDOM container or the document if outside any ShadowDOM.  
 
 > [!NOTE]
-> The comparison condition is re-evaluated on the input events of the lhs and rhs elements by default.  See below for how to specify alternate event names
+> The comparison condition is re-evaluated on the input events of the lhs and rhs elements by default.  See below for how to specify alternate event names.
 
 > [!Note]
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
@@ -245,7 +245,7 @@ This package does provide an alternative name you can use, which seems quite fut
 
 I think you will agree, looking at that file, how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
 
-The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" or "switch" in your mind when you see it below.  Note that on Windows, to select this emoji, type flying window + . and search for sli.  It should retain in memory for a while after that once you use it.
+The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" or "switch" in your mind when you see it below.  Note that on Windows, to select this emoji, type flying window + . and search for "sli".  It should retain in memory for a while after that once you use it.
 
 ### Type casting
 
@@ -268,7 +268,8 @@ The remaining examples will use this symbol (🎚️), so please translate that 
         <input name=lhs>
     </label>
     
-    <label>RHS:
+    <label>
+        RHS:
         <input name=rhs>
     </label>
     
@@ -280,17 +281,23 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 
 Here, the search for matching names is done within a containing form, and if no form is found, within the root node.
 
-However, if that is not sufficient, we can specify a "scoping" perimeter via an "upSearch" query.  Symbolically, we use the "^" symbol to indicate this:
+However, if that is not sufficient, we can specify a "scoping" perimeter via an "closest" query.  Symbolically, we use the "^" symbol to indicate this:
 
 ### "Closest" Scoping
 
 ```html
 These should be ignored:
 <div>
-    <label for=lhs>LHS:</label>
-    <input name=lhs>
-    <label for=rhs>RHS:</label>
-    <input name=rhs>
+    <label for=lhs>
+        LHS:
+        <input name=lhs>
+    </label>
+    
+    <label for=rhs>
+        RHS:
+        <input name=rhs>
+    </label>
+    
 </div>
 These should be active:
 <section>
@@ -310,7 +317,6 @@ These should be active:
 ```
 
 
-
 We can apply such closest queries to either the LHS or the RHS, or both, as shown above.
 
 If  we use the same closest query for both, we can reduce typing / increase readability and reduce the amount of DOM traversing thusly:
@@ -321,10 +327,16 @@ If  we use the same closest query for both, we can reduce typing / increase read
 ```html
 These should be ignored:
 <div>
-    <label for=lhs>LHS:</label>
-    <input name=lhs>
-    <label for=rhs>RHS:</label>
-    <input name=rhs>
+    <label for=lhs>
+        LHS:
+        <input name=lhs>
+    </label>
+    
+    <label for=rhs>
+        RHS:
+        <input name=rhs>
+    </label>
+    
 </div>
 These should be active:
 <section>
@@ -361,7 +373,7 @@ These should be active:
 
 Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
 
-Again, if that proves inadequate, use the ^ character to indicate the closest upSearch peer/parent to search within.
+Again, if that proves inadequate, use the ^ character to indicate the closest peer/parent to search within.
 
 ### By ~ tagName
 
@@ -539,40 +551,6 @@ With hard coded indexes in the expression:
 </table>
 ```
 
-so DSS needs to have special logic for '$0 through ' to replace 
-
-### Grouping next element sibling selectors [TODO]
-
-```html
-<table>
-    <tbody>
-        <tr aria-rowindex=10 >
-            <td colspan=2>
-                <template data-idx=10 🎚️="on when @lhs eq @rhs within %[aria-index].">
-                <div>lhs == rhs</div>
-                </template>
-            </td>
-        </tr>
-        <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
-
-        <tr aria-rowindex=11>
-            <td colspan=2>
-                <template data-idx=10 🎚️-peer-from=^{tr} 🎚️="on when Y{tr[aria-rowindex=$0:daset-idx]}@lhs">
-                <div>lhs == rhs</div>
-                </template>
-            </td>
-
-        </tr>
-        <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
-
-    </tbody>
-</table>
-```
-
-If *be-switched* doesn't adorn the template element, find the first template within the tag, and apply to that element.
-
-
-
 ## And now for something completely different
 
 The previous group of examples all focused on comparing two values.  
@@ -703,7 +681,7 @@ The standalone ^{(*)} is indicating to just look at the previous element sibling
 </div>
 ```
 
-### Up searching [TODO]
+### Up searching [Untested]
 
 ```html
 <div itemscope>
@@ -735,32 +713,34 @@ Can have multiple such statements -- or condition.  Each sentence can begin with
 
 
 
-If no itemscope container is present and there's some ambiguity use [TODO]:
+If no itemscope container is present and there's some ambiguity use [TODOORNOTTODO]:
 
 ```html
 <section part=myPart>
     ...
     <link itemprop=isHappy href=https://schema.org/True>
     ...
-    <template be-switched="on when ^[%myPart]|isHappy.">
+    <template be-switched="on when ^%[%myPart]|isHappy.">
         <my-content></my-content>
     </template>
 </section>
 ```
 
-^[%myPart] vs ^{[part~=myPart]} -- is it worth it?
+
 
 ```html
-<section itemscope itemprop=mySubObject>
+<section itemscope itemprop=mySubObject itemref="id1 id2">
     ...
-    <link itemprop=isHappy href=https://schema.org/True>
+    
     ...
-    <section itemscope itemprop=mySubSubObject>
-        <template be-switched="on when ^[$mySubObject]|isHappy.">
+    <div itemscope itemprop=mySubSubObject>
+        <template be-switched="on when %[$mySubObject]|isHappy.">
             <my-content></my-content>
         </template>
-    </section>
-
+    </div>
+</section>
+<section id=id1>
+    <link itemprop=isHappy href=https://schema.org/True>
 </section>
 ```
 
