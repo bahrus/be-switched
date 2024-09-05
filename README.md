@@ -90,20 +90,21 @@ This enhancement takes the view that the [rule of least power](https://en.wikipe
 
 But for those power hungry developers who want full, unfettered access to the JavaScript runtime in their binding expressions, we start...
 
-## With XOXO's to the Reactive JS-firsters
+## With XOXO's to the Reactive JS-firsters [TODO]
 
 To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The full power of JavaScript is at your disposal, without having to leave the confines of the HTML markup (I'm sure you find this as thrilling as I do!)
 
 ```html
+<script type=module>
+    import {Registry} from 'beHive/Registry.js';
+    Registry.define('isMadeOfWood', e => Math.abs(e.factors.carrotNosedWoman.weight - e.factors.aDuck.weight) < 10));
+</script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
         be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        onInput="
-            const {factors} = event;
-            event.switchOn = Math.abs(factors.carrotNosedWoman.weight -  factors.aDuck.weight) < 10
-        "
+        be-switched-by=isMadeOfWood
     >
         <div>A witch!</div>
         <div>Burn her!</div>
