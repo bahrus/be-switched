@@ -104,8 +104,7 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        be-switched-by=isMadeOfWood
+        be-switched='On if isMadeOfWood, depending on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
