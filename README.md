@@ -112,7 +112,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
 </ways-of-science>
 ```
 
-The biggest danger point that the platform has not bothered to address, is that if your entire application is using the same "emc" in all the Shadow Roots, the name of the handler, 'isMadeOfWood' will be unique.  The only way around that is to extend the emc object, and define an alternate handler key in each Shadow Realm, where there might be a conflict.  (The issue is that the script type module has no self awareness of where it is located in the DOM tree). 
+The biggest danger point that doesn't seem to have an easy solution, thanks to the platform not bothering to address the needs of the progressive enhancement community, is that if your entire application is using the same "emc" in all the Shadow Roots, the name of the handler, 'isMadeOfWood' will be unique.  The only way around that is to extend the emc object, and define an alternate handler key in each Shadow Realm, where there might be a conflict.  (The issue is that the script type module has no self awareness of where it is located in the DOM tree). 
 
 What this is saying:  
 
