@@ -96,8 +96,9 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
 
 ```html
 <script type=module>
-    import {Registry} from 'beHive/Registry.js';
-    Registry.define('isMadeOfWood', e => Math.abs(e.factors.carrotNosedWoman.weight - e.factors.aDuck.weight) < 10));
+    import {Registry} from 'be-hive/Registry.js';
+    import {emc} from 'be-switched/behivior.js';
+    Registry.define(emc, 'isMadeOfWood', e => Math.abs(e.factors.carrotNosedWoman.weight - e.factors.aDuck.weight) < 10));
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
