@@ -98,7 +98,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
 <script type=module>
     import {Registry} from 'be-hive/Registry.js';
     import {emc} from 'be-switched/behivior.js';
-    Registry.define(emc, 'isMadeOfWood', e => Math.abs(e.factors.carrotNosedWoman.weight - e.factors.aDuck.weight) < 10));
+    Registry.register(emc, 'isMadeOfWood', e => Math.abs(e.factors.carrotNosedWoman.weight - e.factors.aDuck.weight) < 10));
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
