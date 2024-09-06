@@ -92,7 +92,7 @@ But for those power hungry developers who want full, unfettered access to the Ja
 
 ## With XOXO's to the Reactive JS-firsters [TODO]
 
-To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The full power of JavaScript is at your disposal, without having to leave the confines of the HTML markup (I'm sure you find this as thrilling as I do!)
+Due primarily to the platform not playing very nice with progressive enhancement needs, this integration isn't as seamless as I would like.  Here's to hoping (despite all the evidence) that the platform will show some HTML love sometime in the distant future.  But for now, this will have to do:
 
 ```html
 <script type=module>
@@ -111,6 +111,8 @@ To those who pooh-pooh feeling constrained by little 'ol HTML, fear not!  The fu
     </template>
 </ways-of-science>
 ```
+
+The biggest danger point that the platform has not bothered to address, is that if your entire application is using the same "emc" in all the Shadow Roots, the name of the handler, 'isMadeOfWood' will be unique.  The only way around that is to extend the emc object, and define an alternate handler key in each Shadow Realm, where there might be a conflict.  (The issue is that the script type module has no self awareness of where it is located in the DOM tree). 
 
 What this is saying:  
 
