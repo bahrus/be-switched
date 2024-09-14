@@ -119,6 +119,25 @@ What this is saying:
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
 
+Our event handler to reference the adorned element, so that we can remove the hardcoding of 10:
+
+```html
+<script type=module>
+    import {register} from 'be-switched/behivior.js';
+    register('nearlyEq', e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.diff)));
+</script>
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template data-diff=10
+        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
 Here is another, less cinematic example:
 
 ```html
