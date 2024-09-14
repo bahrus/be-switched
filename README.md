@@ -171,7 +171,7 @@ We can depend on any number of peer elements in our calculations, and we can lim
 
 ```html
 <old-man-and-the-sea itemscope>
-    <script type=module>
+    <script blow-dry type=module>
         import {within} from 'be-switched/behivior.js';
         within('old-man-and-the-sea', 'starsAligned', e => e.r = e.f.isANewDay && (ready || luckyIAm) && luckHasCome)
     </script>
@@ -181,7 +181,7 @@ We can depend on any number of peer elements in our calculations, and we can lim
     </label>
     <input aria-label="I could be lucky" type=checkbox id=luckyIAm>
     <input aria-label="Would rather be" type=checkbox name=ready>
-    <link itemprop=luckHasCome href=https://shema.org/true>
+    <data itemprop=luckHasCome value=true></data>
     <template be-switched="on if starsAligned based on @isANewDay and #lucky and #ready and |luckHasCome."
         oninput="{
             const {factors} = event;
