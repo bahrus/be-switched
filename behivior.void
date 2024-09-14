@@ -1,6 +1,6 @@
 import {BeHive, EMC, seed} from 'be-hive/be-hive.js';
 import {MountObserver, MOSE} from 'mount-observer/MountObserver.js';
-import {AllProps, AP} from './types';
+import {AllProps, AP} from './types.js';
 
 const base = 'be-switched';
 const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;

@@ -90,6 +90,7 @@ export interface CanBeSwitchedOn {
 export interface NValueScriptSwitch extends CanBeSwitchedOn {
     dependsOn?: string,
     dependencies?: Array<Dependency>,
+    registeredHandler?: string,
 }
 
 export type AP = AllProps;

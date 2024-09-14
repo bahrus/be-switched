@@ -1,5 +1,5 @@
 import { EMC, MountObserver, seed, BeHive } from 'be-hive/be-hive.js';
-import { emc as baseEMC} from './behivior.js';
+import { emc as baseEMC} from './behivior.void';
 
 export const emc: EMC = {
     ...baseEMC,

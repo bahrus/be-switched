@@ -27,16 +27,16 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.132",
-    "be-hive": "0.0.201",
+    "be-enhanced": "0.0.141",
+    "be-hive": "0.0.216",
     "be-linked": "0.0.111",
-    "be-propagating": "0.0.57",
-    "be-value-added": "0.0.50",
-    "mount-observer": "0.0.34",
-    "trans-render": "0.0.824"
+    "be-propagating": "0.0.58",
+    "be-value-added": "0.0.51",
+    "mount-observer": "0.0.36",
+    "trans-render": "0.0.836"
   },
   "devDependencies": {
-    "@playwright/test": "1.46.0",
+    "@playwright/test": "1.47.1",
     "may-it-serve": "0.0.8"
   },
   "scripts": {

@@ -179,7 +179,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
 
 
-## n factors
+## Scoped, custom logic [TODO]
 
 We can depend on any number of peer elements in our calculations, and we can limit the scope of our custom calculation function
 
@@ -196,22 +196,13 @@ We can depend on any number of peer elements in our calculations, and we can lim
     <input aria-label="I could be lucky" type=checkbox id=luckyIAm>
     <input aria-label="Would rather be" type=checkbox name=ready>
     <data itemprop=luckHasCome value=true></data>
-    <template be-switched="on if starsAligned based on @isANewDay and #lucky and #ready and |luckHasCome."
-        oninput="{
-            const {factors} = event;
-            const {isANewDay, beLucky, ratherBe, luckHasCome} = factors;
-            event.switchOn = 
-                isANewDay.checked  
-                && (ready.checked || luckyIAm.checked)
-                &&  luckHasCome.value
-        }"
-    >
-        I am ready to benefit from such good luck.
+    <template be-switched="on if starsAligned based on @isANewDay and #lucky and #ready and |luckHasCome.">
+        <div>I am ready to benefit from such good luck.</div>
     </template>
 </old-man-and-the-sea>
 ```
 
-What we've seen so far is we can take matters into our hands, and employ free form scripting to calculate whether to display the contents of the template (and other things like setting host properties).
+What we've seen so far is we can take matters into our hands, and employ free form scripting to calculate whether to display the contents of the template.
 
 However, there is one restriction -- There can only be one active sentence contained in the be-switched attribute that starts with "on depending on".  This seems reasonable, as the JavaScript logic can be as complex as we want it to be, applying whatever rules make sense to the various factors.
 

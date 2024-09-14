@@ -1,5 +1,11 @@
-import { BeHive, seed } from 'be-hive/be-hive.js';
-import { MountObserver } from 'mount-observer/MountObserver.js';
+// @ts-check
+import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
+import {Registry} from 'be-hive/Registry.js';
+import {aggs} from 'be-hive/aggEvt.js';
+/** @import {EMC, EventListenerOrFn} from './ts-refs/trans-render/be/types.d.ts' */
+/** @import {Actions, PAP,  AP} from './ts-refs/be-calculating/types' */;
+/** @import {CSSQuery} from './ts-refs/trans-render/types.js' */
+
 const base = 'be-switched';
 const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
 const whenLHSPart = String.raw `when (?<lhsPart>.*)`;
@@ -12,6 +18,10 @@ const offWhenLhsPartOpRhsPart = String.raw `^off ${whenLHSPart} ${op} ${rhsPart}
 const onDependencies = String.raw `^on depending on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
 const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
+
+/**
+ * @type {Partial<EMC<any, AP>>}
+ */
 export const emc = {
     base,
     map: {
