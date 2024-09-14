@@ -103,7 +103,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
+        be-switched='On if nearlyEq, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -130,7 +130,7 @@ Our event handler to reference the adorned element, so that we can remove the ha
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template data-diff=10
-        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
+        be-switched='On if nearlyEq, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -229,7 +229,7 @@ Let's start with the most elementary two value switch:
 > [!NOTE]
 > The comparison condition is re-evaluated on the input events of the lhs and rhs elements by default.  See below for how to specify alternate event names.
 
-> [!Note]
+> [!NOTE]
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
 
