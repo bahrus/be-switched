@@ -97,7 +97,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
 ```html
 <script type=module>
     import {register} from 'be-switched/behivior.js';
-    register('nearlyEq', e => Math.abs(e.args[0] - e.args[1]) < 10));
+    register('nearlyEq', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
@@ -111,13 +111,10 @@ Due primarily to the platform not playing very nice with progressive enhancement
 </ways-of-science>
 ```
 
-The biggest danger point that doesn't seem to have an easy solution, thanks to the platform not bothering to address the needs of the progressive enhancement community, is that if your entire application is using the same "emc" in all the Shadow Roots, the name of the handler, 'isMadeOfWood' will have to be unique.  The only way around that is to extend the emc object, and define an alternate handler key in each Shadow Realm, where there might be a conflict.  (The issue is that the script type module has no self awareness of where it is located in the DOM tree).
-
-A mechanism is in place to specify a scoped "ceiling" so that a particular Shadow Realm can introduce additional event handlers or override existing ones without affecting parent Shadow Realms [TODO]
 
 What this is saying:  
 
-> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the onInput attribute.  If switchOn is set to true, display the contents within the template.  If switchOn is set to false, hide it.  Also, do this check on initialization.
+> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the onInput attribute.  If e.r is set to true, display the contents within the template.  If e.r is set to false, hide it.  Also, do this check on initialization.
 
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
