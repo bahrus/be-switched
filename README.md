@@ -97,13 +97,13 @@ Due primarily to the platform not playing very nice with progressive enhancement
 ```html
 <script type=module>
     import {register} from 'be-switched/behivior.js';
-    register('nearlyEq', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
+    register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On if nearlyEq, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
+        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -114,7 +114,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
 
 What this is saying:  
 
-> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript expression within the onInput attribute.  If e.r is set to true, display the contents within the template.  If e.r is set to false, hide it.  Also, do this check on initialization.
+> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced after "On if".  If e.r is set to true (where e is the name of the event), display the contents within the template.  If e.r is set to false, hide it.  Also, do this check on initialization.
 
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
@@ -124,13 +124,13 @@ Our event handler to reference the adorned element, so that we can remove the ha
 ```html
 <script type=module>
     import {register} from 'be-switched/behivior.js';
-    register('nearlyEq', e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.diff)));
+    register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)));
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
-    <template data-diff=10
-        be-switched='On if nearlyEq, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
+    <template data-max-diff=10
+        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -138,7 +138,22 @@ Our event handler to reference the adorned element, so that we can remove the ha
 </ways-of-science>
 ```
 
-Here is another, less cinematic example:
+This is in fact, such a useful pattern, that "isMadeOfWood" is built into this package, so no JS is actually necessary.  Sorry, JS-firsters!
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template data-max-diff=10
+        be-switched='On if nearlyEq, based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+Here is another, less cinematic example, alo baked in, so no JS needed:
 
 ```html
 <label for=lhs>LHS:</label>
@@ -146,13 +161,12 @@ Here is another, less cinematic example:
 <label for=rhs>RHS:</label>
 <input id=rhs>
 <template
-    be-switched='on if equals, based on #lhs and #rhs.'
+    be-switched='on if eq, based on #lhs and #rhs.'
 >
     <div>LHS === RHS</div>
 </template>
 ```
 
-We didn't need to provide the JavaScript in this case, because "equals" is baked in (sorry, JS-firsters).
 
 As you have probably noticed, we are starting to introduce special symbols for finding peer elements. 
 
