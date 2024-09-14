@@ -146,12 +146,13 @@ Here is another, less cinematic example:
 <label for=rhs>RHS:</label>
 <input id=rhs>
 <template
-    be-switched='on depending on #lhs and #rhs.'
-    oninput="event.switchOn = event.factors.lhs.value === event.factors.rhs.value"
+    be-switched='on if equals, based on #lhs and #rhs.'
 >
     <div>LHS === RHS</div>
 </template>
 ```
+
+We didn't need to provide the JavaScript in this case, because "equals" is baked in (sorry, JS-firsters).
 
 As you have probably noticed, we are starting to introduce special symbols for finding peer elements. 
 
@@ -164,40 +165,16 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
 
 
-## Elevating a computed value
-
-While we are getting our hands dirty with unfettered JavaScript, we can take the opportunity to sneak in some side effects, and pass such calculated values up to the host (or peer elements):
-
-```html
-<ways-of-science itemscope>
-    <carrot-nosed-woman></carrot-nosed-woman>
-    <a-duck></a-duck>
-    <template
-        be-switched='On depending on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        onInput="{
-            const {factors} = event;
-            const weightsAreSimilar = Math.abs(factors.carrotNosedWoman.weight -  factors.aDuck.weight) < 10;
-            event.switchOn = weightsAreSimilar;
-            event.elevate = {
-                to: `isMadeOfWood`,
-                val: weightsAreSimilar
-            };
-        }"
-    >
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
-
-If the val sub property of event.elevate is not specified, but the to is specified, then this library passes the value of event.switchOn.
-
 ## n factors
 
-We can depend on any number of peer elements in our calculations:
+We can depend on any number of peer elements in our calculations, and we can limit the scope of our custom calculation function
 
 ```html
 <old-man-and-the-sea itemscope>
+    <script type=module>
+        import {within} from 'be-switched/behivior.js';
+        within('old-man-and-the-sea', 'starsAligned', e => e.r = e.f.isANewDay && (ready || luckyIAm) && luckHasCome)
+    </script>
     <label>
         Today is a new day.
         <input type=checkbox name=isANewDay>
@@ -205,7 +182,7 @@ We can depend on any number of peer elements in our calculations:
     <input aria-label="I could be lucky" type=checkbox id=luckyIAm>
     <input aria-label="Would rather be" type=checkbox name=ready>
     <link itemprop=luckHasCome href=https://shema.org/true>
-    <template be-switched="on depending on @isANewDay and #lucky and #ready and |luckHasCome."
+    <template be-switched="on if starsAligned based on @isANewDay and #lucky and #ready and |luckHasCome."
         oninput="{
             const {factors} = event;
             const {isANewDay, beLucky, ratherBe, luckHasCome} = factors;
