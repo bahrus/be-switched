@@ -96,15 +96,14 @@ Due primarily to the platform not playing very nice with progressive enhancement
 
 ```html
 <script type=module>
-    import {Registry} from 'be-hive/Registry.js';
-    import {emc} from 'be-switched/behivior.js';
-    Registry.register(emc, 'isMadeOfWood', e => Math.abs(e.factors.carrotNosedWoman.weight - e.factors.aDuck.weight) < 10));
+    import {register} from 'be-switched/behivior.js';
+    register('nearlyEq', e => Math.abs(e.args[0] - e.args[1]) < 10));
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On if isMadeOfWood, depending on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
+        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
