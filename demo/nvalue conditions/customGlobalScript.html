@@ -10,31 +10,23 @@
             "imports": {
                 "be-enhanced/": "/node_modules/be-enhanced/",
                 "be-hive/":  "/node_modules/be-hive/",
-                "be-linked/": "/node_modules/be-linked/",
-                "be-propagating/": "/node_modules/be-propagating/",
-                "be-value-added/": "/node_modules/be-value-added/",
                 "mount-observer/": "/node_modules/mount-observer/",
-                "trans-render/": "/node_modules/trans-render/",
-                "xtal-element/": "/node_modules/xtal-element/"
+                "trans-render/": "/node_modules/trans-render/"
             }
         }
     </script>
 </head>
 <body>
+    <script type=module>
+        import {register} from '/behivior.js';
+        register('isEqual', e => e.r = e.f.lhs === e.f.rhs)
+    </script>
     <my-host-element itemscope>
         <label for=lhs>LHS:</label>
         <input id=lhs>
         <label for=rhs>RHS:</label>
         <input id=rhs>
-        <template
-            be-switched='on depending on #lhs and #rhs.'
-            oninput="{
-                event.switchOn = event.factors.lhs.value === event.factors.rhs.value;
-                event.elevate = {
-                    to: 'dataset:isMadeOfWood'
-                }
-            }"
-            >
+        <template be-switched='on if isEqual based on #lhs and #rhs.'>
             <div>LHS === RHS</div>
         </template>
     </my-host-element>
