@@ -17,6 +17,7 @@ export class SingleValSwitchHandler implements EventListenerObject{
         const {find} = await import('trans-render/dss/find.js');
         const {ASMR} = await import('trans-render/asmr/asmr.js');
         const {singleValSwitches, enhancedElement} = self;
+        let aos: Array<AbsorbingObject> = [];
         for(const svs of singleValSwitches!){
             const {specifier} = svs;
             const remoteEl = await find(enhancedElement, specifier);
@@ -28,12 +29,12 @@ export class SingleValSwitchHandler implements EventListenerObject{
                 selfIsVal: specifier.path === '$0',
             });
             this.#specifierToAO.set(svs, ao);
+            aos.push(ao);
             // const seeker = new BinSeeker(specifier, true);
             // const obj = await seeker.do(self, null,  enhancedElement);
             // svs.signal = obj?.signal;
         }
         const ac = this.#ac = new AbortController();
-        const aos = Object.values(this.#specifierToAO) as Array<AbsorbingObject>;
         for(const ao of aos){
             ao.addEventListener('.', this, {signal: ac.signal});
         }
