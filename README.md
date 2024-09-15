@@ -206,7 +206,7 @@ We can depend on any number of peer elements in our calculations, and we can lim
 
 What we've seen so far is we can take matters into our hands, and employ free form scripting to calculate whether to display the contents of the template.
 
-However, there is one restriction -- There can only be one active sentence contained in the be-switched attribute that starts with "on depending on".  This seems reasonable, as the JavaScript logic can be as complex as we want it to be, applying whatever rules make sense to the various factors.
+However, there is one restriction -- There can only be one active sentence contained in the be-switched attribute that starts with "on if * based on".  This seems reasonable, as the JavaScript logic can be as complex as we want it to be, applying whatever rules make sense to the various factors.
 
 ## Bye JavaScript, nice knowin' ya!
 
