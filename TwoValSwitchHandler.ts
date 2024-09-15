@@ -51,24 +51,26 @@ export class TwoValSwitchHandler{
         let foundOne = false;
         const tvsToAOs = this.#twoValSwitchToAO;
         for(const tvs of twoValSwitches){
-            const {req, op} = tvs;
+            const {req, op, negate} = tvs;
             if(foundOne && !req) continue;
             const [lhsAO, rhsAO] = tvsToAOs.get(tvs)!;
             const lhsVal = await lhsAO.getValue();
             const rhsVal = await rhsAO.getValue();
             //TODO:  deal with lt, gt, boolish, etc
+            let value = false;
             switch(op){
                 case 'eq':
                 case 'equals':
-                    if(lhsVal === rhsVal){
-                        foundOne=true;
-                    }
+                    value = lhsVal === rhsVal
+                    
                     break;
                 case 'gt':
                     throw 'NI';
                 case 'lt':
                     throw 'NI';
             }
+            if(negate) value = !value;
+            if(value) foundOne = true;
         }
         const self = this.self;
         self.twoValSwitchNoGo = false;
