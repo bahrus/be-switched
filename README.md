@@ -119,7 +119,7 @@ What this is saying:
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
 
-Our event handler to reference the adorned element, so that we can remove the hardcoding of 10:
+Our event handler can reference the adorned element, so that we can remove the hardcoding of 10:
 
 ```html
 <script type=module>
