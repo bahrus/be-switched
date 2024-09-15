@@ -124,7 +124,9 @@ Our event handler can reference the adorned element, so that we can remove the h
 ```html
 <script type=module>
     import {register} from 'be-switched/behivior.js';
-    register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)));
+    register('isMadeOfWood',
+      e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)
+    );
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
