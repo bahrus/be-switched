@@ -181,7 +181,7 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
 
 
-## Scoped, custom logic [TODO]
+## Scoped, custom logic [Untested]
 
 We can depend on any number of peer elements in our calculations, and we can limit the scope of our custom calculation function
 
