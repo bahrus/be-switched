@@ -16,7 +16,6 @@ export class NValueSwitch {
         if (nValueSwitches === undefined || nValueSwitches.length > 1)
             throw 'NI';
         const nValueSwitch = nValueSwitches[0];
-        //this.#nValueSwitch = nValueSwitch;
         const { dependencies, registeredHandler } = nValueSwitch;
         const { enhancedElement } = self;
         const { synConfig, mountCnfg } = this.enhancementInfo;
@@ -117,20 +116,6 @@ export class NValueSwitch {
         ;
     }
 }
-// export class InputEvent extends Event implements EventForNValueSwitch{
-//     static EventName: inputEventName = 'input';
-//     constructor(
-//         public ctx: NValueScriptSwitch, 
-//         public factors: {[key: string]: SignalRefType},
-//         public switchOn?: boolean,
-//         public elevate?: {
-//             val: any,
-//             to: string
-//         }
-//         ){
-//         super(InputEvent.EventName/*, {bubbles: true}*/);
-//     }
-// }
 export class SwitchEvent extends AggEvent {
     static eventName = 'be-switched';
     /**

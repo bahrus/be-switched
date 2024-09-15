@@ -17,7 +17,6 @@ export class NValueSwitch{
         const {nValueSwitches} = self;
         if(nValueSwitches === undefined || nValueSwitches.length > 1) throw 'NI';
         const nValueSwitch = nValueSwitches[0];
-        //this.#nValueSwitch = nValueSwitch;
         const {dependencies, registeredHandler} = nValueSwitch;
         const {enhancedElement} = self;
         const {synConfig, mountCnfg} = this.enhancementInfo;
@@ -121,41 +120,10 @@ export class NValueSwitch{
 
     }
 
-    // async #invokeInputEvent(self: AP){
-    //     const factors: {[key: string]: SignalRefType} = {};
-    //     for(const [key, value] of this.#signals.entries()){
-    //         factors[key] = value.deref() as SignalRefType;
-    //     }
-    //     const inputEvent = new InputEvent(this.#nValueSwitch!, factors);
-    //     const {enhancedElement} = self;
-    //     enhancedElement.dispatchEvent(inputEvent);
-    //     const {switchOn, elevate} = inputEvent;
-    //     if(typeof switchOn === 'boolean'){
-    //         self.switchesSatisfied = switchOn;
-    //     }
-    //     if(elevate !== undefined){
-    //         const {doElevate} = await import('./doElevate.js');
-    //         await doElevate(self, elevate, switchOn);
-    //     }
-    // }
+
 }
 
-// export class InputEvent extends Event implements EventForNValueSwitch{
 
-//     static EventName: inputEventName = 'input';
-
-//     constructor(
-//         public ctx: NValueScriptSwitch, 
-//         public factors: {[key: string]: SignalRefType},
-//         public switchOn?: boolean,
-//         public elevate?: {
-//             val: any,
-//             to: string
-//         }
-//         ){
-//         super(InputEvent.EventName/*, {bubbles: true}*/);
-//     }
-// }
 
 export class SwitchEvent extends AggEvent {
     static eventName = 'be-switched';
