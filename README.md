@@ -155,7 +155,7 @@ This is in fact, such a useful pattern, that "isMadeOfWood" is built into this p
 </ways-of-science>
 ```
 
-Here is another, less cinematic example, alo baked in, so no JS needed:
+Here is another, less cinematic example, also baked in, so no JS needed:
 
 ```html
 <label for=lhs>LHS:</label>
