@@ -90,7 +90,7 @@ This enhancement takes the view that the [rule of least power](https://en.wikipe
 
 But for those power hungry developers who want full, unfettered access to the JavaScript runtime in their binding expressions, we start...
 
-## With XOXO's to the Reactive JS-firsters [TODO]
+## With XOXO's to the Reactive JS-firsters
 
 Due primarily to the platform not playing very nice with progressive enhancement needs, this integration isn't as seamless as I would like.  Here's to hoping (despite all the evidence) that the platform will show some HTML love sometime in the distant future.  But for now, this will have to do:
 
@@ -103,7 +103,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
+        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
