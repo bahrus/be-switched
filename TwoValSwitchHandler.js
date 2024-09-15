@@ -26,12 +26,12 @@ export class TwoValSwitchHandler {
             const lhsAO = await ASMR.getAO(remoteLHS, {
                 evt: lhsSpecifier.evt || 'input',
                 selfIsVal: lhsSpecifier.path === '$0',
-                propToAbsorb: lhsProp
+                //propToAbsorb: lhsProp
             });
             const rhsAO = await ASMR.getAO(remoteRHS, {
                 evt: rhsSpecifier.evt || 'input',
                 selfIsVal: rhsSpecifier.path === '$0',
-                propToAbsorb: rhsProp
+                //propToAbsorb: rhsProp
             });
             this.#twoValSwitchToAO.set(tvs, [lhsAO, rhsAO]);
             aos.push([lhsAO, rhsAO]);

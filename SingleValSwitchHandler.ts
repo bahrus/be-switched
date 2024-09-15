@@ -25,7 +25,7 @@ export class SingleValSwitchHandler implements EventListenerObject{
             const ao = await ASMR.getAO(remoteEl, {
                 evt: specifier.evt || 'input',
                 selfIsVal: specifier.path === '$0',
-                propToAbsorb: prop
+                //propToAbsorb: prop
             });
             this.#singleValSwitchToAO.set(svs, ao);
             aos.push(ao);
