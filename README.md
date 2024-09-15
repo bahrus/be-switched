@@ -124,7 +124,9 @@ Our event handler can reference the adorned element, so that we can remove the h
 ```html
 <script type=module>
     import {register} from 'be-switched/behivior.js';
-    register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)));
+    register('isMadeOfWood',
+      e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)
+    );
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
@@ -138,7 +140,7 @@ Our event handler can reference the adorned element, so that we can remove the h
 </ways-of-science>
 ```
 
-This is in fact, such a useful pattern, that "isMadeOfWood" is built into this package, so no JS is actually necessary.  Sorry, JS-firsters!
+This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this package, so no JS is actually necessary.  Sorry, JS-firsters!
 
 ```html
 <ways-of-science itemscope>
@@ -153,7 +155,7 @@ This is in fact, such a useful pattern, that "isMadeOfWood" is built into this p
 </ways-of-science>
 ```
 
-Here is another, less cinematic example, alo baked in, so no JS needed:
+Here is another, less cinematic example, also baked in, so no JS needed:
 
 ```html
 <label for=lhs>LHS:</label>
