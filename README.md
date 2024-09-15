@@ -242,7 +242,7 @@ Let's start with the most elementary two value switch:
 
 In applications that use be-switched frequently, where concerns about clashing with already registered packages in npm isn't a concern, it might make development more productive to utilize a shorter name.  The best alternative name is probably "turn", and it does seem unlikely to me that the platform would ever add attribute "turn" to the template element, but you never know, I guess.
 
-This package does provide an alternative name you can use, which seems quite future-proof and succinct:  🎚️ via the [file](https://github.com/bahrus/be-switched/blob/baseline/%F0%9F%8E%9A%EF%B8%8F.ts).
+This package does provide an alternative name you can use, which seems quite future-proof and succinct:  🎚️ via this [file](https://github.com/bahrus/be-switched/blob/baseline/%F0%9F%8E%9A%EF%B8%8F.ts).
 
 I think you will agree, looking at that file, how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
 
