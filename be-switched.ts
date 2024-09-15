@@ -62,8 +62,9 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
         super.attach(el, enhancementInfo);
     }
     async onSingleValSwitches(self: this): Promise<void> {
-        const {doSingleValSwitch} = await import('./doSingleValSwitch.js');
-        doSingleValSwitch(self);
+        const {SingleValSwitchHandler} = await import('./SingleValSwitchHandler.js');
+        new SingleValSwitchHandler(self);
+        //doSingleValSwitch(self);
     }
 
     async onTwoValSwitches(self: this){

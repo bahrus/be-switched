@@ -57,8 +57,9 @@ class BeSwitched extends BE {
         super.attach(el, enhancementInfo);
     }
     async onSingleValSwitches(self) {
-        const { doSingleValSwitch } = await import('./doSingleValSwitch.js');
-        doSingleValSwitch(self);
+        const { SingleValSwitchHandler } = await import('./SingleValSwitchHandler.js');
+        new SingleValSwitchHandler(self);
+        //doSingleValSwitch(self);
     }
     async onTwoValSwitches(self) {
         const { doTwoValSwitch } = await import('./doTwoValSwitch.js');
