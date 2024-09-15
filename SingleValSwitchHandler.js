@@ -1,6 +1,6 @@
 export class SingleValSwitchHandler {
     self;
-    #specifierToAO = new Map();
+    #singleValSwitchToAO = new Map();
     #ac;
     constructor(self) {
         this.self = self;
@@ -14,7 +14,7 @@ export class SingleValSwitchHandler {
         for (const svs of singleValSwitches) {
             const { specifier } = svs;
             const remoteEl = await find(enhancedElement, specifier);
-            if (!(remoteEl instanceof Element))
+            if (!(remoteEl instanceof EventTarget))
                 continue;
             const { prop } = specifier;
             if (prop === undefined)
@@ -22,8 +22,9 @@ export class SingleValSwitchHandler {
             const ao = await ASMR.getAO(remoteEl, {
                 evt: specifier.evt || 'input',
                 selfIsVal: specifier.path === '$0',
+                propToAbsorb: prop
             });
-            this.#specifierToAO.set(svs, ao);
+            this.#singleValSwitchToAO.set(svs, ao);
             aos.push(ao);
         }
         const ac = this.#ac = new AbortController();
@@ -33,15 +34,15 @@ export class SingleValSwitchHandler {
         this.handleEvent();
     }
     async handleEvent() {
-        const singleValSwitches = Array.from(this.#specifierToAO.keys());
+        const singleValSwitches = Array.from(this.#singleValSwitchToAO.keys());
         const self = this.self;
         let foundOne = false;
-        const specifierToAO = this.#specifierToAO;
+        const svsToAO = this.#singleValSwitchToAO;
         for (const onSwitch of singleValSwitches) {
-            const { req, specifier } = onSwitch;
+            const { req } = onSwitch;
             if (foundOne && !req)
                 continue;
-            const ao = specifierToAO.get(onSwitch);
+            const ao = svsToAO.get(onSwitch);
             const value = await ao?.getValue();
             if (req) {
                 if (!value) {

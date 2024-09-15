@@ -1,4 +1,79 @@
-export {};
+export class TwoValSwitchHandler {
+    self;
+    #twoValSwitchToAO = new Map();
+    #ac;
+    constructor(self) {
+        this.self = self;
+        this.do(self);
+    }
+    async do(self) {
+        const { find } = await import('trans-render/dss/find.js');
+        const { ASMR } = await import('trans-render/asmr/asmr.js');
+        const { twoValueSwitches, enhancedElement } = self;
+        let aos = [];
+        for (const tvs of twoValueSwitches) {
+            const { lhsSpecifier, rhsSpecifier } = tvs;
+            const remoteLHS = await find(enhancedElement, lhsSpecifier);
+            if (!(remoteLHS instanceof EventTarget))
+                continue;
+            const remoteRHS = await find(enhancedElement, rhsSpecifier);
+            if (!(remoteRHS instanceof EventTarget))
+                continue;
+            const lhsProp = lhsSpecifier?.prop;
+            const rhsProp = rhsSpecifier?.prop;
+            if (lhsProp === undefined || rhsProp === undefined)
+                throw 'NI';
+            const lhsAO = await ASMR.getAO(remoteLHS, {
+                evt: lhsSpecifier.evt || 'input',
+                selfIsVal: lhsSpecifier.path === '$0',
+                propToAbsorb: lhsProp
+            });
+            const rhsAO = await ASMR.getAO(remoteRHS, {
+                evt: rhsSpecifier.evt || 'input',
+                selfIsVal: rhsSpecifier.path === '$0',
+                propToAbsorb: rhsProp
+            });
+            this.#twoValSwitchToAO.set(tvs, [lhsAO, rhsAO]);
+            aos.push([lhsAO, rhsAO]);
+        }
+        const ac = this.#ac = new AbortController();
+        for (const ao of aos) {
+            const [lhsAO, rhsAO] = ao;
+            lhsAO.addEventListener('.', this, { signal: ac.signal });
+            rhsAO.addEventListener('.', this, { signal: ac.signal });
+        }
+        this.handleEvent();
+    }
+    async handleEvent() {
+        const twoValSwitches = Array.from(this.#twoValSwitchToAO.keys());
+        let foundOne = false;
+        const tvsToAOs = this.#twoValSwitchToAO;
+        for (const tvs of twoValSwitches) {
+            const { req, op } = tvs;
+            if (foundOne && !req)
+                continue;
+            const [lhsAO, rhsAO] = tvsToAOs.get(tvs);
+            const lhsVal = await lhsAO.getValue();
+            const rhsVal = await rhsAO.getValue();
+            //TODO:  deal with lt, gt, boolish, etc
+            switch (op) {
+                case 'eq':
+                case 'equals':
+                    if (lhsVal === rhsVal) {
+                        foundOne = true;
+                    }
+                    break;
+                case 'gt':
+                    throw 'NI';
+                case 'lt':
+                    throw 'NI';
+            }
+        }
+        const self = this.self;
+        self.twoValSwitchNoGo = false;
+        self.twoValSwitchesSatisfied = foundOne;
+    }
+}
 // export async function doTwoValSwitch(self: BeSwitched){
 //     const {enhancedElement, twoValueSwitches} = self;
 //     for(const onSwitch of twoValueSwitches!){
