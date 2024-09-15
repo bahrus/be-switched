@@ -189,7 +189,7 @@ We can depend on any number of peer elements in our calculations, and we can lim
 <old-man-and-the-sea itemscope>
     <script blow-dry type=module>
         import {within} from 'be-switched/behivior.js';
-        within('old-man-and-the-sea', 'starsAligned', e => e.r = e.f.isANewDay && (ready || luckyIAm) && luckHasCome)
+        within('old-man-and-the-sea', 'starsAligned', e => e.r = e.f.isANewDay && (e.f.ready || e.f.luckyIAm) && e.f.luckHasCome)
     </script>
     <label>
         Today is a new day.
