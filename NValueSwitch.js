@@ -83,9 +83,6 @@ export class NValueSwitch {
         }
         this.handleEvent();
     }
-    /**
-     * @type {AbortController | undefined}
-     */
     #ac;
     async handleEvent() {
         const self = this.self;

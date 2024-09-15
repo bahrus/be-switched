@@ -8,7 +8,7 @@ export class NValueSwitch{
         this.do(self);
     }
 
-    #propToAO: {[key: string]: AbsorbingObject};
+    #propToAO: {[key: string]: AbsorbingObject} | undefined;
 
     #handlerObj: EventListenerOrFn | undefined;
     async do(self: AP & BEAllProps){
@@ -31,7 +31,7 @@ export class NValueSwitch{
             return;
         }
         //this.#scopedHandlers = scopedCustomHandlers;
-        let scopedHandlerObj = scopedCustomHandlers.get(registeredHandler);
+        let scopedHandlerObj = scopedCustomHandlers.get(registeredHandler!);
         let handlerObj: EventListenerOrFn | undefined;
         if(scopedHandlerObj !== undefined){
             for(const item of scopedHandlerObj){
@@ -50,7 +50,7 @@ export class NValueSwitch{
                 throw 404;
             }
             //this.#customHandlers = handlers;
-            handlerObj = handlers.get(registeredHandler);
+            handlerObj = handlers.get(registeredHandler!);
         }
         if(handlerObj === undefined) throw 404;
         if(handlerObj.toString().substring(0, 5) === 'class'){
@@ -61,7 +61,7 @@ export class NValueSwitch{
         /**
          * @type {{[key: string]: AbsorbingObject}}
          */
-        const propToAO = {};
+        const propToAO : {[key: string]: AbsorbingObject} = {};
         for(const dependency of dependencies!){
             const remoteEl = await find(enhancedElement, dependency);
             if(!(remoteEl instanceof Element)) continue;
@@ -83,17 +83,15 @@ export class NValueSwitch{
         this.handleEvent();
     }
 
-    /**
-     * @type {AbortController | undefined}
-     */
-    #ac;
+
+    #ac: AbortController | undefined;
 
 
 
     async handleEvent() {
         const self = this.self;
         const {enhancedElement} = self;
-        const obj = {};
+        const obj: any = {};
         const args: Array<any> = [];
         for(const prop in this.#propToAO){
             const ao = this.#propToAO[prop];
@@ -174,7 +172,7 @@ export class SwitchEvent extends AggEvent {
      * @param {{[key: string]: any}} f 
      * @param {Element} target
      */
-    constructor(args, f, target){
+    constructor(args: Array<any>, f: {[key: string]: any}, target: Element){
         super(SwitchEvent.eventName, args, target);
         this.args = args;
         this.f = f;
