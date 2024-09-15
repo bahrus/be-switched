@@ -1,4 +1,3 @@
-//import {BVAAllProps} from 'be-value-added/types';
 export class SingleValSwitchHandler {
     self;
     #specifierToAO = new Map();

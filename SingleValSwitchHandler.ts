@@ -1,9 +1,7 @@
 //import { BinSeeker } from './BinSeeker.js';
 import { AbsorbingObject } from './ts-refs/trans-render/asmr/types.js';
 import { BEAllProps } from './ts-refs/trans-render/be/types.js';
-import { Specifier } from './ts-refs/trans-render/dss/types.js';
-import {AP, ProPAP, OneValueSwitch, PAP} from './types.js';
-//import {BVAAllProps} from 'be-value-added/types';
+import {AP, OneValueSwitch} from './types.js';
 
 export class SingleValSwitchHandler implements EventListenerObject{
     #specifierToAO = new Map<OneValueSwitch, AbsorbingObject>();
