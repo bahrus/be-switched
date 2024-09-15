@@ -140,7 +140,7 @@ Our event handler can reference the adorned element, so that we can remove the h
 </ways-of-science>
 ```
 
-This is in fact, such a useful pattern, that "isMadeOfWood" is built into this package, so no JS is actually necessary.  Sorry, JS-firsters!
+This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this package, so no JS is actually necessary.  Sorry, JS-firsters!
 
 ```html
 <ways-of-science itemscope>
