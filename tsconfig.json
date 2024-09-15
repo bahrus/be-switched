@@ -9,7 +9,7 @@
 		"skipLibCheck": true
 	},
 	"files": [
-		"🎚️.ts",
+		"be-switched.ts",
 		"sample/MoodStone.ts"
 	],
 	"exclude":[

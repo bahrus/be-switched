@@ -1,10 +1,10 @@
 //import { ActionOnEventConfigs } from "trans-render/froop/types";
-import {IEnhancement} from 'trans-render/be/types';
-import {BVAAllProps} from 'be-value-added/types';
-import {AP as BPAP, ISignal, Actions as BPActions} from 'be-propagating/types';
-import {ElTypes, SignalRefType} from 'be-linked/types';
+import {IEnhancement} from './ts-refs/trans-render/be/types';
+//import {BVAAllProps} from 'be-value-added/types';
+//import {AP as BPAP, ISignal, Actions as BPActions} from 'be-propagating/types';
+//import {ElTypes, SignalRefType} from 'be-linked/types';
 //import { Propagator } from "../trans-render/froop/PropSvc";
-import {Specifier} from 'trans-render/dss/types';
+import {Specifier} from './ts-refs/trans-render/dss/types';
 
 export interface EndUserProps extends IEnhancement<HTMLTemplateElement>{
     lhs?: any,

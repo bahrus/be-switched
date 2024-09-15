@@ -55,8 +55,10 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
         ]
     }
     #enhKey: string | undefined;
+    #enhancementInfo: EnhancementInfo;
     override async attach(el: HTMLTemplateElement, enhancementInfo: EnhancementInfo){
         this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
+        this.#enhancementInfo = enhancementInfo;
         super.attach(el, enhancementInfo);
     }
     async onSingleValSwitches(self: this): Promise<void> {
@@ -71,7 +73,7 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
 
     async onNValSwitches(self: this){
         const {NValueSwitch} = await import('./NValueSwitch.js');
-        new NValueSwitch(self);
+        new NValueSwitch(self, this.#enhancementInfo);
     }
 
     calcVal(self: this): PAP {

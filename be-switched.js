@@ -50,8 +50,10 @@ class BeSwitched extends BE {
         ]
     };
     #enhKey;
+    #enhancementInfo;
     async attach(el, enhancementInfo) {
         this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
+        this.#enhancementInfo = enhancementInfo;
         super.attach(el, enhancementInfo);
     }
     async onSingleValSwitches(self) {
@@ -64,7 +66,7 @@ class BeSwitched extends BE {
     }
     async onNValSwitches(self) {
         const { NValueSwitch } = await import('./NValueSwitch.js');
-        new NValueSwitch(self);
+        new NValueSwitch(self, this.#enhancementInfo);
     }
     calcVal(self) {
         const { lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches, nValueSwitches, singleValSwitches } = self;
