@@ -198,7 +198,7 @@ We can depend on any number of peer elements in our calculations, and we can lim
     <input aria-label="I could be lucky" type=checkbox id=luckyIAm>
     <input aria-label="Would rather be" type=checkbox name=ready>
     <data itemprop=luckHasCome value=true></data>
-    <template be-switched="on if starsAligned based on @isANewDay and #lucky and #ready and |luckHasCome.">
+    <template be-switched="on if starsAligned, based on @isANewDay and #lucky and #ready and |luckHasCome.">
         <div>I am ready to benefit from such good luck.</div>
     </template>
 </old-man-and-the-sea>
