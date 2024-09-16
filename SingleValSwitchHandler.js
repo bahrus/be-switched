@@ -1,6 +1,8 @@
+// @ts-check
 export class SingleValSwitchHandler {
     self;
     #singleValSwitchToAO = new Map();
+    /** @type {AbortController | undefined} */
     #ac;
     constructor(self) {
         this.self = self;
