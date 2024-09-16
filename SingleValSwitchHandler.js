@@ -1,13 +1,23 @@
 // @ts-check
+/** @import {Actions, PAP,  AP, BAP} from './ts-refs/be-switched/types' */;
+
 export class SingleValSwitchHandler {
     self;
     #singleValSwitchToAO = new Map();
     /** @type {AbortController | undefined} */
     #ac;
-    constructor(self) {
+    /**
+     * 
+     * @param {BAP} self 
+     */
+    constructor(self:) {
         this.self = self;
         this.do(self);
     }
+    /**
+     * 
+     * @param {BAP} self 
+     */
     async do(self) {
         const { find } = await import('trans-render/dss/find.js');
         const { ASMR } = await import('trans-render/asmr/asmr.js');
@@ -21,6 +31,7 @@ export class SingleValSwitchHandler {
             const { prop, host } = specifier;
             console.log({ host });
             let propToAbsorb = undefined;
+            /** @type {string | undefined} */
             let evt = specifier.evt || 'input';
             if (host) {
                 if (prop === undefined)
