@@ -1,7 +1,10 @@
 // @ts-check
-/** @import {Actions, PAP,  AP, BAP} from './ts-refs/be-switched/types' */;
+/** @import {BAP} from './ts-refs/be-switched/types' */;
 
 export class SingleValSwitchHandler {
+    /**
+     * @type {BAP}
+     */
     self;
     #singleValSwitchToAO = new Map();
     /** @type {AbortController | undefined} */

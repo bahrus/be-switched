@@ -68,7 +68,7 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
     }
 
     async onTwoValSwitches(self: this){
-        const {TwoValSwitchHandler} = await import('./TwoValSwitchHandler.js');
+        const {TwoValSwitchHandler} = await import('./TwoValSwitchHandler.void');
         new TwoValSwitchHandler(self);
     }
 
