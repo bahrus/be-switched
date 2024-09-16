@@ -10,7 +10,7 @@ export class SingleValSwitchHandler {
      * 
      * @param {BAP} self 
      */
-    constructor(self:) {
+    constructor(self) {
         this.self = self;
         this.do(self);
     }
