@@ -15,7 +15,7 @@ const onWhenLhsPartOpRhsPart = String.raw `^on ${whenLHSPart} ${op} ${rhsPart}`;
 const onWhenLhsPartOpRhsPartWithin = String.raw `${onWhenLhsPartOpRhsPart} w/i (?<within>.*)`;
 //const onWhenLhsPartOpRhsPartAsRhsType = String.raw `^on ${whenLHSPart} ${op} ${rhsPartAsRhsType}`;
 const offWhenLhsPartOpRhsPart = String.raw `^off ${whenLHSPart} ${op} ${rhsPart}`;
-const onDependencies = String.raw `^on if (?<registeredHandler>.*) based on (?<dependencyPart>.*)`;
+const onDependencies = String.raw `^on if (?<registeredHandler>.*)\, based on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
 const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
 
