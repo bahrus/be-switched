@@ -566,7 +566,7 @@ But what if we just want to lazy load content when a single value goes from "fal
 ```html
 <div itemscope>
     ...
-    <link itemprop=isHappy href=https://schema.org/True>
+    <data value=true itemprop=isHappy hidden></data>
     ...
     <template 🎚️='on when |isHappy.' >
         <my-content></my-content>
