@@ -1,14 +1,38 @@
+// @ts-check
+/** @import {BAP} from './ts-refs/be-switched/types' */;
+/** @import {EnhancementInfo, EventListenerOrFn} from  './ts-refs/trans-render/be/types'*/
+/** @import {AbsorbingObject} from './ts-refs/trans-render/asmr/types' */
+
 import { AggEvent, rguid } from 'be-hive/aggEvt.js';
 export class NValueSwitch {
+    /**
+     * @type {BAP}
+     */
     self;
     enhancementInfo;
+    /**
+     * 
+     * @param {BAP} self 
+     * @param {EnhancementInfo} enhancementInfo 
+     */
     constructor(self, enhancementInfo) {
         this.self = self;
         this.enhancementInfo = enhancementInfo;
         this.do(self);
     }
+    /**
+     * @type {{[key: string]: AbsorbingObject} | undefined}
+     */
     #propToAO;
+    /**
+     * @type {EventListenerOrFn | undefined}
+     */
     #handlerObj;
+    /**
+     * 
+     * @param {BAP} self 
+     * @returns 
+     */
     async do(self) {
         const { find } = await import('trans-render/dss/find.js');
         const { ASMR } = await import('trans-render/asmr/asmr.js');

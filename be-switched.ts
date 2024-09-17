@@ -73,7 +73,7 @@ class BeSwitched extends BE<AP, Actions, HTMLTemplateElement> implements Actions
     }
 
     async onNValSwitches(self: this){
-        const {NValueSwitch} = await import('./NValueSwitch.js');
+        const {NValueSwitch} = await import('./NValueSwitch.void');
         new NValueSwitch(self, this.#enhancementInfo);
     }
 
