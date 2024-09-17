@@ -9,6 +9,9 @@ export class NValueSwitch {
      * @type {BAP}
      */
     self;
+    /**
+     * @type {EnhancementInfo}
+     */
     enhancementInfo;
     /**
      * 
