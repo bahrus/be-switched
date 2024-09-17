@@ -1,5 +1,8 @@
-import { config as beCnfg } from 'be-enhanced/config.js';
+// @ts-check
+import { propInfo, rejected, resolved } from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
+/** @import {BAP} from './ts-refs/be-switched/types' */;
+/** @import {EnhancementInfo, EventListenerOrFn} from  './ts-refs/trans-render/be/types'*/
 let cnt = 0;
 class BeSwitched extends BE {
     static config = {
@@ -13,7 +16,7 @@ class BeSwitched extends BE {
             twoValSwitchNoGo: false,
         },
         propInfo: {
-            ...beCnfg.propInfo,
+            ...propInfo,
             twoValueSwitches: {},
             switchesSatisfied: {},
             val: {},
@@ -46,16 +49,28 @@ class BeSwitched extends BE {
             },
         },
         positractions: [
-            ...beCnfg.positractions,
+            [resolved, rejected],
         ]
     };
     #enhKey;
+    /**
+     * @type {EnhancementInfo}
+     */
     #enhancementInfo;
+    /**
+     * 
+     * @param {Element} el 
+     * @param {EnhancementInfo} enhancementInfo 
+     */
     async attach(el, enhancementInfo) {
         this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
         this.#enhancementInfo = enhancementInfo;
         super.attach(el, enhancementInfo);
     }
+    /**
+     * 
+     * @param {BAP} self 
+     */
     async onSingleValSwitches(self) {
         const { SingleValSwitchHandler } = await import('./SingleValSwitchHandler.js');
         new SingleValSwitchHandler(self);
