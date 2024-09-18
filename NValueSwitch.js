@@ -145,11 +145,7 @@ export class NValueSwitch {
 }
 export class SwitchEvent extends AggEvent {
     static eventName = 'be-switched';
-    /**
-     * Event view model
-     * @type {{[key: string]: any}}
-    */
-    f;
+
     /**
      *
      * @param {Array<any>} args
@@ -157,8 +153,6 @@ export class SwitchEvent extends AggEvent {
      * @param {Element} target
      */
     constructor(args, f, target) {
-        super(SwitchEvent.eventName, args, target);
-        this.args = args;
-        this.f = f;
+        super(SwitchEvent.eventName, args, f, target);
     }
 }
