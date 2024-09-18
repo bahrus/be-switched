@@ -49,7 +49,7 @@ class BeSwitched extends BE {
             },
         },
         positractions: [
-            [resolved, rejected],
+            resolved, rejected,
         ]
     };
     #enhKey;
