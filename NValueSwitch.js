@@ -47,27 +47,28 @@ export class NValueSwitch {
         const { enhancedElement } = self;
         const { synConfig, mountCnfg } = this.enhancementInfo;
         const { enhPropKey } = mountCnfg;
-        const { registeredHandlers, scopedHandlers } = await import('be-hive/be-hive.js');
-        const scopedCluster = scopedHandlers.get(synConfig.top);
-        if (scopedCluster === undefined)
-            throw 404;
-        const scopedCustomHandlers = scopedCluster.get(enhPropKey);
-        if (scopedCustomHandlers === undefined) {
-            console.warn(404);
-            return;
-        }
-        //this.#scopedHandlers = scopedCustomHandlers;
-        let scopedHandlerObj = scopedCustomHandlers.get(registeredHandler);
+        const { registeredHandlers} = await import('be-hive/be-hive.js');
         let handlerObj;
-        if (scopedHandlerObj !== undefined) {
-            for (const item of scopedHandlerObj) {
-                if (enhancedElement.closest(item[0])) {
-                    handlerObj = item[1];
-                    break;
-                }
-            }
-        }
-        if (handlerObj === undefined) {
+        // const scopedCluster = scopedHandlers.get(synConfig.top);
+        // if (scopedCluster === undefined)
+        //     throw 404;
+        // const scopedCustomHandlers = scopedCluster.get(enhPropKey);
+        // if (scopedCustomHandlers === undefined) {
+        //     console.warn(404);
+        //     return;
+        // }
+        // //this.#scopedHandlers = scopedCustomHandlers;
+        // let scopedHandlerObj = scopedCustomHandlers.get(registeredHandler);
+        // let handlerObj;
+        // if (scopedHandlerObj !== undefined) {
+        //     for (const item of scopedHandlerObj) {
+        //         if (enhancedElement.closest(item[0])) {
+        //             handlerObj = item[1];
+        //             break;
+        //         }
+        //     }
+        // }
+        //if (handlerObj === undefined) {
             const cluster = registeredHandlers.get(synConfig.top);
             if (cluster === undefined)
                 throw 404;
@@ -77,7 +78,7 @@ export class NValueSwitch {
             }
             //this.#customHandlers = handlers;
             handlerObj = handlers.get(registeredHandler);
-        }
+        //}
         if (handlerObj === undefined)
             throw 404;
         if (handlerObj.toString().substring(0, 5) === 'class') {
