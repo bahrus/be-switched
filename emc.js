@@ -3,7 +3,7 @@ import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
 import {Registry} from 'be-hive/Registry.js';
 import {aggs} from 'be-hive/aggEvt.js';
 /** @import {EMC, EventListenerOrFn} from './ts-refs/trans-render/be/types' */
-/** @import {Actions, PAP,  AP} from './ts-refs/be-calculating/types' */;
+/** @import {Actions, PAP,  AP} from './ts-refs/be-switched/types' */;
 /** @import {CSSQuery} from './ts-refs/trans-render/types.js' */
 
 //const base = 'be-switched';
@@ -15,12 +15,13 @@ const onWhenLhsPartOpRhsPart = String.raw `^on ${whenLHSPart} ${op} ${rhsPart}`;
 const onWhenLhsPartOpRhsPartWithin = String.raw `${onWhenLhsPartOpRhsPart} w/i (?<within>.*)`;
 //const onWhenLhsPartOpRhsPartAsRhsType = String.raw `^on ${whenLHSPart} ${op} ${rhsPartAsRhsType}`;
 const offWhenLhsPartOpRhsPart = String.raw `^off ${whenLHSPart} ${op} ${rhsPart}`;
-const onDependencies = String.raw `^on if (?<registeredHandler>.*)\, based on (?<dependencyPart>.*)`;
+const onIfRegisteredHandlerBasedOnDependencies = String.raw `^on if (?<registeredHandler>.*)\, based on (?<dependencyPart>.*)`;
+const onBasedOnDependencies = String.raw `^on based on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
 const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
 
 /**
- * @type {Partial<EMC<any, AP>>}
+ * @type {EMC<any, AP>}
  */
 export const emc = {
     base: 'be-switched',
@@ -48,7 +49,12 @@ export const emc = {
                 ],
                 nValueSwitches: [
                     {
-                        regExp: onDependencies,
+                        regExp: onIfRegisteredHandlerBasedOnDependencies,
+                        defaultVals: {},
+                        dssArrayKeys: [['dependencyPart', 'dependencies']]
+                    },
+                    {
+                        regExp: onBasedOnDependencies,
                         defaultVals: {},
                         dssArrayKeys: [['dependencyPart', 'dependencies']]
                     }
