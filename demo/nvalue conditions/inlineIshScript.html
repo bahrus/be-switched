@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>on input</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <label for=lhs>LHS:</label>
+    <input id=lhs>
+    <label for=rhs>RHS:</label>
+    <input id=rhs>
+    <template onchange="event.r = event.f.lhs.length === event.f.rhs.length"
+        be-switched='on based on #lhs and #rhs.'>
+        <div>LHS.length === RHS.length</div>
+    </template>
+
+
+    <script type=module>
+        import '/emc.js';
+    </script>
+</body>
+</html>
