@@ -160,7 +160,7 @@ An alternative way is a bit verbose, but benefits more from "locality of behavio
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
-    <script be-eventing-nudges=defer-be-switched>document.currentScript.on={
+    <script be-eventing=be-switched>document.currentScript.on={
         change: e => e.r = Math.abs(e.f.carrotNosedWoman - e.f.aDuck) < 10
     }</script>
 </ways-of-science>
