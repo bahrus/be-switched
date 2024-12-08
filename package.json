@@ -18,7 +18,7 @@
   "exports": {
     ".": "./be-switched.js",
     "./be-switched.js": "./be-switched.js",
-    "./behivior.js": "./behivior.js",
+    "./emc.js": "./emc.js",
     "./🎚️.js": "./🎚️.js"
   },
   "files": [
@@ -27,19 +27,19 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.142",
-    "be-hive": "0.0.218",
-    "mount-observer": "0.0.36",
-    "trans-render": "0.0.838"
+    "be-enhanced": "0.0.156",
+    "be-hive": "0.0.236",
+    "mount-observer": "0.0.39",
+    "trans-render": "0.0.864"
   },
   "devDependencies": {
-    "@playwright/test": "1.47.1",
-    "may-it-serve": "0.0.8"
+    "@playwright/test": "1.49.0",
+    "ssi-server": "0.0.1"
   },
   "scripts": {
-    "serve": "node node_modules/may-it-serve",
+    "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
     "test": "playwright test",
-    "safari": "npx playwright wk http://localhost:3030",
+    "safari": "npx playwright wk http://localhost:8000",
     "update": "ncu -u && npm install"
   },
   "repository": {

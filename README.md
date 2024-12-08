@@ -174,7 +174,7 @@ This also works, and can survive CSP scrutiny:
 
 ```html
 <script type=module>
-    import {register} from 'be-switched/behivior.js';
+    import {register} from 'be-switched/emc.js';
     register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
 </script>
 <ways-of-science itemscope>
@@ -196,7 +196,7 @@ Our event handler can reference the adorned element, so that we can remove the h
 
 ```html
 <script type=module>
-    import {register} from 'be-switched/behivior.js';
+    import {register} from 'be-switched/emc.js';
     register('isMadeOfWood',
       e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)
     );
@@ -261,7 +261,7 @@ We can depend on any number of peer elements in our calculations, and we can lim
 ```html
 <old-man-and-the-sea itemscope>
     <script blow-dry type=module>
-        import {within} from 'be-switched/behivior.js';
+        import {within} from 'be-switched/emc.js';
         within('old-man-and-the-sea', 'starsAligned', e => e.r = e.f.isANewDay && (e.f.ready || e.f.luckyIAm) && e.f.luckHasCome)
     </script>
     <label>
@@ -863,7 +863,7 @@ Any web server that can serve static files will do, but...
 4.  Open command window to folder where you cloned this repo.
 5.  > npm install
 6.  > npm run serve
-7.  Open http://localhost:3030/demo/ in a modern browser.
+7.  Open http://localhost:8000/demo/ in a modern browser.
 
 ## Running Tests
 

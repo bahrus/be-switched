@@ -121,7 +121,7 @@ export class NValueSwitch {
             args.push(val);
             obj[prop] = val;
         }
-        const event = new SwitchEvent(args, obj, enhancedElement);
+        const event = new ChangeEvent(args, obj, enhancedElement);
         const handlerObj = this.#handlerObj;
         if (handlerObj !== undefined) {
             if ('handleEvent' in handlerObj) {
@@ -143,8 +143,8 @@ export class NValueSwitch {
         ;
     }
 }
-export class SwitchEvent extends AggEvent {
-    static eventName = 'be-switched';
+export class ChangeEvent extends AggEvent {
+    static eventName = 'change';
 
     /**
      *
@@ -153,6 +153,6 @@ export class SwitchEvent extends AggEvent {
      * @param {Element} target
      */
     constructor(args, f, target) {
-        super(SwitchEvent.eventName, args, f, target);
+        super(ChangeEvent.eventName, args, f, target);
     }
 }
