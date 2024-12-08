@@ -1,4 +1,4 @@
-# be-switched ( 🎚️ )
+# be-switched ( 🎚️ ) [WIP]
 
 *be-switched* is a template element enhancement that lazy loads content when conditions are met.
 
@@ -17,7 +17,7 @@ be-switched can be used in three modes:
 
 1.  It can switch the template "on and off" based on comparing two values (lhs and rhs), or multiple such comparisons, declaratively.
 2.  Or it can switch the template "on and off" based on a single value.  Or multiple such binary conditions.
-3.  Or with the help of JavaScript we can evaluate a complex expression that is automatically recalculated anytime any of its n dependencies change, where n can be as high as needed.
+3.  Or, with the help of JavaScript, we can evaluate a complex expression that is automatically recalculated anytime any of its n dependencies change, where n can be as high as needed.
    
 The values to compare can come from peer microdata or form elements, or "boolish" properties coming from the host or peer (custom) elements, as well as data attributes adorning the template.
 
@@ -92,7 +92,52 @@ But for those power hungry developers who want full, unfettered access to the Ja
 
 ## With XOXO's to the Reactive JS-firsters
 
-Due primarily to the platform not playing very nice with progressive enhancement needs, this integration isn't as seamless as I would like.  Here's to hoping (despite all the evidence) that the platform will show some HTML love sometime in the distant future.  But for now, this will have to do:
+Due primarily to the platform not playing very nice with progressive enhancement needs, this integration isn't as seamless as I would like.  Here's to hoping (despite all the evidence) that the platform will show some HTML love sometime in the distant future.  But for now, this will have to do.
+
+### Adding a local, unique anonymous conditional expression "unsafely" [TODO, again]
+
+If your production web site runs in a setting without CSP checks, then this works [TODO]:
+
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        onload="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+Our expression can alternatively be more expressive:
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+Here, we are attempting to keep our expressions short, which means using some abbreviations are used:
+
+1.  event.r means "the return value of the result should be..."
+2.  the f in event.f stands for "factors" in the conditional evaluation -- factors derived from what the be-switched expression is "based on".
+
+What this is saying:  
+
+> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced in the onchange attribute.  If event.r is set to true, display the contents within the template.  If event.r is set to false, hide it.  Also, evaluate the expression immediately at the outset. 
+
 
 ```html
 <script type=module>
@@ -112,9 +157,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
 ```
 
 
-What this is saying:  
 
-> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced after "On if".  If e.r is set to true (where e is the name of the event), display the contents within the template.  If e.r is set to false, hide it.  Also, do this check on initialization.
 
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
