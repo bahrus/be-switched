@@ -32,7 +32,6 @@ export class SingleValSwitchHandler {
             if (!(remoteEl instanceof EventTarget))
                 continue;
             const { prop, host } = specifier;
-            console.log({ host });
             let propToAbsorb = undefined;
             /** @type {string | undefined} */
             let evt = specifier.evt || 'input';
