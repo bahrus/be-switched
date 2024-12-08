@@ -45,25 +45,28 @@ export class NValueSwitch {
         const nValueSwitch = nValueSwitches[0];
         const { dependencies, registeredHandler } = nValueSwitch;
         const { enhancedElement } = self;
-        const { synConfig, mountCnfg } = this.enhancementInfo;
-        const { enhPropKey } = mountCnfg;
-        const { registeredHandlers} = await import('be-hive/be-hive.js');
-        let handlerObj;
+        if(registeredHandler !== undefined){
+            const { synConfig, mountCnfg } = this.enhancementInfo;
+            const { enhPropKey } = mountCnfg;
+            const { registeredHandlers} = await import('be-hive/be-hive.js');
+            let handlerObj;
+    
+            const cluster = registeredHandlers.get(synConfig.top);
+            if (cluster === undefined)
+                throw 404;
+            const handlers = cluster.get(enhPropKey);
+            if (handlers === undefined) {
+                throw 404;
+            }
+            handlerObj = handlers.get(registeredHandler);
+            if (handlerObj === undefined)
+                throw 404;
+            if (handlerObj.toString().substring(0, 5) === 'class') {
+                handlerObj = new handlerObj();
+            }
+            this.#handlerObj = handlerObj;
+        }
 
-        const cluster = registeredHandlers.get(synConfig.top);
-        if (cluster === undefined)
-            throw 404;
-        const handlers = cluster.get(enhPropKey);
-        if (handlers === undefined) {
-            throw 404;
-        }
-        handlerObj = handlers.get(registeredHandler);
-        if (handlerObj === undefined)
-            throw 404;
-        if (handlerObj.toString().substring(0, 5) === 'class') {
-            handlerObj = new handlerObj();
-        }
-        this.#handlerObj = handlerObj;
         /**
          * @type {{[key: string]: AbsorbingObject}}
          */
