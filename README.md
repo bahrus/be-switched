@@ -96,7 +96,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
 
 ### Adding a local, unique anonymous conditional expression "unsafely" [TODO, again]
 
-If your production web site runs in a setting without CSP checks, then this works [TODO]:
+If your production web site runs in a setting without CSP checks (or allows for inline expressions), then this works [TODO]:
 
 
 ```html
@@ -129,7 +129,7 @@ Our expression can alternatively be more expressive:
 </ways-of-science>
 ```
 
-Here, we are attempting to keep our expressions short, which means using some abbreviations are used:
+Here, we are attempting to keep our expressions short, which means some abbreviations are used:
 
 1.  event.r means "the return value of the result should be..."
 2.  the f in event.f stands for "factors" in the conditional evaluation -- factors derived from what the be-switched expression is "based on".
