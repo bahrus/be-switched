@@ -105,7 +105,7 @@ If your production web site runs in a setting without CSP checks (or allows for 
     <a-duck></a-duck>
     <template
         be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        onload="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
+        onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
         <div>Burn her!</div>
