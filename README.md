@@ -173,7 +173,7 @@ It's the best I could do to ensure everything works reliably.
 This also works, and can survive CSP scrutiny:
 
 ```html
-<script type=module>
+<script type=module blocking=defer>
     import {register} from 'be-switched/emc.js';
     register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
 </script>
@@ -192,7 +192,7 @@ This also works, and can survive CSP scrutiny:
 Our event handler can reference the adorned element, so that we can remove the hardcoding of 10:
 
 ```html
-<script type=module>
+<script type=module blocking=defer>
     import {register} from 'be-switched/emc.js';
     register('isMadeOfWood',
       e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)
