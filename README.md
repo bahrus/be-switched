@@ -96,7 +96,7 @@ Due primarily to the platform not playing very nice with progressive enhancement
 
 ### Adding a local, unique anonymous conditional expression "unsafely" [TODO, again]
 
-If your production web site runs in a setting without CSP checks (or allows for inline expressions), then this works [TODO]:
+If your production web site runs in a setting without CSP checks (or allows for inline expressions), then this works just fine, and is supported:
 
 
 ```html
@@ -141,11 +141,11 @@ What this is saying:
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
 
-### Adding a local, unique anonymous conditional expression "safely" [TODO, again]
+### Adding a local, unique anonymous conditional expression "safely"
 
 The example above will break the moment typically minimal CSP security checks are put into place.
 
-One way to overcome this unfortunate obstacle is by programmatically attaching the onchange event handler to the template via a framework, or a custom element host.
+One way to overcome this unfortunate obstacle is by programmatically adding the 'change' event handler to the template via a framework, or a custom element host.
 
 An alternative way is a bit verbose, but benefits more from "locality of behavior". We utilize a [helper enhancement](https://github.com/bahrus/be-eventing):
 
@@ -188,9 +188,6 @@ This also works, and can survive CSP scrutiny:
     </template>
 </ways-of-science>
 ```
-
-
-
 
 Our event handler can reference the adorned element, so that we can remove the hardcoding of 10:
 
@@ -253,33 +250,6 @@ We are often (but not always in the case of 2. below) making some assumptions ab
 1.  The value of the elements we are comparing are primitive JS types that are either inferrable, or specified by a property path.
 2.  The values of the elements we are comparing change in conjunction with a (user-initiated) event. 
 
-
-## Scoped, custom logic [Untested]
-
-We can depend on any number of peer elements in our calculations, and we can limit the scope of our custom calculation function
-
-```html
-<old-man-and-the-sea itemscope>
-    <script blow-dry type=module>
-        import {within} from 'be-switched/emc.js';
-        within('old-man-and-the-sea', 'starsAligned', e => e.r = e.f.isANewDay && (e.f.ready || e.f.luckyIAm) && e.f.luckHasCome)
-    </script>
-    <label>
-        Today is a new day.
-        <input type=checkbox name=isANewDay>
-    </label>
-    <input aria-label="I could be lucky" type=checkbox id=luckyIAm>
-    <input aria-label="Would rather be" type=checkbox name=ready>
-    <data itemprop=luckHasCome value=true></data>
-    <template be-switched="on if starsAligned, based on @isANewDay and #lucky and #ready and |luckHasCome.">
-        <div>I am ready to benefit from such good luck.</div>
-    </template>
-</old-man-and-the-sea>
-```
-
-What we've seen so far is we can take matters into our hands, and employ free form scripting to calculate whether to display the contents of the template.
-
-However, there is one restriction -- There can only be one active sentence contained in the be-switched attribute that starts with "on if * based on".  This seems reasonable, as the JavaScript logic can be as complex as we want it to be, applying whatever rules make sense to the various factors.
 
 ## Bye JavaScript, nice knowin' ya!
 
