@@ -365,7 +365,7 @@ We can apply such closest queries to either the LHS or the RHS, or both, as show
 
 If  we use the same closest query for both, we can reduce typing / increase readability and reduce the amount of DOM traversing thusly:
 
-## W/I (within) scoping [TODO]
+## W/I (within) scoping
 
 
 ```html
