@@ -138,6 +138,39 @@ What this is saying:
 
 > Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced in the onchange attribute.  If event.r is set to true, display the contents within the template.  If event.r is set to false, hide it.  Also, evaluate the expression immediately at the outset. 
 
+> [!NOTE]
+> This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
+
+### Adding a local, unique anonymous conditional expression "safely" [TODO, again]
+
+The example above will break the moment typically minimal CSP security checks are put into place.
+
+One way to overcome this unfortunate obstacle is by programmatically attaching the onchange event handler to the template via a framework, or a custom element host.
+
+An alternative way is a bit verbose, but benefits more from "locality of behavior". We utilize a [helper enhancement](https://github.com/bahrus/be-eventing):
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        defer-be-switched
+        be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+    <script be-eventing-nudges=defer-be-switched>document.currentScript.on={
+        change: e => e.r = Math.abs(e.f.carrotNosedWoman - e.f.aDuck) < 10
+    }</script>
+</ways-of-science>
+```
+
+It's the best I could do to ensure everything works reliably.
+
+## Registering a named, global event handler
+
+This also works, and can survive CSP scrutiny:
 
 ```html
 <script type=module>
@@ -158,9 +191,6 @@ What this is saying:
 
 
 
-
-> [!NOTE]
-> This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
 
 Our event handler can reference the adorned element, so that we can remove the hardcoding of 10:
 
