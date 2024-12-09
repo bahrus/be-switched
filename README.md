@@ -475,7 +475,7 @@ What this does:
 Remember that if the event name is not specified, the input event is assumed, when elements are found by name or by id or by tag name, and if no prop name is specified (see below).  Regardless of the event names specified, the developer uses the built in "oninput" attribute to provide a custom script to evaluate whether the condition is met.
 
 
-### Specify property path to compare 
+### Specify property path to compare [TODO]
 
 Use a single colon for specifying a property path.
 
@@ -485,7 +485,7 @@ Use a single colon for specifying a property path.
     <a-duck></a-duck>
     <template 
         🎚️='
-            On when ~carrotNosedWoman:weight equals ~aDuck:weight.
+            On when ~carrotNosedWoman?.weight equals ~aDuck?.weight.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -740,13 +740,13 @@ The standalone ^{(*)} is indicating to just look at the previous element sibling
 
 ## Example 3c 
 
-### Example 3c Comparison to a constant
+### Example 3c Comparison to a constant [TODO]
 
 ```html
 <label for=lhs>lhs</label>
 <input id=lhs name=lhs type=number>
 
-<template data-rhs=37 🎚️='on when @lhs eq $0:dataset:rhs as number.'>
+<template data-rhs=37 🎚️='on when @lhs eq $0?.dataset?.rhs as number.'>
     <my-content></my-content>
 </template>
     
