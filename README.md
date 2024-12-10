@@ -501,6 +501,23 @@ If no such interface is detected, this will instead override the setter for the 
 
 Also, note that this can actually be a chain of accessors n-levels deep.  
 
+## Specify Source of Truth attributes [TODO]
+
+If the elements being observed don't have propagators to subscribe to, and the thought of overriding a setter feels wrong or simply doesn't work, but the property happens to have a corresponding attribute that serves as a "source of truth" corresponding to the property, then we can take advantage of that:
+
+```html
+<ways-of-science>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template 
+        🎚️='
+            On when ~carrotNosedWoman@weight equals ~aDuck@weight.
+     '>
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
 
 ### Specify less than
 
