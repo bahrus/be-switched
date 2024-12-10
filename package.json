@@ -27,13 +27,13 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.156",
-    "be-hive": "0.0.236",
+    "be-enhanced": "0.0.157",
+    "be-hive": "0.0.237",
     "mount-observer": "0.0.39",
-    "trans-render": "0.0.864"
+    "trans-render": "0.0.865"
   },
   "devDependencies": {
-    "@playwright/test": "1.49.0",
+    "@playwright/test": "1.49.1",
     "ssi-server": "0.0.1"
   },
   "scripts": {
