@@ -493,7 +493,9 @@ Use a single colon for specifying a property path.
 </ways-of-science>
 ```
 
-Events are not used here, but rather propagating props.
+There's a lot to unpack here:
+
+This assumes ideally that the host custom element conforms to the "RoundaboutReady" interface -- in particular, has a "propagating" property that emits events "weight" when the weight property changes for *carrot-nowed-woman* and *a-duck*.
 
 Also, note that this can actually be a chain of accessors (that automatically inserts a chaining operator ?. without requiring the extra ? character).  
 
