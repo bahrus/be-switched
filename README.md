@@ -507,8 +507,8 @@ If the elements being observed don't have propagators to subscribe to, and the t
 
 ```html
 <ways-of-science>
-    <carrot-nosed-woman></carrot-nosed-woman>
-    <a-duck></a-duck>
+    <carrot-nosed-woman weight=92></carrot-nosed-woman>
+    <a-duck weight=82></a-duck>
     <template 
         🎚️='
             On when ~carrotNosedWoman@weight equals ~aDuck@weight.
