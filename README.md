@@ -192,7 +192,7 @@ This also works, and can survive CSP scrutiny:
 Our event handler can reference the adorned element, so that we can remove the hardcoding of 10:
 
 ```html
-<script type=module blocking=defer>
+<script type=module blocking=render>
     import {register} from 'be-switched/emc.js';
     register('isMadeOfWood',
       e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)
