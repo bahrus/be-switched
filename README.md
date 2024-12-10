@@ -94,7 +94,7 @@ But for those power hungry developers who want full, unfettered access to the Ja
 
 Due primarily to the platform not playing very nice with progressive enhancement needs, this integration isn't as seamless as I would like.  Here's to hoping (despite all the evidence) that the platform will show some HTML love sometime in the distant future.  But for now, this will have to do.
 
-### Adding a local, unique anonymous conditional expression "unsafely" [TODO, again]
+### Adding a local, unique anonymous conditional expression "unsafely"
 
 If your production web site runs in a setting without CSP checks (or allows for inline expressions), then this works just fine, and is supported:
 
