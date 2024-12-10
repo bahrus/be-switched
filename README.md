@@ -477,7 +477,7 @@ Remember that if the event name is not specified, the input event is assumed, wh
 
 ### Specify property path to compare [TODO]
 
-Use a single colon for specifying a property path.
+Use the  "chained accessor" symbol (?.) for specifying a property path.
 
 ```html
 <ways-of-science>
@@ -495,11 +495,12 @@ Use a single colon for specifying a property path.
 
 There's a lot to unpack here:
 
-This assumes ideally that the host custom element conforms to the "RoundaboutReady" interface -- in particular, has a "propagating" property that emits events "weight" when the weight property changes for *carrot-nowed-woman* and *a-duck*.
+This assumes ideally that the host custom element conforms to the ["RoundaboutReady"](https://github.com/bahrus/trans-render/wiki/II.--Signals-vs-Roundabouts#how-to-be-roundabout-ready) interface -- in particular, has a "propagator" property that emits events "weight" when the weight property changes for *carrot-nosed-woman* and *a-duck*.
 
-Also, note that this can actually be a chain of accessors (that automatically inserts a chaining operator ?. without requiring the extra ? character).  
+If no such interface is detected, this will instead override the setter for the "weight" property which may not always work or feel very resilient.
 
-The colon symbol is used instead of the period, since we are using periods to separate potentially multiple sentences contained within the attribute.  *be-switched* supports multiple statements (or condition by default, unless the word "only" is inserted).
+Also, note that this can actually be a chain of accessors n-levels deep.  
+
 
 ### Specify less than
 
