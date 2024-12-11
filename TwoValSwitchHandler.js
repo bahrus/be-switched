@@ -40,12 +40,15 @@ export class TwoValSwitchHandler {
                 throw 'NI';
             const lhsAO = await ASMR.getAO(remoteLHS, {
                 evt: lhsSpecifier.evt || 'input',
-                selfIsVal: lhsSpecifier.path === '$0',
-                //propToAbsorb: lhsProp
+                selfIsVal: lhsSpecifier.prop === '$0' && lhsSpecifier.path === undefined,
+                propToAbsorb: lhsSpecifier.path
             });
             const rhsAO = await ASMR.getAO(remoteRHS, {
                 evt: rhsSpecifier.evt || 'input',
-                selfIsVal: rhsSpecifier.path === '$0',
+                selfIsVal: rhsSpecifier.prop === '$0' && rhsSpecifier.path === undefined,
+                propToAbsorb: rhsSpecifier.path,
+                as: rhsSpecifier.as,
+                
                 //propToAbsorb: rhsProp
             });
             this.#twoValSwitchToAO.set(tvs, [lhsAO, rhsAO]);
