@@ -141,32 +141,9 @@ What this is saying:
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
 
-### Adding a local, unique anonymous conditional expression "safely"
+### Adding a local, unique anonymous conditional expression "CSP safely"
 
-### Approach 1 [TODO]
 
-```html
-<ways-of-science itemscope>
-    <carrot-nosed-woman></carrot-nosed-woman>
-    <a-duck></a-duck>
-    <template
-        defer-be-switched
-        be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
-        be-switched-js="Math.abs(e.f.carrotNosedWoman - e.f.aDuck) < 10"
-    >
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
-
-### Approach 2
-
-The example above will break the moment typically minimal CSP security checks are put into place.
-
-One way to overcome this unfortunate obstacle is by programmatically adding the 'change' event handler to the template via a framework, or a custom element host.
-
-An alternative way is a bit verbose, but benefits more from "locality of behavior". We utilize a [helper enhancement](https://github.com/bahrus/be-eventing):
 
 ```html
 <ways-of-science itemscope>
@@ -175,17 +152,15 @@ An alternative way is a bit verbose, but benefits more from "locality of behavio
     <template
         defer-be-switched
         be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
-    <script be-eventing=be-switched>document.currentScript.on={
-        change: e => e.r = Math.abs(e.f.carrotNosedWoman - e.f.aDuck) < 10
-    }</script>
 </ways-of-science>
 ```
 
-It's the best I could do to ensure everything works reliably.
+
 
 ## Registering a named, global event handler
 

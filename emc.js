@@ -25,6 +25,7 @@ const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
  */
 export const emc = {
     base: 'be-switched',
+    branches: ['', 'js'],
     map: {
         '0.0': {
             instanceOf: 'Object$entences',
@@ -72,6 +73,10 @@ export const emc = {
                     }
                 ]
             }
+        },
+        '1.0': {
+            instanceOf: 'String',
+            mapsTo: 'js'
         }
     },
     enhPropKey: 'beSwitched',

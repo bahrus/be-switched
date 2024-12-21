@@ -1,10 +1,18 @@
 // @ts-check
 import { propInfo, rejected, resolved } from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
-/** @import {BAP} from './ts-refs/be-switched/types' */;
+/** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types' */
+/** @import {BAP, Actions} from './ts-refs/be-switched/types' */;
 /** @import {EnhancementInfo, EventListenerOrFn} from  './ts-refs/trans-render/be/types'*/
 let cnt = 0;
+
+/**
+ * @implements {Actions}
+ */
 class BeSwitched extends BE {
+    /**
+     * @type {BEConfig<BAP, Actions & IEnhancement, any>}
+     */
     static config = {
         propDefaults: {
             hiddenStyle: 'display:none',
@@ -14,6 +22,7 @@ class BeSwitched extends BE {
             singleValSwitchNoGo: false,
             twoValSwitchesSatisfied: false,
             twoValSwitchNoGo: false,
+            notProcessedJS: true,
         },
         propInfo: {
             ...propInfo,
@@ -24,13 +33,14 @@ class BeSwitched extends BE {
             nValueSwitches: {},
             rawStatements: {},
             singleValSwitches: {},
+            js: {},
         },
         compacts: {
             echo_val_to_echoVal: 20,
             when_singleValSwitches_changes_invoke_onSingleValSwitches: 0,
             when_twoValueSwitches_changes_invoke_onTwoValSwitches: 0,
             when_rawStatements_changes_invoke_onRawStatements: 0,
-            when_nValueSwitches_changes_invoke_onNValSwitches: 0,
+            when_js_changes_invoke_processJS: 0,
         },
         actions: {
             onTrue: {
@@ -47,6 +57,10 @@ class BeSwitched extends BE {
             calcVal: {
                 ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
             },
+            onNValSwitches: {
+                ifAllOf: ['nValueSwitches'],
+                ifNotAllOf: ['js', 'notProcessedJS']
+            }
         },
         positractions: [
             resolved, rejected,
@@ -76,14 +90,27 @@ class BeSwitched extends BE {
         new SingleValSwitchHandler(self);
         //doSingleValSwitch(self);
     }
+    /**
+     * 
+     * @param {BAP} self 
+     */
     async onTwoValSwitches(self) {
         const { TwoValSwitchHandler } = await import('./TwoValSwitchHandler.js');
         new TwoValSwitchHandler(self);
     }
+        /**
+     * 
+     * @param {BAP} self 
+     */
     async onNValSwitches(self) {
+        const {notProcessedJS, js} = self;
         const { NValueSwitch } = await import('./NValueSwitch.js');
         new NValueSwitch(self, this.#enhancementInfo);
     }
+    /**
+     * 
+     * @param {BAP} self 
+     */
     calcVal(self) {
         const { lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches, nValueSwitches, singleValSwitches } = self;
         //console.log({switchesSatisfied});
@@ -121,6 +148,10 @@ class BeSwitched extends BE {
             resolved: true,
         };
     }
+    /**
+     * 
+     * @param {BAP} self 
+     */
     calcSwitchesSatisfied(self) {
         const { singleValSwitchNoGo, singleValSwitchesSatisfied, twoValSwitchNoGo, twoValSwitchesSatisfied } = self;
         return {
@@ -182,6 +213,24 @@ class BeSwitched extends BE {
     onRawStatements(self) {
         const { rawStatements } = self;
         console.error('The following statements could not be parsed.', rawStatements);
+    }
+
+    /**
+     * 
+     * @param {BAP} self 
+     */
+    async processJS(self){
+        const {js, enhancedElement} = self;
+        const expr = `
+    const {f} = e;
+    e.r = ${js};
+`;
+        const handler = (await import('trans-render/lib/activate.js')).activate(expr);
+        //TODO abort controller
+        enhancedElement.addEventListener('change', handler);
+        return /** @type {BAP} */({
+            notProcessedJS: false,
+        });
     }
 }
 const styleMap = new WeakSet();

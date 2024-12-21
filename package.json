@@ -27,10 +27,10 @@
   ],
   "types": "types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.158",
-    "be-hive": "0.0.238",
+    "be-enhanced": "0.0.161",
+    "be-hive": "0.0.241",
     "mount-observer": "0.0.39",
-    "trans-render": "0.0.867"
+    "trans-render": "0.0.873"
   },
   "devDependencies": {
     "@playwright/test": "1.49.1",
