@@ -143,6 +143,25 @@ What this is saying:
 
 ### Adding a local, unique anonymous conditional expression "safely"
 
+### Approach 1 [TODO]
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        defer-be-switched
+        be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched-js="Math.abs(e.f.carrotNosedWoman - e.f.aDuck) < 10"
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
+### Approach 2
+
 The example above will break the moment typically minimal CSP security checks are put into place.
 
 One way to overcome this unfortunate obstacle is by programmatically adding the 'change' event handler to the template via a framework, or a custom element host.
