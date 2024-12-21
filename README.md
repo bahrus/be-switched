@@ -144,7 +144,6 @@ What this is saying:
 ### Adding a local, unique anonymous conditional expression "CSP safely"
 
 
-
 ```html
 <ways-of-science itemscope>
     <carrot-nosed-woman></carrot-nosed-woman>
@@ -160,7 +159,13 @@ What this is saying:
 </ways-of-science>
 ```
 
+Variables that are available inside these -js expressions:
 
+|   Variable Name   |  Meaning                  |
+|-------------------|---------------------------|
+| e                 | The change event          |
+| f                 | Factors of the expression |
+| args              | Array of the factors      |
 
 ## Registering a named, global event handler
 

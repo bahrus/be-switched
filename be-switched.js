@@ -222,7 +222,7 @@ class BeSwitched extends BE {
     async processJS(self){
         const {js, enhancedElement} = self;
         const expr = `
-    const {f} = e;
+    const {f, args} = e;
     e.r = ${js};
 `;
         const handler = (await import('trans-render/lib/activate.js')).activate(expr);
