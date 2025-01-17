@@ -104,7 +104,7 @@ If your production web site runs in a setting without CSP checks (or allows for 
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -120,7 +120,7 @@ Our expression can alternatively be more expressive:
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -150,7 +150,7 @@ When using this enhancement in the recommended way, as described by the note abo
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On transitionally based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched='on transitionally based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -168,7 +168,7 @@ When using this enhancement in the recommended way, as described by the note abo
     <a-duck></a-duck>
     <template
         defer-be-switched
-        be-switched='On based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         be-switched-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -198,7 +198,7 @@ This also works, and can survive CSP scrutiny:
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched='on if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -219,7 +219,7 @@ Our event handler can reference the adorned element, so that we can remove the h
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template data-max-diff=10
-        be-switched='On if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
+        be-switched='on if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -234,7 +234,7 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template data-max-diff=10
-        be-switched='On if nearlyEq, based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched='on if nearlyEq, based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -316,6 +316,18 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 <label for=rhs>RHS:</label>
 <input id=rhs>
 <template 🎚️='on when #lhs equals #rhs as number.'>
+    <div>LHS === RHS</div>
+</template>
+```
+
+### Use View Transitions [TODO]
+
+```html
+<label for=lhs>LHS:</label>
+<input id=lhs type=number>
+<label for=rhs>RHS:</label>
+<input id=rhs>
+<template 🎚️='on transitionally when #lhs equals #rhs as number.'>
     <div>LHS === RHS</div>
 </template>
 ```

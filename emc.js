@@ -12,7 +12,7 @@ const rhsPart = String.raw `(?<rhsPart>.*)`;
 const onOrOffWhenLhsPartOpRhsPart = String.raw `^(?<onOrOff>(on|On|off|Off)) ${whenLHSPart} ${op} ${rhsPart}`;
 const onOrOffWhenLhsPartOpRhsPartWithin = String.raw `${onOrOffWhenLhsPartOpRhsPart} w/i (?<within>.*)`;
 const onIfRegisteredHandlerBasedOnDependencies = String.raw `^on if (?<registeredHandler>.*)\, based on (?<dependencyPart>.*)`;
-const onBasedOnDependencies = String.raw `^on based on (?<dependencyPart>.*)`;
+const onBasedOnDependencies = String.raw `^(o|O)n based on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
 const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
 
