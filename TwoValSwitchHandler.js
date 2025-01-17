@@ -1,11 +1,15 @@
 // @ts-check
-/** @import {BAP} from './ts-refs/be-switched/types' */;
+/** @import {BAP, TwoValueSwitch} from './ts-refs/be-switched/types' */;
+/** @import {AbsorbingObject} from './ts-refs/trans-render/asmr/types' */;
 
 export class TwoValSwitchHandler {
     /**
      * @type {BAP}
      */
     self;
+    /**
+     * @type {Map<TwoValueSwitch, [AbsorbingObject, AbsorbingObject]>}
+     */
     #twoValSwitchToAO = new Map();
     /** @type {AbortController | undefined} */
     #ac;
@@ -67,7 +71,7 @@ export class TwoValSwitchHandler {
         let foundOne = false;
         const tvsToAOs = this.#twoValSwitchToAO;
         for (const tvs of twoValSwitches) {
-            const { req, op, negate } = tvs;
+            const { req, op, onOrOff } = tvs;
             if (foundOne && !req)
                 continue;
             const [lhsAO, rhsAO] = tvsToAOs.get(tvs);
@@ -85,7 +89,7 @@ export class TwoValSwitchHandler {
                 case 'lt':
                     throw 'NI';
             }
-            if (negate)
+            if (onOrOff.endsWith('ff'))
                 value = !value;
             if (value)
                 foundOne = true;
