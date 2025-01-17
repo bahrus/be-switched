@@ -141,6 +141,24 @@ What this is saying:
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
 
+### Adding "View Transition" support [TODO]
+
+When using this enhancement in the recommended way, as described by the note above, where the "on" condition results in displaying a significant amount of new content it may make sense to apply "view transition" support to the view change.
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        be-switched='On transitionally based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
 ### Adding a local, unique anonymous conditional expression "CSP safely"
 
 
