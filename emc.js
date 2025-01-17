@@ -42,11 +42,6 @@ export const emc = {
                         defaultVals: {},
                         dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
                     },
-                    // {
-                    //     regExp: offWhenLhsPartOpRhsPart,
-                    //     defaultVals: { negate: true },
-                    //     dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
-                    // }
                 ],
                 nValueSwitches: [
                     {
