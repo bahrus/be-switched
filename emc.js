@@ -6,14 +6,11 @@ import {aggs} from 'be-hive/aggEvt.js';
 /** @import {Actions, PAP,  AP} from './ts-refs/be-switched/types' */;
 /** @import {CSSQuery} from './ts-refs/trans-render/types.js' */
 
-//const base = 'be-switched';
 const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
 const whenLHSPart = String.raw `when (?<lhsPart>.*)`;
 const rhsPart = String.raw `(?<rhsPart>.*)`;
-//const rhsPartAsRhsType = String.raw `${rhsPart} as (?<rhsType>(number|boolean|string))`;
 const onOrOffWhenLhsPartOpRhsPart = String.raw `^(?<onOrOff>(on|On|off|Off)) ${whenLHSPart} ${op} ${rhsPart}`;
 const onOrOffWhenLhsPartOpRhsPartWithin = String.raw `${onOrOffWhenLhsPartOpRhsPart} w/i (?<within>.*)`;
-//const onWhenLhsPartOpRhsPartAsRhsType = String.raw `^on ${whenLHSPart} ${op} ${rhsPartAsRhsType}`;
 const offWhenLhsPartOpRhsPart = String.raw `^off ${whenLHSPart} ${op} ${rhsPart}`;
 const onIfRegisteredHandlerBasedOnDependencies = String.raw `^on if (?<registeredHandler>.*)\, based on (?<dependencyPart>.*)`;
 const onBasedOnDependencies = String.raw `^on based on (?<dependencyPart>.*)`;
