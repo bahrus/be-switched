@@ -11,8 +11,8 @@ const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
 const whenLHSPart = String.raw `when (?<lhsPart>.*)`;
 const rhsPart = String.raw `(?<rhsPart>.*)`;
 //const rhsPartAsRhsType = String.raw `${rhsPart} as (?<rhsType>(number|boolean|string))`;
-const onWhenLhsPartOpRhsPart = String.raw `^(?<onOrOff>(on|On|off|Off)) ${whenLHSPart} ${op} ${rhsPart}`;
-const onWhenLhsPartOpRhsPartWithin = String.raw `${onWhenLhsPartOpRhsPart} w/i (?<within>.*)`;
+const onOrOffWhenLhsPartOpRhsPart = String.raw `^(?<onOrOff>(on|On|off|Off)) ${whenLHSPart} ${op} ${rhsPart}`;
+const onOrOffWhenLhsPartOpRhsPartWithin = String.raw `${onOrOffWhenLhsPartOpRhsPart} w/i (?<within>.*)`;
 //const onWhenLhsPartOpRhsPartAsRhsType = String.raw `^on ${whenLHSPart} ${op} ${rhsPartAsRhsType}`;
 const offWhenLhsPartOpRhsPart = String.raw `^off ${whenLHSPart} ${op} ${rhsPart}`;
 const onIfRegisteredHandlerBasedOnDependencies = String.raw `^on if (?<registeredHandler>.*)\, based on (?<dependencyPart>.*)`;
@@ -33,20 +33,20 @@ export const emc = {
             regExpExts: {
                 twoValueSwitches: [
                     {
-                        regExp: onWhenLhsPartOpRhsPartWithin,
+                        regExp: onOrOffWhenLhsPartOpRhsPartWithin,
                         defaultVals: {},
                         dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier'], ['within', 'withinSpecifier']]
                     },
                     {
-                        regExp: onWhenLhsPartOpRhsPart,
+                        regExp: onOrOffWhenLhsPartOpRhsPart,
                         defaultVals: {},
                         dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
                     },
-                    {
-                        regExp: offWhenLhsPartOpRhsPart,
-                        defaultVals: { negate: true },
-                        dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
-                    }
+                    // {
+                    //     regExp: offWhenLhsPartOpRhsPart,
+                    //     defaultVals: { negate: true },
+                    //     dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
+                    // }
                 ],
                 nValueSwitches: [
                     {
