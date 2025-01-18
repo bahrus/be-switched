@@ -98,7 +98,7 @@ class BeSwitched extends BE {
         const { TwoValSwitchHandler } = await import('./TwoValSwitchHandler.js');
         new TwoValSwitchHandler(self);
     }
-        /**
+    /**
      * 
      * @param {BAP} self 
      */
@@ -191,13 +191,14 @@ class BeSwitched extends BE {
             if(itemref !== null){
                 const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
                 const children = getChildren(enhancedElement, itemref);
-                this.#changeVisibility(children, toggleInert, 'remove');
-                // for (const child of children) {
-                //     child.classList.remove('be-switched-hide');
-                //     if (toggleInert && 'disabled' in child && child.disabled === false) {
-                //         child.disabled = true;
-                //     }
-                // }
+                if(!transitional || !document.startViewTransition){
+                    this.#changeVisibility(children, toggleInert, 'remove');
+                }else{
+                    document.startViewTransition(() => {
+                        this.#changeVisibility(children, toggleInert, 'remove');
+                    })
+                }
+                
             }
 
         }
@@ -219,30 +220,21 @@ class BeSwitched extends BE {
         }
     }
     async onFalse(self) {
-        const { enhancedElement, toggleInert, minMem } = self;
+        const { enhancedElement, toggleInert, minMem, transitional } = self;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null)
             return;
         addStyle(self);
         const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
         const children = getChildren(enhancedElement, itemref);
-        this.#changeVisibility(children, toggleInert, 'add');
-        // const rn = enhancedElement.getRootNode();
-        // const keys = itemref.split(' ');
-        // for (const key of keys) {
-        //     const child = rn.getElementById(key);
-        //     if (child === null)
-        //         continue;
-        //     if (minMem) {
-        //         child.remove();
-        //     }
-        //     else {
-        //         child.classList.add('be-switched-hide');
-        //         if (toggleInert && !child.inert) {
-        //             child.inert = true;
-        //         }
-        //     }
-        // }
+        
+        if(!transitional || !document.startViewTransition){
+            this.#changeVisibility(children, toggleInert, 'add');
+        }else{
+            document.startViewTransition(() => {
+                this.#changeVisibility(children, toggleInert, 'add');
+            })
+        }
         if (minMem){
             enhancedElement.removeAttribute('itemref');
         }
