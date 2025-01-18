@@ -141,7 +141,7 @@ What this is saying:
 > [!NOTE]
 > This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
 
-### Adding "View Transition" support [TODO]
+### Adding "View Transition" support
 
 When using this enhancement in the recommended way, as described by the note above, where the "on" condition results in displaying a significant amount of new content it may make sense to apply "view transition" support to the view change.
 
@@ -150,14 +150,46 @@ When using this enhancement in the recommended way, as described by the note abo
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='on transitionally based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.' be-switched-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
 </ways-of-science>
+<style>
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 2s;
+    }
+</style>
 ```
+
+and/or:
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <template
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+<style>
+    body{
+        --be-transitional: true;
+    }
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 2s;
+    }
+</style>
+```
+
 
 ### Adding a local, unique anonymous conditional expression "CSP safely"
 
@@ -321,6 +353,8 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 ```
 
 ### Use View Transitions
+
+Just as before, we can do some in one of two ways:
 
 ```html
 <label for=lhs>LHS:</label>
