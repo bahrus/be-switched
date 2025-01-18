@@ -87,7 +87,7 @@ class BeSwitched extends BE {
         this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
         this.#enhancementInfo = enhancementInfo;
         const style = window.getComputedStyle(el);
-        this.#transitional = style.getPropertyValue('--be-switched-transitional') === 'true';
+        this.#transitional = style.getPropertyValue('--be-transitional') === 'true';
         super.attach(el, enhancementInfo);
     }
     /**

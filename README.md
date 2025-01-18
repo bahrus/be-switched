@@ -343,7 +343,7 @@ To apply the transitional setting more globally, use a css property as follows, 
 
 ```css
 body{
-    --be-switched-transitional: true;
+    --be-transitional: true;
 }
 ```
 
