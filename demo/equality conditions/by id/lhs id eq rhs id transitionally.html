@@ -12,13 +12,20 @@
     <input id=lhs>
     <label for=rhs>RHS:</label>
     <input id=rhs>
-    <template 🎚️='on transitionally when #lhs eq #rhs.'>
-        <div>LHS === RHS</div>
+    <template 🎚️='on when #lhs eq #rhs.' 🎚️-transitional>
+        <div class=fade-in>LHS === RHS</div>
     </template>
 
 
     <script type=module>
         import '/🎚️.js';
     </script>
+
+    <style>
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 2s;
+    }
+    </style>
 </body>
 </html>

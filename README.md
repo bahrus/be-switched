@@ -320,7 +320,7 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 </template>
 ```
 
-### Use View Transitions [TODO]
+### Use View Transitions
 
 ```html
 <label for=lhs>LHS:</label>
@@ -330,6 +330,13 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 <template 🎚️='on when #lhs equals #rhs as number.' 🎚️-transitional>
     <div>LHS === RHS</div>
 </template>
+
+<style>
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 2s;
+    }
+</style>
 ```
 
 ### By N@me

@@ -34,6 +34,7 @@ class BeSwitched extends BE {
             rawStatements: {},
             singleValSwitches: {},
             js: {},
+            transitional: {},
         },
         compacts: {
             echo_val_to_echoVal: 20,
