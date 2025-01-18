@@ -339,6 +339,14 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 </style>
 ```
 
+To apply the transitional setting more globally, use a css property as follows, for whatever css selector where it should be applied:
+
+```css
+body{
+    --be-switched-transitional: true;
+}
+```
+
 ### By N@me
 
 ```html

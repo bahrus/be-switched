@@ -72,6 +72,12 @@ class BeSwitched extends BE {
      * @type {EnhancementInfo}
      */
     #enhancementInfo;
+
+    /**
+     * @type {boolean}
+     */
+    #transitional;
+
     /**
      * 
      * @param {Element} el 
@@ -80,6 +86,8 @@ class BeSwitched extends BE {
     async attach(el, enhancementInfo) {
         this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
         this.#enhancementInfo = enhancementInfo;
+        const style = window.getComputedStyle(el);
+        this.#transitional = style.getPropertyValue('--be-switched-transitional') === 'true';
         super.attach(el, enhancementInfo);
     }
     /**
@@ -166,6 +174,7 @@ class BeSwitched extends BE {
      */
     async onTrue(self) {
         const { enhancedElement, toggleInert, deferRendering, transitional } = self;
+        const transitional2 = transitional || this.#transitional;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null) {
             const keys = [];
@@ -174,7 +183,7 @@ class BeSwitched extends BE {
             if (externalRefId)
                 templToClone = window[externalRefId];
             const { tagTempl } = await import('trans-render/dss/tref/tagTempl.js');
-            if(!transitional || !document.startViewTransition){
+            if(!transitional2 || !document.startViewTransition){
                 tagTempl(templToClone, this.#enhKey);
             }else{
                 document.startViewTransition(() => {
@@ -192,7 +201,7 @@ class BeSwitched extends BE {
             if(itemref !== null){
                 const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
                 const children = getChildren(enhancedElement, itemref);
-                if(!transitional || !document.startViewTransition){
+                if(!transitional2 || !document.startViewTransition){
                     this.#changeVisibility(children, toggleInert, 'remove');
                 }else{
                     document.startViewTransition(() => {
@@ -222,6 +231,7 @@ class BeSwitched extends BE {
     }
     async onFalse(self) {
         const { enhancedElement, toggleInert, minMem, transitional } = self;
+        const transitional2 = transitional || this.#transitional;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null)
             return;
@@ -229,7 +239,7 @@ class BeSwitched extends BE {
         const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
         const children = getChildren(enhancedElement, itemref);
         
-        if(!transitional || !document.startViewTransition){
+        if(!transitional2 || !document.startViewTransition){
             this.#changeVisibility(children, toggleInert, 'add');
         }else{
             document.startViewTransition(() => {
