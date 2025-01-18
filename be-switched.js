@@ -158,8 +158,13 @@ class BeSwitched extends BE {
             switchesSatisfied: !singleValSwitchNoGo && !twoValSwitchNoGo && (singleValSwitchesSatisfied || twoValSwitchesSatisfied),
         };
     }
+    /**
+     * 
+     * @param {BAP} self 
+     * @returns 
+     */
     async onTrue(self) {
-        const { enhancedElement, toggleInert: toggleDisabled, deferRendering } = self;
+        const { enhancedElement, toggleInert, deferRendering, transitional } = self;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null) {
             const keys = [];
@@ -168,20 +173,48 @@ class BeSwitched extends BE {
             if (externalRefId)
                 templToClone = window[externalRefId];
             const { tagTempl } = await import('trans-render/dss/tref/tagTempl.js');
-            tagTempl(templToClone, this.#enhKey);
+            if(!transitional || !document.startViewTransition){
+                tagTempl(templToClone, this.#enhKey);
+            }else{
+                document.startViewTransition(() => {
+                    tagTempl(templToClone, this.#enhKey);
+                })
+            }
+            
         }
         else {
             if (deferRendering) {
                 self.deferRendering = false;
                 return;
             }
-            const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
-            const children = getChildren(enhancedElement, enhancedElement.getAttribute('itemref'));
-            for (const child of children) {
-                child.classList.remove('be-switched-hide');
-                if (toggleDisabled && child.disabled === false) {
-                    child.disabled = true;
-                }
+            const itemref = enhancedElement.getAttribute('itemref');
+            if(itemref !== null){
+                const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
+                const children = getChildren(enhancedElement, itemref);
+                this.#changeVisibility(children, toggleInert, 'remove');
+                // for (const child of children) {
+                //     child.classList.remove('be-switched-hide');
+                //     if (toggleInert && 'disabled' in child && child.disabled === false) {
+                //         child.disabled = true;
+                //     }
+                // }
+            }
+
+        }
+    }
+
+    /**
+     * 
+     * @param {Array<HTMLElement>} children 
+     * @param {boolean | undefined} toggleInert 
+     * @param {'add' | 'remove'} verb 
+     */
+    #changeVisibility(children, toggleInert, verb){
+        const disable = verb === 'remove' ? true : false;
+        for (const child of children) {
+            child.classList[verb]('be-switched-hide');
+            if (toggleInert && 'disabled' in child && child.disabled === !disable) {
+                child.disabled = disable;
             }
         }
     }
@@ -191,24 +224,29 @@ class BeSwitched extends BE {
         if (itemref === null)
             return;
         addStyle(self);
-        const rn = enhancedElement.getRootNode();
-        const keys = itemref.split(' ');
-        for (const key of keys) {
-            const child = rn.getElementById(key);
-            if (child === null)
-                continue;
-            if (minMem) {
-                child.remove();
-            }
-            else {
-                child.classList.add('be-switched-hide');
-                if (toggleInert && !child.inert) {
-                    child.inert = true;
-                }
-            }
-        }
-        if (minMem)
+        const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
+        const children = getChildren(enhancedElement, itemref);
+        this.#changeVisibility(children, toggleInert, 'add');
+        // const rn = enhancedElement.getRootNode();
+        // const keys = itemref.split(' ');
+        // for (const key of keys) {
+        //     const child = rn.getElementById(key);
+        //     if (child === null)
+        //         continue;
+        //     if (minMem) {
+        //         child.remove();
+        //     }
+        //     else {
+        //         child.classList.add('be-switched-hide');
+        //         if (toggleInert && !child.inert) {
+        //             child.inert = true;
+        //         }
+        //     }
+        // }
+        if (minMem){
             enhancedElement.removeAttribute('itemref');
+        }
+            
     }
     onRawStatements(self) {
         const { rawStatements } = self;

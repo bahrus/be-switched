@@ -327,7 +327,7 @@ The remaining examples will use this symbol (🎚️), so please translate that 
 <input id=lhs type=number>
 <label for=rhs>RHS:</label>
 <input id=rhs>
-<template 🎚️='on transitionally when #lhs equals #rhs as number.'>
+<template 🎚️='on when #lhs equals #rhs as number.' 🎚️-transitional>
     <div>LHS === RHS</div>
 </template>
 ```

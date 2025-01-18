@@ -71,10 +71,12 @@ export class TwoValSwitchHandler {
         let foundOne = false;
         const tvsToAOs = this.#twoValSwitchToAO;
         for (const tvs of twoValSwitches) {
-            const { req, op, onOrOff } = tvs;
+            const { req, op, onOrOff, qualifier } = tvs;
             if (foundOne && !req)
                 continue;
-            const [lhsAO, rhsAO] = tvsToAOs.get(tvs);
+            const aos = tvsToAOs.get(tvs);
+            if(aos === undefined) throw 500;
+            const [lhsAO, rhsAO] = aos;
             const lhsVal = await lhsAO.getValue();
             const rhsVal = await rhsAO.getValue();
             //TODO:  deal with lt, gt, boolish, etc
