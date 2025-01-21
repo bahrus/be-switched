@@ -150,7 +150,8 @@ When using this enhancement in the recommended way, as described by the note abo
     <carrot-nosed-woman></carrot-nosed-woman>
     <a-duck></a-duck>
     <template
-        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.' be-switched-transitional
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.' 
+        be-switched-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
