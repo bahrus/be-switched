@@ -132,7 +132,7 @@ Our expression can alternatively be more expressive:
 Here, we are attempting to keep our expressions short, which means some abbreviations are used:
 
 1.  event.r means "the return value of the result should be..."
-2.  the f in event.f stands for "factors" in the conditional evaluation -- factors derived from what the be-switched expression is "based on".
+2.  The "f" in event.f stands for "factors" in the conditional evaluation -- factors derived from what the be-switched expression is "based on".
 
 What this is saying:  
 
