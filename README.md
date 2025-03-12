@@ -627,14 +627,18 @@ This is supported:
 ```
 
 
-### Up and down searches using ^{()} Y{} expressions. [TODO]
+### Up and down searches using ^{()} Y{} expressions.
 
 ```html
-<input type=number>
-<template 🎚️='on when ^{(*)} gt Y{*}.'>
+<label>
+    <input type=number>
+</label>
+<template 🎚️='on when ^{(*)}~input eq Y{*}~input.'>
     <div>Previous input &gt; next input</div>
 </template>
-<input type=number>
+<label>
+    <input type=number>
+</label>
 ```
 
 ### Grouping previous element sibling selectors
@@ -797,12 +801,12 @@ This also works:
 </mood-stone>
 ```
 
-### Referring to previous element sibling [TODO]
+### Referring to previous element sibling 
 
 ```html
-<div itemscope>
+<div>
     ...
-    <link itemprop=isHappy href=https://schema.org/True>
+    <data value=true>Yes</data>
     <template 🎚️='on when ^{(*)}.'>
         <my-content></my-content>
     </template>

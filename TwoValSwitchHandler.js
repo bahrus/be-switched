@@ -38,10 +38,10 @@ export class TwoValSwitchHandler {
             const remoteRHS = await find(enhancedElement, rhsSpecifier);
             if (!(remoteRHS instanceof EventTarget))
                 continue;
-            const lhsProp = lhsSpecifier?.prop;
-            const rhsProp = rhsSpecifier?.prop;
-            if (lhsProp === undefined || rhsProp === undefined)
-                throw 'NI';
+            // const lhsProp = lhsSpecifier?.prop;
+            // const rhsProp = rhsSpecifier?.prop;
+            // if (lhsProp === undefined || rhsProp === undefined)
+            //     throw 'NI';
             const lhsAO = await ASMR.getAO(remoteLHS, {
                 evt: lhsSpecifier.evt || 'input',
                 selfIsVal: lhsSpecifier.prop === '$0' && lhsSpecifier.path === undefined,
