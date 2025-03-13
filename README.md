@@ -815,7 +815,7 @@ This also works:
 
 The standalone ^{(*)} is indicating to just look at the previous element sibling.
 
-### Example 3b Referring to next element sibling with yertdrift symbol [TODO]
+### Example 3b Referring to next element sibling with yertdrift symbol
 
 ```html
 <div itemscope>
