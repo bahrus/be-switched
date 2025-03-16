@@ -1027,35 +1027,22 @@ An option, minMem, allows for completely wiping away content derived from the te
 </my-web-component>
 ```
 
+## Additional conditions
+
+*be-switched* can work in tandem with another enhancement, [https://github.com/bahrus/mt-si](mt-si) to add common additional conditions before the template *be-switched* adorns becomes active.  One example would be media queries:
+
+```html
+<script mt-si type=application/json>
+{
+    "whereMediaMatches": "..."
+}
+</script>
+
+...
+<template mt-si defer-be-switched be-switched="...">
+    <my-heavy-lifting-component defer-hydration mt-si></my-heavy-lifting-component>
+</template>
+```
 
 
-## Additional conditions be-switched supports [TODO]
-
-In addition to "if" boolean checks, and equality checks using lhs and rhs keys, some additional "if" checks can be made:
-
-<table>
-    <caption>Additional Supported Conditions
-    <thead>
-        <tr>
-            <th>Key</th>
-            <th>Meaning</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>ifMediaequals</td>
-            <td>Expands the template / makes visible only when the specified media query expression is satisfied.</td>
-        </tr>
-        <tr>
-            <td>checkIfNonEmptyArray</td>
-            <td>Tests if (bound) expression evaluates to a non empty array</td>
-        </tr>
-    </tbody>
-</table>
-
-## Lazy Loading / Hibernating [Untested]
-
-be-switched can "go to sleep" when the template it adorns goes out of view, if the template is also decorated by [be-oosoom](https://github.com/be-oosoom).  *be-switched* provides an option to toggle the inert property when the conditions become false, in lieu of deleting the content.
-
-\* Expand section above for what that reason is.
 
