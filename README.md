@@ -498,6 +498,46 @@ Here the search is done within the nearest itemscope, and if no itemscope is fou
 
 Again, if that proves inadequate, use the ^ character to indicate the closest peer/parent to search within.
 
+### By peer itemscope [TODO]
+
+```html
+<table>
+    <tr itemscope=left-hand-side>
+        <td>lhs</td>
+    </tr>
+    <tr itemscope=right-hand-side>
+        <td>rhs</td>
+    </tr>
+    <template 🎚️='on when $left-hand-side equals $right-hand-side.'>
+        <tr>
+            <td>lhs === rhs</td>
+        </tr>
+    </template>
+</table>
+```
+
+This searches within the (shadowed) root node for a single match.
+
+Assumes each web component has "value" property.  But can specify: [TODO]
+
+### By Hierarchical itemscope [TODO]
+
+```html
+<table>
+    <tr itemscope=parent-scope>
+        <td>
+            <table>
+                <tr itemscope=child-scope>
+                    <td>
+                        <template 🎚️='on when ${parent-scope} equals ${child-scope}.'>
+                    </td>
+                <tr>
+            </table>
+        </td>
+    </tr>
+</table>
+```
+
 ### By ~ tagName
 
 In the brave new world that custom elements has opened up, we can make our markup beautifully expressive, and tap into that with our binding expressions.
