@@ -404,7 +404,7 @@ body{
 
 Here, the search for matching names is done within a containing form, and if no form is found, within the root node.
 
-However, if that is not sufficient, we can specify a "scoping" perimeter via an "closest" query.  Symbolically, we use the "^" symbol to indicate this:
+However, if that is not sufficient, we can specify a "scoping" perimeter via a "closest" query.  Symbolically, we use the "^" symbol to indicate this:
 
 ### "Closest" Scoping
 
@@ -503,12 +503,21 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
 ```html
 <table>
     <tr itemscope=left-hand-side>
-        <td>lhs</td>
+        <td>
+            <label>
+                LHS:
+                <input name=lhs>
+            </label>
+        </td>
     </tr>
     <tr itemscope=right-hand-side>
-        <td>rhs</td>
+        <td>
+            <label>RHS:
+                <input name=rhs>
+            </label>
+        </td>
     </tr>
-    <template 🎚️='on when $left-hand-side equals $right-hand-side.'>
+    <template 🎚️='on when ~$left-hand-side equals $right-hand-side.'>
         <tr>
             <td>lhs === rhs</td>
         </tr>
