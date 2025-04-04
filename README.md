@@ -530,6 +530,8 @@ Assumes each web component has "value" property, with event "input"(?).  But can
                 <tr itemscope=child-scope>
                     <td>
                         <template 🎚️='on when ${parent-scope} equals ${child-scope}.'>
+                            <div>parent scope === child scope</div>
+                        </template>
                     </td>
                 <tr>
             </table>
