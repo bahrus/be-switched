@@ -518,7 +518,7 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
 
 This searches within the (shadowed) root node for a single match.
 
-Assumes each web component has "value" property.  But can specify: [TODO]
+Assumes each web component has "value" property, with event "input"(?).  But can specify: [TODO]
 
 ### By Hierarchical itemscope [TODO]
 
