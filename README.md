@@ -506,11 +506,13 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
 <table>
     <tr itemscope=parent-scope>
         <td>
+            <input name=lhs>
             <table>
                 <tr itemscope=child-scope>
                     <td>
-                        <template 🎚️='on when ${parent-scope} equals ${child-scope}.'>
-                            <div>parent scope === child scope</div>
+                        <input name=rhs>
+                        <template 🎚️='on when $(parent-scope)@lhs equals $(child-scope)@rhs.'>
+                            <div>lhs === rhs</div>
                         </template>
                     </td>
                 <tr>
@@ -520,7 +522,27 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
 </table>
 ```
 
-Why not use ^{}?  Because itemscope hierarchy can't really be expressed with css.
+Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily with css.
+
+```html
+<table>
+    <tr itemscope=parent-scope>
+        <td>
+            <table>
+                <tr itemscope=child-scope>
+                    <td>
+                        <template 🎚️='on when $(parent-scope)?.value equals $(child-scope)?.value.'>
+                            <div>lhs === rhs</div>
+                        </template>
+                    </td>
+                <tr>
+            </table>
+        </td>
+    </tr>
+</table>
+```
+
+
 
 ### By ~ tagName
 
