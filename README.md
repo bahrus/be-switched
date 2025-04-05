@@ -517,7 +517,7 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
             </label>
         </td>
     </tr>
-    <template 🎚️='on when ~$left-hand-side equals $right-hand-side.'>
+    <template 🎚️='on when ${([itemscope="left-hand-side"])}@lhs equals ${([itemscope="right-hand-side"])}@rhs.'>
         <tr>
             <td>lhs === rhs</td>
         </tr>
