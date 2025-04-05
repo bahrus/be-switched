@@ -498,36 +498,7 @@ Here the search is done within the nearest itemscope, and if no itemscope is fou
 
 Again, if that proves inadequate, use the ^ character to indicate the closest peer/parent to search within.
 
-### By peer itemscope [TODO]
 
-```html
-<table>
-    <tr itemscope=left-hand-side>
-        <td>
-            <label>
-                LHS:
-                <input name=lhs>
-            </label>
-        </td>
-    </tr>
-    <tr itemscope=right-hand-side>
-        <td>
-            <label>RHS:
-                <input name=rhs>
-            </label>
-        </td>
-    </tr>
-    <template 🎚️='on when ${([itemscope="left-hand-side"])}@lhs equals ${([itemscope="right-hand-side"])}@rhs.'>
-        <tr>
-            <td>lhs === rhs</td>
-        </tr>
-    </template>
-</table>
-```
-
-This searches within the (shadowed) root node for a single match.
-
-Assumes each web component has "value" property, with event "input"(?).  But can specify: [TODO]
 
 ### By Hierarchical itemscope [TODO]
 
