@@ -520,6 +520,8 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
 </table>
 ```
 
+Why not use ^{}?  Because itemscope hierarchy can't really be expressed with css.
+
 ### By ~ tagName
 
 In the brave new world that custom elements has opened up, we can make our markup beautifully expressive, and tap into that with our binding expressions.
