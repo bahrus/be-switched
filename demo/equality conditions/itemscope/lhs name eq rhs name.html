@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lhs name eq rhs name</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <table>
+        <tr itemscope=parent-scope>
+            <td>
+                <input name=lhs>
+                <table>
+                    <tr itemscope=child-scope>
+                        <td>
+                            <input name=rhs>
+                            <template 🎚️='on when $[parent-scope]@lhs equals $[child-scope]@rhs.'>
+                                <div>lhs === rhs</div>
+                            </template>
+                        </td>
+                    <tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <script type=module>
+        import '/🎚️.js';
+    </script>
+</body>
+</html>

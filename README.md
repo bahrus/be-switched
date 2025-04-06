@@ -511,7 +511,7 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
                 <tr itemscope=child-scope>
                     <td>
                         <input name=rhs>
-                        <template 🎚️='on when $(parent-scope)@lhs equals $(child-scope)@rhs.'>
+                        <template 🎚️='on when $[parent-scope]@lhs equals $[child-scope]@rhs.'>
                             <div>lhs === rhs</div>
                         </template>
                     </td>
@@ -531,7 +531,7 @@ Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily w
             <table>
                 <tr itemscope=child-scope>
                     <td>
-                        <template 🎚️='on when $(parent-scope)?.value equals $(child-scope)?.value.'>
+                        <template 🎚️='on when $[parent-scope]?.value equals $[child-scope]?.value.'>
                             <div>lhs === rhs</div>
                         </template>
                     </td>
