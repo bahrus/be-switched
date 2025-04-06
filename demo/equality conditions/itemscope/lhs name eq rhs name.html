@@ -31,5 +31,14 @@
     <script type=module>
         import '/🎚️.js';
     </script>
+    <script>
+        customElements.define('parent-scope', class extends HTMLElement {
+            
+        });
+
+        customElements.define('child-scope', class extends HTMLElement {
+            
+        });
+    </script>
 </body>
 </html>
