@@ -500,7 +500,7 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
 
 
 
-### By Hierarchical itemscope [TODO]
+### By Hierarchical itemscope 
 
 ```html
 <table>
