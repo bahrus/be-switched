@@ -520,9 +520,13 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
         </td>
     </tr>
 </table>
+<script>
+    customElements.define('parent-scope', class extends HTMLElement {});
+    customElements.define('child-scope', class extends HTMLElement {});
+</script>
 ```
 
-Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily with css.
+Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily with css.  I.e. this syntax supports "flat" hierarchies via itemref.
 
 ```html
 <table>
