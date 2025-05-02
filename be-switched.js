@@ -38,10 +38,10 @@ class BeSwitched extends BE {
         },
         compacts: {
             echo_val_to_echoVal: 20,
-            when_singleValSwitches_changes_invoke_onSingleValSwitches: 0,
-            when_twoValueSwitches_changes_invoke_onTwoValSwitches: 0,
-            when_rawStatements_changes_invoke_onRawStatements: 0,
-            when_js_changes_invoke_processJS: 0,
+            when_singleValSwitches_changes_call_onSingleValSwitches: 0,
+            when_twoValueSwitches_changes_call_onTwoValSwitches: 0,
+            when_rawStatements_changes_call_onRawStatements: 0,
+            when_js_changes_call_processJS: 0,
         },
         actions: {
             onTrue: {
