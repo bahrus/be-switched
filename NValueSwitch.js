@@ -12,7 +12,7 @@ export class NValueSwitch {
     /**
      * @type {EnhancementInfo}
      */
-    enhancementInfo;
+    //enhancementInfo;
     /**
      * 
      * @param {BAP} self 

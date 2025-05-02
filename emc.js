@@ -78,7 +78,8 @@ export const emc = {
     importEnh: async () => {
         const { BeSwitched } = await import('./be-switched.js');
         return BeSwitched;
-    }
+    },
+    mapEmcTo: 'emc',
 };
 const mose = seed(emc);
 MountObserver.synthesize(document, BeHive, mose);

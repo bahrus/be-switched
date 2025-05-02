@@ -35,6 +35,7 @@ class BeSwitched extends BE {
             singleValSwitches: {},
             js: {},
             transitional: {},
+            emc: {},
         },
         compacts: {
             echo_val_to_echoVal: 20,
@@ -68,7 +69,7 @@ class BeSwitched extends BE {
         ], 
         
     };
-    #enhKey;
+    //#enhKey;
     /**
      * @type {EnhancementInfo}
      */
@@ -85,7 +86,7 @@ class BeSwitched extends BE {
      * @param {EnhancementInfo} enhancementInfo 
      */
     async attach(el, enhancementInfo) {
-        this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
+        //this.#enhKey = enhancementInfo.mountCnfg?.enhPropKey;
         this.#enhancementInfo = enhancementInfo;
         const style = window.getComputedStyle(el);
         this.#transitional = style.getPropertyValue('--be-transitional') === 'true';
@@ -113,7 +114,7 @@ class BeSwitched extends BE {
      * @param {BAP} self 
      */
     async onNValSwitches(self) {
-        const {notProcessedJS, js} = self;
+        const {notProcessedJS, js, emc} = self;
         const { NValueSwitch } = await import('./NValueSwitch.js');
         new NValueSwitch(self, this.#enhancementInfo);
     }
@@ -174,7 +175,8 @@ class BeSwitched extends BE {
      * @returns 
      */
     async onTrue(self) {
-        const { enhancedElement, toggleInert, deferRendering, transitional } = self;
+        const { enhancedElement, toggleInert, deferRendering, transitional, emc } = self;
+        const {base} = emc;
         const transitional2 = transitional || this.#transitional;
         const itemref = enhancedElement.getAttribute('itemref');
         if (itemref === null) {
@@ -185,10 +187,10 @@ class BeSwitched extends BE {
                 templToClone = window[externalRefId];
             const { tagTempl } = await import('trans-render/dss/tref/tagTempl.js');
             if(!transitional2 || !document.startViewTransition){
-                tagTempl(templToClone, this.#enhKey);
+                tagTempl(templToClone, base + '');
             }else{
                 document.startViewTransition(() => {
-                    tagTempl(templToClone, this.#enhKey);
+                    tagTempl(templToClone, base + '');
                 })
             }
             
