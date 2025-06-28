@@ -444,7 +444,7 @@ We can apply such closest queries to either the LHS or the RHS, or both, as show
 
 If  we use the same closest query for both, we can reduce typing / increase readability and reduce the amount of DOM traversing thusly:
 
-## W/I (within) scoping
+## W/I (within) css scoping
 
 
 ```html
@@ -476,6 +476,38 @@ These should be active:
         <div>LHS === RHS</div>
     </template>
 </section>
+```
+
+## W/I comments token [TODO]
+
+```html
+These should be ignored:
+<!-- my-template from-template=true -->
+    <label for=lhs>
+        LHS:
+        <input name=lhs>
+    </label>
+    
+    <label for=rhs>
+        RHS:
+        <input name=rhs>
+    </label>
+<!-- /my-template -->
+These should be active:
+<!-- my-template from-template=true -->
+    <label>
+        LHS:
+        <input name=lhs>
+    </label>
+    
+    <label>RHS:
+        <input name=rhs>
+    </label>
+    
+    <template 🎚️='on when @lhs eq @rhs w/i <!-- my-template -->.'>
+        <div>LHS === RHS</div>
+    </template>
+<!-- /my-template -->
 ```
 
 ### By the itemprop microdata attribute
