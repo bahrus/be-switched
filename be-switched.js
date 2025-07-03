@@ -201,6 +201,8 @@ class BeSwitched extends BE {
                     enhancedElement.after(clone);
                 });
             } 
+        }else{
+            
         }
         
         //const itemref = enhancedElement.getAttribute('itemref');
@@ -261,13 +263,19 @@ class BeSwitched extends BE {
     async onFalse(self) {
         const { enhancedElement, toggleInert, minMem, transitional } = self;
         const transitional2 = transitional || this.#transitional;
-        const itemref = enhancedElement.getAttribute('itemref');
-        if (itemref === null)
-            return;
+        // const itemref = enhancedElement.getAttribute('itemref');
+        // if (itemref === null)
+        //     return;
         addStyle(self);
-        const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
-        const children = getChildren(enhancedElement, itemref);
-        
+        // const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
+        // const children = getChildren(enhancedElement, itemref);
+        const {wrapped} = await import('mount-observer/slotkin/wrap.js');
+        const wrappedVal = enhancedElement[wrapped];
+        if(!wrappedVal) return;
+        const {getFrag} = await import('mount-observer/slotkin/getFrag.js');
+        let children = getFrag(enhancedElement, wrappedVal);
+        if(children === null) return;
+        children = children.filter(x => x instanceof Element);;
         if(!transitional2 || !document.startViewTransition){
             this.#changeVisibility(children, toggleInert, 'add');
         }else{
@@ -276,7 +284,8 @@ class BeSwitched extends BE {
             })
         }
         if (minMem){
-            enhancedElement.removeAttribute('itemref');
+            //TODO:
+            //enhancedElement.removeAttribute('itemref');
         }
             
     }
