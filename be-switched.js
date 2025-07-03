@@ -178,43 +178,47 @@ class BeSwitched extends BE {
         const { enhancedElement, toggleInert, deferRendering, transitional, emc } = self;
         const {base} = emc;
         const transitional2 = transitional || this.#transitional;
-        const itemref = enhancedElement.getAttribute('itemref');
-        if (itemref === null) {
-            const keys = [];
-            let templToClone = enhancedElement;
-            const externalRefId = templToClone.dataset.blowDryRef;
-            if (externalRefId)
-                templToClone = window[externalRefId];
-            const { tagTempl } = await import('trans-render/dss/tref/tagTempl.js');
-            if(!transitional2 || !document.startViewTransition){
-                tagTempl(templToClone, base + '');
-            }else{
-                document.startViewTransition(() => {
-                    tagTempl(templToClone, base + '');
-                })
-            }
+        const {wrap} = await import('mount-observer/slotkin/wrap.js');
+        const {getCount} = await import('trans-render/dss/tref/getCount.js');
+        wrap(enhancedElement, 'be-switched-');
+        //const itemref = enhancedElement.getAttribute('itemref');
+        // if (itemref === null) {
+            // const keys = [];
+            // let templToClone = enhancedElement;
+            // const externalRefId = templToClone.dataset.blowDryRef;
+            // if (externalRefId)
+            //     templToClone = window[externalRefId];
+            // const { tagTempl } = await import('trans-render/dss/tref/tagTempl.js');
+            // if(!transitional2 || !document.startViewTransition){
+            //     tagTempl(templToClone, base + '');
+            // }else{
+            //     document.startViewTransition(() => {
+            //         tagTempl(templToClone, base + '');
+            //     })
+            // }
+            
             
         }
-        else {
-            if (deferRendering) {
-                self.deferRendering = false;
-                return;
-            }
-            const itemref = enhancedElement.getAttribute('itemref');
-            if(itemref !== null){
-                const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
-                const children = getChildren(enhancedElement, itemref);
-                if(!transitional2 || !document.startViewTransition){
-                    this.#changeVisibility(children, toggleInert, 'remove');
-                }else{
-                    document.startViewTransition(() => {
-                        this.#changeVisibility(children, toggleInert, 'remove');
-                    })
-                }
+        // else {
+        //     if (deferRendering) {
+        //         self.deferRendering = false;
+        //         return;
+        //     }
+        //     const itemref = enhancedElement.getAttribute('itemref');
+        //     if(itemref !== null){
+        //         const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
+        //         const children = getChildren(enhancedElement, itemref);
+        //         if(!transitional2 || !document.startViewTransition){
+        //             this.#changeVisibility(children, toggleInert, 'remove');
+        //         }else{
+        //             document.startViewTransition(() => {
+        //                 this.#changeVisibility(children, toggleInert, 'remove');
+        //             })
+        //         }
                 
-            }
+        //     }
 
-        }
+        // }
     }
 
     /**
