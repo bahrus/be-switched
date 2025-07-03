@@ -1,6 +1,7 @@
 // @ts-check
 import { propInfo, rejected, resolved } from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
+import { get } from 'trans-render/XV/get.js';
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types' */
 /** @import {BAP, Actions} from './ts-refs/be-switched/types' */;
 /** @import {EnhancementInfo, EventListenerOrFn} from  './ts-refs/trans-render/be/types'*/
@@ -177,10 +178,31 @@ class BeSwitched extends BE {
     async onTrue(self) {
         const { enhancedElement, toggleInert, deferRendering, transitional, emc } = self;
         const {base} = emc;
+        if(!base) throw 500;
         const transitional2 = transitional || this.#transitional;
-        const {wrap} = await import('mount-observer/slotkin/wrap.js');
-        const {getCount} = await import('trans-render/dss/tref/getCount.js');
-        wrap(enhancedElement, 'be-switched-');
+        const {wrap, wrapped} = await import('mount-observer/slotkin/wrap.js');
+        const wrappedVal = enhancedElement[wrapped];
+        if(!wrappedVal){
+            const {getCount} = await import('trans-render/dss/tref/getCount.js');
+            wrap(enhancedElement, `${base}-${getCount(base)}`, true) ;
+        }
+        const ns = /** @type {any} */ (enhancedElement.nextSibling);
+        if(!ns || ns.nodeType !== Node.COMMENT_NODE || (!ns.data.includes(` ${wrappedVal} `))){
+            let templToClone = enhancedElement;
+            const externalRefId = templToClone.dataset.blowDryRef;
+            if (externalRefId){
+                templToClone = window[externalRefId];
+            }
+            const clone = templToClone.content.cloneNode(true);
+            if(!transitional2 || !document.startViewTransition){
+                enhancedElement.after(clone);
+            }else{
+                document.startViewTransition(() => {
+                    enhancedElement.after(clone);
+                });
+            } 
+        }
+        
         //const itemref = enhancedElement.getAttribute('itemref');
         // if (itemref === null) {
             // const keys = [];
@@ -198,7 +220,7 @@ class BeSwitched extends BE {
             // }
             
             
-        }
+        //}
         // else {
         //     if (deferRendering) {
         //         self.deferRendering = false;
