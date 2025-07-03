@@ -186,8 +186,9 @@ class BeSwitched extends BE {
             const {getCount} = await import('trans-render/dss/tref/getCount.js');
             wrap(enhancedElement, `${base}-${getCount(base)}`, true) ;
         }
-        const ns = /** @type {any} */ (enhancedElement.nextSibling);
-        if(!ns || ns.nodeType !== Node.COMMENT_NODE || (!ns.data.includes(` ${wrappedVal} `))){
+        const {getFrag} = await import('mount-observer/slotkin/getFrag.js');
+        let children = getFrag(enhancedElement, wrappedVal);
+        if(children === null){
             let templToClone = enhancedElement;
             const externalRefId = templToClone.dataset.blowDryRef;
             if (externalRefId){
@@ -202,7 +203,14 @@ class BeSwitched extends BE {
                 });
             } 
         }else{
-            
+            children = children.filter(x => x instanceof Element);;
+            if(!transitional2 || !document.startViewTransition){
+                this.#changeVisibility(children, toggleInert, 'remove');
+            }else{
+                document.startViewTransition(() => {
+                    this.#changeVisibility(children, toggleInert, 'remove');
+                })
+            }
         }
         
         //const itemref = enhancedElement.getAttribute('itemref');
