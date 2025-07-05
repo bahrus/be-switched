@@ -287,13 +287,12 @@ class BeSwitched extends BE {
         const {getFrag} = await import('mount-observer/slotkin/getFrag.js');
         let children = getFrag(enhancedElement, wrappedVal);
         if(children === null) return;
-        
-        const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
         if (minMem){
-            for(const child of elChildren){
+            for(const child of children){
                 child.remove();
             }
         }else{
+            const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
             if(!transitional2 || !document.startViewTransition){
                 this.#changeVisibility(elChildren, toggleInert, 'add');
             }else{
