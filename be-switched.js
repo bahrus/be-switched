@@ -82,6 +82,11 @@ class BeSwitched extends BE {
     #transitional;
 
     /**
+     * @type {boolean | undefined}
+     */
+    #isEmpty;
+
+    /**
      * 
      * @param {Element} el 
      * @param {EnhancementInfo} enhancementInfo 
@@ -100,7 +105,6 @@ class BeSwitched extends BE {
     async onSingleValSwitches(self) {
         const { SingleValSwitchHandler } = await import('./SingleValSwitchHandler.js');
         new SingleValSwitchHandler(self);
-        //doSingleValSwitch(self);
     }
     /**
      * 
@@ -125,7 +129,6 @@ class BeSwitched extends BE {
      */
     calcVal(self) {
         const { lhs, rhs, checkIfNonEmptyArray, beBoolish, switchesSatisfied, twoValueSwitches, nValueSwitches, singleValSwitches } = self;
-        //console.log({switchesSatisfied});
         if (twoValueSwitches !== undefined || nValueSwitches !== undefined || singleValSwitches !== undefined) {
             return {
                 val: switchesSatisfied,
@@ -170,6 +173,25 @@ class BeSwitched extends BE {
             switchesSatisfied: !singleValSwitchNoGo && !twoValSwitchNoGo && (singleValSwitchesSatisfied || twoValSwitchesSatisfied),
         };
     }
+
+    /**
+     * 
+     * @param {HTMLTemplateElement} enhancedElement 
+     * @returns 
+     */
+    #determineIfEmpty(enhancedElement){
+        if(this.#isEmpty !== undefined) return this.#isEmpty;
+        if(enhancedElement.dataset.blowDryRef){
+            this.#isEmpty = false;
+            return false;
+        }
+        if(enhancedElement.content === undefined || enhancedElement.content.childElementCount === 0){
+            this.#isEmpty = true;
+            return true;
+        }
+        this.#isEmpty = false;
+        return false;
+    }
     /**
      * 
      * @param {BAP} self 
@@ -177,9 +199,15 @@ class BeSwitched extends BE {
      */
     async onTrue(self) {
         const { enhancedElement, toggleInert, deferRendering, transitional, emc } = self;
+        
+        enhancedElement.classList.remove('be-switched-off');
+        enhancedElement.classList.add('be-switched-on');
+        if(this.#determineIfEmpty(enhancedElement)) return;
         const {base} = emc;
         if(!base) throw 500;
+
         const transitional2 = transitional || this.#transitional;
+
         const {wrap, wrapped} = await import('mount-observer/slotkin/wrap.js');
         const wrappedVal = enhancedElement[wrapped];
         if(!wrappedVal){
@@ -187,7 +215,7 @@ class BeSwitched extends BE {
             wrap(enhancedElement, `${base}-${getCount(base)}`, true) ;
         }
         const {getFrag} = await import('mount-observer/slotkin/getFrag.js');
-        let children = getFrag(enhancedElement, wrappedVal);
+        const children = getFrag(enhancedElement, wrappedVal);
         if(children === null){
             let templToClone = enhancedElement;
             const externalRefId = templToClone.dataset.blowDryRef;
@@ -203,59 +231,22 @@ class BeSwitched extends BE {
                 });
             } 
         }else{
-            children = children.filter(x => x instanceof Element);;
+            const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
             if(!transitional2 || !document.startViewTransition){
-                this.#changeVisibility(children, toggleInert, 'remove');
+                this.#changeVisibility(elChildren, toggleInert, 'remove');
             }else{
                 document.startViewTransition(() => {
-                    this.#changeVisibility(children, toggleInert, 'remove');
+                    this.#changeVisibility(elChildren, toggleInert, 'remove');
                 })
             }
         }
-        
-        //const itemref = enhancedElement.getAttribute('itemref');
-        // if (itemref === null) {
-            // const keys = [];
-            // let templToClone = enhancedElement;
-            // const externalRefId = templToClone.dataset.blowDryRef;
-            // if (externalRefId)
-            //     templToClone = window[externalRefId];
-            // const { tagTempl } = await import('trans-render/dss/tref/tagTempl.js');
-            // if(!transitional2 || !document.startViewTransition){
-            //     tagTempl(templToClone, base + '');
-            // }else{
-            //     document.startViewTransition(() => {
-            //         tagTempl(templToClone, base + '');
-            //     })
-            // }
-            
-            
-        //}
-        // else {
-        //     if (deferRendering) {
-        //         self.deferRendering = false;
-        //         return;
-        //     }
-        //     const itemref = enhancedElement.getAttribute('itemref');
-        //     if(itemref !== null){
-        //         const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
-        //         const children = getChildren(enhancedElement, itemref);
-        //         if(!transitional2 || !document.startViewTransition){
-        //             this.#changeVisibility(children, toggleInert, 'remove');
-        //         }else{
-        //             document.startViewTransition(() => {
-        //                 this.#changeVisibility(children, toggleInert, 'remove');
-        //             })
-        //         }
-                
-        //     }
+         
 
-        // }
     }
 
     /**
      * 
-     * @param {Array<HTMLElement>} children 
+     * @param {Array<Element>} children 
      * @param {boolean | undefined} toggleInert 
      * @param {'add' | 'remove'} verb 
      */
@@ -270,25 +261,26 @@ class BeSwitched extends BE {
     }
     async onFalse(self) {
         const { enhancedElement, toggleInert, minMem, transitional } = self;
+
+        enhancedElement.classList.add('be-switched-off');
+        enhancedElement.classList.remove('be-switched-on');
+        if(this.#determineIfEmpty(enhancedElement)) return;
+
         const transitional2 = transitional || this.#transitional;
-        // const itemref = enhancedElement.getAttribute('itemref');
-        // if (itemref === null)
-        //     return;
         addStyle(self);
-        // const { getChildren } = await import('trans-render/dss/tref/getChildren.js');
-        // const children = getChildren(enhancedElement, itemref);
         const {wrapped} = await import('mount-observer/slotkin/wrap.js');
         const wrappedVal = enhancedElement[wrapped];
         if(!wrappedVal) return;
         const {getFrag} = await import('mount-observer/slotkin/getFrag.js');
         let children = getFrag(enhancedElement, wrappedVal);
         if(children === null) return;
-        children = children.filter(x => x instanceof Element);;
+        
+        const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
         if(!transitional2 || !document.startViewTransition){
-            this.#changeVisibility(children, toggleInert, 'add');
+            this.#changeVisibility(elChildren, toggleInert, 'add');
         }else{
             document.startViewTransition(() => {
-                this.#changeVisibility(children, toggleInert, 'add');
+                this.#changeVisibility(elChildren, toggleInert, 'add');
             })
         }
         if (minMem){

@@ -1075,6 +1075,7 @@ If, however, the content should display initially, but we want the client-side J
         <div>A witch!</div>
         <div>Burn her!</div>
     </template>
+    <!>
     <div id=witch>A witch!</div>
     <div id=burn-her>Burn her!</div>
 </ways-of-science>
