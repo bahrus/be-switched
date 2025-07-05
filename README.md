@@ -149,7 +149,7 @@ What this is saying:
 > Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced in the onchange attribute.  If event.r is set to true, display the contents within the template.  If event.r is set to false, hide it.  Also, evaluate the expression immediately at the outset. 
 
 > [!NOTE]
-> As mentioned earlier, if all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).  This enhancement does in fact support the more lightweight solution:
+> As mentioned earlier, if all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).  This enhancement does in fact support the more lightweight solution:
 
 
 ```html
