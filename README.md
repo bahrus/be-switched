@@ -1,6 +1,6 @@
 # be-switched ( 🎚️ ) [WIP]
 
-*be-switched* is a template element enhancement that lazy loads content when conditions are met.
+*be-switched* is a template element enhancement that can lazy load content when conditions are met, and/or it can modify the DOM so that css rules can choose what sorts of display modifications are needed.
 
 It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of enhancements, that can "cast spells" on server rendered content, but also apply the same logic quietly during template instantiation. 
 
@@ -11,7 +11,17 @@ It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) famil
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-switched?style=for-the-badge)](https://bundlephobia.com/result?p=be-switched)
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-switched?compression=gzip">
 
-##  The basic functionality
+
+Conditionally loading and/or displaying content is a fundamental need.  This element enhancement provides such support, "inline" within the HTML markup, with support for easy to read logical expressions as well as JavaScript if that proves insufficient.
+
+## Two Rendering Approaches
+
+As far as rendering conditional changes, tt does so in one of two ways:
+
+1.  If the amount of HTML to show / hide is fairly small and lightweight, the element enhancement works best with the *data* element, and simply sets the attribute/property "value" to true or false depending on the outcome of the logical expression.
+2.  If the content to load is heavy, then wrap the content in a template, to allow the browser to delay in hydrating the content until absolutely necessary.
+
+##  Three kinds of logical expressions
 
 be-switched can be used in three modes:  
 
@@ -139,7 +149,31 @@ What this is saying:
 > Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced in the onchange attribute.  If event.r is set to true, display the contents within the template.  If event.r is set to false, hide it.  Also, evaluate the expression immediately at the outset. 
 
 > [!NOTE]
-> This enhancement shines best when the adorned template contains a significant amount of HTML, especially rich HTML involving significant JavaScript manipulation.  If all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).
+> As mentioned earlier, if all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content, and avoid this enhancement altogether.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).  This enhancement does in fact support the more lightweight solution:
+
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
+    <data
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
+    ></data>
+    <div>A witch!</div>
+    <div>Burn her!</div>
+    
+</ways-of-science>
+<style>
+    ways-of-science>div {
+        display: none;
+    }
+    ways-of-science:has(data[value="true"])>div{
+        display: block;
+    }
+</style>
+```
+
 
 ### Adding "View Transition" support
 
