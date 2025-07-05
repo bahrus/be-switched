@@ -37,6 +37,7 @@ class BeSwitched extends BE {
             js: {},
             transitional: {},
             emc: {},
+            minMem:{},
         },
         compacts: {
             echo_val_to_echoVal: 20,
@@ -288,17 +289,21 @@ class BeSwitched extends BE {
         if(children === null) return;
         
         const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
-        if(!transitional2 || !document.startViewTransition){
-            this.#changeVisibility(elChildren, toggleInert, 'add');
-        }else{
-            document.startViewTransition(() => {
-                this.#changeVisibility(elChildren, toggleInert, 'add');
-            })
-        }
         if (minMem){
-            //TODO:
-            //enhancedElement.removeAttribute('itemref');
+            for(const child of elChildren){
+                child.remove();
+            }
+        }else{
+            if(!transitional2 || !document.startViewTransition){
+                this.#changeVisibility(elChildren, toggleInert, 'add');
+            }else{
+                document.startViewTransition(() => {
+                    this.#changeVisibility(elChildren, toggleInert, 'add');
+                });
+            }
         }
+
+
             
     }
     onRawStatements(self) {
