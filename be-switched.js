@@ -181,6 +181,10 @@ class BeSwitched extends BE {
      */
     #determineIfEmpty(enhancedElement){
         if(this.#isEmpty !== undefined) return this.#isEmpty;
+        if(!(enhancedElement instanceof HTMLTemplateElement)){
+            this.#isEmpty = true;
+            return true;
+        }
         if(enhancedElement.dataset.blowDryRef){
             this.#isEmpty = false;
             return false;
@@ -199,9 +203,13 @@ class BeSwitched extends BE {
      */
     async onTrue(self) {
         const { enhancedElement, toggleInert, deferRendering, transitional, emc } = self;
-        
-        enhancedElement.classList.remove('be-switched-off');
-        enhancedElement.classList.add('be-switched-on');
+        if('value' in enhancedElement){
+            enhancedElement.value = true;
+        }else{
+            enhancedElement.classList.remove('be-switched-off');
+            enhancedElement.classList.add('be-switched-on');
+        }
+
         if(this.#determineIfEmpty(enhancedElement)) return;
         const {base} = emc;
         if(!base) throw 500;
@@ -261,9 +269,13 @@ class BeSwitched extends BE {
     }
     async onFalse(self) {
         const { enhancedElement, toggleInert, minMem, transitional } = self;
-
-        enhancedElement.classList.add('be-switched-off');
-        enhancedElement.classList.remove('be-switched-on');
+        if('value' in enhancedElement){
+            enhancedElement.value = false;
+        }else{
+            enhancedElement.classList.add('be-switched-off');
+            enhancedElement.classList.remove('be-switched-on');
+        }
+        
         if(this.#determineIfEmpty(enhancedElement)) return;
 
         const transitional2 = transitional || this.#transitional;
