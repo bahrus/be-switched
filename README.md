@@ -232,6 +232,7 @@ and/or:
 
 ### Adding a local, unique anonymous conditional expression "CSP safely"
 
+The JavaScript expressions we've seen, embedded in inline event handlers, won't currently past muster with most minimal safety CSP settings.  The following approach will (but will require adding some hash keys to the meta data for the site)
 
 ```html
 <ways-of-science itemscope>
