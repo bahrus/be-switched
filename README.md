@@ -543,7 +543,7 @@ These should be active:
         <input name=rhs>
     </label>
     
-    <template 🎚️='on when @lhs eq @rhs w/i <!-- my-template -->.'>
+    <template 🎚️='on when @lhs eq @rhs w/i //my-template.'>
         <div>LHS === RHS</div>
     </template>
 <!-- /my-template -->
