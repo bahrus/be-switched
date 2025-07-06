@@ -12,7 +12,7 @@ It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) famil
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-switched?compression=gzip">
 
 
-Conditionally loading and/or displaying content is a fundamental need.  This element enhancement provides such support, "inline" within the HTML markup, with support for easy to read logical expressions as well as JavaScript if that proves insufficient.
+Conditionally loading and/or displaying content is a fundamental need.  This element enhancement provides such support, "inline" within the HTML markup, with support for easy to read declarative, logical expressions as well as JavaScript, if the declarative support proves insufficient.
 
 
 
