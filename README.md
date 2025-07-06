@@ -14,16 +14,20 @@ It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) famil
 
 Conditionally loading and/or displaying content is a fundamental need.  This element enhancement provides such support, "inline" within the HTML markup, with support for easy to read logical expressions as well as JavaScript if that proves insufficient.
 
-## Two Rendering Approaches
+
+
+
+
+## Two Rendering Modes
 
 As far as rendering conditional changes, tt does so in one of two ways:
 
 1.  If the amount of HTML to show / hide is fairly small and lightweight, the element enhancement works best with the *data* element, and simply sets the attribute/property "value" to true or false depending on the outcome of the logical expression.
 2.  If the content to load is heavy, then wrap the content in a template, to allow the browser to delay in hydrating the content until absolutely necessary.
 
-##  Three kinds of logical expressions
+##  Three logical expression modes
 
-be-switched can be used in three modes:  
+be-switched's logical expressions, used to decide whether to switch the content on or off, supports three different modes:  
 
 1.  It can switch the template "on and off" based on comparing two values (lhs and rhs), or multiple such comparisons, declaratively.
 2.  Or it can switch the template "on and off" based on a single value.  Or multiple such binary conditions.
