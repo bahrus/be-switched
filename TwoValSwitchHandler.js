@@ -31,11 +31,19 @@ export class TwoValSwitchHandler {
         const { twoValueSwitches, enhancedElement } = self;
         let aos = [];
         for (const tvs of twoValueSwitches) {
-            const { lhsSpecifier, rhsSpecifier } = tvs;
-            const remoteLHS = await find(enhancedElement, lhsSpecifier);
+            const { lhsSpecifier, rhsSpecifier, withinSpecifier } = tvs;
+            let within = undefined;
+            if(withinSpecifier !== undefined){
+                const {cmtWrap, scopeS} = withinSpecifier;
+                if(cmtWrap ===  true){
+                    const {getBreadth} = await import('mount-observer/slotkin/getBreadth.js');
+                    within = getBreadth(enhancedElement, scopeS).filter(x => x instanceof Element);
+                }
+            };
+            const remoteLHS = await find(enhancedElement, lhsSpecifier, within);
             if (!(remoteLHS instanceof EventTarget))
                 continue;
-            const remoteRHS = await find(enhancedElement, rhsSpecifier);
+            const remoteRHS = await find(enhancedElement, rhsSpecifier, within);
             if (!(remoteRHS instanceof EventTarget))
                 continue;
             // const lhsProp = lhsSpecifier?.prop;
