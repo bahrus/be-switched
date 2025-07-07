@@ -592,8 +592,9 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
     </tr>
 </table>
 <script>
-    customElements.define('parent-scope', class extends HTMLElement {});
-    customElements.define('child-scope', class extends HTMLElement {});
+    import {regIsh} from 'mount-observer/refid/regIsh.js';
+    regIsh(document.body, 'parent-scope', class {});
+    regIsh(document.body, 'child-scope', class{});
 </script>
 ```
 
