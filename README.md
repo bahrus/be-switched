@@ -517,7 +517,7 @@ These should be active:
 </section>
 ```
 
-## W/I comments token [TODO]
+## W/I comments token
 
 ```html
 These should be ignored:
