@@ -21,7 +21,7 @@ const onOnlyWhenIfPart = String.raw `^on only when (?<ifPart>.*)`;
  */
 export const emc = {
     base: 'be-switched',
-    branches: ['', 'js', 'transitional', 'min-mem'],
+    branches: ['', 'js', 'transitional', 'min-mem', 'cmt-wrap'],
     map: {
         '0.0': {
             instanceOf: 'Object$entences',
@@ -76,7 +76,11 @@ export const emc = {
         '3.0': {
             instanceOf: 'Boolean',
             mapsTo: 'minMem'
-        }
+        },
+        '4.0': {
+            instanceOf: 'Boolean',
+            mapsTo: 'cmtWrap'
+        },
     },
     enhPropKey: 'beSwitched',
     importEnh: async () => {
