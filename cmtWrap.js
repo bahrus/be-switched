@@ -1,3 +1,4 @@
+// @ts-check
 /** @import {BAP, Actions} from './ts-refs/be-switched/types' */;
 
 /**
@@ -7,6 +8,9 @@
  */
 export async function cmtWrapOnTrue(self, transitional){
     const {wrap, wrapped} = await import('mount-observer/slotkin/wrap.js');
+    const {enhancedElement, emc, toggleInert} = self;
+    const {base} = emc;
+    if(!base) throw 500;
     const wrappedVal = enhancedElement[wrapped];
     if(!wrappedVal){
         const {getCount} = await import('trans-render/dss/tref/getCount.js');
@@ -22,7 +26,7 @@ export async function cmtWrapOnTrue(self, transitional){
             templToClone = window[externalRefId];
         }
         const clone = templToClone.content.cloneNode(true);
-        if(!transitional2 || !document.startViewTransition){
+        if(!transitional || !document.startViewTransition){
             enhancedElement.after(clone);
         }else{
             document.startViewTransition(() => {
@@ -31,12 +35,41 @@ export async function cmtWrapOnTrue(self, transitional){
         } 
     }else{
         const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
-        if(!transitional2 || !document.startViewTransition){
+        if(!transitional || !document.startViewTransition){
             changeVisibility(elChildren, toggleInert, 'remove');
         }else{
             document.startViewTransition(() => {
                 changeVisibility(elChildren, toggleInert, 'remove');
             })
+        }
+    }
+}
+
+/**
+ * 
+ * @param {BAP} self 
+ * @param {boolean} transitional 
+ */
+export async function cmtWrapOnFalse(self, transitional){
+    const {enhancedElement, minMem, toggleInert} = self;
+    const {wrapped} = await import('mount-observer/slotkin/wrap.js');
+    const wrappedVal = enhancedElement[wrapped];
+    if(!wrappedVal) return;
+    const {getFrag} = await import('mount-observer/slotkin/getFrag.js');
+    let children = getFrag(enhancedElement, wrappedVal);
+    if(children === null) return;
+    if (minMem){
+        for(const child of children){
+            child.remove();
+        }
+    }else{
+        const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
+        if(!transitional || !document.startViewTransition){
+            changeVisibility(elChildren, toggleInert, 'add');
+        }else{
+            document.startViewTransition(() => {
+                changeVisibility(elChildren, toggleInert, 'add');
+            });
         }
     }
 }

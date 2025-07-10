@@ -213,8 +213,7 @@ class BeSwitched extends BE {
         }
 
         if(this.#determineIfEmpty(enhancedElement)) return;
-        const {base} = emc;
-        if(!base) throw 500;
+
 
         const transitional2 = transitional || this.#transitional;
         if(cmtWrap){
@@ -223,7 +222,6 @@ class BeSwitched extends BE {
         }else{
 
         }
-         
 
     }
 
@@ -243,28 +241,10 @@ class BeSwitched extends BE {
         addStyle(self);
 
         if(cmtWrap){
-            
+            const {cmtWrapOnFalse} = await import('./cmtWrap.js');
+            await cmtWrapOnFalse(self, transitional2);
         }
-        const {wrapped} = await import('mount-observer/slotkin/wrap.js');
-        const wrappedVal = enhancedElement[wrapped];
-        if(!wrappedVal) return;
-        const {getFrag} = await import('mount-observer/slotkin/getFrag.js');
-        let children = getFrag(enhancedElement, wrappedVal);
-        if(children === null) return;
-        if (minMem){
-            for(const child of children){
-                child.remove();
-            }
-        }else{
-            const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
-            if(!transitional2 || !document.startViewTransition){
-                this.#changeVisibility(elChildren, toggleInert, 'add');
-            }else{
-                document.startViewTransition(() => {
-                    this.#changeVisibility(elChildren, toggleInert, 'add');
-                });
-            }
-        }
+
 
 
             
