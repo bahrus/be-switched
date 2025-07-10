@@ -24,6 +24,7 @@ class BeSwitched extends BE {
             twoValSwitchesSatisfied: false,
             twoValSwitchNoGo: false,
             notProcessedJS: true,
+            cmtWrap: false,
         },
         propInfo: {
             ...propInfo,
@@ -203,7 +204,7 @@ class BeSwitched extends BE {
      * @returns 
      */
     async onTrue(self) {
-        const { enhancedElement, toggleInert, deferRendering, transitional, emc } = self;
+        const { enhancedElement, toggleInert, deferRendering, transitional, emc, cmtWrap } = self;
         if('value' in enhancedElement){
             enhancedElement.value = true;
         }else{
@@ -216,60 +217,19 @@ class BeSwitched extends BE {
         if(!base) throw 500;
 
         const transitional2 = transitional || this.#transitional;
-
-        const {wrap, wrapped} = await import('mount-observer/slotkin/wrap.js');
-        const wrappedVal = enhancedElement[wrapped];
-        if(!wrappedVal){
-            const {getCount} = await import('trans-render/dss/tref/getCount.js');
-            wrap(enhancedElement, `${base}-${getCount(base)}`, true) ;
-        }
-        const {getFrag} = await import('mount-observer/slotkin/getFrag.js');
-        const children = getFrag(enhancedElement, wrappedVal);
-        if(children === null){
-            let templToClone = enhancedElement;
-            const externalRefId = templToClone.dataset.blowDryRef;
-            if (externalRefId){
-                templToClone = window[externalRefId];
-            }
-            const clone = templToClone.content.cloneNode(true);
-            if(!transitional2 || !document.startViewTransition){
-                enhancedElement.after(clone);
-            }else{
-                document.startViewTransition(() => {
-                    enhancedElement.after(clone);
-                });
-            } 
+        if(cmtWrap){
+            const {cmtWrapOnTrue} = await import('./cmtWrap.js');
+            await cmtWrapOnTrue(self, transitional2);
         }else{
-            const elChildren = /** @type {Array<HTMLElement>} */ (children.filter(x => x instanceof HTMLElement));
-            if(!transitional2 || !document.startViewTransition){
-                this.#changeVisibility(elChildren, toggleInert, 'remove');
-            }else{
-                document.startViewTransition(() => {
-                    this.#changeVisibility(elChildren, toggleInert, 'remove');
-                })
-            }
+
         }
          
 
     }
 
-    /**
-     * 
-     * @param {Array<Element>} children 
-     * @param {boolean | undefined} toggleInert 
-     * @param {'add' | 'remove'} verb 
-     */
-    #changeVisibility(children, toggleInert, verb){
-        const disable = verb === 'remove' ? true : false;
-        for (const child of children) {
-            child.classList[verb]('be-switched-hide');
-            if (toggleInert && 'disabled' in child && child.disabled === !disable) {
-                child.disabled = disable;
-            }
-        }
-    }
+
     async onFalse(self) {
-        const { enhancedElement, toggleInert, minMem, transitional } = self;
+        const { enhancedElement, toggleInert, minMem, transitional, cmtWrap } = self;
         if('value' in enhancedElement){
             enhancedElement.value = false;
         }else{
@@ -281,6 +241,10 @@ class BeSwitched extends BE {
 
         const transitional2 = transitional || this.#transitional;
         addStyle(self);
+
+        if(cmtWrap){
+            
+        }
         const {wrapped} = await import('mount-observer/slotkin/wrap.js');
         const wrappedVal = enhancedElement[wrapped];
         if(!wrappedVal) return;
