@@ -221,8 +221,8 @@ class BeSwitched extends BE {
             const {cmtWrapOnTrue} = await import('./cmtWrap.js');
             await cmtWrapOnTrue(self, transitional2);
         }else{
-            const {base} = emc;
-            const attr = `data-from-${base}`;
+            //const {base} = emc;
+            const attr = `data-from-be-switched`;
             if(!this.#wrapped){
                 this.#wrapped = true;
                 if(enhancedElement instanceof HTMLTemplateElement && enhancedElement.content.childElementCount !== 1){
