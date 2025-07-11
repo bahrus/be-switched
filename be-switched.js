@@ -198,13 +198,14 @@ class BeSwitched extends BE {
         this.#isEmpty = false;
         return false;
     }
+    #wrapped = false;
     /**
      * 
      * @param {BAP} self 
      * @returns 
      */
     async onTrue(self) {
-        const { enhancedElement, toggleInert, deferRendering, transitional, emc, cmtWrap } = self;
+        const { enhancedElement, transitional, emc, cmtWrap } = self;
         if('value' in enhancedElement){
             enhancedElement.value = true;
         }else{
@@ -220,7 +221,43 @@ class BeSwitched extends BE {
             const {cmtWrapOnTrue} = await import('./cmtWrap.js');
             await cmtWrapOnTrue(self, transitional2);
         }else{
+            const {base} = emc;
+            const attr = `data-from-${base}`;
+            if(!this.#wrapped){
+                this.#wrapped = true;
+                if(enhancedElement instanceof HTMLTemplateElement && enhancedElement.content.childElementCount !== 1){
+                    const parentLocalName = enhancedElement.parentElement?.localName;
+                    let wrapperTag = 'div';
+                    switch(parentLocalName){
+                        case 'table':
+                        case 'tbody':
+                            wrapperTag = 'tbody';
+                            break;
+                        case 'thead':
+                            wrapperTag = 'thead';
+                            break;
 
+                    }
+                    const wrapper = document.createElement(wrapperTag);
+                    wrapper.appendChild(enhancedElement.content);
+                    enhancedElement.innerHTML = '';
+                    enhancedElement.content.appendChild(wrapper);
+                }
+                enhancedElement.content.firstElementChild?.setAttribute(attr, 'true');
+            }
+            const ns = enhancedElement.nextElementSibling;
+            if(ns instanceof Element && ns.hasAttribute(attr)){
+                ns.classList.remove('be-switched-hide');
+            }else{
+                const clone = enhancedElement.content.cloneNode(true);
+                if(!transitional2 || !document.startViewTransition){
+                    enhancedElement.after(clone);
+                }else{
+                    document.startViewTransition(() => {
+                        enhancedElement.after(clone);
+                    });
+                }
+            }
         }
 
     }
