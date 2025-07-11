@@ -221,7 +221,11 @@ class BeSwitched extends BE {
             const {cmtWrapOnTrue} = await import('./cmtWrap.js');
             await cmtWrapOnTrue(self, transitional2);
         }else{
-            //const {base} = emc;
+            let templToClone = enhancedElement;
+            const externalRefId = templToClone.dataset.blowDryRef;
+            if (externalRefId){
+                templToClone = window[externalRefId];
+            }
             const attr = `data-from-be-switched`;
             if(!this.#wrapped){
                 this.#wrapped = true;
