@@ -205,7 +205,7 @@ class BeSwitched extends BE {
      * @returns 
      */
     async onTrue(self) {
-        const { enhancedElement, transitional, emc, cmtWrap } = self;
+        const { enhancedElement, transitional, cmtWrap } = self;
         if('value' in enhancedElement){
             enhancedElement.value = true;
         }else{
@@ -280,6 +280,14 @@ class BeSwitched extends BE {
         if(cmtWrap){
             const {cmtWrapOnFalse} = await import('./cmtWrap.js');
             await cmtWrapOnFalse(self, transitional2);
+        }else{
+            const ns = enhancedElement.nextElementSibling;
+            if(ns instanceof Element && ns.hasAttribute('data-from-be-switched')){
+                ns.classList.add('be-switched-hide');
+                // if(toggleInert){
+                //     ns.inert = true;
+                // }
+            }
         }
 
 
