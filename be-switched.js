@@ -199,6 +199,11 @@ class BeSwitched extends BE {
         return false;
     }
     #wrapped = false;
+
+    /**
+     * @type {HTMLTemplateElement | undefined}
+     */
+    #externalTemplRef = undefined;
     /**
      * 
      * @param {BAP} self 
@@ -224,7 +229,11 @@ class BeSwitched extends BE {
             let templToClone = enhancedElement;
             const externalRefId = templToClone.dataset.blowDryRef;
             if (externalRefId){
-                templToClone = window[externalRefId];
+                if(this.#externalTemplRef === undefined){
+                    this.#externalTemplRef = /** @type {HTMLTemplateElement} */ ((await import('trans-render/lib/upShadowSearch.js')).upShadowSearch(enhancedElement,  externalRefId));
+                }
+                
+                templToClone = this.#externalTemplRef;
             }
             const attr = `data-from-be-switched`;
             if(!this.#wrapped){
