@@ -33,7 +33,7 @@ be-switched's logical expressions, used to decide whether to switch the content 
 2.  Or it can switch the template "on and off" based on a single value.  Or multiple such binary conditions.
 3.  Or, with the help of JavaScript, we can evaluate a complex expression that is automatically recalculated anytime any of its n dependencies change, where n can be as high as needed.
    
-The values to compare can come from peer microdata or form elements, or "boolish" properties coming from the host or peer (custom) elements, as well as data attributes adorning the template.
+The values to compare can come from peer microdata or form elements, or properties coming from the host or peer (custom) elements, as well as data attributes adorning the template.
 
 We will look at all three options closely, starting with...
 
@@ -145,7 +145,7 @@ Our expression can alternatively be more expressive:
 
 Here, we are attempting to keep our expressions short, which means some abbreviations are used:
 
-1.  event.r means "the return value of the result should be..."
+1.  event.r means "the return value of the expression  should be..."
 2.  The "f" in event.f stands for "factors" in the conditional evaluation -- factors derived from what the be-switched expression is "based on".
 
 What this is saying:  
@@ -598,7 +598,7 @@ Again, if that proves inadequate, use the ^ character to indicate the closest pe
 </script>
 ```
 
-Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily with css.  I.e. this syntax supports "flat" hierarchies via itemref.
+Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily with css.  I.e. this syntax supports  hierarchies via itemref.
 
 ```html
 <table>
@@ -1044,9 +1044,24 @@ After staring at my keyboard for several hours, I have decided that maybe this i
 
 
 
-### Example !2a - !4a [Not Fully Tested]
+### Negation logic
 
 All the examples above also work, but instead of "on", use "off", which of course means the negation is performed.
+
+## Attaching itemscope hosts ("ish") [TODO]
+
+```html
+<label for=lhs>LHS:</label>
+<input id=lhs>
+<label for=rhs>RHS:</label>
+<input id=rhs>
+<template
+    🎚️='on if #lhs eq #rhs, and set itemscope to lhs-rhs.'
+>
+    <div><span itemprop=lhs></span> === <span itemprop=rhs></span></div>
+</template>
+```
+
 
 ## Viewing Locally
 
