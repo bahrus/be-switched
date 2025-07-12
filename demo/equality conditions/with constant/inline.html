@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>equality conditions with dataset constant</title>
+    <title>equality conditions with inline constant</title>
     <!-- #include virtual="/imports.html" -->
 </head>
 <body>
     <label for=lhs>LHS:</label>
     <input id=lhs type=number>
 
-    <template data-rhs=37 🎚️='on when #lhs eq $0?.dataset?.rhs as number.'>
+    <template 🎚️='on when #lhs eq `37` as number.'>
         <div>LHS === RHS</div>
     </template>
 

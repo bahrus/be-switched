@@ -8,7 +8,7 @@ export class TwoValSwitchHandler {
      */
     self;
     /**
-     * @type {Map<TwoValueSwitch, [AbsorbingObject, AbsorbingObject]>}
+     * @type {Map<TwoValueSwitch, [AbsorbingObject | undefined, AbsorbingObject | undefined]>}
      */
     #twoValSwitchToAO = new Map();
     /** @type {AbortController | undefined} */
@@ -40,22 +40,20 @@ export class TwoValSwitchHandler {
                     within = getBreadth(enhancedElement, scopeS).filter(x => x instanceof Element);
                 }
             };
-            const remoteLHS = await find(enhancedElement, lhsSpecifier, within);
-            if (!(remoteLHS instanceof EventTarget))
+            const lhsIsConstant = lhsSpecifier.constVal !== undefined;
+            const rhsIsConstant = rhsSpecifier.constVal !== undefined;
+            const remoteLHS = lhsIsConstant ? undefined : await find(enhancedElement, lhsSpecifier, within);
+            if (!lhsIsConstant && !(remoteLHS instanceof EventTarget))
                 continue;
-            const remoteRHS = await find(enhancedElement, rhsSpecifier, within);
-            if (!(remoteRHS instanceof EventTarget))
+            const remoteRHS = rhsIsConstant ? undefined : await find(enhancedElement, rhsSpecifier, within);
+            if (!rhsIsConstant && !(remoteRHS instanceof EventTarget))
                 continue;
-            // const lhsProp = lhsSpecifier?.prop;
-            // const rhsProp = rhsSpecifier?.prop;
-            // if (lhsProp === undefined || rhsProp === undefined)
-            //     throw 'NI';
-            const lhsAO = await ASMR.getAO(remoteLHS, {
+            const lhsAO = !remoteLHS ? undefined : await ASMR.getAO(remoteLHS, {
                 evt: lhsSpecifier.evt || 'input',
                 selfIsVal: lhsSpecifier.prop === '$0' && lhsSpecifier.path === undefined,
                 propToAbsorb: lhsSpecifier.path
             });
-            const rhsAO = await ASMR.getAO(remoteRHS, {
+            const rhsAO = !remoteRHS ? undefined : await ASMR.getAO(remoteRHS, {
                 evt: rhsSpecifier.evt || 'input',
                 selfIsVal: rhsSpecifier.prop === '$0' && rhsSpecifier.path === undefined,
                 propToAbsorb: rhsSpecifier.path,
@@ -69,8 +67,8 @@ export class TwoValSwitchHandler {
         const ac = this.#ac = new AbortController();
         for (const ao of aos) {
             const [lhsAO, rhsAO] = ao;
-            lhsAO.addEventListener('.', this, { signal: ac.signal });
-            rhsAO.addEventListener('.', this, { signal: ac.signal });
+            lhsAO?.addEventListener('.', this, { signal: ac.signal });
+            rhsAO?.addEventListener('.', this, { signal: ac.signal });
         }
         this.handleEvent();
     }
@@ -79,14 +77,14 @@ export class TwoValSwitchHandler {
         let foundOne = false;
         const tvsToAOs = this.#twoValSwitchToAO;
         for (const tvs of twoValSwitches) {
-            const { req, op, onOrOff, qualifier } = tvs;
+            const { req, op, onOrOff, lhsSpecifier, rhsSpecifier } = tvs;
             if (foundOne && !req)
                 continue;
             const aos = tvsToAOs.get(tvs);
             if(aos === undefined) throw 500;
             const [lhsAO, rhsAO] = aos;
-            const lhsVal = await lhsAO.getValue();
-            const rhsVal = await rhsAO.getValue();
+            const lhsVal = lhsAO ? await lhsAO.getValue() : lhsSpecifier.constVal;
+            const rhsVal = rhsAO ? await rhsAO.getValue() : rhsSpecifier.constVal;
             //TODO:  deal with lt, gt, boolish, etc
             let value = false;
             switch (op) {
