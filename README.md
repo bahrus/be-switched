@@ -965,7 +965,7 @@ The standalone ^{(*)} is indicating to just look at the previous element sibling
 
 ## Example 3c 
 
-### Example 3c Comparison to a constant
+### Comparison to a constant
 
 ```html
 <label for=lhs>lhs</label>
@@ -975,6 +975,17 @@ The standalone ^{(*)} is indicating to just look at the previous element sibling
     <my-content></my-content>
 </template>
     
+```
+
+This also works:
+
+```html
+<label for=lhs>LHS:</label>
+<input id=lhs type=number>
+
+<template 🎚️='on when #lhs eq `37` as number.'>
+    <div>LHS === RHS</div>
+</template>
 ```
 
 
