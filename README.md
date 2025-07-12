@@ -963,8 +963,6 @@ The standalone ^{(*)} is indicating to just look at the previous element sibling
 </div>
 ```
 
-## Example 3c 
-
 ### Comparison to a constant
 
 ```html
