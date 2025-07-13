@@ -34,7 +34,7 @@ export class SingleValSwitchHandler {
             const { prop, host } = specifier;
             let propToAbsorb = undefined;
             /** @type {string | undefined} */
-            let evt = specifier.evt || 'input';
+            let evt = specifier.evt;
             if (host) {
                 if (prop === undefined)
                     throw 'NI';
