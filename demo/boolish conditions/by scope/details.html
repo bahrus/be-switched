@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>boolish conditions => by id</title>
+    <title>boolish conditions => by scope => details</title>
     <!-- #include virtual="/imports.html" -->
 </head>
 <body>
     <details id=isOpen>
         <summary>Toggle Content</summary>
-        <template 🎚️='on when #isOpen.'>
+        <template 🎚️='on when ^{details}.'>
             <my-content></my-content>
         </template>
     </details>

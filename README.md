@@ -178,6 +178,30 @@ What this is saying:
 </style>
 ```
 
+### Externally referenced 
+
+If this element enhancement is used inside a repeating DOM structure, it is more efficient to let the template that defines the conditional logic reference a template outside the loop, which may be inside the ShadowRoot somewhere, or the host's ShadowRoot, iteratively into the root document is tried (in that order), identified by id:
+
+```html
+<head>
+    ...
+     <template id=dRqfXaPaqEek5BRwfxTttg>
+        <my-content></my-content>
+     </template>
+</head>
+<body>
+    <for-each>
+        <div>
+            <input name=isHappy type="checkbox">
+            <template 🎚️='on when ^{div}@isHappy.' data-blow-dry-ref=dRqfXaPaqEek5BRwfxTttg></template>
+        </div>
+    </for-each>
+    <script type=module>
+        import '/🎚️.js';
+    </script>
+</body>
+```
+
 
 ### Adding "View Transition" support
 
