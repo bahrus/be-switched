@@ -913,6 +913,17 @@ If this element enhancement is used inside a repeating DOM structure, it is more
 
 This is an "and" condition due to the presence of "only".
 
+### By Closest
+
+```html
+<details>
+    <summary>Toggle Content</summary>
+    <template 🎚️='on when ^{details}.'>
+        <my-content></my-content>
+    </template>
+</details>
+```
+
 ### Condition coming from host
 
 ### With / symbol
