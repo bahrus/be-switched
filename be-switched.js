@@ -238,7 +238,7 @@ class BeSwitched extends BE {
             const attr = `data-from-be-switched`;
             if(!this.#wrapped){
                 this.#wrapped = true;
-                if(enhancedElement instanceof HTMLTemplateElement && enhancedElement.content.childElementCount !== 1){
+                if(templToClone instanceof HTMLTemplateElement && templToClone.content.childElementCount !== 1){
                     const parentLocalName = enhancedElement.parentElement?.localName;
                     let wrapperTag = 'div';
                     switch(parentLocalName){
@@ -252,17 +252,17 @@ class BeSwitched extends BE {
 
                     }
                     const wrapper = document.createElement(wrapperTag);
-                    wrapper.appendChild(enhancedElement.content);
-                    enhancedElement.innerHTML = '';
-                    enhancedElement.content.appendChild(wrapper);
+                    wrapper.appendChild(templToClone.content);
+                    templToClone.innerHTML = '';
+                    templToClone.content.appendChild(wrapper);
                 }
-                enhancedElement.content.firstElementChild?.setAttribute(attr, 'true');
+                templToClone.content.firstElementChild?.setAttribute(attr, 'true');
             }
             const ns = enhancedElement.nextElementSibling;
             if(ns instanceof Element && ns.hasAttribute(attr)){
                 ns.classList.remove('be-switched-hide');
             }else{
-                const clone = enhancedElement.content.cloneNode(true);
+                const clone = templToClone.content.cloneNode(true);
                 if(!transitional2 || !document.startViewTransition){
                     enhancedElement.after(clone);
                 }else{
