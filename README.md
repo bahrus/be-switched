@@ -876,7 +876,7 @@ If this element enhancement is used inside a repeating DOM structure, it is more
     <for-each ...>
         <div>
             <input name=isHappy type="checkbox">
-            <template 🎚️='on when ^{div}@isHappy.' data-blow-dry-ref=dRqfXaPaqEek5BRwfxTttg></template>
+            <template 🎚️='on when ^{div}@isHappy.' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
         </div>
     </for-each>
     <script type=module>
