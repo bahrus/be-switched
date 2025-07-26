@@ -20,12 +20,12 @@ export async function cmtWrapOnTrue(self, transitional){
     const children = getFrag(enhancedElement, wrappedVal);
 
     if(children === null){
-        let templToClone = enhancedElement;
-        const externalRefId = templToClone.dataset.blowDryRef;
-        if (externalRefId){
-            templToClone = window[externalRefId];
-        }
-        const clone = templToClone.content.cloneNode(true);
+        let contentToClone = enhancedElement.content;
+        if(enhancedElement.getAttribute('rel') === 'preload' && enhancedElement.hasAttribute('src')){
+            contentToClone = await (await import('mount-observer/getContent.js')).getContent(enhancedElement);
+        } 
+
+        const clone = contentToClone.cloneNode(true);
         if(!transitional || !document.startViewTransition){
             enhancedElement.after(clone);
         }else{

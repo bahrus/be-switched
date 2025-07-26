@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>boolish conditions => by id</title>
+    <title>boolish conditions => by id => preload</title>
     <!-- #include virtual="/imports.html" -->
      <template id=dRqfXaPaqEek5BRwfxTttg>
         <my-content></my-content>
+        <your-content></your-content>
      </template>
 </head>
 <body>
     <form>
         <input id=isHappy type="checkbox">
-        <template 🎚️='on when #isHappy.' data-blow-dry-ref=dRqfXaPaqEek5BRwfxTttg></template>
+        <template 🎚️='on when #isHappy.' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
     </form>
     <script type=module>
         import '/🎚️.js';

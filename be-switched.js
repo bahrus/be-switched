@@ -8,6 +8,11 @@ import { get } from 'trans-render/XV/get.js';
 let cnt = 0;
 
 /**
+ * @type {WeakMap<DocumentFragment, DocumentFragment>}
+ */
+const wrappedContent = new WeakMap();
+
+/**
  * @implements {Actions}
  */
 class BeSwitched extends BE {
@@ -187,7 +192,7 @@ class BeSwitched extends BE {
             this.#isEmpty = true;
             return true;
         }
-        if(enhancedElement.dataset.blowDryRef){
+        if(enhancedElement.getAttribute('rel') === 'preload'){
             this.#isEmpty = false;
             return false;
         }
@@ -198,7 +203,7 @@ class BeSwitched extends BE {
         this.#isEmpty = false;
         return false;
     }
-    #wrapped = false;
+
 
     /**
      * @type {HTMLTemplateElement | undefined}
@@ -226,19 +231,13 @@ class BeSwitched extends BE {
             const {cmtWrapOnTrue} = await import('./cmtWrap.js');
             await cmtWrapOnTrue(self, transitional2);
         }else{
-            let templToClone = enhancedElement;
-            const externalRefId = templToClone.dataset.blowDryRef;
-            if (externalRefId){
-                if(this.#externalTemplRef === undefined){
-                    this.#externalTemplRef = /** @type {HTMLTemplateElement} */ ((await import('trans-render/lib/upShadowSearch.js')).upShadowSearch(enhancedElement,  externalRefId));
-                }
-                
-                templToClone = this.#externalTemplRef;
-            }
             const attr = `data-from-be-switched`;
-            if(!this.#wrapped){
-                this.#wrapped = true;
-                if(templToClone instanceof HTMLTemplateElement && templToClone.content.childElementCount !== 1){
+            let contentToClone = enhancedElement.content;
+            if(enhancedElement.getAttribute('rel') === 'preload' && enhancedElement.hasAttribute('src')){
+                contentToClone = await (await import('mount-observer/getContent.js')).getContent(enhancedElement);
+            }
+            if(!wrappedContent.has(contentToClone)){
+                if(contentToClone.childElementCount !== 1){
                     const parentLocalName = enhancedElement.parentElement?.localName;
                     let wrapperTag = 'div';
                     switch(parentLocalName){
@@ -252,17 +251,22 @@ class BeSwitched extends BE {
 
                     }
                     const wrapper = document.createElement(wrapperTag);
-                    wrapper.appendChild(templToClone.content);
-                    templToClone.innerHTML = '';
-                    templToClone.content.appendChild(wrapper);
+                    wrapper.appendChild(contentToClone);
+                    const fragment = new DocumentFragment();
+                    fragment.appendChild(wrapper);
+                    wrappedContent.set(contentToClone, fragment);
+                }else{
+                    wrappedContent.set(contentToClone, contentToClone);
                 }
-                templToClone.content.firstElementChild?.setAttribute(attr, 'true');
+                wrappedContent.get(contentToClone)?.firstElementChild?.setAttribute(attr, 'true');
+                
             }
             const ns = enhancedElement.nextElementSibling;
             if(ns instanceof Element && ns.hasAttribute(attr)){
                 ns.classList.remove('be-switched-hide');
             }else{
-                const clone = templToClone.content.cloneNode(true);
+                const clone = wrappedContent.get(contentToClone)?.cloneNode(true);
+                if(clone === undefined) throw 500;
                 if(!transitional2 || !document.startViewTransition){
                     enhancedElement.after(clone);
                 }else{
