@@ -820,6 +820,33 @@ With hard coded indexes in the expression:
 </table>
 ```
 
+##  Simpler, more powerful syntax, take 2 [TODO]:
+
+```html
+<table>
+    <tbody>
+        <tr data-row-group=id_10><td><input name=lhs></td></tr>
+        <tr data-row-group=id_10>
+            <td>
+                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.groupBy?.data-row-group}">
+                    <div>lhs == rhs</div>
+                </template>
+            </td>
+        </tr>
+        <tr data-row-group=id_10><td><input name=rhs></td></tr>
+        <tr data-row-group=id_11><td><input name=lhs></td></tr>
+        <tr data-row-group=id_11>
+            <td>
+                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.groupBy?.data-row-group}.">
+                    <div>lhs == rhs</div>
+                </template>
+            </td>
+        </tr>
+        <tr data-row-group=id_11><td><input name=rhs></td></tr>
+    </tbody>
+</table>
+```
+
 ## And now for something completely different
 
 The previous group of examples all focused on comparing two values.  
