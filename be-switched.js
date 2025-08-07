@@ -21,6 +21,7 @@ class BeSwitched extends BE {
      */
     static config = {
         propDefaults: {
+            beBoolish: true,
             hiddenStyle: 'display:none',
             lhs: false,
             rhs: true,
@@ -29,7 +30,7 @@ class BeSwitched extends BE {
             twoValSwitchesSatisfied: false,
             twoValSwitchNoGo: false,
             notProcessedJS: true,
-            cmtWrap: false,
+            //cmtWrap: false,
         },
         propInfo: {
             ...propInfo,
@@ -215,7 +216,7 @@ class BeSwitched extends BE {
      * @returns 
      */
     async onTrue(self) {
-        const { enhancedElement, transitional, cmtWrap } = self;
+        const { enhancedElement, transitional} = self;
         if('value' in enhancedElement){
             enhancedElement.value = true;
         }else{
@@ -227,55 +228,52 @@ class BeSwitched extends BE {
 
 
         const transitional2 = transitional || this.#transitional;
-        if(cmtWrap){
-            const {cmtWrapOnTrue} = await import('./cmtWrap.js');
-            await cmtWrapOnTrue(self, transitional2);
-        }else{
-            const attr = `data-from-be-switched`;
-            let contentToClone = enhancedElement.content;
-            if(enhancedElement.getAttribute('rel') === 'preload' && enhancedElement.hasAttribute('src')){
-                contentToClone = await (await import('mount-observer/getContent.js')).getContent(enhancedElement);
-            }
-            if(!wrappedContent.has(contentToClone)){
-                if(contentToClone.childElementCount !== 1){
-                    const parentLocalName = enhancedElement.parentElement?.localName;
-                    let wrapperTag = 'div';
-                    switch(parentLocalName){
-                        case 'table':
-                        case 'tbody':
-                            wrapperTag = 'tbody';
-                            break;
-                        case 'thead':
-                            wrapperTag = 'thead';
-                            break;
 
-                    }
-                    const wrapper = document.createElement(wrapperTag);
-                    wrapper.appendChild(contentToClone);
-                    const fragment = new DocumentFragment();
-                    fragment.appendChild(wrapper);
-                    wrappedContent.set(contentToClone, fragment);
-                }else{
-                    wrappedContent.set(contentToClone, contentToClone);
+        const attr = `data-from-be-switched`;
+        let contentToClone = enhancedElement.content;
+        if(enhancedElement.getAttribute('rel') === 'preload' && enhancedElement.hasAttribute('src')){
+            contentToClone = await (await import('mount-observer/getContent.js')).getContent(enhancedElement);
+        }
+        if(!wrappedContent.has(contentToClone)){
+            if(contentToClone.childElementCount !== 1){
+                const parentLocalName = enhancedElement.parentElement?.localName;
+                let wrapperTag = 'div';
+                switch(parentLocalName){
+                    case 'table':
+                    case 'tbody':
+                        wrapperTag = 'tbody';
+                        break;
+                    case 'thead':
+                        wrapperTag = 'thead';
+                        break;
+
                 }
-                wrappedContent.get(contentToClone)?.firstElementChild?.setAttribute(attr, 'true');
-                
-            }
-            const ns = enhancedElement.nextElementSibling;
-            if(ns instanceof Element && ns.hasAttribute(attr)){
-                ns.classList.remove('be-switched-hide');
+                const wrapper = document.createElement(wrapperTag);
+                wrapper.appendChild(contentToClone);
+                const fragment = new DocumentFragment();
+                fragment.appendChild(wrapper);
+                wrappedContent.set(contentToClone, fragment);
             }else{
-                const clone = wrappedContent.get(contentToClone)?.cloneNode(true);
-                if(clone === undefined) throw 500;
-                if(!transitional2 || !document.startViewTransition){
+                wrappedContent.set(contentToClone, contentToClone);
+            }
+            wrappedContent.get(contentToClone)?.firstElementChild?.setAttribute(attr, 'true');
+            
+        }
+        const ns = enhancedElement.nextElementSibling;
+        if(ns instanceof Element && ns.hasAttribute(attr)){
+            ns.classList.remove('be-switched-hide');
+        }else{
+            const clone = wrappedContent.get(contentToClone)?.cloneNode(true);
+            if(clone === undefined) throw 500;
+            if(!transitional2 || !document.startViewTransition){
+                enhancedElement.after(clone);
+            }else{
+                document.startViewTransition(() => {
                     enhancedElement.after(clone);
-                }else{
-                    document.startViewTransition(() => {
-                        enhancedElement.after(clone);
-                    });
-                }
+                });
             }
         }
+        
 
     }
 
