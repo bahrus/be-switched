@@ -7,10 +7,10 @@ import { get } from 'trans-render/XV/get.js';
 /** @import {EnhancementInfo, EventListenerOrFn} from  './ts-refs/trans-render/be/types'*/
 let cnt = 0;
 
-/**
- * @type {WeakMap<DocumentFragment, DocumentFragment>}
- */
-const wrappedContent = new WeakMap();
+// /**
+//  * @type {WeakMap<DocumentFragment, DocumentFragment>}
+//  */
+// const wrappedContent = new WeakMap();
 
 /**
  * @implements {Actions}
@@ -30,6 +30,7 @@ class BeSwitched extends BE {
             twoValSwitchesSatisfied: false,
             twoValSwitchNoGo: false,
             notProcessedJS: true,
+            idRefAttr: 'data-be-switched-idrefs',
             //cmtWrap: false,
         },
         propInfo: {
@@ -216,7 +217,8 @@ class BeSwitched extends BE {
      * @returns 
      */
     async onTrue(self) {
-        const { enhancedElement, transitional} = self;
+        const { enhancedElement, transitional, idRefAttr, emc, toggleInert} = self;
+        const {base} = emc;
         if('value' in enhancedElement){
             enhancedElement.value = true;
         }else{
@@ -234,52 +236,32 @@ class BeSwitched extends BE {
         if(enhancedElement.getAttribute('rel') === 'preload' && enhancedElement.hasAttribute('src')){
             contentToClone = await (await import('mount-observer/getContent.js')).getContent(enhancedElement);
         }
-        if(!wrappedContent.has(contentToClone)){
-            if(contentToClone.childElementCount !== 1){
-                const parentLocalName = enhancedElement.parentElement?.localName;
-                let wrapperTag = 'div';
-                switch(parentLocalName){
-                    case 'table':
-                    case 'tbody':
-                        wrapperTag = 'tbody';
-                        break;
-                    case 'thead':
-                        wrapperTag = 'thead';
-                        break;
-
-                }
-                const wrapper = document.createElement(wrapperTag);
-                wrapper.appendChild(contentToClone);
-                const fragment = new DocumentFragment();
-                fragment.appendChild(wrapper);
-                wrappedContent.set(contentToClone, fragment);
-            }else{
-                wrappedContent.set(contentToClone, contentToClone);
+        await import('mount-observer/refid/via.js');
+        const children = /** @type {Array<Element>} */ (/** @type {any} */(enhancedElement).via[idRefAttr].children);
+        if(children.length === 0){
+            const clone = /** @type { DocumentFragment } */ (contentToClone.cloneNode(true));
+            const cloneChildren = Array.from(clone.children);
+            const {getCount} = await import('trans-render/dss/tref/getCount.js');
+            const refs = [];
+            for(const child of cloneChildren){
+                const id = getCount('' + base);
+                refs.push(id)
+                child.id = id;
             }
-            wrappedContent.get(contentToClone)?.firstElementChild?.setAttribute(attr, 'true');
-            
-        }
-        const ns = enhancedElement.nextElementSibling;
-        if(ns instanceof Element && ns.hasAttribute(attr)){
-            ns.classList.remove('be-switched-hide');
+            enhancedElement.setAttribute(idRefAttr, refs.join(' '));
+            changeVisibility(cloneChildren, toggleInert, 'remove');
+            enhancedElement.after(clone);
         }else{
-            const clone = wrappedContent.get(contentToClone)?.cloneNode(true);
-            if(clone === undefined) throw 500;
-            if(!transitional2 || !document.startViewTransition){
-                enhancedElement.after(clone);
-            }else{
-                document.startViewTransition(() => {
-                    enhancedElement.after(clone);
-                });
-            }
+            changeVisibility(children, toggleInert, 'remove');
         }
         
+
 
     }
 
 
     async onFalse(self) {
-        const { enhancedElement, toggleInert, minMem, transitional, cmtWrap } = self;
+        const { enhancedElement, toggleInert, minMem, transitional, idRefAttr } = self;
         if('value' in enhancedElement){
             enhancedElement.value = false;
         }else{
@@ -292,19 +274,9 @@ class BeSwitched extends BE {
         const transitional2 = transitional || this.#transitional;
         addStyle(self);
 
-        if(cmtWrap){
-            const {cmtWrapOnFalse} = await import('./cmtWrap.js');
-            await cmtWrapOnFalse(self, transitional2);
-        }else{
-            const ns = enhancedElement.nextElementSibling;
-            if(ns instanceof Element && ns.hasAttribute('data-from-be-switched')){
-                ns.classList.add('be-switched-hide');
-                // if(toggleInert){
-                //     ns.inert = true;
-                // }
-            }
-        }
-
+        await import('mount-observer/refid/via.js');
+        let children = /** @type {Array<Element>} */ (/** @type {any} */(enhancedElement).via[idRefAttr].children);
+        changeVisibility(children, toggleInert, 'add');
 
 
             
@@ -332,6 +304,23 @@ class BeSwitched extends BE {
         });
     }
 }
+
+/**
+ * 
+ * @param {Array<Element>} children 
+ * @param {boolean | undefined} toggleInert 
+ * @param {'add' | 'remove'} verb 
+ */
+function changeVisibility(children, toggleInert, verb){
+    const disable = verb === 'remove' ? true : false;
+    for (const child of children) {
+        child.classList[verb]('be-switched-hide');
+        if (toggleInert && 'disabled' in child && child.disabled === !disable) {
+            child.disabled = disable;
+        }
+    }
+}
+
 const styleMap = new WeakSet();
 function addStyle(ap) {
     const { enhancedElement, hiddenStyle } = ap;

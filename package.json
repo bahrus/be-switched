@@ -29,11 +29,11 @@
   "dependencies": {
     "be-enhanced": "0.0.182",
     "be-hive": "0.0.262",
-    "mount-observer": "0.0.80",
-    "trans-render": "0.0.911"
+    "mount-observer": "0.0.82",
+    "trans-render": "0.0.916"
   },
   "devDependencies": {
-    "@playwright/test": "1.54.1",
+    "@playwright/test": "1.54.2",
     "ssi-server": "0.0.1"
   },
   "scripts": {
