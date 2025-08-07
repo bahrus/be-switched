@@ -837,7 +837,7 @@ With hard coded indexes in the expression:
         <tr data-row-group=id_11><td><input name=lhs></td></tr>
         <tr data-row-group=id_11>
             <td>
-                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.groupBy?.data-row-group}.">
+                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.joinMatching?.dataRowGroup.fromParent}.">
                     <div>lhs == rhs</div>
                 </template>
             </td>
