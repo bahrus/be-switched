@@ -244,7 +244,7 @@ class BeSwitched extends BE {
             const {getCount} = await import('trans-render/dss/tref/getCount.js');
             const refs = [];
             for(const child of cloneChildren){
-                const id = `${base}-${getCount('' + base)}`;
+                const id = child.id !== '' ? child.id :  `${base}-${getCount('' + base)}`;
                 refs.push(id)
                 child.id = id;
             }
