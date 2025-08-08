@@ -30,7 +30,7 @@
     "be-enhanced": "0.0.182",
     "be-hive": "0.0.262",
     "mount-observer": "0.0.82",
-    "trans-render": "0.0.916"
+    "trans-render": "0.0.917"
   },
   "devDependencies": {
     "@playwright/test": "1.54.2",
