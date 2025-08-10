@@ -1,7 +1,8 @@
 // @ts-check
 import { propInfo, rejected, resolved } from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
-import { get } from 'trans-render/XV/get.js';
+import 'mount-observer/preloadContent.js';
+
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types' */
 /** @import {BAP, Actions} from './ts-refs/be-switched/types' */;
 /** @import {EnhancementInfo, EventListenerOrFn} from  './ts-refs/trans-render/be/types'*/
@@ -232,10 +233,8 @@ class BeSwitched extends BE {
         const transitional2 = transitional || this.#transitional;
 
         const attr = `data-from-be-switched`;
-        let contentToClone = enhancedElement.content;
-        if(enhancedElement.getAttribute('rel') === 'preload' && enhancedElement.hasAttribute('src')){
-            contentToClone = await (await import('mount-observer/getContent.js')).getContent(enhancedElement);
-        }
+        const contentToClone = /** @type {DocumentFragment} */ (/** @type (any) */ (enhancedElement).remoteContent);
+
         await import('mount-observer/refid/via.js');
         const children = /** @type {Array<Element>} */ (/** @type {any} */(enhancedElement).via[idRefAttr].children);
         if(children.length === 0){
