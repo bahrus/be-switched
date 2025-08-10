@@ -239,6 +239,7 @@ class BeSwitched extends BE {
         const children = /** @type {Array<Element>} */ (/** @type {any} */(enhancedElement).via[idRefAttr].children);
         if(children.length === 0){
             const clone = /** @type { DocumentFragment } */ (contentToClone.cloneNode(true));
+            /** @type {any} */(clone).targetFragment = enhancedElement.getRootNode();
             const cloneChildren = Array.from(clone.children);
             const {getCount} = await import('trans-render/dss/tref/getCount.js');
             const refs = [];
