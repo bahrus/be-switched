@@ -443,7 +443,7 @@ body{
 
 Here, the search for matching names is done within a containing form, and if no form is found, within the root node.  [TODO]:  include elements linked to the form via the form attribute.
 
-However, if that is not sufficient, we can specify a "scoping" perimeter via a "closest" query.  Symbolically, we use the "^" symbol to indicate this:
+However, if that is not sufficient, we can specify a "scoping" perimeter via a "closest" query.  Symbolically, we use the "^{...}" pattern to indicate this:
 
 ### "Closest" Scoping
 
