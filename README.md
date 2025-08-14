@@ -232,7 +232,7 @@ and/or:
 
 ### Adding a local, unique anonymous conditional expression "CSP safely"
 
-The JavaScript expressions we've seen, embedded in inline event handlers, won't currently past muster with most minimal safety CSP settings.  The following approach will (but will require adding some hash keys to the meta data for the site)
+The JavaScript expressions we've seen, embedded in inline event handlers, won't currently pass muster with most minimal safety CSP settings.  The following approach will (but will require adding some hash keys to the meta data for the site)
 
 ```html
 <ways-of-science itemscope>
@@ -567,7 +567,7 @@ Again, if that proves inadequate, use the ^{} pattern to indicate the closest pe
 </script>
 ```
 
-Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily with css.  I.e. this syntax supports  hierarchies via itemref.
+Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily with css.  I.e. this syntax supports  hierarchies via itemref and donut hole scoping [TODO?].
 
 ```html
 <table>
@@ -797,7 +797,7 @@ With hard coded indexes in the expression:
         <tr data-row-group=id_10><td><input name=lhs></td></tr>
         <tr data-row-group=id_10>
             <td>
-                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.groupBy?.data-row-group}">
+                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.joinMatching?.dataRowGroup.fromParent}">
                     <div>lhs == rhs</div>
                 </template>
             </td>
