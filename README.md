@@ -517,37 +517,6 @@ These should be active:
 </section>
 ```
 
-## W/I comments token
-
-```html
-These should be ignored:
-<!-- my-template from-template=true -->
-    <label for=lhs>
-        LHS:
-        <input name=lhs>
-    </label>
-    
-    <label for=rhs>
-        RHS:
-        <input name=rhs>
-    </label>
-<!-- /my-template -->
-These should be active:
-<!-- my-template from-template=true -->
-    <label>
-        LHS:
-        <input name=lhs>
-    </label>
-    
-    <label>RHS:
-        <input name=rhs>
-    </label>
-    
-    <template 🎚️='on when @lhs eq @rhs w/i /*my-template*/.'>
-        <div>LHS === RHS</div>
-    </template>
-<!-- /my-template -->
-```
 
 ### By the itemprop microdata attribute
 
@@ -567,11 +536,11 @@ These should be active:
 
 Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
 
-Again, if that proves inadequate, use the ^ character to indicate the closest peer/parent to search within.
+Again, if that proves inadequate, use the ^{} pattern to indicate the closest peer/parent to search within.
 
 
 
-### By Hierarchical itemscope 
+### By Hierarchical itemscope [TODO: check if this is still the best way]
 
 ```html
 <table>
