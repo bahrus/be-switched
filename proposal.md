@@ -84,3 +84,45 @@ Also, there is one important scenario that this wouldn't solve -- dynamic loops 
     {{/each}}
 </template>
 ```
+
+### Ways to avoid carpal syndrome
+
+Consider this html:
+
+```html
+<form generatedids="foo,bar">
+  ...
+  <label for={{foo}}>foo:</label>
+  ...
+  <input name=foo type=checkbox id={{foo}}>
+  
+  ...
+  
+  <label for={{bar}}>bar:</label>
+  ...
+  <input name=bar type=checkbox id={{bar}}>
+  
+   <output for="{{foo}} {{bar}}"></output>
+</form>
+```
+
+This could be reduced a bit:
+
+```html
+<form generatedids="@foo,@bar">
+  ...
+  <label for={{foo}}>foo:</label>
+  ...
+  <input name=foo type=checkbox>
+  
+  ...
+  
+  <label for={{bar}}>bar:</label>
+  ...
+  <input name=bar type=checkbox>
+  
+   <output for="{{foo}} {{bar}}"></output>
+</form>
+```
+
+This would do the equivalent as the example above -- add the id attributes for the input elements, with the auto generated id's, referenceable by foo and bar.
