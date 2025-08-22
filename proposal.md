@@ -70,7 +70,11 @@ Note the ability to reference multiple generated ids in the output element.  It 
 </template>
 ```
 
-Also, there is one important scenario that this wouldn't solve -- dynamic loops where there isn't a root node per iteration of the loop.  So I think template instantiation, should the platform (please) ever provide this, would still need to provide additional help for such scenarios, as proposed [here](https://github.com/WICG/webcomponents/issues/1013#issuecomment-2257557589):
+It's my view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing all sorts of [other ways](https://htmx.org/docs/#extended-css-selectors) [to reference elements](https://github.com/bahrus/be-switched) just to work around this significant barrier.
+
+### Looping with no root node
+
+For the record, there is one important scenario that this wouldn't solve -- dynamic loops where there isn't a root node per iteration of the loop.  So I think template instantiation, should the platform (please) ever provide this, would still need to provide additional help for such scenarios, as proposed [here](https://github.com/WICG/webcomponents/issues/1013#issuecomment-2257557589):
 
 ```html
 <template>
@@ -85,44 +89,4 @@ Also, there is one important scenario that this wouldn't solve -- dynamic loops 
 </template>
 ```
 
-### Ways to avoid carpal syndrome and refactoring overhead
 
-Consider this html:
-
-```html
-<form generatedids="foo,bar">
-  ...
-  <label for={{foo}}>foo:</label>
-  ...
-  <input name=foo type=checkbox id={{foo}}>
-  
-  ...
-  
-  <label for={{bar}}>bar:</label>
-  ...
-  <input name=bar type=checkbox id={{bar}}>
-  
-   <output for="{{foo}} {{bar}}"></output>
-</form>
-```
-
-This could be reduced a bit:
-
-```html
-<form generatedids="@foo,@bar">
-  ...
-  <label for={{foo}}>foo:</label>
-  ...
-  <input name=foo type=checkbox>
-  
-  ...
-  
-  <label for={{bar}}>bar:</label>
-  ...
-  <input name=bar type=checkbox>
-  
-   <output for="{{foo}} {{bar}}"></output>
-</form>
-```
-
-This would do the equivalent as the example above -- add the id attributes for the input elements, with the auto generated id's, referenceable by foo and bar.
