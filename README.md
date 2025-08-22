@@ -15,9 +15,6 @@ It is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) famil
 Conditionally loading and/or displaying content is a fundamental need.  This element enhancement provides such support, "inline" within the HTML markup, with support for easy to read declarative, logical expressions as well as JavaScript, if the declarative support proves insufficient.
 
 
-
-
-
 ## Two Rendering Modes
 
 As far as rendering conditional changes, tt does so in one of two ways:
