@@ -715,7 +715,7 @@ This is supported:
 ```
 
 
-### Up and down searches using ^{()} Y{} expressions. [deprecated]
+### Up and down searches using ^{()} Y{} expressions.
 
 ```html
 <label>
@@ -728,6 +728,7 @@ This is supported:
     <input type=number>
 </label>
 ```
+
 
 ### Grouping previous element sibling selectors
 
