@@ -715,7 +715,7 @@ This is supported:
 ```
 
 
-### Up and down searches using ^{()} Y{} expressions.
+### Up and down searches using ^{()} Y{} expressions. [deprecated]
 
 ```html
 <label>
@@ -794,7 +794,7 @@ With hard coded indexes in the expression:
         <tr data-row-group=id_10><td><input name=lhs></td></tr>
         <tr data-row-group=id_10>
             <td>
-                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.joinMatching?.dataRowGroup.fromParent}">
+                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.joinMatching?.dataRowGroup?.fromParent}">
                     <div>lhs == rhs</div>
                 </template>
             </td>
@@ -803,7 +803,7 @@ With hard coded indexes in the expression:
         <tr data-row-group=id_11><td><input name=lhs></td></tr>
         <tr data-row-group=id_11>
             <td>
-                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.joinMatching?.dataRowGroup.fromParent}.">
+                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.joinMatching?.dataRowGroup?.fromParent}.">
                     <div>lhs == rhs</div>
                 </template>
             </td>
