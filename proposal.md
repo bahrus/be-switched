@@ -68,7 +68,7 @@ Note the ability to reference multiple generated ids in the output element.  It 
 </template>
 ```
 
-It's my recently acquired view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing all sorts of [other ways](https://htmx.org/docs/#extended-css-selectors) [to reference elements](https://github.com/bahrus/be-switched) just to work around this significant barrier.  
+It's my recently acquired view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing all sorts of [other ways](https://htmx.org/docs/#extended-css-selectors) just to work around this significant barrier.  
 
 ### Looping with no root node
 
