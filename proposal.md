@@ -58,8 +58,6 @@ I think some secondary goals should be:
 1.  The id's should be as small as possible.  Meaning, I don't think readability should be a goal, as I don't think we want applications to pin any styling or JavaScript code around these auto generated id's.
 2.  Small perturbations of the html structure should result in small perturbations in the id's.  This is probably a qualitative goal.
 
-
-
 ### Anything else?
 
 Note the ability to reference multiple generated ids in the output element.  It would be great if that can be generalized to work with [custom element enhancements](https://github.com/WICG/webcomponents/issues/1000):
@@ -70,7 +68,7 @@ Note the ability to reference multiple generated ids in the output element.  It 
 </template>
 ```
 
-It's my view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing all sorts of [other ways](https://htmx.org/docs/#extended-css-selectors) [to reference elements](https://github.com/bahrus/be-switched) just to work around this significant barrier.
+It's my recently acquired view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing all sorts of [other ways](https://htmx.org/docs/#extended-css-selectors) [to reference elements](https://github.com/bahrus/be-switched) just to work around this significant barrier.  
 
 ### Looping with no root node
 
