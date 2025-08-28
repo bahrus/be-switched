@@ -68,6 +68,15 @@ Note the ability to reference multiple generated ids in the output element.  It 
 </template>
 ```
 
+For this to work flawlessly, the enhancements would benefit from knowing what name the developer used for each of the auto generated id's.
+
+I.e. it would be really helpful if the element that generated the id's kept a "receipt" of its mapping:
+
+```JavaScript
+console.log(oForm.autoIds['foo'], oForm.autoIds['bar']);
+// 'my-generated-id-1', 'my-generated-id-2'
+```
+
 It's my recently acquired view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing [all sorts](https://github.com/bahrus/be-switched) of [other ways](https://htmx.org/docs/#extended-css-selectors) just to work around this significant barrier.  
 
 ### Apply DRY by inferring the generated ids
