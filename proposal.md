@@ -102,7 +102,7 @@ It would be great if the browser could be smart enough to infer the generated id
 </form>
 ```
 
-Does the same thing -- i.e. it finds all the id attributes with {{...}} and generates id's for them
+Does the same thing -- i.e. it finds all the id attributes with {{...}} and generates id's for them.  These would be scoped at the parent level.
 
 ### Looping with no root node
 
