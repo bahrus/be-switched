@@ -68,7 +68,32 @@ Note the ability to reference multiple generated ids in the output element.  It 
 </template>
 ```
 
-It's my recently acquired view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing all sorts of [other ways](https://htmx.org/docs/#extended-css-selectors) just to work around this significant barrier.  
+It's my recently acquired view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing [all sorts](https://github.com/bahrus/be-switched) of [other ways](https://htmx.org/docs/#extended-css-selectors) just to work around this significant barrier.  
+
+### Apply DRY by inferring the generated ids
+
+One could argue, quite rightly, that this solution actually increases the amount of typing necessary -- not only do we specify foo in the generatedids attribute, but also in the id attribute.
+
+It would be great if the browser could be smart enough to infer the generated ids so that:
+
+```html
+<form generatedids>
+  ...
+  <label for={{foo}}>foo:</label>
+  ...
+  <input type=checkbox id={{foo}}>
+  
+  ...
+  
+  <label for={{bar}}>bar:</label>
+  ...
+  <input type=checkbox id={{bar}}>
+  
+   <output for="{{foo}} {{bar}}"></output>
+</form>
+```
+
+Does the same thing -- i.e. it finds all the id attributes with {{...}} and generates id's for them
 
 ### Looping with no root node
 
