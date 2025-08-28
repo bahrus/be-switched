@@ -70,7 +70,7 @@ Note the ability to reference multiple generated ids in the output element.  It 
 
 For this to work flawlessly, the enhancements would benefit from knowing what name the developer used for each of the auto generated id's.
 
-I.e. it would be really helpful if the element that generated the id's kept a "receipt" of its mapping:
+I.e. it would be really helpful if the element that generated the id's kept a "receipt" of its mapping, including inherited ids from higher level nodes:
 
 ```JavaScript
 console.log(oForm.autoIds['foo'], oForm.autoIds['bar']);
