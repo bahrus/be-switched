@@ -60,25 +60,6 @@ I think some secondary goals should be:
 
 ### Anything else?
 
-Note the ability to reference multiple generated ids in the output element.  It would be great if that can be generalized to work with [custom element enhancements](https://github.com/WICG/webcomponents/issues/1000):
-
-```html
-<template be-switched="on when {{foo}} equals {{bar}}">
-   foo === bar
-</template>
-```
-
-For this to work flawlessly, the enhancements would benefit from knowing what name the developer used for each of the auto generated id's.
-
-I.e. it would be really helpful if the element that generated the id's kept a "receipt" of its mapping, including inherited ids from higher level nodes:
-
-```JavaScript
-console.log(oForm.autoIds['foo'], oForm.autoIds['bar']);
-// 'my-generated-id-1', 'my-generated-id-2'
-```
-
-It's my recently acquired view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing [all sorts](https://github.com/bahrus/be-switched) of [other ways](https://htmx.org/docs/#extended-css-selectors) just to work around this significant barrier.  
-
 ### Apply DRY by inferring the generated ids
 
 One could argue, quite rightly, that this solution actually increases the amount of typing necessary -- not only do we specify foo in the generatedids attribute, but also in the id attribute.
@@ -103,6 +84,44 @@ It would be great if the browser could be smart enough to infer the generated id
 ```
 
 Does the same thing -- i.e. it finds all the id attributes with {{...}} and generates id's for them.  These would be scoped at the parent level.
+
+## Support for (progressive) element enhancements
+
+Note the ability to reference multiple generated ids in the output element.  It would be great if that can be generalized to work with [custom element enhancements](https://github.com/WICG/webcomponents/issues/1000):
+
+```html
+<template be-switched="on when #{{foo}} equals #{{bar}}">
+   foo === bar
+</template>
+```
+
+It's my recently acquired view that because the burden on the developer is so high with respect to setting id's (which this proposal would largely address), that the side effect of that difficulty is that existing custom attribute / enhancements libraries end up providing [all sorts](https://github.com/bahrus/be-switched) of [other ways](https://htmx.org/docs/#extended-css-selectors) just to work around this significant barrier.  
+
+For this to work flawlessly, the enhancements would be able to leave "breadcrumbs" of the original name specified in the binding, to other attributes.
+
+For this, I propose adopting the conventions promoted [by this request](https://github.com/WICG/webcomponents/issues/1013):
+
+```html
+<input class=my-class part=my-part type=checkbox id="{{@|.%# foo}}">
+```
+
+would generate:
+
+```html
+<input type=checkbox name=foo itemprop=foo class="my-class foo" part="my-part foo" data-id=foo id="my-unique-id">
+```
+
+Each of the characters @|.%# is optional.  As the linked proposal lays out, the symbols are interpreted as follows:
+
+| Symbol | Translates to         | Connection / meaning                                                                                                                             |
+|--------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| #      | id                    | # used by css for id, also bookmarks in urls that points to id's                                                                                 |
+| \|     | itemprop              | "Pipe" is kind of close to itemprop, and is half of a dollar sign, and it kind of looks like an I                                                |
+| @      | name                  | Second letter of name. Also, common in social media sites/github to type this letter in order to select someone's name.                          |
+| $      | itemscope + itemprop  | Combination of S for Scope and Pipe which resembles itemprop a bit                                                                               |
+| %      | part                  | Starts with p, percent is used for indicating what proportion something is.                                                                      |
+| .      | class                 | css selector                                                                                                                                     |
+
 
 ### Looping with no root node
 
