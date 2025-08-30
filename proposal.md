@@ -102,13 +102,24 @@ For this to work flawlessly, the enhancements would be able to leave "breadcrumb
 For this, I propose adopting the conventions promoted [by this request](https://github.com/WICG/webcomponents/issues/1013):
 
 ```html
-<input class=my-class part=my-part type=checkbox id="{{@|.%# foo}}">
+<input 
+  type=checkbox
+  class=my-class 
+  part=my-part 
+  id="{{@|.%# foo}}">
 ```
 
 would generate:
 
 ```html
-<input type=checkbox name=foo itemprop=foo class="my-class foo" part="my-part foo" data-id=foo id="my-unique-id">
+<input 
+  type=checkbox 
+  name=foo 
+  itemprop=foo 
+  class="my-class foo" 
+  part="my-part foo" 
+  data-id=foo 
+  id="my-unique-id">
 ```
 
 Each of the characters @|.%# is optional.  As the linked proposal lays out, the symbols are interpreted as follows:
