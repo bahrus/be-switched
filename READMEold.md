@@ -112,10 +112,10 @@ If your production web site runs in a setting without CSP checks (or allows for 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -128,11 +128,11 @@ Our expression can alternatively be more expressive:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
-        onchange="event.r = Math.abs(event.f.lhsScale - event.f.rhsScale) < 10"
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
+        onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -147,7 +147,7 @@ Here, we are attempting to keep our expressions short, which means some abbrevia
 
 What this is saying:  
 
-> Find peer elements with ids lhsScale and rhsScale.  Listen for weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced in the onchange attribute.  If event.r is set to true, display the contents within the template.  If event.r is set to false, hide it.  Also, evaluate the expression immediately at the outset. 
+> Find peer elements *carrot-nosed-woman* and *a-duck* within the itemscope'd attributed ways-of-science element.  Listen to weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced in the onchange attribute.  If event.r is set to true, display the contents within the template.  If event.r is set to false, hide it.  Also, evaluate the expression immediately at the outset. 
 
 > [!NOTE]
 > As mentioned earlier, if all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).  This enhancement does in fact support the more lightweight solution:
@@ -155,10 +155,10 @@ What this is saying:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <data
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     ></data>
     <div>A witch!</div>
@@ -182,10 +182,10 @@ When using this enhancement in the recommended way, as described by the note abo
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.' 
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.' 
         be-switched-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -205,10 +205,10 @@ and/or:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -233,11 +233,11 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template
         defer-be-switched
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
         be-switched-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -264,10 +264,10 @@ This also works, and can survive CSP scrutiny:
     register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
 </script>
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template
-        be-switched='on if isMadeOfWood, based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -285,10 +285,10 @@ Our event handler can reference the adorned element, so that we can remove the h
     );
 </script>
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template data-max-diff=10
-        be-switched='on if isMadeOfWood, based on #lhsScale::weight-change and #rhsScale::molting .'
+        be-switched='on if isMadeOfWood, based on ~carrotNosedWoman::weight-change and ~aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -300,10 +300,10 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template data-max-diff=10
-        be-switched='on if nearlyEq, based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on if nearlyEq, based on ~carrotNosedWoman::weight-change and ~aDuck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -324,6 +324,11 @@ Here is another, less cinematic example, also baked in, so no JS needed:
     <div>LHS === RHS</div>
 </template>
 ```
+
+
+As you have probably noticed, we are starting to introduce special symbols for finding peer elements. 
+
+We call this syntax [Directed Scoped Specifiers, or DSS](https://github.com/bahrus/trans-render/tree/baseline/dss#readme), inspired by, but not to be confused with, CSS selectors.  It is optimized for the problem at hand -- binding to nearby, relative elements (or the host), with an eye towards encouraging semantic HTML markup.  
 
 
 We are often (but not always in the case of 2. below) making some assumptions about the elements we are comparing -- 
@@ -587,8 +592,8 @@ In the brave new world that custom elements has opened up, we can make our marku
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template 
         🎚️='
             On when ~carrotNosedWoman eq ~aDuck.
@@ -622,11 +627,11 @@ What this does:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template 
         🎚️='
-            On when #lhsScale::weight-change equals #rhsScale::molting.
+            On when ~carrotNosedWoman::weight-change equals ~aDuck::molting.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -643,8 +648,8 @@ Use the  "chained accessor" symbol (?.) for specifying a property path.
 
 ```html
 <ways-of-science>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck></a-duck>
     <template 
         🎚️='
             On when ~carrotNosedWoman?.weight equals ~aDuck?.weight.
@@ -1149,7 +1154,7 @@ If, however, the content should display initially, but we want the client-side J
         <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
     </largest-scale>
     <largest-scale>
-        <a-duck id=rhsScale></a-duck>
+        <a-duck></a-duck>
     </largest-scale>
     <template blow-dry itemscope itemref="witch burn-her" 
         be-switched='
