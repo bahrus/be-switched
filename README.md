@@ -112,10 +112,10 @@ If your production web site runs in a setting without CSP checks (or allows for 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -128,11 +128,11 @@ Our expression can alternatively be more expressive:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
-        onchange="event.r = Math.abs(event.f.lhsScale - event.f.rhsScale) < 10"
+        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
+        onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -147,7 +147,20 @@ Here, we are attempting to keep our expressions short, which means some abbrevia
 
 What this is saying:  
 
-> Find peer elements with ids lhsScale and rhsScale.  Listen for weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced in the onchange attribute.  If event.r is set to true, display the contents within the template.  If event.r is set to false, hide it.  Also, evaluate the expression immediately at the outset. 
+> Find peer elements with ids carrotNosedWoman and aDuck.  Listen for weight-changed and molting events, respectively, and when those events happen, evaluate the JavaScript event handler referenced in the onchange attribute.  If event.r is set to true, display the contents within the template.  If event.r is set to false, hide it.  Also, evaluate the expression immediately at the outset. 
+
+The assumptions we make for getting values from these peer custom elements (when not specified as it isn't specified above) is based on the following:
+
+1.  If the elements found by id have dashes in the tag names, wait for customElements.whenDefined.
+2.  Infer the value of the element via:
+    1.  If 'value' in the element, use that.
+    2.  If not, use ariaValueNow if present.
+    3.  If not, check if 'checked' in oCarrotNosedWoman, use that.
+    4.  Try ariaChecked.
+    5.  Check if 'href' in oCarrotNosedWoman, use that.
+    6.  As a last resort attempt at mind reading, use the string obtained from textContent.
+3.  Listens for input event (by default and if not specified, but in the example above, they *are* specified).
+
 
 > [!NOTE]
 > As mentioned earlier, if all you need to do is conditionally display a small amount of content, as the examples in this document do, it may be more effective to simply use css to hide/display the content.  Similar advice has been issued [elsewhere](https://polymer-library.polymer-project.org/2.0/docs/devguide/templates#dom-if).  This enhancement does in fact support the more lightweight solution:
@@ -155,10 +168,10 @@ What this is saying:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <data
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     ></data>
     <div>A witch!</div>
@@ -182,10 +195,10 @@ When using this enhancement in the recommended way, as described by the note abo
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.' 
+        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.' 
         be-switched-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -205,10 +218,10 @@ and/or:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -233,11 +246,11 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template
         defer-be-switched
-        be-switched='on based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
         be-switched-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -264,10 +277,10 @@ This also works, and can survive CSP scrutiny:
     register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
 </script>
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on if isMadeOfWood, based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on if isMadeOfWood, based on #carrotNosedWoman::weight-change and #aDuck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -285,10 +298,10 @@ Our event handler can reference the adorned element, so that we can remove the h
     );
 </script>
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template data-max-diff=10
-        be-switched='on if isMadeOfWood, based on #lhsScale::weight-change and #rhsScale::molting .'
+        be-switched='on if isMadeOfWood, based on #carrotNosedWoman::weight-change and #aDuck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -300,10 +313,10 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template data-max-diff=10
-        be-switched='on if nearlyEq, based on #lhsScale::weight-change and #rhsScale::molting.'
+        be-switched='on if nearlyEq, based on #carrotNosedWoman::weight-change and #aDuck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -587,11 +600,11 @@ In the brave new world that custom elements has opened up, we can make our marku
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template 
         🎚️='
-            On when ~carrotNosedWoman eq ~aDuck.
+            On when carrotNosedWoman eq ~aDuck.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -622,11 +635,11 @@ What this does:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template 
         🎚️='
-            On when #lhsScale::weight-change equals #rhsScale::molting.
+            On when #carrotNosedWoman::weight-change equals #aDuck::molting.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -643,11 +656,11 @@ Use the  "chained accessor" symbol (?.) for specifying a property path.
 
 ```html
 <ways-of-science>
-    <carrot-nosed-woman id=lhsScale></carrot-nosed-woman>
-    <a-duck id=rhsScale></a-duck>
+    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
+    <a-duck id=aDuck></a-duck>
     <template 
         🎚️='
-            On when ~carrotNosedWoman?.weight equals ~aDuck?.weight.
+            On when carrotNosedWoman?.weight equals ~aDuck?.weight.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -673,7 +686,7 @@ If the elements being observed don't have propagators to subscribe to, and the t
     <a-duck weight=82></a-duck>
     <template 
         🎚️='
-            On when ~carrotNosedWoman@weight equals ~aDuck@weight.
+            On when carrotNosedWoman@weight equals ~aDuck@weight.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -1149,7 +1162,7 @@ If, however, the content should display initially, but we want the client-side J
         <woman-with-carrot-attached-to-nose></woman-with-carrot-attached-to-nose>
     </largest-scale>
     <largest-scale>
-        <a-duck id=rhsScale></a-duck>
+        <a-duck id=aDuck></a-duck>
     </largest-scale>
     <template blow-dry itemscope itemref="witch burn-her" 
         be-switched='
