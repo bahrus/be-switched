@@ -227,8 +227,8 @@ When using this enhancement in the recommended way, as described by the note abo
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template
-        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.' 
-        be-switched-transitional
+        🎚️='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.' 
+        🎚️-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -250,7 +250,7 @@ and/or:
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template
-        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+        🎚️='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -278,9 +278,9 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template
-        defer-be-switched
-        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
-        be-switched-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
+        defer-🎚️
+        🎚️='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+        🎚️-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -309,7 +309,7 @@ This also works, and can survive CSP scrutiny:
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template
-        be-switched='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+        🎚️='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -330,7 +330,7 @@ Our event handler can reference the adorned element, so that we can remove the h
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template data-max-diff=10
-        be-switched='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting .'
+        🎚️='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -345,7 +345,7 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template data-max-diff=10
-        be-switched='on if nearlyEq, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+        🎚️='on if nearlyEq, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -361,7 +361,7 @@ Here is another, less cinematic example, also baked in, so no JS needed:
 <label for=rhs>RHS:</label>
 <input id=rhs>
 <template
-    be-switched='on if eq, based on #lhs and #rhs.'
+    🎚️='on if eq, based on #lhs and #rhs.'
 >
     <div>LHS === RHS</div>
 </template>
@@ -387,17 +387,19 @@ These statements don't invoke the onchange event at all, and are purely declarat
 Let's start with the most elementary two value switch:
 
 ```html
-<label for=lhs>LHS:</label>
-<input id=lhs>
-<label for=rhs>RHS:</label>
-<input id=rhs>
-<template be-switched='on when #lhs equals #rhs.'>
+<label>
+    LHS: <input id=lhs>
+</label>
+
+<label>
+    RHS: <input id=rhs>
+</label>
+
+<template 🎚️='on when #lhs equals #rhs.'>
     <div>LHS === RHS</div>
 </template>
 ```
 
-> [!NOTE]
-> For id based matches (which is what we have above), the search is done within the root node of the element, i.e. the ShadowDOM container or the document if outside any ShadowDOM.  
 
 > [!NOTE]
 > The comparison condition is re-evaluated on the input events of the lhs and rhs elements by default.  See below for how to specify alternate event names.
@@ -406,15 +408,17 @@ Let's start with the most elementary two value switch:
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
 
-
-
 ### Type casting
 
 ```html
-<label for=lhs>LHS:</label>
-<input id=lhs type=number>
-<label for=rhs>RHS:</label>
-<input id=rhs>
+<label for=lhs>
+    LHS: <input id=lhs type=number>
+</label>
+
+<label for=rhs>
+    RHS: <input id=rhs>
+</label>
+
 <template 🎚️='on when #lhs equals #rhs as number.'>
     <div>LHS === RHS</div>
 </template>
