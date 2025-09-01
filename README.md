@@ -115,7 +115,7 @@ If your production web site runs in a setting without CSP checks (or allows for 
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template
-        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
+        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -131,7 +131,7 @@ Our expression can alternatively be more expressive:
     <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
     <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
+        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -171,7 +171,7 @@ The assumptions we make for getting values from these peer custom elements (when
     <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
     <a-duck id=aDuck></a-duck>
     <data
-        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
+        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     ></data>
     <div>A witch!</div>
@@ -198,7 +198,7 @@ When using this enhancement in the recommended way, as described by the note abo
     <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
     <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.' 
+        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.' 
         be-switched-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -221,7 +221,7 @@ and/or:
     <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
     <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
+        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -250,7 +250,7 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
     <a-duck id=aDuck></a-duck>
     <template
         defer-be-switched
-        be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
+        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         be-switched-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -280,7 +280,7 @@ This also works, and can survive CSP scrutiny:
     <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
     <a-duck id=aDuck></a-duck>
     <template
-        be-switched='on if isMadeOfWood, based on #carrotNosedWoman::weight-change and #aDuck::molting.'
+        be-switched='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -301,7 +301,7 @@ Our event handler can reference the adorned element, so that we can remove the h
     <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
     <a-duck id=aDuck></a-duck>
     <template data-max-diff=10
-        be-switched='on if isMadeOfWood, based on #carrotNosedWoman::weight-change and #aDuck::molting .'
+        be-switched='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -316,7 +316,7 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
     <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
     <a-duck id=aDuck></a-duck>
     <template data-max-diff=10
-        be-switched='on if nearlyEq, based on #carrotNosedWoman::weight-change and #aDuck::molting.'
+        be-switched='on if nearlyEq, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -639,7 +639,7 @@ What this does:
     <a-duck id=aDuck></a-duck>
     <template 
         🎚️='
-            On when #carrotNosedWoman::weight-change equals #aDuck::molting.
+            On when #carrot-nosed-woman::weight-change equals #a-duck::molting.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
