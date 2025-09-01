@@ -143,7 +143,7 @@ So the html above can be shorted a bit, and the id management can be made more r
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template 🤪
-        🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
+        🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -157,10 +157,10 @@ Our expression can alternatively be more expressive:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
-    <template
-        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
+    <template 🤪
+        🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -197,14 +197,14 @@ The assumptions we make for getting values from these peer custom elements (when
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
     <data
-        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+        🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     ></data>
     <div>A witch!</div>
-    <div>Burn her!</div>
+    <div 🤪>Burn her!</div>
     
 </ways-of-science>
 <style>
@@ -224,8 +224,8 @@ When using this enhancement in the recommended way, as described by the note abo
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
     <template
         be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.' 
         be-switched-transitional
@@ -247,8 +247,8 @@ and/or:
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
     <template
         be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
@@ -275,8 +275,8 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
     <template
         defer-be-switched
         be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
@@ -306,8 +306,8 @@ This also works, and can survive CSP scrutiny:
     register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
 </script>
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
     <template
         be-switched='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
     >
@@ -327,8 +327,8 @@ Our event handler can reference the adorned element, so that we can remove the h
     );
 </script>
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
     <template data-max-diff=10
         be-switched='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting .'
     >
@@ -342,8 +342,8 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
     <template data-max-diff=10
         be-switched='on if nearlyEq, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
     >
