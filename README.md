@@ -112,8 +112,8 @@ If your production web site runs in a setting without CSP checks (or allows for 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman #></carrot-nosed-woman>
-    <a-duck #></a-duck>
+    <carrot-nosed-woman id=carrot-nosed-woman></carrot-nosed-woman>
+    <a-duck id=a-duck></a-duck>
     <template
         be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
@@ -123,6 +123,35 @@ If your production web site runs in a setting without CSP checks (or allows for 
     </template>
 </ways-of-science>
 ```
+
+Some shortcuts:
+
+Note the use of id's: carrot-nosed-woman and a-duck.  Use of id's in web development (particularly outside ShadowDOM) is a significant pain point, due to the uniqueness requirement.
+
+Also, as suggested in the title, this package provides an emoji based alternative to the canonical name "be-switched". In applications that use be-switched frequently, where concerns about clashing with already registered packages in npm isn't a concern, it might make development more productive to utilize a shorter name.  The best alternative name is probably "turn", and it does seem unlikely to me that the platform would ever add attribute "turn" to the template element, but you never know, I guess.
+
+This package does provide an alternative name you can use, which seems quite future-proof and succinct:  🎚️ via this [file](https://github.com/bahrus/be-switched/blob/baseline/%F0%9F%8E%9A%EF%B8%8F.ts).
+
+I think you will agree, looking at that file, how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
+
+The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" or "switch" in your mind when you see it below.  Note that on Windows, to select this emoji, type flying window + . and search for "sli".  It should retain in memory for a while after that once you use it.
+
+So the html above can be shorted a bit, and the id management can be made more reliable and succinct using this additional [enhancement library](https://github.com/bahrus/be-giddy):
+
+```html
+<ways-of-science itemscope>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
+    <template 🤪
+        🎚️='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+        onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
+    >
+        <div>A witch!</div>
+        <div>Burn her!</div>
+    </template>
+</ways-of-science>
+```
+
 
 Our expression can alternatively be more expressive:
 
@@ -377,13 +406,7 @@ Let's start with the most elementary two value switch:
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
 
-In applications that use be-switched frequently, where concerns about clashing with already registered packages in npm isn't a concern, it might make development more productive to utilize a shorter name.  The best alternative name is probably "turn", and it does seem unlikely to me that the platform would ever add attribute "turn" to the template element, but you never know, I guess.
 
-This package does provide an alternative name you can use, which seems quite future-proof and succinct:  🎚️ via this [file](https://github.com/bahrus/be-switched/blob/baseline/%F0%9F%8E%9A%EF%B8%8F.ts).
-
-I think you will agree, looking at that file, how easy it is to define your own name (like "turn", but don't sue me if the platform "turns" on you).
-
-The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" or "switch" in your mind when you see it below.  Note that on Windows, to select this emoji, type flying window + . and search for "sli".  It should retain in memory for a while after that once you use it.
 
 ### Type casting
 
