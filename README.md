@@ -628,20 +628,6 @@ If the identifier doesn't start with #, then we are looking for a property comin
 ### Comparison to a constant
 
 ```html
-<label for=lhs>
-    lhs: <input id=lhs name=lhs type=number>
-</label>
-
-
-<template data-rhs=37 🎚️='on when #lhs eq $0?.dataset?.rhs as number.'>
-    <my-content></my-content>
-</template>
-    
-```
-
-This also works:
-
-```html
 <label for=lhs>LHS:</label>
 <input id=lhs type=number>
 
@@ -650,90 +636,11 @@ This also works:
 </template>
 ```
 
-
 Can have multiple such statements -- or condition.  Each sentence can begin with "on" or "On", whichever seems more readable.
-
-
-
-If no itemscope container is present and there's some ambiguity use [TODOORNOTTODO]:
-
-```html
-<section part=myPart>
-    ...
-    <link itemprop=isHappy href=https://schema.org/True>
-    ...
-    <template be-switched="on when ^%[%myPart]|isHappy.">
-        <my-content></my-content>
-    </template>
-</section>
-```
-
-
-
-```html
-<section itemscope itemprop=mySubObject itemref="id1 id2">
-    ...
-    
-    ...
-    <div itemscope itemprop=mySubSubObject>
-        <template be-switched="on when %[$mySubObject]|isHappy.">
-            <my-content></my-content>
-        </template>
-    </div>
-</section>
-<section id=id1>
-    <link itemprop=isHappy href=https://schema.org/True>
-</section>
-```
-
-
-
-
-
-
-
-
-
-
-
-### Example 3e => 3g [TODO] binding based on part attribute
-
-```html
-<form>
-    <input part=isHappy type="checkbox">
-    <template be-switched='on when %isHappy.'>
-        <my-content id=myContent></my-content>
-    </template>
-</form>
-```
-
-
-
-### Example 3f => void binding based on class attribute. [NOTTODO?]
-
-So this is where we have a clash between Hemingway and CSS.  The most natural symbol to use for a class selector would be the period (".").  However, because the period is used to break up statements, that would require an escape character of some sort, or using some other symbol to represent the class query.
-
-After staring at my keyboard for several hours, I have decided that maybe this is for the best.  Using css classes for purposes of binding may cross a barrier into "hackish" territory, especially when there are so many attractive alternatives that we've discussed above.  The part attribute is already skating on thin ice, but I think, in the context of a web component, may make sense to use sometimes, as the purpose of the part is more "public" and I think will tend to be more semantic as far as the nature of the element it adorns.
-
-
 
 ### Negation logic
 
 All the examples above also work, but instead of "on", use "off", which of course means the negation is performed.
-
-## Attaching itemscope hosts ("ish") [TODO]
-
-```html
-<label for=lhs>LHS:</label>
-<input id=lhs>
-<label for=rhs>RHS:</label>
-<input id=rhs>
-<template
-    🎚️='on if #lhs eq #rhs, and set itemscope to lhs-rhs.'
->
-    <div><span itemprop=lhs></span> === <span itemprop=rhs></span></div>
-</template>
-```
 
 
 ## Viewing Locally
