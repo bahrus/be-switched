@@ -560,37 +560,16 @@ But what if we just want to lazy load content when a single value goes from "fal
 ## Boolean conditions based on peer elements or host
 
 
-### By itemprop 
-
 ```html
 <div itemscope>
     ...
-    <data value=true itemprop=isHappy hidden></data>
+    <data value=true data-id="{{| isHappy}}" hidden></data>
     ...
-    <template  🤪 defer-🎚️ 🎚️='on when |isHappy.' >
+    <template  🤪 defer-🎚️ 🎚️='on when #{{isHappy}}.' >
         <my-content></my-content>
     </template>
 </div>
 ```
-
-Searches within nearest itemscope, else from rootNode.
-
-### By name
-
-Can also reference form element, or [form associated custom elements](https://bennypowers.dev/posts/form-associated-custom-elements/)
-
-```html
-<form>
-    ...
-    <input name=isHappy type=checkbox>
-    ...
-    <template 🎚️='on when @isHappy.'>
-        <my-content></my-content>
-    </template>
-</form>
-```
-
-Checks for $0.checked, if undefined, checks for $0.ariaChecked.  Listens for input events.
 
 ### Externally referenced 
 
@@ -606,8 +585,8 @@ If this element enhancement is used inside a repeating DOM structure, it is more
 <body>
     <for-each ...>
         <div>
-            <input name=isHappy type="checkbox">
-            <template 🎚️='on when ^{div}@isHappy.' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
+            <input data-id={{@ isHappy}} type="checkbox">
+            <template 🤪 defer-🎚️ 🎚️='on when {{#isHappy}}.' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
         </div>
     </for-each>
     <script type=module>
@@ -616,20 +595,7 @@ If this element enhancement is used inside a repeating DOM structure, it is more
 </body>
 ```
 
-### By id
-
-```html
-<form>
-    ...
-    <input id=isHappy type=checkbox>
-    ...
-    <template 🎚️='on when #isHappy.'>
-        <my-content></my-content>
-    </template>
-</form>
-```
-
-### By Id with and-like condition
+### And-like condition
 
 ```html
 <form>
@@ -644,40 +610,9 @@ If this element enhancement is used inside a repeating DOM structure, it is more
 
 This is an "and" condition due to the presence of "only".
 
-### By Closest
-
-```html
-<details>
-    <summary>Toggle Content</summary>
-    <template 🎚️='on when ^{details}.'>
-        <my-content></my-content>
-    </template>
-</details>
-```
-
 ### Condition coming from host
 
-### With / symbol
-
-"/" refers to the host.
-
-```html
-<mood-stone>
-    #shadow
-    <template 🎚️='on when /isHappy.'>
-        <my-content></my-content>
-    </template>
-    <be-hive></be-hive>
-</mood-stone>
-```
-
-
-This also works: 
-
-
-/ is considered the "default" symbol, so it actually doesn't need to be specified:
-
-### The bare specifier
+If the identifier doesn't start with #, then we are looking for a property coming from the host.
 
 ```html
 <mood-stone>
@@ -689,53 +624,16 @@ This also works:
 </mood-stone>
 ```
 
-### Referring to previous element sibling 
-
-```html
-<div>
-    ...
-    <data value=true>Yes</data>
-    <template 🎚️='on when ^{(*)}.'>
-        <my-content></my-content>
-    </template>
-</div>
-```
-
-The standalone ^{(*)} is indicating to just look at the previous element sibling.
-
-### Example 3b Referring to next element sibling with yertdrift symbol
-
-```html
-<div itemscope>
-    ...
-    
-    <template 🎚️='on when Y{*}.'>
-        <my-content></my-content>
-    </template>
-    <link itemprop=isHappy href=https://schema.org/True>
-</div>
-```
-
-### Up searching [Untested]
-
-```html
-<div itemscope>
-    ...
-    <link itemprop=isHappy href=https://schema.org/True>
-    <div></div>
-    <template 🎚️='on when ^{(link)}.'>
-        <my-content></my-content>
-    </template>
-</div>
-```
 
 ### Comparison to a constant
 
 ```html
-<label for=lhs>lhs</label>
-<input id=lhs name=lhs type=number>
+<label for=lhs>
+    lhs: <input id=lhs name=lhs type=number>
+</label>
 
-<template data-rhs=37 🎚️='on when @lhs eq $0?.dataset?.rhs as number.'>
+
+<template data-rhs=37 🎚️='on when #lhs eq $0?.dataset?.rhs as number.'>
     <my-content></my-content>
 </template>
     
