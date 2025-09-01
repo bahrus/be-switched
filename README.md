@@ -143,7 +143,7 @@ So the html above can be shorted a bit, and the id management can be made more r
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template 🤪
-        🎚️='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+        🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
