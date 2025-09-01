@@ -23,7 +23,7 @@
   },
   "files": [
     "*.js",
-    "types.d.ts"
+    "/ts-refs/be-switched/types.d.ts"
   ],
   "types": "./ts-refs/be-switched/types.d.ts",
   "dependencies": {
