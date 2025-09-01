@@ -10,7 +10,7 @@ const op = String.raw `(?<!\\)(?<op>(equals|eq|lt|gt))`;
 const whenLHSPart = String.raw `when (?<lhsPart>.*)`;
 const rhsPart = String.raw `(?<rhsPart>.*)`;
 const onOrOffWhenLhsPartOpRhsPart = String.raw `^(?<onOrOff>(on|On|off|Off)) ${whenLHSPart} ${op} ${rhsPart}(, and set itemscope to ())?`;
-const onOrOffWhenLhsPartOpRhsPartWithin = String.raw `${onOrOffWhenLhsPartOpRhsPart}( w/i (?<within>.*))?`;
+//const onOrOffWhenLhsPartOpRhsPartWithin = String.raw `${onOrOffWhenLhsPartOpRhsPart}( w/i (?<within>.*))?`;
 const onIfRegisteredHandlerBasedOnDependencies = String.raw `^on if (?<registeredHandler>.*)\, based on (?<dependencyPart>.*)`;
 const onBasedOnDependencies = String.raw `^(o|O)n based on (?<dependencyPart>.*)`;
 const onWhenIfPart = String.raw `^on when (?<ifPart>.*)`;
@@ -29,9 +29,9 @@ export const emc = {
             regExpExts: {
                 twoValueSwitches: [
                     {
-                        regExp: onOrOffWhenLhsPartOpRhsPartWithin,
+                        regExp: onOrOffWhenLhsPartOpRhsPart,
                         defaultVals: {},
-                        dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier'], ['within', 'withinSpecifier']]
+                        ipeKeys: [['lhsPart', 'lhsIPE'], ['rhsPart', 'rhsIPE']]
                     },
 
                 ],

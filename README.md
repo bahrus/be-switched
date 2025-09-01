@@ -561,7 +561,7 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 
 ```html
-<div itemscope>
+<div>
     ...
     <data value=true data-id="{{| isHappy}}" hidden></data>
     ...

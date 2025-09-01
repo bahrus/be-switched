@@ -29,35 +29,34 @@ export class TwoValSwitchHandler {
         const { find } = await import('trans-render/dss/find.js');
         const { ASMR } = await import('trans-render/asmr/asmr.js');
         const { twoValueSwitches, enhancedElement } = self;
+        const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
         let aos = [];
         for (const tvs of twoValueSwitches) {
-            const { lhsSpecifier, rhsSpecifier, withinSpecifier } = tvs;
-            let within = undefined;
-            if(withinSpecifier !== undefined){
-                const {cmtWrap, scopeS} = withinSpecifier;
-                if(cmtWrap ===  true){
-                    const {getBreadth} = await import('mount-observer/slotkin/getBreadth.js');
-                    within = getBreadth(enhancedElement, scopeS).filter(x => x instanceof Element);
-                }
-            };
-            const lhsIsConstant = lhsSpecifier.constVal !== undefined;
-            const rhsIsConstant = rhsSpecifier.constVal !== undefined;
-            const remoteLHS = lhsIsConstant ? undefined : await find(enhancedElement, lhsSpecifier, within);
-            if (!lhsIsConstant && !(remoteLHS instanceof EventTarget))
-                continue;
-            const remoteRHS = rhsIsConstant ? undefined : await find(enhancedElement, rhsSpecifier, within);
+            const { lhsIPE, rhsIPE } = tvs;
+            const {id: lid, constVal: lConstVal, evtName: lEvtName, path: lPath, as: lAs} = lhsIPE;
+            const {id: rid, constVal: rConstVal, evtName: rEvtName, path: rPath, as: rAs} = rhsIPE;
+            
+            const lhsIsConstant = lConstVal !== undefined;
+            const rhsIsConstant = rConstVal !== undefined;
+            // const remoteLHS = lhsIsConstant ? undefined : await find(enhancedElement, lhsSpecifier, within);
+ 
+            const remoteLHS = lhsIsConstant ? undefined : lid !== undefined ? rn.getElementById(lid) : rn.host;
+            if (!lhsIsConstant && !(remoteLHS instanceof EventTarget)) throw 500;
+            //const remoteRHS = rhsIsConstant ? undefined : await find(enhancedElement, rhsSpecifier, within);
+            const remoteRHS = rhsIsConstant ? undefined : rid !== undefined ? rn.getElementById(rid) : rn.host;
             if (!rhsIsConstant && !(remoteRHS instanceof EventTarget))
                 continue;
             const lhsAO = !remoteLHS ? undefined : await ASMR.getAO(remoteLHS, {
-                evt: lhsSpecifier.evt,
-                selfIsVal: lhsSpecifier.prop === '$0' && lhsSpecifier.path === undefined,
-                propToAbsorb: lhsSpecifier.path
+                evt: lEvtName,
+                //selfIsVal: lhsSpecifier.prop === '$0' && lhsSpecifier.path === undefined,
+                propToAbsorb: lPath,
+                as: lAs,
             });
             const rhsAO = !remoteRHS ? undefined : await ASMR.getAO(remoteRHS, {
-                evt: rhsSpecifier.evt,
-                selfIsVal: rhsSpecifier.prop === '$0' && rhsSpecifier.path === undefined,
-                propToAbsorb: rhsSpecifier.path,
-                as: rhsSpecifier.as,
+                evt: rEvtName,
+                //selfIsVal: rhsSpecifier.prop === '$0' && rhsSpecifier.path === undefined,
+                propToAbsorb: rPath,
+                as: rAs,
                 
                 //propToAbsorb: rhsProp
             });

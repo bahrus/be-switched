@@ -30,12 +30,12 @@
     "be-enhanced": "0.0.184",
     "be-hive": "0.0.263",
     "mount-observer": "0.0.89",
-    "trans-render": "0.0.930"
+    "trans-render": "0.0.931"
   },
   "devDependencies": {
     "@playwright/test": "1.55.0",
     "ssi-server": "0.0.1", 
-    "be-giddy": "0.0.3"
+    "be-giddy": "0.0.4"
   },
   "scripts": {
     "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
