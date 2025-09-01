@@ -250,9 +250,23 @@ class BeSwitched extends BE {
             }
             enhancedElement.setAttribute(idRefAttr, refs.join(' '));
             changeVisibility(cloneChildren, toggleInert, 'remove');
-            enhancedElement.after(clone);
+            if(!transitional2 || !document.startViewTransition){
+                enhancedElement.after(clone);
+            }else{
+                document.startViewTransition(() => {
+                    enhancedElement.after(clone);
+                });
+            } 
+            //enhancedElement.after(clone);
         }else{
-            changeVisibility(children, toggleInert, 'remove');
+            if(!transitional2 || !document.startViewTransition){
+                changeVisibility(children, toggleInert, 'remove');
+            }else{
+                document.startViewTransition(() => {
+                    changeVisibility(children, toggleInert, 'remove');
+                });
+            } 
+            
         }
         
 
@@ -276,7 +290,14 @@ class BeSwitched extends BE {
 
         await import('mount-observer/refid/via.js');
         let children = /** @type {Array<Element>} */ (/** @type {any} */(enhancedElement).via[idRefAttr].children);
-        changeVisibility(children, toggleInert, 'add');
+        if(!transitional2 || !document.startViewTransition){
+            changeVisibility(children, toggleInert, 'add');
+        }else{
+            document.startViewTransition(() => {
+                changeVisibility(children, toggleInert, 'add');
+            });
+        } 
+        //changeVisibility(children, toggleInert, 'add');
 
 
             
