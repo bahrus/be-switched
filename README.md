@@ -142,7 +142,7 @@ So the html above can be shorted a bit, and the id management can be made more r
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template 🤪
+    <template 🤪 defer-🎚️
         🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
@@ -159,7 +159,7 @@ Our expression can alternatively be more expressive:
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template 🤪
+    <template 🤪 defer-🎚️
         🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -199,7 +199,7 @@ The assumptions we make for getting values from these peer custom elements (when
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <data
+    <data  defer-🎚️
         🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     ></data>
@@ -226,8 +226,8 @@ When using this enhancement in the recommended way, as described by the note abo
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template
-        🎚️='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.' 
+    <template 🤪 defer-🎚️
+        🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.' 
         🎚️-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -249,8 +249,8 @@ and/or:
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template
-        🎚️='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+    <template 🤪 defer-🎚️
+        🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -278,8 +278,8 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template
-        defer-🎚️
-        🎚️='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+        🤪 defer-🎚️
+        🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
         🎚️-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -308,8 +308,8 @@ This also works, and can survive CSP scrutiny:
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template
-        🎚️='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+    <template 🤪 defer-🎚️
+        🎚️='on if isMadeOfWood, based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -329,8 +329,9 @@ Our event handler can reference the adorned element, so that we can remove the h
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template data-max-diff=10
-        🎚️='on if isMadeOfWood, based on #carrot-nosed-woman::weight-change and #a-duck::molting .'
+    <template 🤪 defer-🎚️ data-max-diff=10
+        🎚️='on if isMadeOfWood, 
+                based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -344,8 +345,8 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template data-max-diff=10
-        🎚️='on if nearlyEq, based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
+    <template 🤪 defer-🎚️ data-max-diff=10
+        🎚️='on if nearlyEq, based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -453,220 +454,16 @@ body{
 }
 ```
 
-### By N@me
-
-```html
-<form>
-    <label>
-        LHS:
-        <input name=lhs>
-    </label>
-    
-    <label>
-        RHS:
-        <input name=rhs>
-    </label>
-    
-    <template 🎚️='on when @lhs equals @rhs.'>
-        <div>LHS === RHS</div>
-    </template>
-</form>
-```
-
-Here, the search for matching names is done within a containing form, and if no form is found, within the root node.  [TODO]:  include elements linked to the form via the form attribute.
-
-However, if that is not sufficient, we can specify a "scoping" perimeter via a "closest" query.  Symbolically, we use the "^{...}" pattern to indicate this:
-
-### "Closest" Scoping
-
-```html
-These should be ignored:
-<div>
-    <label for=lhs>
-        LHS:
-        <input name=lhs>
-    </label>
-    
-    <label for=rhs>
-        RHS:
-        <input name=rhs>
-    </label>
-    
-</div>
-These should be active:
-<section>
-    <label>
-        LHS:
-        <input name=lhs>
-    </label>
-    
-    <label>RHS:
-        <input name=rhs>
-    </label>
-    
-    <template 🎚️='on when ^{section}@lhs eq ^{section}@rhs.'>
-        <div>LHS === RHS</div>
-    </template>
-</section>
-```
-
-
-We can apply such closest queries to either the LHS or the RHS, or both, as shown above.
-
-If  we use the same closest query for both, we can reduce typing / increase readability and reduce the amount of DOM traversing thusly:
-
-## W/I (within) css scoping
-
-
-```html
-These should be ignored:
-<div>
-    <label for=lhs>
-        LHS:
-        <input name=lhs>
-    </label>
-    
-    <label for=rhs>
-        RHS:
-        <input name=rhs>
-    </label>
-    
-</div>
-These should be active:
-<section>
-    <label>
-        LHS:
-        <input name=lhs>
-    </label>
-    
-    <label>RHS:
-        <input name=rhs>
-    </label>
-    
-    <template 🎚️='on when @lhs eq @rhs w/i ^{section}.'>
-        <div>LHS === RHS</div>
-    </template>
-</section>
-```
-
-
-### By the itemprop microdata attribute
-
-```html
-<div itemscope>
-
-    <span itemprop=lhs contenteditable></span>
-    
-    <span itemprop=rhs contenteditable></span>
-    
-    
-    <template 🎚️='on when |lhs equals |rhs.'>
-        <div>LHS === RHS</div>
-    </template>
-</div>
-```
-
-Here the search is done within the nearest itemscope, and if no itemscope is found, within the root node.
-
-Again, if that proves inadequate, use the ^{} pattern to indicate the closest peer/parent to search within.
-
-
-
-### By Hierarchical itemscope [TODO: check if this is still the best way]
-
-```html
-<table>
-    <tr itemscope=parent-scope>
-        <td>
-            <input name=lhs>
-            <table>
-                <tr itemscope=child-scope>
-                    <td>
-                        <input name=rhs>
-                        <template 🎚️='on when $[parent-scope]@lhs equals $[child-scope]@rhs.'>
-                            <div>lhs === rhs</div>
-                        </template>
-                    </td>
-                <tr>
-            </table>
-        </td>
-    </tr>
-</table>
-<script>
-    import {regIsh} from 'mount-observer/refid/regIsh.js';
-    regIsh(document.body, 'parent-scope', class {});
-    regIsh(document.body, 'child-scope', class{});
-</script>
-```
-
-Why not use ^{}?  Because itemscope hierarchy can't really be expressed easily with css.  I.e. this syntax supports  hierarchies via itemref and donut hole scoping [TODO?].
-
-```html
-<table>
-    <tr itemscope=parent-scope>
-        <td>
-            <table>
-                <tr itemscope=child-scope>
-                    <td>
-                        <template 🎚️='on when $[parent-scope]?.value equals $[child-scope]?.value.'>
-                            <div>lhs === rhs</div>
-                        </template>
-                    </td>
-                <tr>
-            </table>
-        </td>
-    </tr>
-</table>
-```
-
-
-
-### By ~ tagName
-
-In the brave new world that custom elements has opened up, we can make our markup beautifully expressive, and tap into that with our binding expressions.
-
-```html
-<ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
-    <template 
-        🎚️='
-            On when carrotNosedWoman eq ~aDuck.
-     '>
-        <div>A witch!</div>
-        <div>Burn her!</div>
-    </template>
-</ways-of-science>
-```
-
-
-What this does:
-
-1.  Finds carrot-nosed-woman element within itemscope, and if not found, within root node. 
-2.  If not found within root node, see if the host element has a property with name carrotNosedWoman that is an instance of eventTarget. [TODO: verify this is still working] 
-3.  Waits for customElements.whenDefined('carrot-nosed-woman') if applicable.
-4.  Attempts to infer the value of the element.
-    1.  If 'value' in oCarrotNosedWoman, use that.
-    2.  If not, use ariaValueNow if present.
-    3.  If not, check if 'checked' in oCarrotNosedWoman, use that.
-    4.  Try ariaChecked.
-    5.  Check if 'href' in oCarrotNosedWoman, use that.
-    6.  As a last resort attempt at mind reading, use the string obtained from textContent.
-5.  Finds element a-duck, same as above.
-6.  Waits for customElements.whenDefined('a-duck') if applicable.
-7.  Attempts to infer the value of the element, same as 4 above.
-8.  Compares the values.
-9.  Listens for input event (by default, but see below for custom event names), and re-evaluates (skipping some steps if found in weak reference based cache).
 
 ### Specifying event name(s)
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
-    <template 
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
+    <template 🤪 defer-🎚️
         🎚️='
-            On when #carrot-nosed-woman::weight-change equals #a-duck::molting.
+            On when #{{carrot-nosed-woman}}::weight-change equals #{{a-duck}}::molting.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -683,11 +480,11 @@ Use the  "chained accessor" symbol (?.) for specifying a property path.
 
 ```html
 <ways-of-science>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
-    <template 
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
+    <template 🤪 defer-🎚️
         🎚️='
-            On when carrotNosedWoman?.weight equals ~aDuck?.weight.
+            On when #{{carrotNosedWoman}}?.weight equals #{{aDuck}}?.weight.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -709,11 +506,11 @@ If the elements being observed don't have propagators to subscribe to, and the t
 
 ```html
 <ways-of-science>
-    <carrot-nosed-woman weight=92></carrot-nosed-woman>
-    <a-duck weight=82></a-duck>
-    <template 
+    <carrot-nosed-woman weight=92 #></carrot-nosed-woman>
+    <a-duck weight=82 #></a-duck>
+    <template 🤪 defer-🎚️
         🎚️='
-            On when carrotNosedWoman@weight equals ~aDuck@weight.
+            On when #{{carrotNosedWoman}}@weight equals #{{aDuck}}@weight.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -726,10 +523,12 @@ If the elements being observed don't have propagators to subscribe to, and the t
 "Less than" is supported:
 
 ```html
-<label for=lhs>LHS:</label>
-<input type=number id=lhs>
-<label for=rhs>RHS:</label>
-<input type=number id=rhs>
+<label for=lhs>
+    LHS: <input type=number id=lhs>
+</label>
+<label for=rhs>
+    RHS: <input type=number id=rhs>
+</label>
 <template 🎚️='on when #lhs lt #rhs.'>
     <div>LHS &lt; RHS</div>
 </template>
@@ -740,114 +539,17 @@ If the elements being observed don't have propagators to subscribe to, and the t
 This is supported:
 
 ```html
-<label for=lhs>LHS:</label>
-<input type=number id=lhs>
-<label for=rhs>RHS:</label>
-<input type=number id=rhs>
+<label for=lhs>
+    LHS: <input type=number id=lhs>
+</label>
+<label for=rhs>
+    RHS: <input type=number id=rhs>
+</label>
 <template 🎚️='on when #lhs gt #rhs.'>
-    <div>LHS &gt; RHS</div>
+    <div>LHS &lt; RHS</div>
 </template>
 ```
 
-
-### Up and down searches using ^{()} Y{} expressions.
-
-```html
-<label>
-    <input type=number>
-</label>
-<template 🎚️='on when ^{(*)}~input eq Y{*}~input.'>
-    <div>Previous input &gt; next input</div>
-</template>
-<label>
-    <input type=number>
-</label>
-```
-
-
-### Grouping previous element sibling selectors
-
-Prepare yourself for some turbulence ahead:
-
-With hard coded indexes in the expression:
-
-```html
-<table>
-    <tbody>
-        <tr aria-rowindex=10><td><input name=lhs></td><td><input name=rhs></td></tr>
-        <tr aria-rowindex=10>
-            <td colspan=2>
-                <template data-idx=10 🎚️="on when ^{(tr[aria-rowindex='10'])}@lhs eq ^{(tr[aria-rowindex='10'])}@rhs">
-                    <div>lhs == rhs</div>
-                </template>
-            </td>
-        </tr>
-        <tr aria-rowindex=11><td><input name=lhs></td><td><input name=rhs></td></tr>
-        <tr aria-rowindex=11>
-            <td colspan=2>
-                <template data-idx=11 🎚️="on when ^{(tr[aria-rowindex='11'])}@lhs  eq ^{(tr[aria-rowindex='11'])}@rhs">
-                    <div>lhs == rhs</div>
-                </template>
-            </td>
-
-        </tr>
-    </tbody>
-</table>
-```
-
-##  Simpler, more powerful syntax:
-
-```html
-<table>
-    <tbody>
-        <tr aria-rowindex=10><td><input name=lhs></td></tr>
-        <tr aria-rowindex=10>
-            <td>
-                <template 🎚️="on when @lhs eq @rhs w/i %[aria-rowindex].">
-                    <div>lhs == rhs</div>
-                </template>
-            </td>
-        </tr>
-        <tr aria-rowindex=10><td><input name=rhs></td></tr>
-        <tr aria-rowindex=11><td><input name=lhs></td></tr>
-        <tr aria-rowindex=11>
-            <td>
-                <template 🎚️="on when @lhs eq @rhs w/i %[aria-rowindex].">
-                    <div>lhs == rhs</div>
-                </template>
-            </td>
-        </tr>
-        <tr aria-rowindex=11><td><input name=rhs></td></tr>
-    </tbody>
-</table>
-```
-
-##  Simpler, more powerful syntax, take 2 [TODO]:
-
-```html
-<table>
-    <tbody>
-        <tr data-row-group=id_10><td><input name=lhs></td></tr>
-        <tr data-row-group=id_10>
-            <td>
-                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.joinMatching?.dataRowGroup?.fromParent}">
-                    <div>lhs == rhs</div>
-                </template>
-            </td>
-        </tr>
-        <tr data-row-group=id_10><td><input name=rhs></td></tr>
-        <tr data-row-group=id_11><td><input name=lhs></td></tr>
-        <tr data-row-group=id_11>
-            <td>
-                <template 🎚️="on when @lhs eq @rhs w/i ^{tr?.joinMatching?.dataRowGroup?.fromParent}.">
-                    <div>lhs == rhs</div>
-                </template>
-            </td>
-        </tr>
-        <tr data-row-group=id_11><td><input name=rhs></td></tr>
-    </tbody>
-</table>
-```
 
 ## And now for something completely different
 
@@ -865,7 +567,7 @@ But what if we just want to lazy load content when a single value goes from "fal
     ...
     <data value=true itemprop=isHappy hidden></data>
     ...
-    <template 🎚️='on when |isHappy.' >
+    <template  🤪 defer-🎚️ 🎚️='on when |isHappy.' >
         <my-content></my-content>
     </template>
 </div>
