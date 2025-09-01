@@ -112,8 +112,8 @@ If your production web site runs in a setting without CSP checks (or allows for 
 
 ```html
 <ways-of-science itemscope>
-    <carrot-nosed-woman id=carrotNosedWoman></carrot-nosed-woman>
-    <a-duck id=aDuck></a-duck>
+    <carrot-nosed-woman #></carrot-nosed-woman>
+    <a-duck #></a-duck>
     <template
         be-switched='on based on #carrotNosedWoman::weight-change and #aDuck::molting.'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
