@@ -8,24 +8,29 @@
     <!-- #include virtual="/imports.html" -->
 </head>
 <body>
-    <label>
-        LHS: <input id=lhs>
-    </label>
-    
-    <label>
-        RHS: <input id=rhs>
-    </label>
-    
-    <template id=temp
-        🎚️='on based on #lhs and #rhs.'
-        🎚️-js='f.lhs.length === f.rhs.length'
-        >
-        <div>LHS.length === RHS.length</div>
-    </template>
+    <fieldset disabled>
+        <label>
+            LHS: <input id={{lhs}}>
+        </label>
+        
+        <label>
+            RHS: <input id={{rhs}}>
+        </label>
+        
+        <template 🤪 
+            defer-🎚️
+            be-switched="on based on #{{lhs}} and #{{rhs}}."
+            be-switched-js='f.lhs.length === f.rhs.length'
+            >
+            <div>LHS.length === RHS.length</div>
+        </template>
+    </fieldset>
+ 
 
 
     <script type=module>
-        import '/🎚️.js';
+        import '/emc.js';
+        import 'be-giddy/🤪.js'
     </script>
 </body>
 </html>
