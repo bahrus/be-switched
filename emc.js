@@ -39,12 +39,12 @@ export const emc = {
                     {
                         regExp: onIfRegisteredHandlerBasedOnDependencies,
                         defaultVals: {},
-                        ipeKeys: [['dependencyPart', 'dependencies']]
+                        ipeArrayKeys: [['dependencyPart', 'dependencies']]
                     },
                     {
                         regExp: onBasedOnDependencies,
                         defaultVals: {},
-                        ipeKeys: [['dependencyPart', 'dependencies']]
+                        ipeArrayKeys: [['dependencyPart', 'dependencies']]
                     }
                 ],
                 singleValSwitches: [
