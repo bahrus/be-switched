@@ -37,7 +37,7 @@ export class NValueSwitch {
      * @returns 
      */
     async do(self) {
-        const { find } = await import('trans-render/dss/find.js');
+        //const { find } = await import('trans-render/dss/find.js');
         const { ASMR } = await import('trans-render/asmr/asmr.js');
         const { nValueSwitches } = self;
         if (nValueSwitches === undefined || nValueSwitches.length > 1)
@@ -71,16 +71,22 @@ export class NValueSwitch {
          * @type {{[key: string]: AbsorbingObject}}
          */
         const propToAO = {};
+        const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
         for (const dependency of dependencies) {
-            const remoteEl = await find(enhancedElement, dependency);
-            if (!(remoteEl instanceof Element))
-                continue;
-            const { prop } = dependency;
+            const {id, evtName, path, as} = dependency;
+            /**
+             * @type {Element | undefined | null}
+             */
+            const remoteEl = id !== undefined ? rn.getElementById(id) : rn.host;
+            if (!(remoteEl instanceof EventTarget)) throw 404;
+            const prop = remoteEl.getAttribute('data-id') || id;
             if (prop === undefined)
                 throw 'NI';
             const ao = await ASMR.getAO(remoteEl, {
-                evt: dependency.evt || 'input',
-                selfIsVal: dependency.path === '$0',
+                evt: evtName || 'input',
+                propToAbsorb: path,
+                as
+                //selfIsVal: dependency.path === '$0',
             });
             propToAO[prop] = ao;
         }
