@@ -72,6 +72,23 @@ export class TwoValSwitchHandler {
         }
         this.handleEvent();
     }
+    /**
+     * 
+     * @param {import('./ts-refs/trans-render/dss/types').IPE} ipe 
+     */
+    getConstVal(ipe){
+        const { constVal, as } = ipe;
+        switch(as){
+            case 'number':
+            case 'boolean':
+            case 'boolean|number':
+                return JSON.parse(constVal);
+            case 'string':
+                return constVal;
+            default:
+                throw 'NI';
+        }
+    }
     async handleEvent() {
         const twoValSwitches = Array.from(this.#twoValSwitchToAO.keys());
         let foundOne = false;
@@ -83,8 +100,8 @@ export class TwoValSwitchHandler {
             const aos = tvsToAOs.get(tvs);
             if(aos === undefined) throw 500;
             const [lhsAO, rhsAO] = aos;
-            const lhsVal = lhsAO ? await lhsAO.getValue() : lhsIPE.constVal;
-            const rhsVal = rhsAO ? await rhsAO.getValue() : rhsIPE.constVal;
+            const lhsVal = lhsAO ? await lhsAO.getValue() : this.getConstVal(lhsIPE);
+            const rhsVal = rhsAO ? await rhsAO.getValue() : this.getConstVal(rhsIPE);
             //TODO:  deal with lt, gt, boolish, etc
             let value = false;
             switch (op) {
