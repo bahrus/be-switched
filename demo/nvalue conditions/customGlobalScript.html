@@ -9,23 +9,27 @@
 </head>
 <body>
     <script type=module>
-        import {register} from '/emc.js';
+        import {register} from '/🎚️.js';
         register('isEqual', e => e.r = e.f.lhs === e.f.rhs)
     </script>
-    <my-host-element itemscope>
-        <label for=lhs>LHS:</label>
-        <input id=lhs>
-        <label for=rhs>RHS:</label>
-        <input id=rhs>
-        <template be-switched='on if isEqual, based on #lhs and #rhs.'>
-            <div>LHS === RHS</div>
-        </template>
-    </my-host-element>
+
+    <label>
+        LHS: <input data-id={{lhs}}>
+    </label>
+    
+    <label for=rhs>
+        RHS: <input data-id={{rhs}}>
+    </label>
+    
+    <template 🤪 defer-🎚️ 🎚️='on if isEqual, based on #{{lhs}} and #{{rhs}}.'>
+        <div>LHS === RHS</div>
+    </template>
 
 
 
     <script type=module>
-        import '/emc.js';
+        import '/🎚️.js';
+        import 'be-giddy/🤪.js';
     </script>
 </body>
 </html>
