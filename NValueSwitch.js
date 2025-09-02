@@ -37,7 +37,6 @@ export class NValueSwitch {
      * @returns 
      */
     async do(self) {
-        //const { find } = await import('trans-render/dss/find.js');
         const { ASMR } = await import('trans-render/asmr/asmr.js');
         const { nValueSwitches } = self;
         if (nValueSwitches === undefined || nValueSwitches.length > 1)
@@ -86,7 +85,6 @@ export class NValueSwitch {
                 evt: evtName || 'input',
                 propToAbsorb: path,
                 as
-                //selfIsVal: dependency.path === '$0',
             });
             propToAO[prop] = ao;
         }
