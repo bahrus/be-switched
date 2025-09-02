@@ -35,7 +35,7 @@
   "devDependencies": {
     "@playwright/test": "1.55.0",
     "ssi-server": "0.0.1", 
-    "be-giddy": "0.0.4"
+    "be-giddy": "0.0.5"
   },
   "scripts": {
     "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
