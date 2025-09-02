@@ -39,13 +39,14 @@ export class TwoValSwitchHandler {
             const lhsIsConstant = lConstVal !== undefined;
             const rhsIsConstant = rConstVal !== undefined;
             // const remoteLHS = lhsIsConstant ? undefined : await find(enhancedElement, lhsSpecifier, within);
- 
+            if(!lhsIsConstant){
+
+            }
             const remoteLHS = lhsIsConstant ? undefined : lid !== undefined ? rn.getElementById(lid) : rn.host;
             if (!lhsIsConstant && !(remoteLHS instanceof EventTarget)) throw 500;
             //const remoteRHS = rhsIsConstant ? undefined : await find(enhancedElement, rhsSpecifier, within);
             const remoteRHS = rhsIsConstant ? undefined : rid !== undefined ? rn.getElementById(rid) : rn.host;
-            if (!rhsIsConstant && !(remoteRHS instanceof EventTarget))
-                continue;
+            if (!rhsIsConstant && !(remoteRHS instanceof EventTarget)) throw 500;
             const lhsAO = !remoteLHS ? undefined : await ASMR.getAO(remoteLHS, {
                 evt: lEvtName,
                 //selfIsVal: lhsSpecifier.prop === '$0' && lhsSpecifier.path === undefined,
@@ -76,14 +77,14 @@ export class TwoValSwitchHandler {
         let foundOne = false;
         const tvsToAOs = this.#twoValSwitchToAO;
         for (const tvs of twoValSwitches) {
-            const { req, op, onOrOff, lhsSpecifier, rhsSpecifier } = tvs;
+            const { req, op, onOrOff, lhsIPE, rhsIPE } = tvs;
             if (foundOne && !req)
                 continue;
             const aos = tvsToAOs.get(tvs);
             if(aos === undefined) throw 500;
             const [lhsAO, rhsAO] = aos;
-            const lhsVal = lhsAO ? await lhsAO.getValue() : lhsSpecifier.constVal;
-            const rhsVal = rhsAO ? await rhsAO.getValue() : rhsSpecifier.constVal;
+            const lhsVal = lhsAO ? await lhsAO.getValue() : lhsIPE.constVal;
+            const rhsVal = rhsAO ? await rhsAO.getValue() : rhsIPE.constVal;
             //TODO:  deal with lt, gt, boolish, etc
             let value = false;
             switch (op) {
