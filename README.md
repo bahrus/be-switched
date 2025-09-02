@@ -571,6 +571,8 @@ But what if we just want to lazy load content when a single value goes from "fal
 </div>
 ```
 
+[TODO] demo/boolish conditions/by id/multipleEls.html -- support for auto generation of id's within the template
+
 ### Externally referenced 
 
 If this element enhancement is used inside a repeating DOM structure, it is more efficient to let the template that defines the conditional logic reference a template outside the loop, which may be inside the ShadowRoot somewhere, or the host's ShadowRoot, iteratively into the root document is tried (in that order), identified by id:
