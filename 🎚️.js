@@ -7,6 +7,7 @@ export const emc = {
     ...baseEMC,
     base: '🎚️',
     enhPropKey: '🎚️',
+    handlerKey: '🎚️'
 };
 const mose = seed(emc);
 MountObserver.synthesize(document, BeHive, mose);
