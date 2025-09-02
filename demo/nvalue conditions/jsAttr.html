@@ -8,10 +8,14 @@
     <!-- #include virtual="/imports.html" -->
 </head>
 <body>
-    <label for=lhs>LHS:</label>
-    <input id=lhs>
-    <label for=rhs>RHS:</label>
-    <input id=rhs>
+    <label>
+        LHS: <input id=lhs>
+    </label>
+    
+    <label>
+        RHS: <input id=rhs>
+    </label>
+    
     <template id=temp
         🎚️='on based on #lhs and #rhs.'
         🎚️-js='f.lhs.length === f.rhs.length'
