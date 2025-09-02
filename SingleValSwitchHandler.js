@@ -34,23 +34,12 @@ export class SingleValSwitchHandler {
              * @type {Element | undefined | null}
              */
             const remoteEl = id !== undefined ? rn.getElementById(id) : rn.host;
-            //const remoteEl = await find(enhancedElement, specifier);
             if (!(remoteEl instanceof EventTarget)) throw 404;
-            // const { prop, host } = specifier;
-            // let propToAbsorb = undefined;
-            // /** @type {string | undefined} */
-            // let evt = specifier.evt;
-            // if (host) {
-            //     if (prop === undefined)
-            //         throw 'NI';
-            //     propToAbsorb = prop;
-            //     evt = undefined;
-            // }
+            
             const ao = await ASMR.getAO(remoteEl, {
                 evt: evtName,
                 propToAbsorb: path,
                 as,
-                //selfIsVal: prop === '$0' && path === undefined,
             });
             this.#singleValSwitchToAO.set(svs, ao);
             aos.push(ao);
