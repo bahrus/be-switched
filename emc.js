@@ -51,12 +51,12 @@ export const emc = {
                     {
                         regExp: onWhenIfPart,
                         defaultVals: {},
-                        dssKeys: [['ifPart', 'specifier']]
+                        ipeKeys: [['ifPart', 'ipe']]
                     },
                     {
                         regExp: onOnlyWhenIfPart,
                         defaultVals: { req: true },
-                        dssKeys: [['ifPart', 'specifier']]
+                        ipeKeys: [['ifPart', 'ipe']]
                     }
                 ]
             }
@@ -72,10 +72,6 @@ export const emc = {
         '3.0': {
             instanceOf: 'Boolean',
             mapsTo: 'minMem'
-        },
-        '4.0': {
-            instanceOf: 'Boolean',
-            mapsTo: 'cmtWrap'
         },
     },
     enhPropKey: 'beSwitched',
