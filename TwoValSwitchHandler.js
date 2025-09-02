@@ -110,9 +110,11 @@ export class TwoValSwitchHandler {
                     value = lhsVal === rhsVal;
                     break;
                 case 'gt':
-                    throw 'NI';
+                    value =  lhsVal > rhsVal;
+                    break;
                 case 'lt':
-                    throw 'NI';
+                    value = lhsVal < rhsVal;
+                    break;
             }
             if (onOrOff.endsWith('ff'))
                 value = !value;
