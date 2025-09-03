@@ -142,7 +142,7 @@ So the html above can be shorted a bit, and the id management can be made more r
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️
+    <template -id defer-🎚️
         🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
@@ -159,7 +159,7 @@ Our expression can alternatively be more expressive:
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️
+    <template -id defer-🎚️
         🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -204,7 +204,7 @@ The assumptions we make for getting values from these peer custom elements (when
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     ></data>
     <div>A witch!</div>
-    <div genids>Burn her!</div>
+    <div -id>Burn her!</div>
     
 </ways-of-science>
 <style>
@@ -226,7 +226,7 @@ When using this enhancement in the recommended way, as described by the note abo
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️
+    <template -id defer-🎚️
         🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.' 
         🎚️-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
@@ -249,7 +249,7 @@ and/or:
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️
+    <template  defer-🎚️
         🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -278,7 +278,7 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template
-        genids defer-🎚️
+        -id defer-🎚️
         🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
         🎚️-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
@@ -308,7 +308,7 @@ This also works, and can survive CSP scrutiny:
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️
+    <template -id defer-🎚️
         🎚️='on if isMadeOfWood, based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
     >
         <div>A witch!</div>
@@ -329,7 +329,7 @@ Our event handler can reference the adorned element, so that we can remove the h
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️ data-max-diff=10
+    <template -id defer-🎚️ data-max-diff=10
         🎚️='on if isMadeOfWood, 
                 based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting .'
     >
@@ -345,7 +345,7 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️ data-max-diff=10
+    <template -id defer-🎚️ data-max-diff=10
         🎚️='on if nearlyEq, based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
     >
         <div>A witch!</div>
@@ -461,7 +461,7 @@ body{
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️
+    <template -id defer-🎚️
         🎚️='
             On when #{{carrot-nosed-woman}}::weight-change equals #{{a-duck}}::molting.
      '>
@@ -482,7 +482,7 @@ Use the  "chained accessor" symbol (?.) for specifying a property path.
 <ways-of-science>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template genids defer-🎚️
+    <template -id defer-🎚️
         🎚️='
             On when #{{carrotNosedWoman}}?.weight equals #{{aDuck}}?.weight.
      '>
@@ -508,7 +508,7 @@ If the elements being observed don't have propagators to subscribe to, and the t
 <ways-of-science>
     <carrot-nosed-woman weight=92 #></carrot-nosed-woman>
     <a-duck weight=82 #></a-duck>
-    <template genids defer-🎚️
+    <template -id defer-🎚️
         🎚️='
             On when #{{carrotNosedWoman}}@weight equals #{{aDuck}}@weight.
      '>
@@ -565,7 +565,7 @@ But what if we just want to lazy load content when a single value goes from "fal
     ...
     <data value=true data-id="{{| isHappy}}" hidden></data>
     ...
-    <template  genids defer-🎚️ 🎚️='on when #{{isHappy}}.' >
+    <template  -id defer-🎚️ 🎚️='on when #{{isHappy}}.' >
         <my-content></my-content>
     </template>
 </div>
@@ -588,7 +588,7 @@ If this element enhancement is used inside a repeating DOM structure, it is more
     <for-each ...>
         <div>
             <input data-id={{@ isHappy}} type="checkbox">
-            <template genids defer-🎚️ 🎚️='on when {{#isHappy}}.' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
+            <template -id defer-🎚️ 🎚️='on when {{#isHappy}}.' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
         </div>
     </for-each>
     <script type=module>

@@ -16,7 +16,7 @@ export class MoodStone extends HTMLElement{
         this.shadowRoot!.innerHTML = String.raw `
             <div id=target2></div>
             <h3>Conditional Display based on host property</h3>
-            <template 🎚️='on when /isHappy.'>
+            <template 🎚️='on when isHappy.'>
                 <div id=day> What a beautiful day!</div>
             </template>
 
