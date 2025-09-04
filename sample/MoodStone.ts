@@ -29,7 +29,7 @@ export class MoodStone extends HTMLElement{
                 <div id=day> What a beautiful day!</div>
             </template>
 
-            <template 🎚️='on when ?.isHappy eq ?.isWealthy'>
+            <template 🎚️='off when ?.isHappy eq ?.isWealthy'>
                 <div id=eq>IsHappy === isWealthy</div>
             </template>
             <be-hive></be-hive>

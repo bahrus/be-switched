@@ -33,34 +33,54 @@ export class TwoValSwitchHandler {
         let aos = [];
         for (const tvs of twoValueSwitches) {
             const { lhsIPE, rhsIPE } = tvs;
-            const {id: lid, constVal: lConstVal, evtName: lEvtName, path: lPath, as: lAs} = lhsIPE;
-            const {id: rid, constVal: rConstVal, evtName: rEvtName, path: rPath, as: rAs} = rhsIPE;
+            const {
+                id: lid, 
+                constVal: lConstVal, 
+                evtName: lEvtName, 
+                path: lPath, 
+                as: lAs,
+                prop: lProp,
+            } = lhsIPE;
+            const {
+                id: rid, 
+                constVal: rConstVal, 
+                evtName: rEvtName, 
+                path: rPath, 
+                as: rAs,
+                prop: rProp,
+            } = rhsIPE;
             
             const lhsIsConstant = lConstVal !== undefined;
             const rhsIsConstant = rConstVal !== undefined;
             // const remoteLHS = lhsIsConstant ? undefined : await find(enhancedElement, lhsSpecifier, within);
-            if(!lhsIsConstant){
 
-            }
             const remoteLHS = lhsIsConstant ? undefined : lid !== undefined ? rn.getElementById(lid) : rn.host;
             if (!lhsIsConstant && !(remoteLHS instanceof EventTarget)) throw 500;
+            /** @type {AbsorbingObject<any> | undefined} */
+            let lhsAO = undefined;
+            if(remoteLHS !== undefined){
+                const propToAbsorb = lPath ? `?.${lProp}?.${lPath}` : lProp;
+                lhsAO = await ASMR.getAO(remoteLHS, {
+                    evt: lEvtName,
+                    propToAbsorb,
+                    as: lAs,
+                });
+            }
             //const remoteRHS = rhsIsConstant ? undefined : await find(enhancedElement, rhsSpecifier, within);
             const remoteRHS = rhsIsConstant ? undefined : rid !== undefined ? rn.getElementById(rid) : rn.host;
             if (!rhsIsConstant && !(remoteRHS instanceof EventTarget)) throw 500;
-            const lhsAO = !remoteLHS ? undefined : await ASMR.getAO(remoteLHS, {
-                evt: lEvtName,
-                //selfIsVal: lhsSpecifier.prop === '$0' && lhsSpecifier.path === undefined,
-                propToAbsorb: lPath,
-                as: lAs,
-            });
-            const rhsAO = !remoteRHS ? undefined : await ASMR.getAO(remoteRHS, {
-                evt: rEvtName,
-                //selfIsVal: rhsSpecifier.prop === '$0' && rhsSpecifier.path === undefined,
-                propToAbsorb: rPath,
-                as: rAs,
-                
-                //propToAbsorb: rhsProp
-            });
+            /** @type {AbsorbingObject<any> | undefined} */
+            let rhsAO = undefined;
+            if(remoteRHS !== undefined){
+                const propToAbsorb = rPath ? `?.${rProp}?.${rPath}` : rProp;
+                rhsAO = !remoteRHS ? undefined : await ASMR.getAO(remoteRHS, {
+                    evt: rEvtName,
+                    propToAbsorb,
+                    as: rAs,
+                    
+                });
+            }
+
             this.#twoValSwitchToAO.set(tvs, [lhsAO, rhsAO]);
             aos.push([lhsAO, rhsAO]);
         }
