@@ -7,6 +7,14 @@ export class MoodStone extends HTMLElement{
         this.#isHappy = nv;
         this.shadowRoot!.querySelector('#target2')!.innerHTML = nv.toString();
     }
+    #isWealthy = false;
+    get isWealthy(){
+        return this.#isWealthy;
+    }
+    set isWealthy(nv: boolean){
+        this.#isWealthy = nv;
+        this.shadowRoot!.querySelector('#target3')!.innerHTML = nv.toString();
+    }
     constructor(){
         super();
         this.attachShadow({mode: 'open'});
@@ -15,12 +23,15 @@ export class MoodStone extends HTMLElement{
     connectedCallback(){
         this.shadowRoot!.innerHTML = String.raw `
             <div id=target2></div>
+            <div id=target3></div>
             <h3>Conditional Display based on host property</h3>
             <template 🎚️='on when ?.isHappy.'>
                 <div id=day> What a beautiful day!</div>
             </template>
 
-            
+            <template 🎚️='on when ?.isHappy eq ?.isWealthy'>
+                <div id=eq>IsHappy === isWealthy</div>
+            </template>
             <be-hive></be-hive>
         `;
     }
