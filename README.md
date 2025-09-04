@@ -619,7 +619,7 @@ If the identifier doesn't start with #, then we are looking for a property comin
 ```html
 <mood-stone>
     #shadow
-    <template 🎚️='on when isHappy.'>
+    <template 🎚️='on when ?.isHappy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
