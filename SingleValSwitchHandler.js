@@ -28,16 +28,17 @@ export class SingleValSwitchHandler {
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
         for (const svs of singleValSwitches) {
             const { ipe } = svs;
-            const {id, evtName, path, as} = ipe;
+            const {id, evtName, prop, path, as} = ipe;
             /**
              * @type {Element | undefined | null}
              */
             const remoteEl = id !== undefined ? rn.getElementById(id) : rn.host;
             if (!(remoteEl instanceof EventTarget)) throw 404;
-            
+            const propToAbsorb = path ? `?.${prop}?.${path}` : prop;
             const ao = await ASMR.getAO(remoteEl, {
                 evt: evtName,
-                propToAbsorb: path,
+                propToAbsorb,
+                
                 as,
             });
             this.#singleValSwitchToAO.set(svs, ao);
