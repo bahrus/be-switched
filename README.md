@@ -408,6 +408,54 @@ Let's start with the most elementary two value switch:
 > [!NOTE]
 > For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
 
+### Referencing the host
+
+Rather than observing the value of a peer element based on id matching, we can alternatively observe properties from the host, for one of the factors, or both of the factors:
+
+```TypeScript
+export class MoodStone extends HTMLElement{
+    #isHappy = false;
+    get isHappy(){
+        return this.#isHappy;
+    }
+    set isHappy(nv: boolean){
+        this.#isHappy = nv;
+        this.shadowRoot!.querySelector('#target2')!.textContent = nv.toString();
+    }
+    #isWealthy = false;
+    get isWealthy(){
+        return this.#isWealthy;
+    }
+    set isWealthy(nv: boolean){
+        this.#isWealthy = nv;
+        this.shadowRoot!.querySelector('#target3')!.textContent = nv.toString();
+    }
+    constructor(){
+        super();
+        this.attachShadow({mode: 'open'});
+    }
+
+    connectedCallback(){
+        this.shadowRoot!.innerHTML = String.raw `
+            <div id=target2></div>
+            <div id=target3></div>
+            <h3>Conditional Display based on host property</h3>
+            <template 🎚️='on when ?.isHappy.'>
+                <div id=day> What a beautiful day!</div>
+            </template>
+
+            <template 🎚️='off when ?.isHappy eq ?.isWealthy'>
+                <div id=eq>IsHappy === isWealthy</div>
+            </template>
+            <be-hive></be-hive>
+        `;
+    }
+
+}
+
+customElements.define('mood-stone', MoodStone);
+```
+
 
 ### Type casting
 
