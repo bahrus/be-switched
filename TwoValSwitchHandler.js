@@ -54,7 +54,7 @@ export class TwoValSwitchHandler {
             const rhsIsConstant = rConstVal !== undefined;
             // const remoteLHS = lhsIsConstant ? undefined : await find(enhancedElement, lhsSpecifier, within);
 
-            const remoteLHS = lhsIsConstant ? undefined : lid !== undefined ? rn.getElementById(lid) : rn.host;
+            const remoteLHS = lhsIsConstant ? undefined : lid !== undefined ? rn.getElementById(lid) : await enhancedElement.hostish();
             if (!lhsIsConstant && !(remoteLHS instanceof EventTarget)) throw 500;
             /** @type {AbsorbingObject<any> | undefined} */
             let lhsAO = undefined;
@@ -67,7 +67,7 @@ export class TwoValSwitchHandler {
                 });
             }
             //const remoteRHS = rhsIsConstant ? undefined : await find(enhancedElement, rhsSpecifier, within);
-            const remoteRHS = rhsIsConstant ? undefined : rid !== undefined ? rn.getElementById(rid) : rn.host;
+            const remoteRHS = rhsIsConstant ? undefined : rid !== undefined ? rn.getElementById(rid) : await enhancedElement.hostish();
             if (!rhsIsConstant && !(remoteRHS instanceof EventTarget)) throw 500;
             /** @type {AbsorbingObject<any> | undefined} */
             let rhsAO = undefined;

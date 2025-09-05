@@ -76,8 +76,9 @@ export class NValueSwitch {
             /**
              * @type {Element | undefined | null}
              */
-            const remoteEl = id !== undefined ? rn.getElementById(id) : rn.host;
-            if (!(remoteEl instanceof EventTarget)) throw 404;
+            const remoteEl = id !== undefined ? rn.getElementById(id) : await enhancedElement.hostish();
+            if (!(remoteEl instanceof Object)) throw 404;
+            if(!(remoteEl instanceof Element)) throw 'NI';
             const prop = remoteEl.getAttribute('data-id') || id;
             if (prop === undefined)
                 throw 'NI';
