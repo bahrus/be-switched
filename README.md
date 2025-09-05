@@ -775,30 +775,10 @@ In this scenario, repeating the content inside the template is unnecessary, unle
 
 An option, minMem, allows for completely wiping away content derived from the template when conditions are no longer met.  This *might* be better on a low memory device, especially if the content has no support for be-oosoom (see below).
 
-## NBs
-
-
-
-> [!NOTE]
-> If using this enhancement as part of a repeating [*xtal-element*](https://github.com/bahrus/xtal-element) web component, my performance experiments indicate it is best to extract the contents of the template into a shared location, rather than cloning the template within each web component template instance. This is accomplished by adding attribute *blow-dry* or *data-blow-dry* to the template element:
-
-```html
-<my-web-component>
-    <template shadowrootmode=open>
-        ...
-        <template be-switched=... blow-dry>
-            ...
-        </template>
-        ...
-        <be-hive></be-hive>
-        <xtal-element></xtal-element>
-    </template>
-</my-web-component>
-```
 
 ## Additional conditions
 
-*be-switched* can work in tandem with another enhancement, [https://github.com/bahrus/mt-si](mt-si) to add common additional conditions before the template *be-switched* adorns becomes active.  One example would be media queries:
+*be-switched* can work in tandem with another enhancement, [mt-si](https://github.com/bahrus/mt-si) to add common additional conditions before the template *be-switched* adorns becomes active.  One example would be media queries:
 
 ```html
 <script mt-si type=application/json>
