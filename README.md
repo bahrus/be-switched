@@ -1,4 +1,4 @@
-# be-switched ( 🎚️ ) [WIP]
+# be-switched ( 🎚️ )
 
 *be-switched* is a template element enhancement that can lazy load content when conditions are met, and/or it can modify the DOM so that css rules can choose what sorts of display modifications are needed.
 
@@ -124,11 +124,9 @@ If your production web site runs in a setting without CSP checks (or allows for 
 </ways-of-science>
 ```
 
-Some shortcuts:
+Some shortcuts / better developer ergonomics:
 
-Note the use of id's: carrot-nosed-woman and a-duck.  Use of id's in web development (particularly outside ShadowDOM) is a significant pain point, due to the uniqueness requirement.
-
-Also, as suggested in the title, this package provides an emoji based alternative to the canonical name "be-switched". In applications that use be-switched frequently, where concerns about clashing with already registered packages in npm isn't a concern, it might make development more productive to utilize a shorter name.  The best alternative name is probably "turn", and it does seem unlikely to me that the platform would ever add attribute "turn" to the template element, but you never know, I guess.
+1.  As suggested in the title, this package provides an emoji based alternative to the canonical name "be-switched". In applications that use be-switched frequently, where concerns about clashing with already registered packages in npm isn't a concern, it might make development more productive to utilize a shorter name.  The best alternative name is probably "turn", and it does seem unlikely to me that the platform would ever add attribute "turn" to the template element, but you never know, I guess.
 
 This package does provide an alternative name you can use, which seems quite future-proof and succinct:  🎚️ via this [file](https://github.com/bahrus/be-switched/blob/baseline/%F0%9F%8E%9A%EF%B8%8F.ts).
 
@@ -136,7 +134,10 @@ I think you will agree, looking at that file, how easy it is to define your own 
 
 The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" or "switch" in your mind when you see it below.  Note that on Windows, to select this emoji, type flying window + . and search for "sli".  It should retain in memory for a while after that once you use it.
 
-So the html above can be shorted a bit, and the id management can be made more reliable and succinct:
+2.  Note the use of id's: carrot-nosed-woman and a-duck.  Use of id's in web development (particularly outside ShadowDOM) is a significant pain point, due to the uniqueness requirement.  To aid with this issue, consider taking advantage of an underlying "primitive" this enhancements builds on top of:  Support for auto generating ids so they are unique, based on this [proposal](https://github.com/whatwg/html/issues/11585).  The "magic" attribute used to turn on this capability is:  "-id".  
+
+Let's see how the markup above becomes more manageable when we apply both of these techniques:
+
 
 ```html
 <ways-of-science itemscope>
