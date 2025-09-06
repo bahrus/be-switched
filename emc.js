@@ -31,7 +31,7 @@ export const emc = {
                     {
                         regExp: onOrOffWhenLhsPartOpRhsPart,
                         defaultVals: {},
-                        dssKeys: [['lhsPart', 'lhsIPE'], ['rhsPart', 'rhsIPE']]
+                        dssKeys: [['lhsPart', 'lhsSpecifier'], ['rhsPart', 'rhsSpecifier']]
                     },
 
                 ],

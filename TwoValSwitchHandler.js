@@ -31,7 +31,7 @@ export class TwoValSwitchHandler {
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
         let aos = [];
         for (const tvs of twoValueSwitches) {
-            const { lhsIPE, rhsIPE } = tvs;
+            const { lhsSpecifier, rhsSpecifier } = tvs;
             const {
                 id: lid, 
                 constVal: lConstVal, 
@@ -39,7 +39,7 @@ export class TwoValSwitchHandler {
                 path: lPath, 
                 as: lAs,
                 prop: lProp,
-            } = lhsIPE;
+            } = lhsSpecifier;
             const {
                 id: rid, 
                 constVal: rConstVal, 
@@ -47,7 +47,7 @@ export class TwoValSwitchHandler {
                 path: rPath, 
                 as: rAs,
                 prop: rProp,
-            } = rhsIPE;
+            } = rhsSpecifier;
             
             const lhsIsConstant = lConstVal !== undefined;
             const rhsIsConstant = rConstVal !== undefined;
@@ -113,14 +113,14 @@ export class TwoValSwitchHandler {
         let foundOne = false;
         const tvsToAOs = this.#twoValSwitchToAO;
         for (const tvs of twoValSwitches) {
-            const { req, op, onOrOff, lhsIPE, rhsIPE } = tvs;
+            const { req, op, onOrOff, lhsSpecifier, rhsSpecifier } = tvs;
             if (foundOne && !req)
                 continue;
             const aos = tvsToAOs.get(tvs);
             if(aos === undefined) throw 500;
             const [lhsAO, rhsAO] = aos;
-            const lhsVal = lhsAO ? await lhsAO.getValue() : this.getConstVal(lhsIPE);
-            const rhsVal = rhsAO ? await rhsAO.getValue() : this.getConstVal(rhsIPE);
+            const lhsVal = lhsAO ? await lhsAO.getValue() : this.getConstVal(lhsSpecifier);
+            const rhsVal = rhsAO ? await rhsAO.getValue() : this.getConstVal(rhsSpecifier);
             //TODO:  deal with lt, gt, boolish, etc
             let value = false;
             switch (op) {
