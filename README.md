@@ -469,7 +469,7 @@ customElements.define('mood-stone', MoodStone);
     RHS: <input id=rhs>
 </label>
 
-<template 🎚️='on when #lhs equals #rhs as number.'>
+<template 🎚️='on when #lhs equals #rhs-as-number.'>
     <div>LHS === RHS</div>
 </template>
 ```
@@ -483,7 +483,7 @@ Just as before, we can do some in one of two ways:
 <input id=lhs type=number>
 <label for=rhs>RHS:</label>
 <input id=rhs>
-<template 🎚️='on when #lhs equals #rhs as number.' 🎚️-transitional>
+<template 🎚️='on when #lhs equals #rhs-as-number.' 🎚️-transitional>
     <div>LHS === RHS</div>
 </template>
 
@@ -682,7 +682,7 @@ If the identifier doesn't start with #, then we are looking for a property comin
 <label for=lhs>LHS:</label>
 <input id=lhs type=number>
 
-<template 🎚️='on when #lhs eq `37` as number.'>
+<template 🎚️='on when #lhs eq `37`-as-number.'>
     <div>LHS === RHS</div>
 </template>
 ```
