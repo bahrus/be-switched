@@ -31,7 +31,7 @@ export const emc = {
                     {
                         regExp: onOrOffWhenLhsPartOpRhsPart,
                         defaultVals: {},
-                        ipeKeys: [['lhsPart', 'lhsIPE'], ['rhsPart', 'rhsIPE']]
+                        dssKeys: [['lhsPart', 'lhsIPE'], ['rhsPart', 'rhsIPE']]
                     },
 
                 ],
@@ -39,24 +39,24 @@ export const emc = {
                     {
                         regExp: onIfRegisteredHandlerBasedOnDependencies,
                         defaultVals: {},
-                        ipeArrayKeys: [['dependencyPart', 'dependencies']]
+                        dssArrayKeys: [['dependencyPart', 'dependencies']]
                     },
                     {
                         regExp: onBasedOnDependencies,
                         defaultVals: {},
-                        ipeArrayKeys: [['dependencyPart', 'dependencies']]
+                        dssArrayKeys: [['dependencyPart', 'dependencies']]
                     }
                 ],
                 singleValSwitches: [
                     {
                         regExp: onWhenIfPart,
                         defaultVals: {},
-                        ipeKeys: [['ifPart', 'ipe']]
+                        dssKeys: [['ifPart', 'ipe']]
                     },
                     {
                         regExp: onOnlyWhenIfPart,
                         defaultVals: { req: true },
-                        ipeKeys: [['ifPart', 'ipe']]
+                        dssKeys: [['ifPart', 'ipe']]
                     }
                 ]
             }

@@ -26,7 +26,6 @@ export class TwoValSwitchHandler {
      * @param {BAP} self 
      */
     async do(self) {
-        const { find } = await import('trans-render/dss/find.js');
         const { ASMR } = await import('trans-render/asmr/asmr.js');
         const { twoValueSwitches, enhancedElement } = self;
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
@@ -94,10 +93,10 @@ export class TwoValSwitchHandler {
     }
     /**
      * 
-     * @param {import('./ts-refs/trans-render/dss/types').IPE} ipe 
+     * @param {import('./ts-refs/trans-render/dss/types').Specifier} specifier 
      */
-    getConstVal(ipe){
-        const { constVal, as } = ipe;
+    getConstVal(specifier){
+        const { constVal, as } = specifier;
         switch(as){
             case 'number':
             case 'boolean':
