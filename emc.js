@@ -51,12 +51,12 @@ export const emc = {
                     {
                         regExp: onWhenIfPart,
                         defaultVals: {},
-                        dssKeys: [['ifPart', 'ipe']]
+                        dssKeys: [['ifPart', 'specifier']]
                     },
                     {
                         regExp: onOnlyWhenIfPart,
                         defaultVals: { req: true },
-                        dssKeys: [['ifPart', 'ipe']]
+                        dssKeys: [['ifPart', 'specifier']]
                     }
                 ]
             }

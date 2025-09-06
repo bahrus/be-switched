@@ -27,8 +27,8 @@ export class SingleValSwitchHandler {
         let aos = [];
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
         for (const svs of singleValSwitches) {
-            const { ipe } = svs;
-            const {id, evtName, prop, path, as} = ipe;
+            const { specifier } = svs;
+            const {id, evtName, prop, path, as} = specifier;
             /**
              * @type {Element | undefined | null}
              */
