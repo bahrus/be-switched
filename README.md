@@ -620,6 +620,15 @@ But what if we just want to lazy load content when a single value goes from "fal
 </div>
 ```
 
+## By Name
+
+```html
+<input name=isHappy type="checkbox" @>
+<template -id defer-🎚️ 🎚️='on when #{{isHappy}}.'>
+    <my-content></my-content>
+</template>
+```
+
 [TODO] demo/boolish conditions/by id/multipleEls.html -- support for auto generation of id's within the template
 
 ### Externally referenced 
