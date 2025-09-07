@@ -608,16 +608,13 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 ## Boolean conditions based on peer elements or host
 
+## By Itemprop
 
 ```html
-<div>
-    ...
-    <data value=true data-id="{{| isHappy}}" hidden></data>
-    ...
-    <template  -id defer-🎚️ 🎚️='on when #{{isHappy}}.' >
-        <my-content></my-content>
-    </template>
-</div>
+<data value=true itemprop=isHappy hidden |></data>
+<template -id defer-🎚️ 🎚️='on when #{{isHappy}}.'>
+    <my-content></my-content>
+</template>
 ```
 
 ## By Name
