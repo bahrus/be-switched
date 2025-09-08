@@ -250,7 +250,7 @@ and/or:
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
-    <template  defer-🎚️
+    <template -id defer-🎚️
         🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -441,11 +441,11 @@ export class MoodStone extends HTMLElement{
             <div id=target2></div>
             <div id=target3></div>
             <h3>Conditional Display based on host property</h3>
-            <template 🎚️='on when ?.isHappy.'>
+            <template 🎚️='on when isHappy.'>
                 <div id=day> What a beautiful day!</div>
             </template>
 
-            <template 🎚️='off when ?.isHappy eq ?.isWealthy'>
+            <template 🎚️='off when isHappy eq isWealthy'>
                 <div id=eq>IsHappy === isWealthy</div>
             </template>
             <be-hive></be-hive>
@@ -559,7 +559,7 @@ If the elements being observed don't have propagators to subscribe to, and the t
     <a-duck weight=82 #></a-duck>
     <template -id defer-🎚️
         🎚️='
-            On when #{{carrotNosedWoman}}@weight equals #{{aDuck}}@weight.
+            On when #{{carrotNosedWoman}}[weight] equals #{{aDuck}}[weight].
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -674,7 +674,7 @@ If the identifier doesn't start with #, then we are looking for a property comin
 ```html
 <mood-stone>
     #shadow
-    <template 🎚️='on when ?.isHappy.'>
+    <template 🎚️='on when isHappy.'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
