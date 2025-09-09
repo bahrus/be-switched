@@ -27,8 +27,8 @@
   ],
   "types": "./ts-refs/be-switched/types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.185",
-    "be-hive": "0.0.264",
+    "be-enhanced": "0.0.186",
+    "be-hive": "0.0.265",
     "mount-observer": "0.0.98",
     "trans-render": "0.0.949"
   },
