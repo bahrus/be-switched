@@ -23,16 +23,15 @@ export class SingleValSwitchHandler {
      */
     async do(self) {
         const { ASMR } = await import('trans-render/asmr/asmr.js');
+        const { find} = await import('trans-render/dss/find.js');
         const { singleValSwitches, enhancedElement } = self;
         let aos = [];
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
         for (const svs of singleValSwitches) {
             const { specifier } = svs;
             const {id, evtName, prop, path, as} = specifier;
-            /**
-             * @type {Element | undefined | null}
-             */
-            const remoteEl = id !== undefined ? rn.getElementById(id) : await enhancedElement.hostish();
+
+            const remoteEl = await find(enhancedElement, specifier);
             if (!(remoteEl instanceof Object)) throw 404;
             if(!(remoteEl instanceof Element)) throw 'NI';
             const propToAbsorb = path ? `?.${prop}?.${path}` : prop;

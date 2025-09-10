@@ -29,8 +29,8 @@
   "dependencies": {
     "be-enhanced": "0.0.186",
     "be-hive": "0.0.265",
-    "mount-observer": "0.0.98",
-    "trans-render": "0.0.949"
+    "mount-observer": "0.0.100",
+    "trans-render": "0.0.950"
   },
   "devDependencies": {
     "@playwright/test": "1.55.0",

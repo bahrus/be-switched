@@ -91,27 +91,28 @@ export class TwoValSwitchHandler {
         }
         this.handleEvent();
     }
-    /**
-     * 
-     * @param {import('./ts-refs/trans-render/dss/types').Specifier} specifier 
-     */
-    getConstVal(specifier){
-        const { constVal, as } = specifier;
-        switch(as){
-            case 'number':
-            case 'boolean':
-            case 'boolean|number':
-                return JSON.parse(constVal);
-            case 'string':
-                return constVal;
-            default:
-                throw 'NI';
-        }
-    }
+    // /**
+    //  * 
+    //  * @param {import('./ts-refs/trans-render/dss/types').Specifier} specifier 
+    //  */
+    // getConstVal(specifier){
+    //     const { constVal, as } = specifier;
+    //     switch(as){
+    //         case 'number':
+    //         case 'boolean':
+    //         case 'boolean|number':
+    //             return JSON.parse(constVal);
+    //         case 'string':
+    //             return constVal;
+    //         default:
+    //             throw 'NI';
+    //     }
+    // }
     async handleEvent() {
         const twoValSwitches = Array.from(this.#twoValSwitchToAO.keys());
         let foundOne = false;
         const tvsToAOs = this.#twoValSwitchToAO;
+        const {getConstVal} = await import('trans-render/asmr/getConstVal.js');
         for (const tvs of twoValSwitches) {
             const { req, op, onOrOff, lhsSpecifier, rhsSpecifier } = tvs;
             if (foundOne && !req)
@@ -119,8 +120,8 @@ export class TwoValSwitchHandler {
             const aos = tvsToAOs.get(tvs);
             if(aos === undefined) throw 500;
             const [lhsAO, rhsAO] = aos;
-            const lhsVal = lhsAO ? await lhsAO.getValue() : this.getConstVal(lhsSpecifier);
-            const rhsVal = rhsAO ? await rhsAO.getValue() : this.getConstVal(rhsSpecifier);
+            const lhsVal = lhsAO ? await lhsAO.getValue() : getConstVal(lhsSpecifier);
+            const rhsVal = rhsAO ? await rhsAO.getValue() : getConstVal(rhsSpecifier);
             //TODO:  deal with lt, gt, boolish, etc
             let value = false;
             switch (op) {
