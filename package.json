@@ -29,15 +29,15 @@
   "dependencies": {
     "be-enhanced": "0.0.186",
     "be-hive": "0.0.265",
-    "mount-observer": "0.0.100",
-    "trans-render": "0.0.950"
+    "mount-observer": "0.0.101",
+    "trans-render": "0.0.956"
   },
   "devDependencies": {
     "@playwright/test": "1.55.0",
-    "ssi-server": "0.0.1"
+    "spa-ssi": "0.0.4"
   },
   "scripts": {
-    "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
+    "serve": "node ./node_modules/spa-ssi/serve.js",
     "test": "playwright test",
     "safari": "npx playwright wk http://localhost:8000",
     "update": "ncu -u && npm install"
