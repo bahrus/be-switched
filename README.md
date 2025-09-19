@@ -710,7 +710,7 @@ Any web server that serves static files with server-side includes will do but...
 4.  Open command window to folder where you cloned this repo.
 5.  > npm install
 6.  > npm run serve
-7.  Open http://localhost:8000/sitemap in a modern browser.
+7.  Open http://localhost:8000/ in a modern browser.
 
 ## Running Tests
 

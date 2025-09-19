@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.55.0",
-    "spa-ssi": "0.0.5"
+    "spa-ssi": "0.0.6"
   },
   "scripts": {
     "serve": "node ./node_modules/spa-ssi/serve.js",
