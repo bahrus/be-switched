@@ -27,14 +27,14 @@
   ],
   "types": "./ts-refs/be-switched/types.d.ts",
   "dependencies": {
-    "be-enhanced": "0.0.186",
-    "be-hive": "0.0.265",
-    "mount-observer": "0.0.101",
-    "trans-render": "0.0.956"
+    "be-enhanced": "0.0.188",
+    "be-hive": "0.0.266",
+    "mount-observer": "0.0.102",
+    "trans-render": "0.0.958"
   },
   "devDependencies": {
     "@playwright/test": "1.55.0",
-    "spa-ssi": "0.0.8"
+    "spa-ssi": "0.0.17"
   },
   "scripts": {
     "serve": "node ./node_modules/spa-ssi/serve.js",
