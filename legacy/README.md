@@ -20,7 +20,7 @@ Conditionally loading and/or displaying content is a fundamental need.  This ele
 As far as rendering conditional changes, tt does so in one of two ways:
 
 1.  If the amount of HTML to show / hide is fairly small and lightweight, the element enhancement works best with the *data* element, and simply sets the attribute/property "value" to true or false depending on the outcome of the logical expression.
-2.  If the content to load is heavy, then wrap the content in a template, to allow the browser to delay in rendering and hydrating the content until absolutely necessary.
+2.  If the content to load is heavy, then wrap the content in a template, to allow the browser to delay in hydrating the content until absolutely necessary.
 
 ##  Three logical expression modes
 
@@ -52,7 +52,7 @@ We will look at all three options closely, starting with...
 <button onclick=setLHS()>Set lhs = "hello"</button>
 <script>
     function setLHS(){
-        template.enh.beSwitched.lhs = 'hello';
+        template.beEnhanced.beSwitched.lhs = 'hello';
     }
 </script>
 ```
@@ -70,19 +70,19 @@ Now how can we change the values of the lhs and rhs?  Normally, a framework can 
 
 ```JavaScript
 await customElements.whenDefined('be-enhanced');
-oTemplate.enc.set.beSwitched.rhs = 37;
+oTemplate.beEnhanced.by.beSwitched.rhs = 37;
 ```
 
-The extra ".set" is necessary just in case beSwitched hasn't been attached to the element yet.
+The extra ".by" is necessary just in case beSwitched hasn't been attached to the element yet.
 
 The first line can be avoided if we already know be-enhanced has been registered.  
 
 Another way to pass in the value reliably is thusly:
 
 ```JavaScript
-if(oTemplate.enh === undefined) oTemplate.enh = {};
-if(oTemplate.enh.beSwitched === undefined) oTemplate.enh.beSwitched = {};
-oTemplate.enh.beSwitched.rhs = 37;
+if(oTemplate.beEnhanced === undefined) oTemplate.beEnhanced = {};
+if(oTemplate.beEnhanced.beSwitched === undefined) oTemplate.beEnhanced.beSwitched = {};
+oTemplate.beEnhanced.beSwitched.rhs = 37;
 ```
 
 All of this is to say, most frameworks probably don't and won't be able to make it trivially easy to pass values to the enhancement, especially for unbundled applications that make use of the dynamic import(), so that the timing of when dependencies load is unpredictable.  
@@ -115,7 +115,7 @@ If your production web site runs in a setting without CSP checks (or allows for 
     <carrot-nosed-woman id=carrot-nosed-woman></carrot-nosed-woman>
     <a-duck id=a-duck></a-duck>
     <template
-        be-switched='on per #carrot-nosed-woman on weight-change and #a-duck on molting.'
+        be-switched='on based on #carrot-nosed-woman::weight-change and #a-duck::molting.'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -134,7 +134,7 @@ I think you will agree, looking at that file, how easy it is to define your own 
 
 The remaining examples will use this symbol (🎚️), so please translate that symbol to "be-switched" or "turn" or "switch" in your mind when you see it below.  Note that on Windows, to select this emoji, type flying window + . and search for "sli".  It should retain in memory for a while after that once you use it.
 
-2.  Note the use of id's: carrot-nosed-woman and a-duck.  Use of id's in web development (particularly outside ShadowDOM) is a significant pain point, due to the uniqueness requirement.  To aid with this issue, consider taking advantage of an underlying "primitive" this enhancements builds on top of:  Support for auto generating ids so they are unique, per this [proposal](https://github.com/whatwg/html/issues/11585).  The "magic" attribute used to turn on this capability is:  "-id".  
+2.  Note the use of id's: carrot-nosed-woman and a-duck.  Use of id's in web development (particularly outside ShadowDOM) is a significant pain point, due to the uniqueness requirement.  To aid with this issue, consider taking advantage of an underlying "primitive" this enhancements builds on top of:  Support for auto generating ids so they are unique, based on this [proposal](https://github.com/whatwg/html/issues/11585).  The "magic" attribute used to turn on this capability is:  "-id".  
 
 Let's see how the markup above becomes more manageable when we apply both of these techniques:
 
@@ -144,7 +144,7 @@ Let's see how the markup above becomes more manageable when we apply both of the
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting."
+        🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -161,7 +161,7 @@ Our expression can alternatively be more expressive:
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting."
+        🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -201,7 +201,7 @@ The assumptions we make for getting values from these peer custom elements (when
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <data  defer-🎚️
-        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting."
+        🎚️="on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting."
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     ></data>
     <div>A witch!</div>
@@ -228,7 +228,7 @@ When using this enhancement in the recommended way, as described by the note abo
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.' 
+        🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.' 
         🎚️-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -251,7 +251,7 @@ and/or:
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.'
+        🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -280,7 +280,7 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
     <a-duck #></a-duck>
     <template
         -id defer-🎚️
-        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.'
+        🎚️='on based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
         🎚️-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -310,7 +310,7 @@ This also works, and can survive CSP scrutiny:
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️='on if isMadeOfWood, per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.'
+        🎚️='on if isMadeOfWood, based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -332,7 +332,7 @@ Our event handler can reference the adorned element, so that we can remove the h
     <a-duck #></a-duck>
     <template -id defer-🎚️ data-max-diff=10
         🎚️='on if isMadeOfWood, 
-                based on #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting .'
+                based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting .'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -347,7 +347,7 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️ data-max-diff=10
-        🎚️='on if nearlyEq, per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.'
+        🎚️='on if nearlyEq, based on #{{carrot-nosed-woman}}::weight-change and #{{a-duck}}::molting.'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -363,7 +363,7 @@ Here is another, less cinematic example, also baked in, so no JS needed:
 <label for=rhs>RHS:</label>
 <input id=rhs>
 <template
-    🎚️='on if eq, per #lhs and #rhs.'
+    🎚️='on if eq, based on #lhs and #rhs.'
 >
     <div>LHS === RHS</div>
 </template>
@@ -512,7 +512,7 @@ body{
     <a-duck #></a-duck>
     <template -id defer-🎚️
         🎚️='
-            On when #{{carrot-nosed-woman}} on weight-change equals #{{a-duck}} on molting.
+            On when #{{carrot-nosed-woman}}::weight-change equals #{{a-duck}}::molting.
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
