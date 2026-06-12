@@ -115,7 +115,7 @@ If your production web site runs in a setting without CSP checks (or allows for 
     <carrot-nosed-woman id=carrot-nosed-woman></carrot-nosed-woman>
     <a-duck id=a-duck></a-duck>
     <template
-        be-switched='on per #carrot-nosed-woman on weight-change and #a-duck on molting.'
+        be-switched='on per #carrot-nosed-woman on weight-change and #a-duck on molting'
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -144,7 +144,7 @@ Let's see how the markup above becomes more manageable when we apply both of the
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting."
+        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting"
         onchange="event.r = Math.abs(event.args[0] - event.args[1]) < 10"
     >
         <div>A witch!</div>
@@ -161,7 +161,7 @@ Our expression can alternatively be more expressive:
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting."
+        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting"
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -201,7 +201,7 @@ The assumptions we make for getting values from these peer custom elements (when
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <data  defer-🎚️
-        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting."
+        🎚️="on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting"
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     ></data>
     <div>A witch!</div>
@@ -228,7 +228,7 @@ When using this enhancement in the recommended way, as described by the note abo
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.' 
+        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting' 
         🎚️-transitional
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
@@ -251,7 +251,7 @@ and/or:
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.'
+        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting'
         onchange="event.r = Math.abs(event.f.carrotNosedWoman - event.f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -280,7 +280,7 @@ The JavaScript expressions we've seen, embedded in inline event handlers, won't 
     <a-duck #></a-duck>
     <template
         -id defer-🎚️
-        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.'
+        🎚️='on per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting'
         🎚️-js="Math.abs(f.carrotNosedWoman - f.aDuck) < 10"
     >
         <div>A witch!</div>
@@ -310,7 +310,7 @@ This also works, and can survive CSP scrutiny:
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️='on if isMadeOfWood, per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.'
+        🎚️='on if isMadeOfWood, per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -347,7 +347,7 @@ This is, in fact, such a useful pattern, that "isMadeOfWood" is built into this 
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️ data-max-diff=10
-        🎚️='on if nearlyEq, per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting.'
+        🎚️='on if nearlyEq, per #{{carrot-nosed-woman}} on weight-change and #{{a-duck}} on molting'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -512,7 +512,7 @@ body{
     <a-duck #></a-duck>
     <template -id defer-🎚️
         🎚️='
-            On when #{{carrot-nosed-woman}} on weight-change equals #{{a-duck}} on molting.
+            On when #{{carrot-nosed-woman}} on weight-change equals #{{a-duck}} on molting
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
