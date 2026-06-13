@@ -69,18 +69,26 @@
                 ],
                 "ifAllOf": [
                     "val",
-                    "enhancedElement"
+                    "enhancedElement",
+                    "resolved"
+                ],
+                "ifKeyIn": [
+                    "val"
                 ]
             },
             "onFalse": {
                 "ifAllOf": [
-                    "enhancedElement"
+                    "enhancedElement",
+                    "resolved"
                 ],
                 "ifEquals": [
                     "val",
                     "echoVal"
                 ],
                 "ifNoneOf": [
+                    "val"
+                ],
+                "ifKeyIn": [
                     "val"
                 ]
             },
@@ -97,6 +105,9 @@
                     "lhs",
                     "rhs",
                     "switchesSatisfied"
+                ],
+                "ifAllOf": [
+                    "resolved"
                 ]
             },
             "onNValSwitches": {
@@ -117,7 +128,9 @@
             }
         },
         "compacts": {
-            "echo_val_to_echoVal": 20
+            "echo_val_to_echoVal": 20,
+            "when_singleValSwitches_changes_call_onSingleValSwitches": 0,
+            "when_twoValueSwitches_changes_call_onTwoValSwitches": 0
         },
         "defaultPropVals": {
             "beBoolish": true,

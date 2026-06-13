@@ -76,18 +76,21 @@ export const emc = {
             },
             onTrue: {
                 ifEquals: ['val', 'echoVal'],
-                ifAllOf: ['val', 'enhancedElement']
+                ifAllOf: ['val', 'enhancedElement', 'resolved'],
+                ifKeyIn: ['val']
             },
             onFalse: {
-                ifAllOf: ['enhancedElement'],
+                ifAllOf: ['enhancedElement', 'resolved'],
                 ifEquals: ['val', 'echoVal'],
-                ifNoneOf: ['val']
+                ifNoneOf: ['val'],
+                ifKeyIn: ['val']
             },
             calcSwitchesSatisfied: {
                 ifKeyIn: ['singleValSwitchNoGo', 'singleValSwitchesSatisfied', 'twoValSwitchNoGo', 'twoValSwitchesSatisfied']
             },
             calcVal: {
-                ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied']
+                ifKeyIn: ['lhs', 'rhs', 'switchesSatisfied'],
+                ifAllOf: ['resolved']
             },
             onNValSwitches: {
                 ifAllOf: ['nValueSwitches'],
@@ -99,6 +102,8 @@ export const emc = {
         },
         compacts: {
             echo_val_to_echoVal: 20,
+            when_singleValSwitches_changes_call_onSingleValSwitches: 0,
+            when_twoValueSwitches_changes_call_onTwoValSwitches: 0,
         },
         defaultPropVals: {
             beBoolish: true,

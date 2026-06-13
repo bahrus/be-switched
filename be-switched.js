@@ -137,24 +137,19 @@ class BeSwitched {
      */
     calcVal(self) {
         const { lhs, rhs, beBoolish, switchesSatisfied, twoValueSwitches, nValueSwitches, singleValSwitches } = self;
+        let newVal;
         // @ts-ignore - these are dynamically set
         if (twoValueSwitches !== undefined || nValueSwitches !== undefined || singleValSwitches !== undefined) {
-            return {
-                val: switchesSatisfied,
-                resolved: true,
-            };
-        }
-        if (beBoolish && (typeof lhs === 'boolean' || typeof rhs === 'boolean')) {
+            newVal = !!switchesSatisfied;
+        } else if (beBoolish && (typeof lhs === 'boolean' || typeof rhs === 'boolean')) {
             const lhsIsh = !!lhs;
             const rhsIsh = !!rhs;
-            return {
-                val: lhsIsh === rhsIsh,
-                resolved: true,
-            };
+            newVal = lhsIsh === rhsIsh;
+        } else {
+            newVal = lhs === rhs;
         }
         return {
-            val: lhs === rhs,
-            resolved: true,
+            val: newVal,
         };
     }
 
@@ -164,8 +159,9 @@ class BeSwitched {
      */
     calcSwitchesSatisfied(self) {
         const { singleValSwitchNoGo, singleValSwitchesSatisfied, twoValSwitchNoGo, twoValSwitchesSatisfied } = self;
+        const result = !(singleValSwitchNoGo || false) && !(twoValSwitchNoGo || false) && ((singleValSwitchesSatisfied || false) || (twoValSwitchesSatisfied || false));
         return {
-            switchesSatisfied: !singleValSwitchNoGo && !twoValSwitchNoGo && (singleValSwitchesSatisfied || twoValSwitchesSatisfied),
+            switchesSatisfied: result,
         };
     }
 

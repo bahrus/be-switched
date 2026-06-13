@@ -4,8 +4,8 @@
 export class SingleValSwitchHandler {
     /** @type {AP} */
     self;
-    /** @type {Map<SingleValSwitch, any>} */
-    #switchToAO = new Map();
+    /** @type {Map<SingleValSwitch, {element: Element, valueProp: string}>} */
+    #switchToInfo = new Map();
     /** @type {AbortController | undefined} */
     #ac;
 
@@ -21,50 +21,52 @@ export class SingleValSwitchHandler {
      * @param {AP} self
      */
     async do(self) {
-        const { ASMR } = await import('be-hive/ASMR.js');
+        const { inferValueProperty, inferEventType } = await import('inferencer/inferencer.js');
         // @ts-ignore
         const { singleValSwitches, enhancedElement } = self;
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
-        const aos = [];
+        const ac = this.#ac = new AbortController();
 
         for (const svs of singleValSwitches) {
             const { specifier } = svs;
-            const { id, evtName, prop, path, as } = specifier;
+            const { id, evtName, prop, path } = specifier;
 
             const remoteEl = id !== undefined
                 ? rn.getElementById(id)
                 : rn.host || rn;
             if (!(remoteEl instanceof Element)) throw 404;
 
-            const propToAbsorb = path ? `?.${prop}?.${path}` : prop;
-            const ao = await ASMR.getAO(remoteEl, {
-                evt: evtName,
-                propToAbsorb,
-                as,
-            });
-            this.#switchToAO.set(svs, ao);
-            aos.push(ao);
+            // Determine property to read and event to listen for
+            const valueProp = prop || inferValueProperty(remoteEl);
+            const eventName = evtName || inferEventType(remoteEl);
+
+            this.#switchToInfo.set(svs, { element: remoteEl, valueProp });
+
+            // Listen for the appropriate event
+            remoteEl.addEventListener(eventName, () => this.handleEvent(), { signal: ac.signal });
         }
 
-        const ac = this.#ac = new AbortController();
-        for (const ao of aos) {
-            ao.addEventListener('.', this, { signal: ac.signal });
-        }
+        // Initial evaluation
         this.handleEvent();
     }
 
-    async handleEvent() {
-        // @ts-ignore
-        const singleValSwitches = Array.from(this.#switchToAO.keys());
+    handleEvent() {
         const self = this.self;
         let foundOne = false;
 
-        for (const svs of singleValSwitches) {
-            const { req } = svs;
+        for (const [svs, { element, valueProp }] of this.#switchToInfo) {
+            const { req, specifier } = svs;
             if (foundOne && !req) continue;
 
-            const ao = this.#switchToAO.get(svs);
-            const value = await ao?.getValue();
+            // Get the value
+            let value = element[valueProp];
+            if (specifier.path) {
+                const parts = specifier.path.split('?.');
+                for (const part of parts) {
+                    if (value == null) break;
+                    value = value[part];
+                }
+            }
 
             if (req) {
                 if (!value) {
