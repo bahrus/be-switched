@@ -34,9 +34,10 @@
   ],
   "types": "./types/be-switched/types.d.ts",
   "dependencies": {
-    "be-hive": "0.1.13",
+    "be-hive": "0.1.14",
+    "id-generation": "0.0.5",
     "inferencer": "0.0.10",
-    "mount-observer": "0.1.39",
+    "mount-observer": "0.1.40",
     "roundabout-lib": "0.0.21",
     "nested-regex-groups": "0.0.6"
   },
