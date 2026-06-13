@@ -68,10 +68,14 @@
                     "echoVal"
                 ],
                 "ifAllOf": [
-                    "val"
+                    "val",
+                    "enhancedElement"
                 ]
             },
             "onFalse": {
+                "ifAllOf": [
+                    "enhancedElement"
+                ],
                 "ifEquals": [
                     "val",
                     "echoVal"

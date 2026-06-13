@@ -76,9 +76,10 @@ export const emc = {
             },
             onTrue: {
                 ifEquals: ['val', 'echoVal'],
-                ifAllOf: ['val']
+                ifAllOf: ['val', 'enhancedElement']
             },
             onFalse: {
+                ifAllOf: ['enhancedElement'],
                 ifEquals: ['val', 'echoVal'],
                 ifNoneOf: ['val']
             },

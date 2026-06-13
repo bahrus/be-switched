@@ -218,7 +218,7 @@ class BeSwitched {
 
         const transitional2 = transitional || this.#transitional;
 
-        const contentToClone = /** @type {DocumentFragment} */ (/** @type {any} */ (enhancedElement).remoteContent);
+        const contentToClone = /** @type {DocumentFragment} */ (/** @type {any} */ (enhancedElement).remoteContent || enhancedElement.content);
         const idRefChildren = getIdRefChildren(enhancedElement, idRefAttr);
 
         if (idRefChildren.length === 0) {
