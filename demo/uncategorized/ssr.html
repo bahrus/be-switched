@@ -5,6 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script type=importmap>
+        {
+            "imports": {
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/",
+                "be-decorated/": "../node_modules/be-decorated/",
+                "on-to-me/": "../node_modules/on-to-me/",
+                "be-observant/": "../node_modules/be-observant/",
+                "be-hive/":  "../node_modules/be-hive/"
+            }
+        }
+    </script>
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
     <label for=lhs>LHS:</label>
@@ -20,22 +43,5 @@
     <div>LHS === RHS</div>
     </template>
     <div>LHS === RHS</div>
-
-    <script type=importmap>
-        {
-            "imports": {
-                "trans-render/": "../node_modules/trans-render/",
-                "xtal-element/": "../node_modules/xtal-element/",
-                "be-decorated/": "../node_modules/be-decorated/",
-                "on-to-me/": "../node_modules/on-to-me/",
-                "be-observant/": "../node_modules/be-observant/",
-                "be-hive/":  "../node_modules/be-hive/"
-            }
-        }
-    </script>
-    <script type=module>
-        import '../be-switched.js';
-        
-    </script>
 </body>
 </html>

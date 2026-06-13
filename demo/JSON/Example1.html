@@ -18,6 +18,17 @@
             }
         }
     </script>
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
     <div>
@@ -36,9 +47,6 @@
         function setLHS(){
             template.beEnhanced.beSwitched.lhs = 'hello';
         }
-    </script>
-    <script type=module>
-        import '../be-switched.js';
     </script>
 </body>
 </html>

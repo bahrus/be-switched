@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>boolish conditions => by id => preload</title>
     <!-- #include virtual="/imports.html" -->
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
      <template id=dRqfXaPaqEek5BRwfxTttg>
         <my-content></my-content>
         <your-content></your-content>
@@ -14,10 +25,7 @@
 <body>
     <form>
         <input id=isHappy type="checkbox">
-        <template 🎚️='on when #isHappy.' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
+        <template 🎚️='on when #isHappy' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
     </form>
-    <script type=module>
-        import '/🎚️.js';
-    </script>
 </body>
 </html>

@@ -6,19 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lhs id equals rhs id</title>
     <!-- #include virtual="/imports.html" -->
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
     <label title="LHS value" for=lhs>LHS:</label>
     <input id=lhs>
     <label title="RHS value" for=rhs>RHS:</label>
     <input id=rhs>
-    <template 🎚️='on when #lhs@title eq #rhs@title.'>
+    <template 🎚️='on when #lhs@title eq #rhs@title'>
         <div>LHS === RHS</div>
     </template>
-
-
-    <script type=module>
-        import '/🎚️.js';
-    </script>
 </body>
 </html>

@@ -18,19 +18,25 @@
             }
         }
     </script>
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
     <label for=lhs>LHS:</label>
     <input id=lhs>
     <label for=rhs>RHS:</label>
     <input id=rhs>
-    <template 🎚️='on when #lhs equals #rhs.'>
+    <template 🎚️='on when #lhs equals #rhs'>
         <div>LHS === RHS</div>
     </template>
-
-
-    <script type=module>
-        import '/🎚️.js';
-    </script>
 </body>
 </html>

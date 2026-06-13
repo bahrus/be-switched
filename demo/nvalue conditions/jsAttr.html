@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>on input</title>
     <!-- #include virtual="/imports.html" -->
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
     <fieldset disabled>
@@ -19,17 +30,11 @@
         
         <template -id 
             defer-🎚️
-            🎚️="on based on #{{lhs}} and #{{rhs}}."
+            🎚️="on based on #{{lhs}} and #{{rhs}}"
             🎚️-js='f.lhs.length === f.rhs.length'
             >
             <div>LHS.length === RHS.length</div>
         </template>
     </fieldset>
- 
-
-
-    <script type=module>
-        import '/🎚️.js';
-    </script>
 </body>
 </html>

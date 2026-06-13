@@ -5,13 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
-    <template be-switched='{
-        "if": true,
-        "ifMediaMatches": "(min-width: 600px)",
-        "debug": true
-    }'><div>iah</div></template>
     <script type=importmap>
         {
             "imports": {
@@ -24,9 +17,23 @@
             }
         }
     </script>
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
     <script type=module>
-        import '../be-switched.js';
-        
+        import 'be-hive/be-hive.js';
     </script>
+</head>
+<body>
+    <template be-switched='{
+        "if": true,
+        "ifMediaMatches": "(min-width: 600px)",
+        "debug": true
+    }'><div>iah</div></template>
 </body>
 </html>
