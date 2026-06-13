@@ -331,8 +331,7 @@ Our event handler can reference the adorned element, so that we can remove the h
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️ data-max-diff=10
-        🎚️='on if isMadeOfWood, 
-                based on #{{carrot-nosed-woman}}@weight-change and #{{a-duck}}@molting .'
+        🎚️='on if isMadeOfWood, per #{{carrot-nosed-woman}}@weight-change and #{{a-duck}}@molting'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -363,7 +362,7 @@ Here is another, less cinematic example, also baked in, so no JS needed:
 <label for=rhs>RHS:</label>
 <input id=rhs>
 <template
-    🎚️='on if eq, per #lhs and #rhs.'
+    🎚️='on if eq, per #lhs and #rhs'
 >
     <div>LHS === RHS</div>
 </template>
@@ -397,7 +396,7 @@ Let's start with the most elementary two value switch:
     RHS: <input id=rhs>
 </label>
 
-<template 🎚️='on when #lhs = #rhs.'>
+<template 🎚️='on when #lhs = #rhs'>
     <div>LHS === RHS</div>
 </template>
 ```
@@ -410,7 +409,7 @@ Let's start with the most elementary two value switch:
 > This should also work, without the spaces surrounding the = sign:
 
 ```html
-<template 🎚️='on when #lhs=#rhs.'>
+<template 🎚️='on when #lhs=#rhs'>
     <div>LHS === RHS</div>
 </template>
 ```
@@ -524,7 +523,7 @@ body{
     <a-duck #></a-duck>
     <template -id defer-🎚️
         🎚️='
-            on when #{{carrot-nosed-woman}}^weight-change = #{{a-duck}}^molting
+            on when #{{carrot-nosed-woman}}@weight-change = #{{a-duck}}@molting
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -607,7 +606,7 @@ This is supported:
     RHS: <input type=number id=rhs>
 </label>
 <template 🎚️='on when #lhs > #rhs'>
-    <div>LHS &lt; RHS</div>
+    <div>LHS &gt; RHS</div>
 </template>
 ```
 
@@ -711,6 +710,27 @@ If the identifier doesn't start with #, then we are looking for a property comin
 ```
 
 Can have multiple such statements -- or condition.  Each sentence can begin with "on" or "On", whichever seems more readable.
+
+### Multiple conditions (period-separated statements)
+
+Multiple conditions can be combined within a single 🎚️ attribute by separating them with a period (`.`).  Each statement is a self-contained condition that begins with "on" or "off":
+
+```html
+<template 🎚️='on when #lhs = #rhs. on when #isHappy'>
+    <div>Both conditions met!</div>
+</template>
+```
+
+All "on" statements are combined as an **OR** condition — the content displays if *any* of them are satisfied.  An "off" statement acts as a **veto** — if any "off" condition is met, the content is hidden regardless of the "on" conditions:
+
+```html
+<template 🎚️='on when #lhs = #rhs. off when #isDisabled'>
+    <div>LHS equals RHS, unless disabled</div>
+</template>
+```
+
+> [!NOTE]
+> A period is only required when separating multiple statements.  Single-statement expressions do not need a trailing period.
 
 ### Negation logic
 
