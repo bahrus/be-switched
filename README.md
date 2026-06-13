@@ -407,7 +407,13 @@ Let's start with the most elementary two value switch:
 > The comparison condition is re-evaluated on the input events of the lhs and rhs elements by default.  See below for how to specify alternate event names.
 
 > [!NOTE]
-> For the power user:  Replace "equals" with "eq" and impress your friends with your prowess using this library.
+> This should also work, without the spaces surrounding the = sign:
+
+```html
+<template 🎚️='on when #lhs=#rhs.'>
+    <div>LHS === RHS</div>
+</template>
+```
 
 ### Referencing the host
 
@@ -470,7 +476,7 @@ customElements.define('mood-stone', MoodStone);
 </label>
 
 <template 
-    🎚️='on when #lhs equals #rhs'
+    🎚️='on when #lhs = #rhs'
     🎚️-as=number
 >
     <div>LHS === RHS</div>
@@ -539,7 +545,7 @@ Use the  "chained accessor" symbol (?.) for specifying a property path.
     <a-duck #></a-duck>
     <template -id defer-🎚️
         🎚️='
-            On when #{{carrotNosedWoman}}?.weight equals #{{aDuck}}?.weight.
+            On when #{{carrotNosedWoman}}?.weight equals #{{aDuck}}?.weight
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -565,7 +571,7 @@ If the elements being observed don't have propagators to subscribe to, and the t
     <a-duck weight=82 #></a-duck>
     <template -id defer-🎚️
         🎚️='
-            On when #{{carrotNosedWoman}}[weight] equals #{{aDuck}}[weight].
+            On when #{{carrotNosedWoman}}[weight] equals #{{aDuck}}[weight]
      '>
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -584,7 +590,7 @@ If the elements being observed don't have propagators to subscribe to, and the t
 <label for=rhs>
     RHS: <input type=number id=rhs>
 </label>
-<template 🎚️='on when #lhs lt #rhs.'>
+<template 🎚️='on when #lhs < #rhs'>
     <div>LHS &lt; RHS</div>
 </template>
 ```
@@ -600,10 +606,12 @@ This is supported:
 <label for=rhs>
     RHS: <input type=number id=rhs>
 </label>
-<template 🎚️='on when #lhs gt #rhs.'>
+<template 🎚️='on when #lhs > #rhs'>
     <div>LHS &lt; RHS</div>
 </template>
 ```
+
+Likewise, <= and >= are supported.
 
 
 ## And now for something completely different
@@ -618,7 +626,7 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 ```html
 <data value=true itemprop=isHappy hidden |></data>
-<template -id defer-🎚️ 🎚️='on when #{{isHappy}}.'>
+<template -id defer-🎚️ 🎚️='on when #{{isHappy}}'>
     <my-content></my-content>
 </template>
 ```
@@ -627,7 +635,7 @@ But what if we just want to lazy load content when a single value goes from "fal
 
 ```html
 <input name=isHappy type="checkbox" @>
-<template -id defer-🎚️ 🎚️='on when #{{isHappy}}.'>
+<template -id defer-🎚️ 🎚️='on when #{{isHappy}}'>
     <my-content></my-content>
 </template>
 ```
@@ -649,7 +657,7 @@ If this element enhancement is used inside a repeating DOM structure, it is more
     <for-each ...>
         <div>
             <input data-id={{@ isHappy}} type="checkbox">
-            <template -id defer-🎚️ 🎚️='on when {{#isHappy}}.' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
+            <template -id defer-🎚️ 🎚️='on when {{#isHappy}}' rel=preload src=#dRqfXaPaqEek5BRwfxTttg></template>
         </div>
     </for-each>
     <script type=module>
@@ -665,7 +673,7 @@ If this element enhancement is used inside a repeating DOM structure, it is more
     ...
     <input id=isHappy>
     ...
-    <template 🎚️='on only when #isHappy.'>
+    <template 🎚️='on only when #isHappy'>
         <my-content></my-content>
     </template>
 </form>
@@ -680,7 +688,7 @@ If the identifier doesn't start with #, then we are looking for a property comin
 ```html
 <mood-stone>
     #shadow
-    <template 🎚️='on when isHappy.'>
+    <template 🎚️='on when isHappy'>
         <my-content></my-content>
     </template>
     <be-hive></be-hive>
@@ -694,7 +702,10 @@ If the identifier doesn't start with #, then we are looking for a property comin
 <label for=lhs>LHS:</label>
 <input id=lhs type=number>
 
-<template 🎚️='on when #lhs eq `37`-as-number.'>
+<template 
+    🎚️='on when #lhs eq `37`'
+    🎚️-as=number
+  >
     <div>LHS === RHS</div>
 </template>
 ```
