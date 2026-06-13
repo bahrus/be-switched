@@ -21,7 +21,7 @@ export class SingleValSwitchHandler {
      * @param {AP} self
      */
     async do(self) {
-        const { inferValueProperty, inferEventType } = await import('inferencer/inferencer.js');
+        const { inferValueProperty, inferEventType, needsPropagator, Infer } = await import('inferencer/inferencer.js');
         // @ts-ignore
         const { singleValSwitches, enhancedElement } = self;
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
@@ -42,8 +42,16 @@ export class SingleValSwitchHandler {
 
             this.#switchToInfo.set(svs, { element: remoteEl, valueProp });
 
-            // Listen for the appropriate event
-            remoteEl.addEventListener(eventName, () => this.handleEvent(), { signal: ac.signal });
+            // For elements without meaningful user-driven events (e.g. <data>),
+            // use InferencedPropagator which observes attribute/property changes
+            if (!evtName && needsPropagator(remoteEl)) {
+                const infer = new Infer(remoteEl);
+                const propagator = await infer.getPropagator();
+                propagator.addEventListener(valueProp, () => this.handleEvent(), { signal: ac.signal });
+            } else {
+                // Listen for the appropriate event
+                remoteEl.addEventListener(eventName, () => this.handleEvent(), { signal: ac.signal });
+            }
         }
 
         // Initial evaluation
