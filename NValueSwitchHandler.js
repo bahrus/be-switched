@@ -56,7 +56,7 @@ export class NValueSwitchHandler {
             if (!(remoteEl instanceof Element)) throw 404;
 
             const valueProp = prop || inferValueProperty(remoteEl);
-            const key = id || prop || 'value';
+            const key = remoteEl.getAttribute('data-id') || id || prop || 'value';
 
             this.#deps.push({ element: remoteEl, valueProp, key });
 
