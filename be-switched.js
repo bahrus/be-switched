@@ -17,6 +17,8 @@ class BeSwitched {
      * @param {PAP} initVals
      */
     constructor(enhancedElement, ctx, initVals) {
+        const style = window.getComputedStyle(enhancedElement);
+        this.#transitional = style.getPropertyValue('--be-transitional').trim() === 'true';
         this.init(this, enhancedElement, ctx, initVals);
     }
 
