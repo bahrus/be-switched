@@ -478,6 +478,8 @@ customElements.define('mood-stone', MoodStone);
 
 ### Type casting
 
+The `🎚️-as` attribute applies a type cast globally to both LHS and RHS values before comparison:
+
 ```html
 <label for=lhs>
     LHS: <input id=lhs type=number>
@@ -494,6 +496,20 @@ customElements.define('mood-stone', MoodStone);
     <div>LHS === RHS</div>
 </template>
 ```
+
+Alternatively, you can apply a type cast to an individual specifier using the `-as-type` inline suffix. This is useful when only one side of the comparison needs casting:
+
+```html
+<label for=lhs>
+    LHS: <input id=lhs type=number>
+</label>
+
+<template 🎚️='on when #lhs eq `37`-as-number'>
+    <div>LHS === 37</div>
+</template>
+```
+
+Supported types: `number`, `boolean`.
 
 ### Use View Transitions
 
