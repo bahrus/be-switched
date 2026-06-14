@@ -22,6 +22,7 @@
     "./emc.json": "./emc.json",
     "./🎚️.js": "./🎚️.js",
     "./🎚️.json": "./🎚️.json",
+    "./registry.js": "./registry.js",
     "./activate.js": "./activate.js",
     "./SingleValSwitchHandler.js": "./SingleValSwitchHandler.js",
     "./TwoValSwitchHandler.js": "./TwoValSwitchHandler.js",

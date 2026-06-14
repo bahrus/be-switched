@@ -16,12 +16,12 @@
                     },
                     {
                         "name": "nValWithHandler",
-                        "pattern": "^(?:on|On)\\s+if\\s+(?<registeredHandler>[^,]+),\\s*per\\s+(?<dependencyPart>.+)$",
+                        "pattern": "^(?:on|On)\\s+if\\s+(?<registeredHandler>[^,]+),\\s*(?:per|based\\s+on)\\s+(?<dependencyPart>.+)$",
                         "description": "N-value with registered handler: on if handler, per deps"
                     },
                     {
                         "name": "nValPerDeps",
-                        "pattern": "^(?:on|On)\\s+per\\s+(?<dependencyPart>.+)$",
+                        "pattern": "^(?:on|On)\\s+(?:per|based\\s+on)\\s+(?<dependencyPart>.+)$",
                         "description": "N-value without handler: on per deps"
                     },
                     {

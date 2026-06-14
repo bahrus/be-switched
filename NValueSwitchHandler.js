@@ -4,8 +4,8 @@
 export class NValueSwitchHandler {
     /** @type {AP} */
     self;
-    /** @type {{[key: string]: any} | undefined} */
-    #propToAO;
+    /** @type {{element: Element, valueProp: string, key: string}[]} */
+    #deps = [];
     /** @type {any} */
     #handlerObj;
     /** @type {AbortController | undefined} */
@@ -23,7 +23,8 @@ export class NValueSwitchHandler {
      * @param {AP} self
      */
     async do(self) {
-        const { ASMR } = await import('be-hive/ASMR.js');
+        const { inferValueProperty, inferEventType, needsPropagator, Infer } = await import('inferencer/inferencer.js');
+        const { get } = await import('./registry.js');
         // @ts-ignore
         const { nValueSwitches, enhancedElement } = self;
         if (!nValueSwitches || nValueSwitches.length === 0) return;
@@ -34,56 +35,60 @@ export class NValueSwitchHandler {
 
         // Resolve registered handler if specified
         if (registeredHandler !== undefined) {
-            const { Registry } = await import('be-hive/Registry.js');
-            const handlerObj = Registry.get(registeredHandler);
-            if (handlerObj === undefined) throw 404;
+            const handlerObj = get(registeredHandler);
+            if (handlerObj === undefined) {
+                console.error(`[be-switched] No registered handler found for: "${registeredHandler}"`);
+                return;
+            }
             this.#handlerObj = typeof handlerObj === 'function' && handlerObj.toString().substring(0, 5) === 'class'
                 ? new handlerObj()
                 : handlerObj;
         }
 
-        /** @type {{[key: string]: any}} */
-        const propToAO = {};
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
+        const ac = this.#ac = new AbortController();
 
         for (const dep of dependencies) {
-            const { id, evtName, path, as, prop } = dep;
+            const { id, evtName, prop, path } = dep;
             const remoteEl = id !== undefined
                 ? rn.getElementById(id)
                 : rn.host || rn;
             if (!(remoteEl instanceof Element)) throw 404;
 
-            const propKey = id || prop || 'value';
-            const propToAbsorb = path ? `?.${prop}?.${path}` : prop;
+            const valueProp = prop || inferValueProperty(remoteEl);
+            const key = id || prop || 'value';
 
-            const ao = await ASMR.getAO(remoteEl, {
-                evt: evtName || 'input',
-                propToAbsorb,
-                as,
-            });
-            propToAO[propKey] = ao;
+            this.#deps.push({ element: remoteEl, valueProp, key });
+
+            // Wire up observation
+            if (evtName) {
+                remoteEl.addEventListener(evtName, () => this.handleEvent(), { signal: ac.signal });
+            } else if (needsPropagator(remoteEl)) {
+                const infer = new Infer(remoteEl);
+                const propagator = await infer.getPropagator();
+                propagator.addEventListener(valueProp, () => this.handleEvent(), { signal: ac.signal });
+            } else {
+                const eventName = inferEventType(remoteEl);
+                remoteEl.addEventListener(eventName, () => this.handleEvent(), { signal: ac.signal });
+            }
         }
 
-        this.#propToAO = propToAO;
-        const ac = this.#ac = new AbortController();
-        const aos = Object.values(propToAO);
-        for (const ao of aos) {
-            ao.addEventListener('.', this, { signal: ac.signal });
-        }
+        // Initial evaluation
         this.handleEvent();
     }
 
-    async handleEvent() {
+    handleEvent() {
         const self = this.self;
         const { enhancedElement } = self;
+        /** @type {{[key: string]: any}} */
         const obj = {};
+        /** @type {any[]} */
         const args = [];
 
-        for (const prop in this.#propToAO) {
-            const ao = this.#propToAO[prop];
-            const val = await ao.getValue();
+        for (const { element, valueProp, key } of this.#deps) {
+            const val = /** @type {any} */ (element)[valueProp];
             args.push(val);
-            obj[prop] = val;
+            obj[key] = val;
         }
 
         // Create a change event with the factors
@@ -123,8 +128,6 @@ class ChangeEvent extends Event {
     f;
     /** @type {any} */
     r;
-    /** @type {Element} */
-    target;
 
     /**
      * @param {Array<any>} args
@@ -136,7 +139,5 @@ class ChangeEvent extends Event {
         this.args = args;
         this.f = f;
         this.r = undefined;
-        // @ts-ignore
-        this.target = target;
     }
 }

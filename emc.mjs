@@ -17,13 +17,13 @@ const parsePatterns = [
     // N-value with registered handler: on if handlerName, per dependencies
     {
         name: 'nValWithHandler',
-        pattern: String.raw `^(?:on|On)\s+if\s+(?<registeredHandler>[^,]+),\s*per\s+(?<dependencyPart>.+)$`,
+        pattern: String.raw `^(?:on|On)\s+if\s+(?<registeredHandler>[^,]+),\s*(?:per|based\s+on)\s+(?<dependencyPart>.+)$`,
         description: 'N-value with registered handler: on if handler, per deps'
     },
     // N-value without handler: on per dependencies
     {
         name: 'nValPerDeps',
-        pattern: String.raw `^(?:on|On)\s+per\s+(?<dependencyPart>.+)$`,
+        pattern: String.raw `^(?:on|On)\s+(?:per|based\s+on)\s+(?<dependencyPart>.+)$`,
         description: 'N-value without handler: on per deps'
     },
     // Single-value boolean (with "only" = AND/required): on only when #ref

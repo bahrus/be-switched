@@ -303,14 +303,14 @@ This also works, and can survive CSP scrutiny:
 
 ```html
 <script type=module blocking=defer>
-    import {register} from 'be-switched/emc.js';
-    register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10));
+    import {register} from 'be-switched/🎚️.js';
+    register('isMadeOfWood', e => e.r = Math.abs(e.args[0] - e.args[1]) < 10);
 </script>
 <ways-of-science itemscope>
     <carrot-nosed-woman #></carrot-nosed-woman>
     <a-duck #></a-duck>
     <template -id defer-🎚️
-        🎚️='on if isMadeOfWood, per #{{carrot-nosed-woman}}@weight-change and #{{a-duck}}@molting'
+        🎚️='on if isMadeOfWood, based on #{{carrot-nosed-woman}}@weight-change and #{{a-duck}}@molting'
     >
         <div>A witch!</div>
         <div>Burn her!</div>
@@ -318,11 +318,14 @@ This also works, and can survive CSP scrutiny:
 </ways-of-science>
 ```
 
+> [!NOTE]
+> `per` and `based on` are interchangeable in the syntax above.
+
 Our event handler can reference the adorned element, so that we can remove the hardcoding of 10:
 
 ```html
 <script type=module blocking=render>
-    import {register} from 'be-switched/emc.js';
+    import {register} from 'be-switched/🎚️.js';
     register('isMadeOfWood',
       e => e.r = Math.abs(e.args[0] - e.args[1]) < Number(e.target.dataset.maxDiff)
     );
