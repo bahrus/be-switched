@@ -57,6 +57,7 @@ export const emc = {
                 parserConfig: parsePatterns
             },
             js: '${base}-js',
+            transitional: '${base}-transitional',
             _transitional: {
                 instanceOf: 'Boolean'
             },

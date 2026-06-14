@@ -176,6 +176,21 @@ class BeSwitched {
     #transitional = false;
 
     /**
+     * @type {ViewTransition | undefined}
+     */
+    #activeTransition;
+
+    /**
+     * @type {boolean}
+     */
+    #hidePending = false;
+
+    /**
+     * @type {boolean}
+     */
+    #showPending = false;
+
+    /**
      * @param {Element} enhancedElement
      * @returns {boolean}
      */
@@ -215,9 +230,10 @@ class BeSwitched {
         const transitional2 = transitional || this.#transitional;
 
         const contentToClone = /** @type {DocumentFragment} */ (/** @type {any} */ (enhancedElement).remoteContent || enhancedElement.content);
-        const idRefChildren = getIdRefChildren(enhancedElement, idRefAttr);
+        const hasCloned = enhancedElement.hasAttribute(idRefAttr);
+        const idRefChildren = hasCloned ? getIdRefChildren(enhancedElement, idRefAttr) : [];
 
-        if (idRefChildren.length === 0) {
+        if (!hasCloned) {
             const clone = /** @type {DocumentFragment} */ (contentToClone.cloneNode(true));
             const cloneChildren = Array.from(clone.children);
             const refs = [];
@@ -227,22 +243,35 @@ class BeSwitched {
                 refs.push(id);
                 child.id = id;
             }
+            // Set idRefAttr before starting transition to prevent duplicate cloning
+            // if onTrue fires again before the transition callback executes
             enhancedElement.setAttribute(idRefAttr, refs.join(' '));
             changeVisibility(cloneChildren, toggleInert, 'remove');
             if (!transitional2 || !document.startViewTransition) {
                 enhancedElement.after(clone);
             } else {
-                document.startViewTransition(() => {
+                this.#hidePending = false;
+                if (this.#showPending) return;
+                this.#showPending = true;
+                this.#activeTransition?.skipTransition();
+                this.#activeTransition = document.startViewTransition(() => {
                     enhancedElement.after(clone);
                 });
+                this.#activeTransition.finished.finally(() => { this.#showPending = false; });
             }
         } else {
+            if (idRefChildren.length === 0) return;
             if (!transitional2 || !document.startViewTransition) {
                 changeVisibility(idRefChildren, toggleInert, 'remove');
             } else {
-                document.startViewTransition(() => {
+                this.#hidePending = false;
+                if (this.#showPending) return;
+                this.#showPending = true;
+                this.#activeTransition?.skipTransition();
+                this.#activeTransition = document.startViewTransition(() => {
                     changeVisibility(idRefChildren, toggleInert, 'remove');
                 });
+                this.#activeTransition.finished.finally(() => { this.#showPending = false; });
             }
         }
     }
@@ -266,12 +295,19 @@ class BeSwitched {
         addStyle(hiddenStyle, enhancedElement);
 
         const idRefChildren = getIdRefChildren(enhancedElement, idRefAttr);
+        if (idRefChildren.length === 0) return;
         if (!transitional2 || !document.startViewTransition) {
             changeVisibility(idRefChildren, toggleInert, 'add');
         } else {
-            document.startViewTransition(() => {
+            // Skip if a hide transition is already pending/active
+            this.#showPending = false;
+            if (this.#hidePending) return;
+            this.#hidePending = true;
+            this.#activeTransition?.skipTransition();
+            this.#activeTransition = document.startViewTransition(() => {
                 changeVisibility(idRefChildren, toggleInert, 'add');
             });
+            this.#activeTransition.finished.finally(() => { this.#hidePending = false; });
         }
     }
 
