@@ -414,6 +414,19 @@ Let's start with the most elementary two value switch:
 </template>
 ```
 
+> [!NOTE]
+> The operators `eq` and `equals` are synonyms for `=`. Likewise, `lt` for `<`, `gt` for `>`, `lte` for `<=`, and `gte` for `>=`:
+
+```html
+<template 🎚️='on when #lhs eq #rhs'>
+    <div>LHS === RHS</div>
+</template>
+
+<template 🎚️='on when #lhs equals #rhs'>
+    <div>LHS === RHS</div>
+</template>
+```
+
 ### Referencing the host
 
 Rather than observing the value of a peer element based on id matching, we can alternatively observe properties from the host, for one of the factors, or both of the factors:
