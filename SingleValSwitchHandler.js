@@ -43,7 +43,7 @@ export class SingleValSwitchHandler {
             this.#switchToInfo.set(svs, { element: remoteEl, valueProp });
 
             // For elements without meaningful user-driven events (e.g. <data>),
-            // use InferencedPropagator which observes attribute/property changes
+            // or custom elements with a propagator, use InferencedPropagator
             if (!evtName && needsPropagator(remoteEl)) {
                 const infer = new Infer(remoteEl);
                 const propagator = await infer.getPropagator();
