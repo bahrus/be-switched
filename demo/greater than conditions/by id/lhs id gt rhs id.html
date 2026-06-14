@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,6 +19,11 @@
             }
         }
     </script>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
+</head>
+<body>
     <be-hive>
         <script type=emc-parser
                 src="be-hive/parsers/parse-pattern-statements.js"
@@ -27,11 +32,6 @@
                 src="be-switched/🎚️.json"
                 wait-for-parsers=parse-pattern-statements></script>
     </be-hive>
-    <script type=module>
-        import 'be-hive/be-hive.js';
-    </script>
-</head>
-<body>
     <label for=lhs>LHS:</label>
     <input type=number id=lhs>
     <label for=rhs>RHS:</label>
