@@ -4,6 +4,7 @@
 /** @import {ElementEnhancementGateway, SpawnContext} from './types/assign-gingerly/types' */;
 /** @import {EMC} from './types/mount-observer/types' */;
 /** @import {RAConfig} from './types/roundabout/types' */;
+import { withTransition, ensureHideStyle } from 'assign-gingerly/transitionHelper.js';
 
 /**
  * @implements {Actions}
@@ -178,21 +179,6 @@ class BeSwitched {
     #transitional = false;
 
     /**
-     * @type {ViewTransition | undefined}
-     */
-    #activeTransition;
-
-    /**
-     * @type {boolean}
-     */
-    #hidePending = false;
-
-    /**
-     * @type {boolean}
-     */
-    #showPending = false;
-
-    /**
      * @param {Element} enhancedElement
      * @returns {boolean}
      */
@@ -249,32 +235,14 @@ class BeSwitched {
             // if onTrue fires again before the transition callback executes
             enhancedElement.setAttribute(idRefAttr, refs.join(' '));
             changeVisibility(cloneChildren, toggleInert, 'remove');
-            if (!transitional2 || !document.startViewTransition) {
+            withTransition(enhancedElement, 'show', transitional2, () => {
                 enhancedElement.after(clone);
-            } else {
-                this.#hidePending = false;
-                if (this.#showPending) return;
-                this.#showPending = true;
-                this.#activeTransition?.skipTransition();
-                this.#activeTransition = document.startViewTransition(() => {
-                    enhancedElement.after(clone);
-                });
-                this.#activeTransition.finished.finally(() => { this.#showPending = false; });
-            }
+            });
         } else {
             if (idRefChildren.length === 0) return;
-            if (!transitional2 || !document.startViewTransition) {
+            withTransition(enhancedElement, 'show', transitional2, () => {
                 changeVisibility(idRefChildren, toggleInert, 'remove');
-            } else {
-                this.#hidePending = false;
-                if (this.#showPending) return;
-                this.#showPending = true;
-                this.#activeTransition?.skipTransition();
-                this.#activeTransition = document.startViewTransition(() => {
-                    changeVisibility(idRefChildren, toggleInert, 'remove');
-                });
-                this.#activeTransition.finished.finally(() => { this.#showPending = false; });
-            }
+            });
         }
     }
 
@@ -294,23 +262,13 @@ class BeSwitched {
         if (this.#determineIfEmpty(enhancedElement)) return;
 
         const transitional2 = transitional || this.#transitional;
-        addStyle(hiddenStyle, enhancedElement);
+        ensureHideStyle(enhancedElement.getRootNode(), 'be-switched-hide', hiddenStyle);
 
         const idRefChildren = getIdRefChildren(enhancedElement, idRefAttr);
         if (idRefChildren.length === 0) return;
-        if (!transitional2 || !document.startViewTransition) {
+        withTransition(enhancedElement, 'hide', transitional2, () => {
             changeVisibility(idRefChildren, toggleInert, 'add');
-        } else {
-            // Skip if a hide transition is already pending/active
-            this.#showPending = false;
-            if (this.#hidePending) return;
-            this.#hidePending = true;
-            this.#activeTransition?.skipTransition();
-            this.#activeTransition = document.startViewTransition(() => {
-                changeVisibility(idRefChildren, toggleInert, 'add');
-            });
-            this.#activeTransition.finished.finally(() => { this.#hidePending = false; });
-        }
+        });
     }
 
     /**
@@ -358,28 +316,6 @@ function changeVisibility(children, toggleInert, verb) {
         if (toggleInert && 'disabled' in child && /** @type {any} */ (child).disabled === !disable) {
             /** @type {any} */ (child).disabled = disable;
         }
-    }
-}
-
-const styleMap = new WeakSet();
-/**
- * @param {string} hiddenStyle
- * @param {Element} enhancedElement
- */
-function addStyle(hiddenStyle, enhancedElement) {
-    let rootNode = /** @type {any} */ (enhancedElement.getRootNode());
-    if (rootNode.host === undefined) {
-        rootNode = document.head;
-    }
-    if (!styleMap.has(rootNode)) {
-        styleMap.add(rootNode);
-        const style = document.createElement('style');
-        style.innerHTML = /* css */ `
-            .be-switched-hide{
-                ${hiddenStyle}
-            }
-        `;
-        rootNode.appendChild(style);
     }
 }
 
