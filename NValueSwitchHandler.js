@@ -23,7 +23,7 @@ export class NValueSwitchHandler {
      * @param {AP} self
      */
     async do(self) {
-        const { inferValueProperty, inferEventType, needsPropagator, Infer } = await import('inferencer/inferencer.js');
+        const { inferValueProperty, inferEventType, needsPropagator, Infer } = await import('assign-gingerly/inferencer/inferencer.js');
         const { get } = await import('./registry.js');
         // @ts-ignore
         const { nValueSwitches, enhancedElement } = self;

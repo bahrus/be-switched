@@ -21,7 +21,7 @@ export class SingleValSwitchHandler {
      * @param {AP} self
      */
     async do(self) {
-        const { inferValueProperty, inferEventType, needsPropagator, Infer } = await import('inferencer/inferencer.js');
+        const { inferValueProperty, inferEventType, needsPropagator, Infer } = await import('assign-gingerly/inferencer/inferencer.js');
         // @ts-ignore
         const { singleValSwitches, enhancedElement } = self;
         const rn = /** @type {DocumentFragment & {host: any}} */ (enhancedElement.getRootNode());
