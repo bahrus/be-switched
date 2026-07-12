@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Example 3c</title>
     <!-- #include virtual="/imports.html" -->
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
     <form>
         <input id=isHappy type="checkbox">
-        <template be-switched='on when #isHappy.'>
+        <template 🎚️='on when #isHappy'>
             <my-content id=myContent></my-content>
         </template>
     </form>
     <div id=target></div>
-    <script type=module>
-        import '../emc.js';
-    </script>
     <script>
         function runTest() {
             isHappy.click();

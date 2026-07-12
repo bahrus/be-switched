@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Example 1</title>
     <!-- #include virtual="/imports.html" -->
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
+    <be-hive>
+        <script type=emc-parser
+                src="be-hive/parsers/parse-pattern-statements.js"
+                parser-name=parse-pattern-statements></script>
+        <script type=emc
+                src="be-switched/🎚️.json"
+                wait-for-parsers=parse-pattern-statements></script>
+    </be-hive>
     <div>
         <template id=template be-switched='{
             "lhs": 37,
@@ -25,9 +36,6 @@
         function setLHS(){
             template.beEnhanced.beSwitched.lhs = 'hello';
         }
-    </script>
-    <script type=module>
-        import '../emc.js';
     </script>
     <script>
         function runTest(){
