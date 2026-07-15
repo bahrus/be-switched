@@ -4,7 +4,6 @@
 /** @import {ElementEnhancementGateway, SpawnContext} from './types/assign-gingerly/types' */;
 /** @import {EMC} from './types/mount-observer/types' */;
 /** @import {RAConfig} from './types/roundabout/types' */;
-import { withTransition, ensureHideStyle } from 'assign-gingerly/transitionHelper.js';
 
 /**
  * @implements {Actions}
@@ -204,7 +203,7 @@ class BeSwitched {
      * @param {AP} self
      */
     async onTrue(self) {
-        const { enhancedElement, transitional, idRefAttr, toggleInert } = self;
+        const { enhancedElement, transitional, toggleInert, hiddenStyle } = self;
 
         if ('value' in enhancedElement) {
             /** @type {any} */ (enhancedElement).value = true;
@@ -216,41 +215,26 @@ class BeSwitched {
         if (this.#determineIfEmpty(enhancedElement)) return;
 
         const transitional2 = transitional || this.#transitional;
-
         const contentToClone = /** @type {DocumentFragment} */ (/** @type {any} */ (enhancedElement).remoteContent || enhancedElement.content);
-        const hasCloned = enhancedElement.hasAttribute(idRefAttr);
-        const idRefChildren = hasCloned ? getIdRefChildren(enhancedElement, idRefAttr) : [];
 
-        if (!hasCloned) {
-            const clone = /** @type {DocumentFragment} */ (contentToClone.cloneNode(true));
-            const cloneChildren = Array.from(clone.children);
-            const refs = [];
-            let cnt = 0;
-            for (const child of cloneChildren) {
-                const id = child.id !== '' ? child.id : `be-switched-${cnt++}`;
-                refs.push(id);
-                child.id = id;
-            }
-            // Set idRefAttr before starting transition to prevent duplicate cloning
-            // if onTrue fires again before the transition callback executes
-            enhancedElement.setAttribute(idRefAttr, refs.join(' '));
-            changeVisibility(cloneChildren, toggleInert, 'remove');
-            withTransition(enhancedElement, 'show', transitional2, () => {
-                enhancedElement.after(clone);
-            });
-        } else {
-            if (idRefChildren.length === 0) return;
-            withTransition(enhancedElement, 'show', transitional2, () => {
-                changeVisibility(idRefChildren, toggleInert, 'remove');
-            });
-        }
+        const { LazyLoadHandler } = await import('assign-gingerly/handlers/lazyLoad.js');
+        const handler = new LazyLoadHandler({});
+        await handler.assign(enhancedElement, {
+            if: true,
+            instantiate: contentToClone,
+            method: 'after',
+            transitional: transitional2,
+            hideClass: 'be-switched-hide',
+            hideCss: hiddenStyle,
+            toggleInert: !!toggleInert,
+        });
     }
 
     /**
      * @param {AP} self
      */
     async onFalse(self) {
-        const { enhancedElement, toggleInert, transitional, idRefAttr, hiddenStyle } = self;
+        const { enhancedElement, toggleInert, transitional, hiddenStyle } = self;
 
         if ('value' in enhancedElement) {
             /** @type {any} */ (enhancedElement).value = false;
@@ -262,12 +246,18 @@ class BeSwitched {
         if (this.#determineIfEmpty(enhancedElement)) return;
 
         const transitional2 = transitional || this.#transitional;
-        ensureHideStyle(enhancedElement.getRootNode(), 'be-switched-hide', hiddenStyle);
+        const contentToClone = /** @type {DocumentFragment} */ (/** @type {any} */ (enhancedElement).remoteContent || enhancedElement.content);
 
-        const idRefChildren = getIdRefChildren(enhancedElement, idRefAttr);
-        if (idRefChildren.length === 0) return;
-        withTransition(enhancedElement, 'hide', transitional2, () => {
-            changeVisibility(idRefChildren, toggleInert, 'add');
+        const { LazyLoadHandler } = await import('assign-gingerly/handlers/lazyLoad.js');
+        const handler = new LazyLoadHandler({});
+        await handler.assign(enhancedElement, {
+            if: false,
+            instantiate: contentToClone,
+            method: 'after',
+            transitional: transitional2,
+            hideClass: 'be-switched-hide',
+            hideCss: hiddenStyle,
+            toggleInert: !!toggleInert,
         });
     }
 
@@ -286,36 +276,6 @@ class BeSwitched {
         return /** @type {PAP} */ ({
             notProcessedJS: false,
         });
-    }
-}
-
-// ========== Helper functions ==========
-
-/**
- * Get children referenced by the idref attribute
- * @param {Element} enhancedElement
- * @param {string} idRefAttr
- * @returns {Element[]}
- */
-function getIdRefChildren(enhancedElement, idRefAttr) {
-    const idRefs = enhancedElement.getAttribute(idRefAttr);
-    if (!idRefs) return [];
-    const rn = enhancedElement.getRootNode();
-    return idRefs.split(' ').map(id => /** @type {Document | ShadowRoot} */ (rn).getElementById(id)).filter(el => el !== null);
-}
-
-/**
- * @param {Array<Element>} children
- * @param {boolean | undefined} toggleInert
- * @param {'add' | 'remove'} verb
- */
-function changeVisibility(children, toggleInert, verb) {
-    const disable = verb === 'remove' ? true : false;
-    for (const child of children) {
-        child.classList[verb]('be-switched-hide');
-        if (toggleInert && 'disabled' in child && /** @type {any} */ (child).disabled === !disable) {
-            /** @type {any} */ (child).disabled = disable;
-        }
     }
 }
 
