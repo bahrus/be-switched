@@ -35,7 +35,7 @@
   ],
   "types": "./types/be-switched/types.d.ts",
   "dependencies": {
-    "assign-gingerly": "0.0.57",
+    "assign-gingerly": "0.0.58",
     "be-hive": "0.1.15",
     "id-generation": "0.0.5",
     "mount-observer": "0.1.42",
