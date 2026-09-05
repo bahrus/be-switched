@@ -46,7 +46,7 @@ const parsePatterns = [
  */
 export const emc = {
     enhConfig: {
-        enhKey: 'BeSwitched',
+        enhKey: 'beSwitched',
         spawn: 'be-switched/be-switched.js',
         withAttrs: {
             base: 'be-switched',
